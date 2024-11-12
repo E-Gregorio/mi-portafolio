@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proyectos - Elyer Gregorio Maldonado</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #000;
+            --secondary-color: #666;
+            --background-color: #f8f9fa;
+            --card-bg: #fff;
+            --text-primary: #000;
+            --text-secondary: #666;
+            --hover-color: #333;
+            --card-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            --accent-color: #0056b3;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background-color: var(--background-color);
+            color: var(--text-primary);
+        }
+
+        .nav-header {
+            background-color: #000;
+            padding: 1rem 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-item {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-item:hover {
+            color: #ccc;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 100px auto 0;
+            padding: 2rem;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background-color: var(--card-bg);
+            border-radius: 8px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .header h1 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            font-size: 2.5rem;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        .sectors-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .sector-card {
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid #eaeaea;
+        }
+
+        .sector-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+        }
+
+        .sector-content {
+            padding: 1.5rem;
+        }
+
+        .sector-card h2 {
+            color: var(--accent-color);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            border-radius: 8px;
+            background: linear-gradient(145deg, #f8f9fa, #ffffff);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            font-size: 1.5rem;
+        }
+
+        .sector-card h2 i {
+            background: var(--accent-color);
+            color: white;
+            padding: 0.5rem;
+            border-radius: 50%;
+            font-size: 1.2rem;
+        }
+
+        .project-list {
+            list-style: none;
+        }
+
+        .project-item {
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background-color: var(--background-color);
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .project-item:hover {
+            background-color: #f0f0f0;
+            transform: translateX(5px);
+        }
+
+        .project-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .project-link:hover {
+            color: var(--accent-color);
+        }
+
+        .project-description {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+            margin-left: 1.6rem;
+            border-top: 1px solid #eaeaea;
+            padding-top: 0.5rem;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2rem;
+            padding: 0.8rem 1.5rem;
+            background-color: var(--accent-color);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            border: none;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .back-button:hover {
+            background-color: #004494;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .sectors-container {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-menu {
+                gap: 1rem;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav-header">
+        <div class="nav-container">
+            <div class="nav-menu">
+                <a href="index.html#about" class="nav-item">Sobre mí</a>
+                <a href="index.html#skills" class="nav-item">Habilidades Técnicas</a>
+                <a href="index.html#expertise" class="nav-item">Área de Experticia</a>
+                <a href="index.html#portfolio" class="nav-item">Portafolio</a>
+                <a href="https://e-gregorio.github.io/qa-automation-cv/" class="nav-item">Curriculum Vitae</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="header">
+            <h1>Mis Proyectos</h1>
+            <p>En este portafolio, encontrarás proyectos organizados por sectores como e-Commerce, Fintech, Salud y Tecnología, junto con desarrollos propios en HTML y JavaScript, diseñados para mostrar mi capacidad en la creación de funcionalidades interactivas. Cada proyecto refleja mi experiencia práctica en herramientas de QA y automatización, desde pruebas de API hasta la integración de CI/CD, demostrando cómo optimizo la calidad y eficiencia en diversos entornos.</p>
+        </div>
+
+        <div class="sectors-container">
+            <!-- Sector Fintech -->
+            <div class="sector-card">
+                <div class="sector-content">
+                    <h2><i class="fas fa-coins"></i> Fintech</h2>
+                    <ul class="project-list">
+                        <li class="project-item">
+                            <a href="https://github.com/E-Gregorio/crypto-wallet" class="project-link" target="_blank">
+                                <i class="fab fa-github"></i>
+                                Crypto Wallet
+                            </a>
+                            <p class="project-description">Proyecto de automatización de pruebas para una billetera digital</p>
+                        </li>
+                        <li class="project-item">
+                            <a href="https://github.com/E-Gregorio/fintech-Parabank" class="project-link" target="_blank">
+                                <i class="fab fa-github"></i>
+                                ParaBank Automated Tests
+                            </a>
+                            <p class="project-description">Automatización de pruebas para ParaBank, incluyendo depósitos y transferencias</p>
+                        </li>
+                        <li class="project-item">
+                            <a href="https://github.com/E-Gregorio/reqres-performance-testing" class="project-link" target="_blank">
+                                <i class="fab fa-github"></i>
+                                Reqres API Performance Testing
+                            </a>
+                            <p class="project-description">Pruebas de rendimiento para la API de Reqres</p>
+                        </li>
+                        <li class="project-item">
+                            <a href="https://github.com/E-Gregorio/chatbot-multi-sector" class="project-link" target="_blank">
+                                <i class="fab fa-github"></i>
+                                chatbot-multi-sector
+                            </a>
+                            <p class="project-description">Solución de chatbot para el sector Fintech</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Sector Salud -->
+            <div class="sector-card">
+                <div class="sector-content">
+                    <h2><i class="fas fa-heartbeat"></i> Salud</h2>
+                    <ul class="project-list">
+                        <li class="project-item">
+                            <a href="https://github.com/E-Gregorio/healthtech-automation" class="project-link" target="_blank">
+                                <i class="fab fa-github"></i>
+                                healthtech-automation
+                            </a>
+                            <p class="project-description">Automatización de pruebas para aplicaciones tecnológicas en el sector salud</p>
+                        </li>
+                        <li class="project-item">
+                            <a href="https://github.com/E-Gregorio/chatbot-multi-sector" class="project-link" target="_blank">
+                                <i class="fab fa-github"></i>
+                                chatbot-multi-sector
+                            </a>
+                            <p class="project-description">Solución de chatbot para el sector Salud</p>
+                        </li>
+                        <li class="project-item">
+                            <a href="https://github.com/E-Gregorio/chatbot-multi-sector" class="project-link" target="_blank">
+                                <i class="fab fa-github"></i>
+                                chatbot-multi-sector
+                            </a>
+                            <p class="project-description">Solución de chatbot para el sector Salud</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Sector E-Commerce -->
+            <div class="sector-card">
+                <div class="sector-content">
+                    <h2><i class="fas fa-shopping-cart"></i> E-Commerce</h2>
+                    <ul class="project-list">
+                        <li class="project-item">
+                            <a href="https://github.com/E-Gregorio/chatbot-multi-sector" class="project-link" target="_blank">
+                                <i class="fab fa-github"></i>
+                                chatbot-multi-sector
+                            </a>
+                            <p class="project-description">Solución de chatbot para el sector E-Commerce</p>
+                        </li>
+                        <li class="project-item">
+                            <a href="https://github.com/E-Gregorio/E-Commerce-Automation-Playwright" class="project-link" target="_blank">
+                                <i class="fab fa-github"></i>
+                                E-Commerce-Automation-Playwright
+                            </a>
+                            <p class="project-description">Pruebas automatizadas para plataformas de comercio electrónico</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Sector Tecnología -->
+            <div class="sector-card">
+                <div class="sector-content">
+                    <h2><i class="fas fa-laptop-code"></i> Tecnología</h2>
+                    <ul class="project-list">
+                        <li class="project-item">
+                            <a href="https://github.com/E-Gregorio/playwright-demo" class="project-link" target="_blank">
+                                <i class="fab fa-github"></i>
+                                playwright-demo
+                            </a>
+                            <p class="project-description">Marco de automatización con Playwright para pruebas de regresión e integración</p>
+                        </li>
+                        <li class="project-item">
+                            <a href="https://github.com/E-Gregorio/TestApi" class="project-link" target="_blank">
+                                <i class="fab fa-github"></i>
+                                TestApi
+                            </a>
+                            <p class="project-description">Pruebas de API para verificar la funcionalidad de endpoints</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="index.html" class="back-button">
+                <i class="fas fa-arrow-left"></i> Volver al Inicio
+            </a>
+        </div>
+    </div>
+</body>
+</html>
