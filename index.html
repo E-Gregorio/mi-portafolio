@@ -3,7 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elyer Gregorio Maldonado - QA Engineer Automation</title>
+    <title>Elyer Gregorio Maldonado - QA Tech Lead & Test Automation Architect</title>
+    <meta name="description" content="QA Tech Lead con 7+ años de experiencia en Shift-Left Testing, automatización enterprise, AI/LLM Testing. Creador de QASL e INGRID frameworks. Playwright, K6, OWASP ZAP, Grafana.">
+    <meta name="keywords" content="QA Tech Lead, Test Automation, Playwright, Shift-Left Testing, AI Testing, ISTQB, Performance Testing, Security Testing">
+    <meta name="author" content="Elyer Gregorio Maldonado">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://e-gregorio.github.io/">
+    <meta property="og:title" content="Elyer Gregorio Maldonado - QA Tech Lead & Test Automation Architect">
+    <meta property="og:description" content="QA Tech Lead con 7+ años de experiencia. Creador de QASL e INGRID frameworks. Especialista en Shift-Left Testing y AI Testing.">
+    <meta property="og:image" content="https://e-gregorio.github.io/assets/og-image.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://e-gregorio.github.io/">
+    <meta property="twitter:title" content="Elyer Gregorio Maldonado - QA Tech Lead">
+    <meta property="twitter:description" content="QA Tech Lead con 7+ años de experiencia. Creador de QASL e INGRID frameworks.">
+
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
 </head>
@@ -12,20 +36,32 @@
         <div class="nav-container">
             <div class="nav-menu">
                 <a href="#about" class="nav-item">Sobre mí</a>
-                <a href="#skills" class="nav-item">Habilidades Técnicas</a>
-                <a href="#expertise" class="nav-item">Área de Experticia</a>
+                <a href="#featured" class="nav-item">Proyectos Destacados</a>
+                <a href="#skills" class="nav-item">Habilidades</a>
                 <a href="#portfolio" class="nav-item">Portafolio</a>
-                <a href="https://e-gregorio.github.io/qa-automation-cv/" class="nav-item">Curriculum Vitae</a>
+                <div class="nav-item cv-dropdown">
+                    <span class="cv-trigger">
+                        <i class="fas fa-file-pdf"></i> CV
+                        <i class="fas fa-chevron-down"></i>
+                    </span>
+                    <div class="cv-dropdown-menu">
+                        <a href="cv_portafolio/cv-elyer-maldonado-ES.html" target="_blank" class="cv-option">
+                            <i class="fas fa-file-alt"></i> Español
+                        </a>
+                        <a href="cv_portafolio/cv-elyer-maldonado-EN.html" target="_blank" class="cv-option">
+                            <i class="fas fa-file-alt"></i> English
+                        </a>
+                    </div>
+                </div>
             </div>
             <div class="language-selector">
-                <button class="language-btn">
+                <button class="language-btn" id="languageBtn">
                     <i class="fas fa-globe"></i>
-                    ES
+                    <span id="currentLang">ES</span>
                 </button>
-                <div class="language-options">
-                    <a href="?lang=es" class="language-option">Español</a>
-                    <a href="?lang=en" class="language-option">English</a>
-                    <a href="?lang=fr" class="language-option">Français</a>
+                <div class="language-options" id="languageOptions">
+                    <a href="#" class="language-option" data-lang="es">Español</a>
+                    <a href="#" class="language-option" data-lang="en">English</a>
                 </div>
             </div>
         </div>
@@ -33,114 +69,565 @@
 
     <header class="hero">
         <div class="hero-content">
-            <h1>Elyer Gregorio Maldonado</h1>
-            <h2>QA Engineer Automation</h2>
-            <p>Especialista en Testing & Quality Assurance</p>
+            <h1 data-i18n="hero_name">Elyer Gregorio Maldonado</h1>
+            <h2 data-i18n="hero_title">QA Tech Lead & Test Automation Architect</h2>
+            <p data-i18n="hero_subtitle">Especializado en Shift-Left Testing, AI/LLM Testing y Observabilidad QA</p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number">7+</span>
+                    <span class="stat-label" data-i18n="stat_experience">Años de experiencia</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">55-60%</span>
+                    <span class="stat-label" data-i18n="stat_reduction">Reducción de defectos</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number">92%</span>
+                    <span class="stat-label" data-i18n="stat_coverage">Cobertura automatizada</span>
+                </div>
+            </div>
             <div class="social-links">
-                <a href="https://www.linkedin.com" target="_blank" class="social-button linkedin-btn">
+                <a href="https://www.linkedin.com/in/elyergregorio" target="_blank" class="social-button linkedin-btn">
                     <i class="fab fa-linkedin"></i> LinkedIn
                 </a>
                 <a href="https://github.com/E-Gregorio" target="_blank" class="social-button github-btn">
                     <i class="fab fa-github"></i> GitHub
                 </a>
                 <a href="mailto:elyer.g.maldonado@gmail.com" class="social-button contact-btn">
-                    <i class="fas fa-envelope"></i> Contacto
+                    <i class="fas fa-envelope"></i> <span data-i18n="contact">Contacto</span>
+                </a>
+                <a href="cv_portafolio/cv-elyer-maldonado-ES.html" target="_blank" class="social-button cv-btn">
+                    <i class="fas fa-file-pdf"></i> CV (ES)
+                </a>
+                <a href="cv_portafolio/cv-elyer-maldonado-EN.html" target="_blank" class="social-button cv-btn">
+                    <i class="fas fa-file-pdf"></i> CV (EN)
                 </a>
             </div>
         </div>
     </header>
 
     <main class="main-content">
+        <!-- ABOUT SECTION -->
         <section id="about" class="section">
-            <h2 class="section-title">Sobre mí</h2>
-            <p>Soy un ingeniero de calidad con experiencia en automatización de pruebas, comprometido en asegurar la calidad del software a través de pruebas exhaustivas y soluciones efectivas. Me apasiona la tecnología y la mejora continua en los procesos de desarrollo de software.</p>
+            <h2 class="section-title" data-i18n="about_title">Sobre mí</h2>
+            <div class="about-content">
+                <p data-i18n="about_text_1">
+                    QA Tech Lead con más de 7 años de experiencia implementando estrategias de testing de clase mundial. 
+                    Especializado en <strong>Shift-Left Testing</strong>, <strong>AI/LLM Testing</strong> y arquitecturas 
+                    de automatización enterprise con observabilidad completa.
+                </p>
+                <p data-i18n="about_text_2">
+                    Track record comprobado en reducción de defectos críticos (55-60%), optimización de ciclos de testing 
+                    y construcción de frameworks reutilizables que integran E2E, API, Performance y Security testing con 
+                    métricas en tiempo real (Grafana, InfluxDB, Loki).
+                </p>
+                <div class="expertise-highlights">
+                    <div class="highlight-item">
+                        <i class="fas fa-trophy"></i>
+                        <span>Creador de QASL Framework - Shift-Left Testing Platform</span>
+                    </div>
+                    <div class="highlight-item">
+                        <i class="fas fa-robot"></i>
+                        <span>Pionero en AI Testing con metodología LLM-as-Judge</span>
+                    </div>
+                    <div class="highlight-item">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Experto en QA Observability con Grafana/InfluxDB</span>
+                    </div>
+                </div>
+            </div>
         </section>
 
+        <!-- FEATURED PROJECTS SECTION -->
+        <section id="featured" class="section featured-section">
+            <h2 class="section-title" data-i18n="featured_title">
+                <i class="fas fa-star"></i> Proyectos Destacados
+            </h2>
+            <p class="featured-intro" data-i18n="featured_intro">
+                Frameworks profesionales propietarios que demuestran innovación real en QA automation y observabilidad.
+                <strong>Repositorios privados - disponibles mediante demo en vivo.</strong>
+            </p>
+
+            <div class="featured-grid">
+                <!-- QASL FRAMEWORK -->
+                <div class="featured-card qasl-card">
+                    <div class="featured-header">
+                        <div class="featured-icon qasl-icon">
+                            <i class="fas fa-layer-group"></i>
+                        </div>
+                        <div>
+                            <h3>QASL Framework</h3>
+                            <p class="featured-subtitle">Quality Assurance Shift-Left Platform</p>
+                        </div>
+                    </div>
+                    
+                    <div class="featured-badges">
+                        <span class="badge badge-primary">Production-Ready</span>
+                        <span class="badge badge-tech">TypeScript</span>
+                        <span class="badge badge-tech">Docker</span>
+                        <span class="badge badge-standard">ISTQB v4.0</span>
+                    </div>
+
+                    <p class="featured-description" data-i18n="qasl_desc">
+                        Plataforma unificada enterprise que integra análisis estático de HUs (SIGMA Analyzer), 
+                        E2E (Playwright), API (Newman), Performance (K6) y Security (OWASP ZAP) con observabilidad 
+                        completa en Grafana, InfluxDB y Loki.
+                    </p>
+
+                    <div class="featured-highlights">
+                        <div class="highlight">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Metodología Shift-Left de 6 fases (IEEE 829/830)</span>
+                        </div>
+                        <div class="highlight">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Generación de 1,300+ test cases antes del desarrollo</span>
+                        </div>
+                        <div class="highlight">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Trazabilidad completa Epic → HU → Test Suite → Test Case</span>
+                        </div>
+                        <div class="highlight">
+                            <i class="fas fa-check-circle"></i>
+                            <span>35% reducción en tiempo de detección de defectos</span>
+                        </div>
+                    </div>
+
+                    <div class="featured-tech-stack">
+                        <strong>Stack:</strong>
+                        <div class="tech-tags">
+                            <span>Playwright</span>
+                            <span>TypeScript</span>
+                            <span>Newman</span>
+                            <span>K6</span>
+                            <span>OWASP ZAP</span>
+                            <span>Grafana</span>
+                            <span>InfluxDB</span>
+                            <span>Loki</span>
+                            <span>Docker</span>
+                        </div>
+                    </div>
+
+                    <div class="featured-actions">
+                        <a href="https://www.linkedin.com/in/elyergregorio" target="_blank" class="btn btn-primary btn-demo">
+                            <i class="fas fa-video"></i> Solicitar Demo en Vivo
+                        </a>
+                        <span class="private-repo-badge">
+                            <i class="fas fa-lock"></i> Repositorio Privado
+                        </span>
+                    </div>
+                </div>
+
+                <!-- INGRID FRAMEWORK -->
+                <div class="featured-card ingrid-card">
+                    <div class="featured-header">
+                        <div class="featured-icon ingrid-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div>
+                            <h3>INGRID Framework</h3>
+                            <p class="featured-subtitle">Intelligent Network for Generative Response Inspection & Diagnostics</p>
+                        </div>
+                    </div>
+                    
+                    <div class="featured-badges">
+                        <span class="badge badge-innovation">Cutting-Edge</span>
+                        <span class="badge badge-tech">AI/ML</span>
+                        <span class="badge badge-tech">Claude API</span>
+                        <span class="badge badge-standard">OWASP LLM Top 10</span>
+                    </div>
+
+                    <p class="featured-description" data-i18n="ingrid_desc">
+                        Framework profesional para testing automatizado de chatbots y sistemas LLM basado en
+                        OWASP LLM Top 10 2025 y metodología LLM-as-Judge (Claude como evaluador).
+                        Resultados comprobados: 7/10 en compliance OWASP, 61.1% pass rate con métricas de calidad en tiempo real.
+                    </p>
+
+                    <div class="featured-highlights">
+                        <div class="highlight">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Red Teaming: prompt injection, jailbreaks, PII detection, rate limiting</span>
+                        </div>
+                        <div class="highlight">
+                            <i class="fas fa-brain"></i>
+                            <span>LLM-as-Judge: Relevancia 6.28, Precisión 6.28, Coherencia 6.67, Completitud 6.44</span>
+                        </div>
+                        <div class="highlight">
+                            <i class="fas fa-check-circle"></i>
+                            <span>OWASP LLM Top 10 2025: 7/10 criterios validados con 18 tests automatizados</span>
+                        </div>
+                        <div class="highlight">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Dashboard Grafana en tiempo real: métricas, logs y alertas integradas</span>
+                        </div>
+                    </div>
+
+                    <div class="featured-tech-stack">
+                        <strong>Stack:</strong>
+                        <div class="tech-tags">
+                            <span>Playwright</span>
+                            <span>TypeScript</span>
+                            <span>Claude API</span>
+                            <span>Python</span>
+                            <span>Grafana</span>
+                            <span>Prometheus</span>
+                            <span>Docker</span>
+                        </div>
+                    </div>
+
+                    <div class="featured-actions">
+                        <a href="https://www.linkedin.com/in/elyergregorio" target="_blank" class="btn btn-primary btn-demo">
+                            <i class="fas fa-video"></i> Solicitar Demo en Vivo
+                        </a>
+                        <span class="private-repo-badge">
+                            <i class="fas fa-lock"></i> Repositorio Privado
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- QASL DASHBOARD SHOWCASE -->
+            <div class="dashboard-showcase qasl-showcase">
+                <div class="dashboard-header">
+                    <h4><i class="fas fa-tachometer-alt"></i> QASL Centro de Control - Dashboards en Vivo</h4>
+                    <p>Observabilidad completa: E2E, API, Performance, Security y Unit Tests en Grafana</p>
+                </div>
+
+                <!-- QASL Metrics Summary -->
+                <div class="metrics-summary">
+                    <div class="metric-item">
+                        <span class="metric-value success">128+</span>
+                        <span class="metric-label">Unit Tests</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-value info">6</span>
+                        <span class="metric-label">Fases Shift-Left</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-value">11</span>
+                        <span class="metric-label">Niveles Selectores</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-value success">80%+</span>
+                        <span class="metric-label">Coverage</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-value warning">35%</span>
+                        <span class="metric-label">Reducción Defectos</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-value info">1,300+</span>
+                        <span class="metric-label">Test Cases</span>
+                    </div>
+                </div>
+
+                <!-- QASL Dashboard Gallery - Centro de Control -->
+                <div class="dashboard-gallery">
+                    <div class="dashboard-item" onclick="openLightbox('img/qasl-centro-control-1.png')">
+                        <img src="img/qasl-centro-control-1.png" alt="QASL Centro de Control - E2E & API Metrics" loading="lazy">
+                        <div class="dashboard-label">
+                            <span><i class="fas fa-chart-bar"></i> Centro de Control - E2E & API</span>
+                        </div>
+                    </div>
+                    <div class="dashboard-item" onclick="openLightbox('img/qasl-centro-control-2.png')">
+                        <img src="img/qasl-centro-control-2.png" alt="QASL Performance K6 Metrics" loading="lazy">
+                        <div class="dashboard-label">
+                            <span><i class="fas fa-tachometer-alt"></i> Performance (K6)</span>
+                        </div>
+                    </div>
+                    <div class="dashboard-item" onclick="openLightbox('img/qasl-centro-control-3.png')">
+                        <img src="img/qasl-centro-control-3.png" alt="QASL Security ZAP Metrics" loading="lazy">
+                        <div class="dashboard-label">
+                            <span><i class="fas fa-shield-alt"></i> Security (OWASP ZAP)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Infrastructure & Unit Tests Row -->
+                <div class="dashboard-gallery" style="margin-top: 1.5rem;">
+                    <div class="dashboard-item" onclick="openLightbox('img/qasl-infraestructura-1.png')">
+                        <img src="img/qasl-infraestructura-1.png" alt="QASL Infrastructure Logs - Loki" loading="lazy">
+                        <div class="dashboard-label">
+                            <span><i class="fas fa-server"></i> Infrastructure Logs (Loki)</span>
+                        </div>
+                    </div>
+                    <div class="dashboard-item" onclick="openLightbox('img/qasl-infraestructura-2.png')">
+                        <img src="img/qasl-infraestructura-2.png" alt="QASL Docker Container Monitoring" loading="lazy">
+                        <div class="dashboard-label">
+                            <span><i class="fab fa-docker"></i> Container Monitoring</span>
+                        </div>
+                    </div>
+                    <div class="dashboard-item" onclick="openLightbox('img/qasl-unit-tests.png')">
+                        <img src="img/qasl-unit-tests.png" alt="QASL Unit Tests - Vitest" loading="lazy">
+                        <div class="dashboard-label">
+                            <span><i class="fas fa-vial"></i> Unit Tests (Vitest 128+)</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 0 Unit Tests Info -->
+                <div class="unit-tests-info">
+                    <h5><i class="fas fa-vial"></i> Phase 0: Unit Tests del Código de Automatización</h5>
+                    <p>QASL testea tu propio código de automatización (no solo la app). Si <code>generateValidCUIT()</code> genera un CUIT inválido, 100 tests E2E fallarían.</p>
+                    <div class="unit-test-files">
+                        <span><i class="fas fa-file-code"></i> validators.spec.ts</span>
+                        <span><i class="fas fa-file-code"></i> formatters.spec.ts</span>
+                        <span><i class="fas fa-file-code"></i> test-data-generator.spec.ts</span>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 1.5rem;">
+                    <span class="owasp-badge" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(37, 99, 235, 0.2)); border-color: rgba(37, 99, 235, 0.3); color: #3b82f6;">
+                        <i class="fas fa-check-circle"></i> ISTQB v4.0 + IEEE 829/830 Compliance
+                    </span>
+                </div>
+            </div>
+
+            <!-- INGRID DASHBOARD SHOWCASE -->
+            <div class="dashboard-showcase ingrid-showcase">
+                <div class="dashboard-header">
+                    <h4><i class="fas fa-brain"></i> INGRID v2.0 - Dashboard en Vivo</h4>
+                    <p>Métricas reales de testing de IA con observabilidad completa en Grafana</p>
+                </div>
+
+                <!-- Metrics Summary -->
+                <div class="metrics-summary">
+                    <div class="metric-item">
+                        <span class="metric-value">18</span>
+                        <span class="metric-label">Tests Totales</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-value success">11</span>
+                        <span class="metric-label">Exitosos</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-value warning">7</span>
+                        <span class="metric-label">Fallidos</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-value info">61.1%</span>
+                        <span class="metric-label">Pass Rate</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-value success">7/10</span>
+                        <span class="metric-label">OWASP Score</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-value info">12.2s</span>
+                        <span class="metric-label">Resp. Time</span>
+                    </div>
+                </div>
+
+                <!-- Dashboard Gallery -->
+                <div class="dashboard-gallery">
+                    <div class="dashboard-item" onclick="openLightbox('img/ingrid-dashboard-main.png')">
+                        <img src="img/ingrid-dashboard-main.png" alt="INGRID Panel de Control Principal" loading="lazy">
+                        <div class="dashboard-label">
+                            <span><i class="fas fa-tachometer-alt"></i> Panel de Control Principal</span>
+                        </div>
+                    </div>
+                    <div class="dashboard-item" onclick="openLightbox('img/ingrid-owasp-security.png')">
+                        <img src="img/ingrid-owasp-security.png" alt="INGRID OWASP LLM Top 10 & Security" loading="lazy">
+                        <div class="dashboard-label">
+                            <span><i class="fas fa-shield-alt"></i> OWASP LLM Top 10 & Security</span>
+                        </div>
+                    </div>
+                    <div class="dashboard-item" onclick="openLightbox('img/ingrid-llm-judge.png')">
+                        <img src="img/ingrid-llm-judge.png" alt="INGRID LLM-as-Judge Metrics" loading="lazy">
+                        <div class="dashboard-label">
+                            <span><i class="fas fa-brain"></i> LLM-as-Judge Metrics</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LLM-as-Judge Metrics -->
+                <div class="llm-metrics">
+                    <div class="llm-metric">
+                        <div class="llm-metric-value">6.28</div>
+                        <div class="llm-metric-name">Relevancia</div>
+                    </div>
+                    <div class="llm-metric">
+                        <div class="llm-metric-value">6.28</div>
+                        <div class="llm-metric-name">Precisión</div>
+                    </div>
+                    <div class="llm-metric">
+                        <div class="llm-metric-value">6.67</div>
+                        <div class="llm-metric-name">Coherencia</div>
+                    </div>
+                    <div class="llm-metric">
+                        <div class="llm-metric-value">6.44</div>
+                        <div class="llm-metric-name">Completitud</div>
+                    </div>
+                </div>
+
+                <div style="text-align: center;">
+                    <span class="owasp-badge">
+                        <i class="fas fa-check-circle"></i> OWASP LLM Top 10 2025 Compliance: 7/10
+                    </span>
+                    <br><br>
+                    <a href="docs/INGRID-Report-2025-12-19.pdf" target="_blank" class="btn btn-secondary" style="margin-top: 1rem;">
+                        <i class="fas fa-file-pdf"></i> Descargar Reporte Completo (PDF)
+                    </a>
+                </div>
+            </div>
+
+            <!-- IMPACT METRICS -->
+            <div class="impact-section">
+                <h3 data-i18n="impact_title">Impacto Demostrable</h3>
+                <div class="impact-grid">
+                    <div class="impact-card">
+                        <div class="impact-number">1,300+</div>
+                        <div class="impact-label">Test Cases Generados</div>
+                        <p>Desde análisis de HUs antes del desarrollo</p>
+                    </div>
+                    <div class="impact-card">
+                        <div class="impact-number">35%</div>
+                        <div class="impact-label">Reducción Tiempo Detección</div>
+                        <p>Adelantando pruebas a fases tempranas</p>
+                    </div>
+                    <div class="impact-card">
+                        <div class="impact-number">11</div>
+                        <div class="impact-label">Niveles de Selectores</div>
+                        <p>Sistema robusto de grabación para automatización</p>
+                    </div>
+                    <div class="impact-card">
+                        <div class="impact-number">6</div>
+                        <div class="impact-label">Fases Shift-Left</div>
+                        <p>Metodología completa alineada ISTQB v4.0</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SKILLS SECTION -->
         <section id="skills" class="section">
-            <h2 class="section-title">Habilidades Técnicas</h2>
+            <h2 class="section-title" data-i18n="skills_title">Competencias Técnicas</h2>
             <div class="skills-grid">
                 <div class="skill-card" data-skill="automation">
-                    <h3><i class="fas fa-robot"></i> Automatización de Pruebas</h3>
+                    <h3><i class="fas fa-robot"></i> <span data-i18n="skill_automation">Automatización E2E</span></h3>
                     <ul>
                         <li>Playwright (TypeScript)</li>
-                        <li>Cucumber (Gherkin)</li>
-                        <li>JMeter</li>
+                        <li>Python + Pytest</li>
+                        <li>Page Object Model</li>
+                        <li>BDD/Cucumber (Gherkin)</li>
+                        <li>Sistema de 11 niveles de selectores</li>
                     </ul>
                 </div>
-                <div class="skill-card" data-skill="ciCd">
-                    <h3><i class="fas fa-sync"></i> CI/CD</h3>
+
+                <div class="skill-card" data-skill="performance">
+                    <h3><i class="fas fa-tachometer-alt"></i> <span data-i18n="skill_performance">Performance & Observability</span></h3>
                     <ul>
+                        <li>K6 (Performance Testing)</li>
+                        <li>JMeter (Load & Stress)</li>
+                        <li>Grafana (Dashboards)</li>
+                        <li>InfluxDB (Time-series DB)</li>
+                        <li>Prometheus (Métricas)</li>
+                    </ul>
+                </div>
+
+                <div class="skill-card" data-skill="security">
+                    <h3><i class="fas fa-shield-alt"></i> <span data-i18n="skill_security">Security Testing</span></h3>
+                    <ul>
+                        <li>OWASP ZAP (Pen Testing)</li>
+                        <li>OWASP LLM Top 10 2025</li>
+                        <li>Prompt Injection Testing</li>
+                        <li>Security Hardening</li>
+                        <li>Vulnerability Assessment</li>
+                    </ul>
+                </div>
+
+                <div class="skill-card" data-skill="ai">
+                    <h3><i class="fas fa-brain"></i> <span data-i18n="skill_ai">AI/LLM Testing</span></h3>
+                    <ul>
+                        <li>Claude API (LLM-as-Judge)</li>
+                        <li>Chatbot Quality Evaluation</li>
+                        <li>Hallucination Detection</li>
+                        <li>Relevancia/Precisión/Coherencia</li>
+                        <li>Jailbreak & Data Leakage Tests</li>
+                    </ul>
+                </div>
+
+                <div class="skill-card" data-skill="api">
+                    <h3><i class="fas fa-plug"></i> <span data-i18n="skill_api">API Testing</span></h3>
+                    <ul>
+                        <li>Postman / Newman</li>
+                        <li>REST / SOAP</li>
+                        <li>Contract Testing</li>
+                        <li>OAuth / JWT Testing</li>
+                        <li>API Performance</li>
+                    </ul>
+                </div>
+
+                <div class="skill-card" data-skill="cicd">
+                    <h3><i class="fas fa-sync"></i> <span data-i18n="skill_cicd">CI/CD & DevOps</span></h3>
+                    <ul>
+                        <li>Docker / Docker Compose</li>
+                        <li>GitLab CI / GitHub Actions</li>
                         <li>Jenkins</li>
-                        <li>GitHub Actions</li>
-                        <li>GitLab CI</li>
-                        <li>CircleCI</li>
+                        <li>Pipeline Automation</li>
+                        <li>Allure Reports</li>
                     </ul>
                 </div>
-                <div class="skill-card" data-skill="testing">
-                    <h3><i class="fas fa-check-circle"></i> Testing</h3>
+
+                <div class="skill-card" data-skill="management">
+                    <h3><i class="fas fa-tasks"></i> <span data-i18n="skill_management">Gestión & QA</span></h3>
                     <ul>
-                        <li>Funcional</li>
-                        <li>No Funcional</li>
-                        <li>Mantenimiento</li>
+                        <li>JIRA + Xray</li>
+                        <li>TestRail</li>
+                        <li>Confluence</li>
+                        <li>Test Strategy Design</li>
+                        <li>Risk-Based Testing</li>
                     </ul>
                 </div>
-                <div class="skill-card" data-skill="databases">
-                    <h3><i class="fas fa-database"></i> Base de datos</h3>
+
+                <div class="skill-card" data-skill="standards">
+                    <h3><i class="fas fa-certificate"></i> <span data-i18n="skill_standards">Estándares & Metodología</span></h3>
                     <ul>
-                        <li>SQL</li>
-                        <li>MySQL</li>
-                    </ul>
-                </div>
-                <div class="skill-card" data-skill="testManagement">
-                    <h3><i class="fas fa-tasks"></i> Gestión de Pruebas</h3>
-                    <ul>
-                        <li>JIRA</li>
-                        <li>Xray</li>
-                    </ul>
-                </div>
-                <div class="skill-card" data-skill="agile">
-                    <h3><i class="fas fa-chart-line"></i> Metodologías Ágiles</h3>
-                    <ul>
-                        <li>Scrum</li>
-                        <li>Kanban</li>
+                        <li>ISTQB v4.0 Foundation</li>
+                        <li>IEEE 829/830</li>
+                        <li>ISO/IEC 25010</li>
+                        <li>Agile/Scrum</li>
+                        <li>Shift-Left Testing</li>
                     </ul>
                 </div>
             </div>
         </section>
 
-        <section id="expertise" class="section">
-            <h2 class="section-title">Área de Experticia</h2>
-            <div class="expertise-grid">
-                <div class="expertise-item">
-                    <strong><i class="fas fa-bug"></i> Reporte de Errores</strong>
-                    <p>Generando informes claros y procesables en JIRA, gestionando tickets para asegurar el seguimiento y la rápida resolución de incidencias críticas, mejorando la calidad y eficiencia del software.</p>
-                </div>
-                <div class="expertise-item">
-                    <strong><i class="fas fa-cogs"></i> QA Automation</strong>
-                    <p>Implementando soluciones de automatización de pruebas para aplicaciones web y móviles con Playwright y TypeScript, mejorando la eficiencia y cobertura de pruebas mientras optimizo el ciclo de vida del software.</p>
-                </div>
-                <div class="expertise-item">
-                    <strong><i class="fas fa-code"></i> API Testing</strong>
-                    <p>Realizando pruebas exhaustivas de APIs con Postman, Playwright y JMeter para asegurar fiabilidad, funcionalidad y el rendimiento de los servicios bajo diferentes condiciones de carga y estrés. Esto incluye la validación de endpoints, la integración con otros servicios y la seguridad de las interfaces.</p>
-                </div>
-                <div class="expertise-item">
-                    <strong><i class="fas fa-tachometer-alt"></i> Performance Testing</strong>
-                    <p>Evaluando el rendimiento de aplicaciones con JMeter, incluyendo pruebas de carga, estrés y usabilidad, para asegurar estabilidad, tiempos de respuesta y experiencia del usuario.</p>
-                </div>
-            </div>
-        </section>
-
+        <!-- PORTFOLIO SECTION -->
         <section id="portfolio" class="section">
-            <h2 class="section-title">Portafolio</h2>
-            <p>Aquí puedes ver algunos de los proyectos en los que he trabajado, abarcando distintas áreas y sectores como Fintech, E-commerce, Healthtech y más. Estos proyectos reflejan mi experiencia práctica en la creación y optimización de soluciones tecnológicas, con un enfoque en pruebas automatizadas, rendimiento y calidad. Cada uno de ellos ha sido desarrollado con la intención de mostrar mis conocimientos y habilidades en la implementación de soluciones específicas para diferentes industrias. Puedes explorar los detalles y resultados de cada proyecto en mi GitHub</p>
-            <div class="social-links" style="margin-top: 1.5rem;">
-                <a href="proyectos.html" target="_blank" class="social-button github-btn">
-                    <i class="fab fa-github"></i> Ver Proyectos en GitHub
+            <h2 class="section-title" data-i18n="portfolio_title">Otros Proyectos</h2>
+            <p data-i18n="portfolio_intro">
+                Además de los frameworks destacados, he trabajado en diversos proyectos que abarcan 
+                múltiples sectores y tecnologías. Explora mi portafolio completo en GitHub.
+            </p>
+            <div class="portfolio-cta">
+                <a href="proyectos.html" class="btn btn-large btn-primary">
+                    <i class="fas fa-folder-open"></i> <span data-i18n="view_all_projects">Ver Todos los Proyectos</span>
                 </a>
+                <a href="https://github.com/E-Gregorio" target="_blank" class="btn btn-large btn-secondary">
+                    <i class="fab fa-github"></i> <span data-i18n="github_profile">Perfil de GitHub</span>
+                </a>
+            </div>
+
+            <!-- Quick sectors preview -->
+            <div class="sectors-preview">
+                <div class="sector-tag">
+                    <i class="fas fa-coins"></i> Fintech
+                </div>
+                <div class="sector-tag">
+                    <i class="fas fa-heartbeat"></i> Healthtech
+                </div>
+                <div class="sector-tag">
+                    <i class="fas fa-shopping-cart"></i> E-Commerce
+                </div>
+                <div class="sector-tag">
+                    <i class="fas fa-building"></i> Gobierno
+                </div>
             </div>
         </section>
     </main>
 
+    <!-- Modal for skill details -->
     <div class="modal-overlay" id="modalOverlay">
         <div class="modal-wrapper">
             <button class="close-modal-btn" id="closeModalBtn">×</button>
@@ -152,6 +639,24 @@
         </div>
     </div>
 
+    <!-- Lightbox for dashboard images -->
+    <div class="dashboard-lightbox" id="dashboardLightbox" onclick="closeLightbox()">
+        <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+        <img id="lightboxImage" src="" alt="Dashboard en tamaño completo">
+    </div>
+
+    <footer class="site-footer">
+        <div class="footer-content">
+            <p>&copy; 2025 Elyer Gregorio Maldonado. <span data-i18n="footer_rights">Todos los derechos reservados.</span></p>
+            <div class="footer-links">
+                <a href="https://www.linkedin.com/in/elyergregorio" target="_blank">LinkedIn</a>
+                <a href="https://github.com/E-Gregorio" target="_blank">GitHub</a>
+                <a href="mailto:elyer.g.maldonado@gmail.com">Email</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="data/translations.js"></script>
     <script src="data/skills.js"></script>
     <script src="js/main.js"></script>
 </body>
