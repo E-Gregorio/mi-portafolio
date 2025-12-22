@@ -433,6 +433,36 @@ body {
     background: var(--accent-ingrid);
 }
 
+.monitor-card::before {
+    background: linear-gradient(90deg, #06b6d4, #3b82f6);
+}
+
+.monitor-icon {
+    background: linear-gradient(135deg, #06b6d4, #0284c7);
+}
+
+.monitor-card .highlight i {
+    color: #06b6d4;
+}
+
+.public-repo-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.5rem 1rem;
+    background: rgba(16, 185, 129, 0.15);
+    color: #10b981;
+    border-radius: 2rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.public-repo-badge i {
+    font-size: 0.75rem;
+    color: #10b981;
+}
+
 /* Featured Header */
 .featured-header {
     display: flex;
@@ -1631,4 +1661,52 @@ body {
     .unit-test-files span {
         justify-content: center;
     }
+}
+
+/* ============================================
+   QASL-MONITOR SHOWCASE
+   ============================================ */
+
+.monitor-showcase {
+    background: linear-gradient(145deg, #0c1222 0%, #1a365d 50%, #0d4f6e 100%);
+}
+
+.monitor-showcase::before {
+    background: linear-gradient(90deg, #06b6d4, #3b82f6, #8b5cf6);
+}
+
+.monitor-showcase .dashboard-header h4 i {
+    color: #06b6d4;
+}
+
+.monitor-showcase .metric-item:hover {
+    background: rgba(6, 182, 212, 0.1);
+}
+
+.monitor-showcase .dashboard-item:hover {
+    box-shadow: 0 25px 50px rgba(6, 182, 212, 0.2);
+    border-color: rgba(6, 182, 212, 0.3);
+}
+
+.monitor-showcase .dashboard-label span i {
+    color: #06b6d4;
+}
+
+.monitor-showcase .unit-tests-info {
+    background: rgba(6, 182, 212, 0.05);
+    border-color: rgba(6, 182, 212, 0.15);
+    border-left-color: #06b6d4;
+}
+
+.monitor-showcase .unit-tests-info h5 {
+    color: #06b6d4;
+}
+
+.monitor-showcase .unit-test-files span:hover {
+    background: rgba(6, 182, 212, 0.1);
+    border-color: rgba(6, 182, 212, 0.3);
+}
+
+.monitor-showcase .unit-test-files span i {
+    color: #06b6d4;
 }
