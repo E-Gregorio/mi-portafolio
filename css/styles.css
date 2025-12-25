@@ -387,14 +387,20 @@ body {
 
 .featured-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
     margin-bottom: 3rem;
 }
 
-@media (max-width: 1200px) {
+@media (max-width: 1400px) {
     .featured-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .featured-grid {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -455,6 +461,32 @@ body {
 
 .monitor-card .highlight i {
     color: #06b6d4;
+}
+
+/* SIPQ-SENTINEL Card Theme - Red/Green */
+.sentinel-card::before {
+    background: linear-gradient(90deg, #10b981, #ef4444);
+}
+
+.sentinel-icon {
+    background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.sentinel-card .highlight i {
+    color: #10b981;
+}
+
+/* SIPQ-SENTINEL Showcase */
+.sentinel-showcase {
+    border-color: #10b981;
+}
+
+.sentinel-showcase .dashboard-header h4 {
+    color: #10b981;
+}
+
+.sentinel-showcase .dashboard-header h4 i {
+    color: #10b981;
 }
 
 .public-repo-badge {
