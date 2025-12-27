@@ -489,6 +489,32 @@ body {
     color: #10b981;
 }
 
+/* QASL-MOBILE Card Theme - Orange */
+.mobile-card::before {
+    background: linear-gradient(90deg, #f97316, #ea580c);
+}
+
+.mobile-icon {
+    background: linear-gradient(135deg, #f97316, #ea580c);
+}
+
+.mobile-card .highlight i {
+    color: #f97316;
+}
+
+/* QASL-MOBILE Showcase */
+.mobile-showcase {
+    border-color: #f97316;
+}
+
+.mobile-showcase .dashboard-header h4 {
+    color: #f97316;
+}
+
+.mobile-showcase .dashboard-header h4 i {
+    color: #f97316;
+}
+
 .public-repo-badge {
     display: inline-flex;
     align-items: center;
