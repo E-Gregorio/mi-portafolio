@@ -1,455 +1,758 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV - Elyer Gregorio Maldonado</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600&display=swap');
+  <meta charset="UTF-8" />
+  <title>CV - Elyer Gregorio Maldonado | QA Tech Lead</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="QA Tech Lead con 7+ años de experiencia en automatización, Shift-Left Testing y AI Testing. Creador del QASL Ecosystem.">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, "Helvetica Neue", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.5;
+      color: #111827;
+      background: #f3f4f6;
+      -webkit-font-smoothing: antialiased;
+    }
+    .page {
+      max-width: 840px;
+      margin: 32px auto;
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
+      border: 1px solid #e5e7eb;
+      padding: 28px 32px 32px;
+    }
+    /* Header */
+    .header {
+      border-bottom: 1px solid #e5e7eb;
+      padding-bottom: 14px;
+      margin-bottom: 18px;
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .header-main h1 {
+      font-size: 28px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 4px;
+    }
+    .header-main h2 {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #374151;
+      font-weight: 600;
+    }
+    .header-stats {
+      display: flex;
+      gap: 12px;
+      margin-top: 10px;
+    }
+    .stat-item {
+      text-align: center;
+      background: #f3f4f6;
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid #e5e7eb;
+    }
+    .stat-number {
+      display: block;
+      font-size: 16px;
+      font-weight: 700;
+      color: #111827;
+    }
+    .stat-label {
+      font-size: 9px;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .header-meta {
+      text-align: right;
+      font-size: 12px;
+      color: #6b7280;
+    }
+    .header-meta div { margin-bottom: 2px; }
+    .header-meta a {
+      color: #4b5563;
+      text-decoration: none;
+    }
+    .header-meta a:hover {
+      color: #111827;
+      text-decoration: underline;
+    }
 
-        :root {
-            --black: #000000;
-            --dark: #1a1a1a;
-            --gray: #4a4a4a;
-            --light-gray: #6a6a6a;
-            --line: #000000;
-            --font-serif: 'EB Garamond', Georgia, 'Times New Roman', serif;
-            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        }
+    /* Sections */
+    .section {
+      margin-bottom: 18px;
+    }
+    .section-title {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: #374151;
+      margin-bottom: 6px;
+    }
+    .section-title::after {
+      content: "";
+      display: block;
+      width: 42px;
+      height: 2px;
+      background: #111827;
+      margin-top: 3px;
+    }
+    .body-text {
+      font-size: 13px;
+      color: #111827;
+      text-align: justify;
+    }
+    .body-text + .body-text { margin-top: 6px; }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    /* Bullets */
+    ul {
+      margin-top: 4px;
+      margin-left: 18px;
+    }
+    li {
+      margin-bottom: 2px;
+    }
 
-        body {
-            font-family: var(--font-serif);
-            font-size: 11pt;
-            line-height: 1.4;
-            color: var(--dark);
-            background: #f0f0f0;
-            -webkit-print-color-adjust: exact;
-        }
+    /* Impact Box */
+    .impact-box {
+      background: #f9fafb;
+      border-left: 3px solid #111827;
+      padding: 10px 14px;
+      margin-top: 10px;
+    }
+    .impact-title {
+      font-weight: 700;
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+    .impact-list {
+      margin-left: 18px;
+      font-size: 12.5px;
+    }
+    .impact-list li {
+      margin-bottom: 2px;
+    }
 
-        .page {
-            width: 210mm;
-            min-height: 297mm;
-            padding: 20mm 22mm;
-            margin: 20px auto;
-            background: white;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-        }
+    /* Skills */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px 36px;
+      font-size: 12.5px;
+    }
+    .skill-label {
+      font-weight: 600;
+      color: #111827;
+    }
+    .skill-value {
+      color: #4b5563;
+    }
 
-        @media print {
-            body { background: none; }
-            .page { 
-                width: 100%; 
-                margin: 0; 
-                padding: 0;
-                box-shadow: none; 
-            }
-            @page { 
-                margin: 18mm 20mm; 
-                size: A4; 
-            }
-        }
+    /* Experience */
+    .experience-item {
+      margin-bottom: 12px;
+    }
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: baseline;
+      margin-bottom: 2px;
+    }
+    .exp-role {
+      font-size: 13px;
+      font-weight: 700;
+      color: #111827;
+    }
+    .exp-company {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: #4b5563;
+    }
+    .exp-dates {
+      font-size: 12px;
+      color: #6b7280;
+      white-space: nowrap;
+    }
+    .exp-meta {
+      font-size: 12px;
+      color: #6b7280;
+      margin-bottom: 4px;
+    }
+    .exp-list {
+      margin-left: 18px;
+      font-size: 12.5px;
+    }
+    .exp-list li { margin-bottom: 2px; }
+    .exp-stack {
+      font-size: 12px;
+      color: #6b7280;
+      margin-top: 3px;
+    }
 
-        /* ══════════════════════════════════════════════════════════════════
-           HEADER - Estilo Harvard
-        ══════════════════════════════════════════════════════════════════ */
-        header {
-            text-align: center;
-            padding-bottom: 12px;
-            border-bottom: 2px solid var(--black);
-            margin-bottom: 16px;
-        }
+    /* Projects */
+    .project-item {
+      margin-bottom: 10px;
+    }
+    .project-name {
+      font-weight: 600;
+      font-size: 13px;
+      color: #111827;
+    }
+    .project-badge {
+      font-size: 10px;
+      padding: 2px 6px;
+      background: #111827;
+      color: white;
+      border-radius: 3px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-left: 8px;
+    }
+    .project-note {
+      font-size: 11.5px;
+      color: #6b7280;
+      margin-bottom: 2px;
+    }
+    .project-desc {
+      font-size: 12.5px;
+      color: #111827;
+      text-align: justify;
+    }
+    .project-bullets {
+      margin-left: 18px;
+      font-size: 12.5px;
+      margin-top: 2px;
+      margin-bottom: 2px;
+    }
+    .project-tech {
+      font-size: 12px;
+      color: #6b7280;
+    }
+    .project-links {
+      margin-top: 4px;
+      font-size: 11.5px;
+    }
+    .project-links a {
+      color: #4b5563;
+      text-decoration: none;
+      margin-right: 12px;
+    }
+    .project-links a:hover {
+      color: #111827;
+      text-decoration: underline;
+    }
 
-        h1 {
-            font-family: var(--font-serif);
-            font-size: 26pt;
-            font-weight: 400;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            color: var(--black);
-            margin-bottom: 6px;
-        }
+    /* Two columns for educación / certs */
+    .two-columns {
+      display: grid;
+      grid-template-columns: 1.1fr 1.2fr;
+      gap: 24px;
+    }
+    .edu-title {
+      font-weight: 600;
+      font-size: 13px;
+      color: #111827;
+    }
+    .edu-meta {
+      font-size: 12px;
+      color: #6b7280;
+    }
+    .cert-list {
+      margin-left: 18px;
+      font-size: 12.5px;
+    }
 
-        .title {
-            font-family: var(--font-sans);
-            font-size: 10pt;
-            font-weight: 500;
-            letter-spacing: 1.5px;
-            text-transform: uppercase;
-            color: var(--gray);
-            margin-bottom: 10px;
-        }
+    .lang-list {
+      margin-left: 18px;
+      font-size: 12.5px;
+    }
 
-        .contact {
-            font-family: var(--font-sans);
-            font-size: 9pt;
-            color: var(--dark);
-            line-height: 1.6;
-        }
+    /* Footer */
+    .footer {
+      margin-top: 20px;
+      padding-top: 14px;
+      border-top: 1px solid #e5e7eb;
+      text-align: center;
+      font-size: 11px;
+      color: #6b7280;
+    }
+    .footer a {
+      color: #4b5563;
+      text-decoration: none;
+    }
+    .footer a:hover {
+      text-decoration: underline;
+    }
 
-        .contact a {
-            color: var(--dark);
-            text-decoration: none;
-        }
+    @media print {
+      body { background: white; }
+      .page {
+        margin: 0;
+        box-shadow: none;
+        border-radius: 0;
+        max-width: 100%;
+      }
+    }
 
-        .contact-divider {
-            margin: 0 8px;
-            color: var(--light-gray);
-        }
-
-        /* ══════════════════════════════════════════════════════════════════
-           SECCIONES
-        ══════════════════════════════════════════════════════════════════ */
-        section {
-            margin-bottom: 14px;
-        }
-
-        .section-title {
-            font-family: var(--font-serif);
-            font-size: 11pt;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--black);
-            border-bottom: 1px solid var(--black);
-            padding-bottom: 3px;
-            margin-bottom: 10px;
-        }
-
-        /* ══════════════════════════════════════════════════════════════════
-           PERFIL
-        ══════════════════════════════════════════════════════════════════ */
-        .profile {
-            text-align: justify;
-            font-size: 10.5pt;
-            line-height: 1.5;
-            color: var(--dark);
-        }
-
-        /* ══════════════════════════════════════════════════════════════════
-           EXPERIENCIA
-        ══════════════════════════════════════════════════════════════════ */
-        .experience-item {
-            margin-bottom: 12px;
-        }
-
-        .exp-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 2px;
-        }
-
-        .exp-title {
-            font-weight: 600;
-            font-size: 11pt;
-        }
-
-        .exp-company {
-            font-style: italic;
-            font-size: 10.5pt;
-        }
-
-        .exp-location {
-            font-size: 10pt;
-            color: var(--gray);
-        }
-
-        .exp-date {
-            font-family: var(--font-sans);
-            font-size: 9pt;
-            font-weight: 500;
-            color: var(--gray);
-            text-align: right;
-            white-space: nowrap;
-        }
-
-        .exp-description {
-            margin-top: 4px;
-            padding-left: 0;
-        }
-
-        .exp-description li {
-            margin-bottom: 3px;
-            font-size: 10pt;
-            line-height: 1.4;
-            text-align: justify;
-        }
-
-        /* ══════════════════════════════════════════════════════════════════
-           PROYECTOS
-        ══════════════════════════════════════════════════════════════════ */
-        .project-item {
-            margin-bottom: 10px;
-        }
-
-        .project-name {
-            font-weight: 600;
-            font-size: 10.5pt;
-        }
-
-        .project-type {
-            font-style: italic;
-            font-size: 10pt;
-            color: var(--gray);
-        }
-
-        .project-desc {
-            font-size: 10pt;
-            margin-top: 2px;
-            text-align: justify;
-        }
-
-        .project-tech {
-            font-family: var(--font-sans);
-            font-size: 8.5pt;
-            color: var(--gray);
-            margin-top: 2px;
-        }
-
-        /* ══════════════════════════════════════════════════════════════════
-           COMPETENCIAS
-        ══════════════════════════════════════════════════════════════════ */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 4px;
-        }
-
-        .skill-row {
-            font-size: 10pt;
-            line-height: 1.5;
-        }
-
-        .skill-category {
-            font-weight: 600;
-            font-size: 10pt;
-        }
-
-        /* ══════════════════════════════════════════════════════════════════
-           EDUCACIÓN Y CERTIFICACIONES
-        ══════════════════════════════════════════════════════════════════ */
-        .education-item {
-            margin-bottom: 6px;
-        }
-
-        .edu-degree {
-            font-weight: 600;
-            font-size: 10.5pt;
-        }
-
-        .edu-institution {
-            font-style: italic;
-            font-size: 10pt;
-        }
-
-        .certifications-list {
-            font-size: 10pt;
-            line-height: 1.5;
-        }
-
-        /* ══════════════════════════════════════════════════════════════════
-           IDIOMAS
-        ══════════════════════════════════════════════════════════════════ */
-        .languages {
-            font-size: 10pt;
-        }
-
-        /* ══════════════════════════════════════════════════════════════════
-           LISTAS
-        ══════════════════════════════════════════════════════════════════ */
-        ul {
-            margin: 0;
-            padding-left: 18px;
-        }
-
-        li {
-            margin-bottom: 2px;
-        }
-
-        /* ══════════════════════════════════════════════════════════════════
-           UTILIDADES
-        ══════════════════════════════════════════════════════════════════ */
-        strong {
-            font-weight: 600;
-        }
-
-    </style>
+    @media (max-width: 720px) {
+      .page {
+        margin: 0;
+        border-radius: 0;
+        box-shadow: none;
+      }
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .header-meta {
+        text-align: left;
+      }
+      .skills-grid,
+      .two-columns {
+        grid-template-columns: 1fr;
+      }
+      .header-stats {
+        flex-wrap: wrap;
+      }
+    }
+  </style>
 </head>
 <body>
-
-<div class="page">
-
-    <!-- ══════════════════════════════════════════════════════════════════
-         HEADER
-    ══════════════════════════════════════════════════════════════════ -->
-    <header>
+  <div class="page">
+    <!-- HEADER -->
+    <header class="header">
+      <div class="header-main">
         <h1>Elyer Gregorio Maldonado</h1>
-        <div class="title">QA Technical Lead · Test Automation Architect</div>
-        <div class="contact">
-            Buenos Aires, Argentina<span class="contact-divider">·</span>
-            +54 11 7061-9954<span class="contact-divider">·</span>
-            <a href="mailto:elyer.g.maldonado@gmail.com">elyer.g.maldonado@gmail.com</a><br>
-            <a href="https://linkedin.com/in/elyergregorio">linkedin.com/in/elyergregorio</a><span class="contact-divider">·</span>
-            <a href="https://github.com/E-Gregorio">github.com/E-Gregorio</a><span class="contact-divider">·</span>
-            <a href="https://e-gregorio.github.io/mi-portafolio">Portafolio</a>
+        <h2>QA Tech Lead | Test Automation Architect</h2>
+        <div class="header-stats">
+          <div class="stat-item">
+            <span class="stat-number">7+</span>
+            <span class="stat-label">Años Exp.</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">55-60%</span>
+            <span class="stat-label">Reducción Defectos</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">92%</span>
+            <span class="stat-label">Cobertura Auto.</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-number">8</span>
+            <span class="stat-label">Herramientas</span>
+          </div>
         </div>
+      </div>
+      <div class="header-meta">
+        <div>Buenos Aires, Argentina</div>
+        <div>+54 11 7061-9954</div>
+        <div>elyer.g.maldonado@gmail.com</div>
+        <div><a href="https://linkedin.com/in/elyer-maldonado">linkedin.com/in/elyer-maldonado</a></div>
+      </div>
     </header>
 
-    <!-- ══════════════════════════════════════════════════════════════════
-         PERFIL PROFESIONAL
-    ══════════════════════════════════════════════════════════════════ -->
-    <section>
-        <div class="section-title">Perfil Profesional</div>
-        <p class="profile">
-            QA Technical Lead con más de 7 años de experiencia diseñando e implementando estrategias de testing enterprise. 
-            Especializado en metodología <strong>Shift-Left</strong>, arquitecturas de automatización con observabilidad completa 
-            y evaluación de seguridad de sistemas de IA/LLM. Creador de frameworks propietarios que integran pruebas E2E, API, 
-            Performance y Security con métricas en tiempo real. Track record comprobado en reducción de defectos críticos, 
-            optimización de ciclos de testing y liderazgo de equipos QA multidisciplinarios en sectores Fintech, Gobierno y Salud.
+    <!-- RESUMEN PROFESIONAL -->
+    <section class="section">
+      <div class="section-title">Resumen profesional</div>
+      <p class="body-text">
+        QA Tech Lead y Test Automation Architect con más de 7 años liderando equipos de Quality Assurance y diseñando ecosistemas de calidad end-to-end. Especialista en <strong>Shift-Left Testing</strong>, <strong>AI/LLM Testing</strong>, <strong>Performance Testing</strong> y <strong>Security Testing</strong>.
+      </p>
+      <p class="body-text">
+        Creador del <strong>QASL Ecosystem</strong>: un conjunto de 8 herramientas integradas que incluyen QASL Framework (E2E, API, Performance, Security), SIGMA Analyzer (generación de test cases con IA), INGRID (AI/LLM Testing), SIPQ-SENTINEL (monitoreo de ambientes), QASL-API-SENTINEL (monitoreo de APIs 24/7), QASL-MOBILE (testing móvil con IA) y QASL-Manual (plataforma para equipos QA Manual).
+      </p>
+      <p class="body-text">
+        Metodologías alineadas con <strong>ISTQB v4.0</strong>, <strong>IEEE 829/830</strong> e <strong>ISO/IEC 25010</strong>. Track record comprobado en reducción de defectos críticos, optimización de ciclos de testing y construcción de frameworks reutilizables a nivel enterprise.
+      </p>
+      <div class="impact-box">
+        <div class="impact-title">Impacto demostrable:</div>
+        <ul class="impact-list">
+          <li><strong>1,300+ test cases</strong> generados desde User Stories antes del desarrollo</li>
+          <li><strong>35% reducción</strong> en tiempo de detección de defectos (Shift-Left)</li>
+          <li><strong>55-60% reducción</strong> en defectos críticos en producción</li>
+          <li><strong>92% cobertura</strong> automatizada en regresión, smoke y sanity</li>
+          <li><strong>42% incremento</strong> en eficiencia de testing</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- COMPETENCIAS TÉCNICAS -->
+    <section class="section">
+      <div class="section-title">Competencias técnicas</div>
+      <div class="skills-grid">
+        <div>
+          <div class="skill-label">Automatización E2E</div>
+          <div class="skill-value">
+            Playwright, TypeScript, Python, Pytest, Page Object Model, Sistema de 11 niveles de selectores, BDD/Cucumber
+          </div>
+        </div>
+        <div>
+          <div class="skill-label">Performance & Observabilidad</div>
+          <div class="skill-value">
+            K6, JMeter, Grafana, InfluxDB, Prometheus, Loki, métricas en tiempo real, dashboards ejecutivos
+          </div>
+        </div>
+        <div>
+          <div class="skill-label">Seguridad</div>
+          <div class="skill-value">
+            OWASP ZAP, OWASP LLM Top 10 2025, penetration testing, security hardening, vulnerability assessment
+          </div>
+        </div>
+        <div>
+          <div class="skill-label">AI / LLM Testing</div>
+          <div class="skill-value">
+            Claude API, LLM-as-Judge, Prompt Injection Testing, evaluación de relevancia/precisión/coherencia/completitud/hallucination
+          </div>
+        </div>
+        <div>
+          <div class="skill-label">API Testing</div>
+          <div class="skill-value">
+            Postman, Newman, REST, SOAP, GraphQL, Contract Testing, OAuth/JWT, schema validation
+          </div>
+        </div>
+        <div>
+          <div class="skill-label">Mobile Testing</div>
+          <div class="skill-value">
+            Maestro, Android Emulators, Claude Vision para análisis UX/UI, Device Streaming vía WebSocket
+          </div>
+        </div>
+        <div>
+          <div class="skill-label">CI/CD & DevOps</div>
+          <div class="skill-value">
+            Docker, Docker Compose, GitLab CI, GitHub Actions, Jenkins, pipeline automation
+          </div>
+        </div>
+        <div>
+          <div class="skill-label">Gestión y QA</div>
+          <div class="skill-value">
+            JIRA, Xray, TestRail, Confluence, Allure Reports, diseño de estrategias, Risk-Based Testing
+          </div>
+        </div>
+        <div>
+          <div class="skill-label">Estándares y Metodología</div>
+          <div class="skill-value">
+            ISTQB v4.0 Foundation, IEEE 829/830, ISO/IEC 25010, Agile/Scrum, Shift-Left Testing
+          </div>
+        </div>
+        <div>
+          <div class="skill-label">Monitoreo & Alertas</div>
+          <div class="skill-value">
+            Prometheus, Grafana, Health Checks 24/7, Machine Learning para anomalías, reportes automáticos por email
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCIA PROFESIONAL -->
+    <section class="section">
+      <div class="section-title">Experiencia profesional</div>
+
+      <div class="experience-item">
+        <div class="exp-header">
+          <div>
+            <div class="exp-role">QA Tech Lead – EPIDATA</div>
+            <div class="exp-company">Sector gobierno (AGIP, SIPQ, ASI, OCA)</div>
+          </div>
+          <div class="exp-dates">Mar 2025 – Presente · Buenos Aires (Híbrido)</div>
+        </div>
+        <div class="exp-meta">
+          Responsable técnico de QA en múltiples proyectos gubernamentales, definiendo estándares, arquitecturas de automatización y estrategias de Shift-Left Testing.
+        </div>
+        <ul class="exp-list">
+          <li>
+            Diseño y construcción del <strong>QASL Ecosystem</strong> con 8 herramientas integradas: QASL Framework, SIGMA Analyzer, INGRID, SIPQ-SENTINEL, QASL-API-SENTINEL, QASL-MOBILE, QASL-Manual y QASL-Monitor.
+          </li>
+          <li>
+            Desarrollo de <strong>SIGMA Analyzer</strong> para análisis estático de Historias de Usuario con Claude API, generando <strong>1,300+ test cases</strong> antes del desarrollo.
+          </li>
+          <li>
+            Definición de metodología <strong>Shift-Left de 6 fases</strong> alineada con ISTQB v4.0 e IEEE 829/830, aplicable desde análisis de requerimientos hasta producción.
+          </li>
+          <li>
+            Implementación de sistema de grabación con <strong>11 niveles de selectores</strong> para automatización robusta y mantenible en entornos dinámicos.
+          </li>
+          <li>
+            Reducción del <strong>35%</strong> en tiempo de detección de defectos mediante adelanto de pruebas clave a fases tempranas del ciclo SDLC.
+          </li>
+          <li>
+            Creación de <strong>dashboards ejecutivos</strong> en Grafana con métricas en tiempo real para stakeholders técnicos y de negocio.
+          </li>
+          <li>
+            Mentoría y coaching técnico a 5+ perfiles QA junior/semi-senior en automatización, diseño de pruebas y AI Testing.
+          </li>
+        </ul>
+        <div class="exp-stack">
+          <strong>Stack:</strong> Playwright, TypeScript, Python, K6, OWASP ZAP, Newman, Docker, Grafana, InfluxDB, Loki, Prometheus, Claude API, JIRA, Xray, SQL Server
+        </div>
+      </div>
+
+      <div class="experience-item">
+        <div class="exp-header">
+          <div>
+            <div class="exp-role">QA Automation Engineer – UPEX</div>
+            <div class="exp-company">E-commerce · Fintech · Healthtech</div>
+          </div>
+          <div class="exp-dates">Ago 2020 – Dic 2024 · Buenos Aires (Remoto)</div>
+        </div>
+        <div class="exp-meta">
+          Ingeniero de automatización para soluciones multi-sector con foco en confiabilidad, cobertura y velocidad de entrega.
+        </div>
+        <ul class="exp-list">
+          <li>
+            Reducción del <strong>30%</strong> en tiempo de ejecución de regresiones mediante estrategia de automatización con Playwright/TypeScript.
+          </li>
+          <li>
+            Incremento del <strong>40%</strong> en cobertura de pruebas automatizadas (regresión, smoke, sanity).
+          </li>
+          <li>
+            Reducción del <strong>55%</strong> en defectos críticos reportados en producción.
+          </li>
+          <li>
+            Diseño e implementación de frameworks <strong>Page Object Model</strong> reutilizables, priorizando mantenibilidad.
+          </li>
+          <li>
+            Configuración de pruebas de carga y estrés con <strong>JMeter y K6</strong> para validar performance y escalabilidad.
+          </li>
+          <li>
+            Integración de pruebas en pipelines <strong>CI/CD</strong> con GitHub Actions, reduciendo tiempo de feedback.
+          </li>
+          <li>
+            Implementación de pruebas de seguridad básicas con <strong>OWASP ZAP</strong> en flujos críticos (autenticación, pagos).
+          </li>
+        </ul>
+        <div class="exp-stack">
+          <strong>Sectores:</strong> E-commerce, Fintech (ISO 8583, PCI-DSS), Healthtech (HIPAA)
+        </div>
+      </div>
+
+      <div class="experience-item">
+        <div class="exp-header">
+          <div>
+            <div class="exp-role">Project Manager / QA Lead – STOP MEDICAL ESTENDELY, C.A.</div>
+            <div class="exp-company">Sector salud</div>
+          </div>
+          <div class="exp-dates">Abr 2013 – May 2020 · Caracas (Presencial)</div>
+        </div>
+        <div class="exp-meta">
+          Liderazgo de proyectos de transformación digital en sector salud, implementando sistemas HIS (Hospital Information System).
+        </div>
+        <ul class="exp-list">
+          <li>
+            Implementación exitosa de HIS en <strong>5 centros médicos</strong> sin incidentes críticos en producción.
+          </li>
+          <li>
+            Reducción del <strong>65%</strong> en errores de migración de datos mediante validaciones estructuradas y pruebas cruzadas.
+          </li>
+          <li>
+            Coordinación de equipos multidisciplinarios de hasta <strong>8 profesionales</strong> (desarrollo, QA, infraestructura, soporte).
+          </li>
+          <li>
+            Aseguramiento de conformidad con estándares <strong>HIPAA</strong> y buenas prácticas de manejo de información sensible.
+          </li>
+          <li>
+            Gestión de testing de migración de datos entre sistemas legacy y HIS modernos.
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- QASL ECOSYSTEM -->
+    <section class="section">
+      <div class="section-title">QASL Ecosystem – 8 herramientas integradas</div>
+
+      <div class="project-item">
+        <div class="project-name">QASL Framework – Quality Assurance Shift-Left <span class="project-badge">Core</span></div>
+        <p class="project-desc">
+          Plataforma unificada enterprise de automatización QA y observabilidad, diseñada para implementar Shift-Left Testing a escala organizacional.
         </p>
+        <ul class="project-bullets">
+          <li>Integración de E2E (Playwright), API (Newman), Performance (K6) y Security (OWASP ZAP)</li>
+          <li>Observabilidad end-to-end con Grafana, InfluxDB y Loki para métricas centralizadas</li>
+          <li>Trazabilidad completa: <strong>Epic → HU → Test Suite → Test Case</strong></li>
+          <li>Pipelines automatizados con reportes Allure y dashboards ejecutivos</li>
+        </ul>
+        <div class="project-tech">
+          <strong>Stack:</strong> Playwright, Newman, K6, OWASP ZAP, Grafana, InfluxDB, Loki, Docker, TypeScript
+        </div>
+      </div>
+
+      <div class="project-item">
+        <div class="project-name">SIGMA Analyzer <span class="project-badge">AI</span></div>
+        <p class="project-desc">
+          Motor de análisis estático de Historias de Usuario con Claude API para generación automatizada de test cases.
+        </p>
+        <ul class="project-bullets">
+          <li>Análisis de documentos HU completos con identificación de Business Rules</li>
+          <li>Generación de 2 escenarios por BR (Positivo + Negativo)</li>
+          <li>Output en archivos CSV compatibles con QASL-Manual</li>
+          <li>Más de <strong>1,300 test cases</strong> generados antes del desarrollo</li>
+        </ul>
+        <div class="project-tech">
+          <strong>Stack:</strong> Python, Claude API, CSV Processing
+        </div>
+      </div>
+
+      <div class="project-item">
+        <div class="project-name">INGRID – AI Testing Framework <span class="project-badge">Security</span></div>
+        <p class="project-desc">
+          Framework profesional para testing automatizado de chatbots y sistemas LLM con metodología LLM-as-Judge.
+        </p>
+        <ul class="project-bullets">
+          <li>Basado en <strong>OWASP LLM Top 10 2025</strong> para seguridad de sistemas AI</li>
+          <li>Detección de vulnerabilidades: prompt injection, data leakage, jailbreaks</li>
+          <li>Evaluación multi-dimensional: relevancia, precisión, coherencia, completitud, hallucination score</li>
+          <li>Integración con Grafana y Prometheus para métricas en tiempo real</li>
+        </ul>
+        <div class="project-tech">
+          <strong>Stack:</strong> Playwright, TypeScript, Claude API, Grafana, Prometheus, Docker
+        </div>
+      </div>
+
+      <div class="project-item">
+        <div class="project-name">SIPQ-SENTINEL – Environment Monitor <span class="project-badge">Monitor</span></div>
+        <p class="project-desc">
+          Sistema autónomo de monitoreo de ambientes con IA predictiva para detectar problemas antes de ejecutar regresiones.
+        </p>
+        <ul class="project-bullets">
+          <li>Validación automatizada de Login, Menús, Navegación y Funcionalidades críticas</li>
+          <li>Capturas de pantalla automáticas con análisis de Claude AI</li>
+          <li>Reportes predictivos: ambiente APTO o NO APTO para testing</li>
+          <li>Integración con Slack/Email para alertas en tiempo real</li>
+        </ul>
+        <div class="project-tech">
+          <strong>Stack:</strong> Playwright, TypeScript, Claude API, Node.js
+        </div>
+      </div>
+
+      <div class="project-item">
+        <div class="project-name">QASL-API-SENTINEL – API Monitor 24/7 <span class="project-badge">Monitor</span></div>
+        <p class="project-desc">
+          Centro de monitoreo inteligente de APIs con health checks continuos, Machine Learning para anomalías y compliance reporting.
+        </p>
+        <ul class="project-bullets">
+          <li>Monitoreo 24/7 con métricas en Prometheus y dashboards en Grafana</li>
+          <li>Machine Learning para detección de anomalías y predicción de fallos</li>
+          <li>Reportes automáticos por email (cada 5 horas, diarios, semanales)</li>
+          <li>Escaneo de seguridad y reportes de compliance (SOC2, ISO27001)</li>
+          <li>CLI completo con dashboard en terminal estilo NASA</li>
+        </ul>
+        <div class="project-tech">
+          <strong>Stack:</strong> Node.js, Prometheus, Grafana, Docker, Claude API, Machine Learning
+        </div>
+      </div>
+
+      <div class="project-item">
+        <div class="project-name">QASL-MOBILE – Mobile Testing Framework <span class="project-badge">Mobile</span></div>
+        <p class="project-desc">
+          Framework de testing móvil para Android con Maestro, análisis UX/UI con Claude Vision y streaming de dispositivos.
+        </p>
+        <ul class="project-bullets">
+          <li>Automatización de tests móviles con <strong>Maestro</strong></li>
+          <li>Análisis de UX/UI con <strong>Claude Vision</strong> para detección de problemas visuales</li>
+          <li>Device Streaming en tiempo real vía <strong>WebSocket</strong></li>
+          <li>Dashboard web para monitoreo y control de dispositivos</li>
+        </ul>
+        <div class="project-tech">
+          <strong>Stack:</strong> Maestro, Android SDK, Claude Vision API, WebSocket, React
+        </div>
+      </div>
+
+      <div class="project-item">
+        <div class="project-name">QASL-Manual – QA Manual Platform <span class="project-badge">Platform</span></div>
+        <p class="project-desc">
+          Plataforma web completa para gestión de equipos QA Manual con flujo Shift-Left integrado.
+        </p>
+        <ul class="project-bullets">
+          <li>Gestión completa: Epics, User Stories, Test Suites, Precondiciones, Test Cases</li>
+          <li>Flujo de ejecución: Run → Pass/Fail → Defectos → Retesting</li>
+          <li>Dashboard con métricas: 408 TC, 99 ejecuciones, 35.4% pass rate</li>
+          <li>Importación de CSV desde SIGMA Analyzer</li>
+          <li>Informes IEEE 829 para documentación formal</li>
+        </ul>
+        <div class="project-tech">
+          <strong>Stack:</strong> React, TypeScript, Node.js, PostgreSQL
+        </div>
+      </div>
+
+      <div class="project-item">
+        <div class="project-name">QASL-Monitor – Unified Dashboard <span class="project-badge">Dashboard</span></div>
+        <p class="project-desc">
+          Centro de control unificado que integra métricas de todas las herramientas del ecosistema QASL.
+        </p>
+        <ul class="project-bullets">
+          <li>Dashboard centralizado con Streamlit</li>
+          <li>Métricas consolidadas de QASL Framework, INGRID, Sentinels y Mobile</li>
+          <li>Visualización ejecutiva para stakeholders</li>
+        </ul>
+        <div class="project-tech">
+          <strong>Stack:</strong> Streamlit, Python, Grafana, InfluxDB
+        </div>
+      </div>
     </section>
 
-    <!-- ══════════════════════════════════════════════════════════════════
-         EXPERIENCIA PROFESIONAL
-    ══════════════════════════════════════════════════════════════════ -->
-    <section>
-        <div class="section-title">Experiencia Profesional</div>
+    <!-- METODOLOGÍA -->
+    <section class="section">
+      <div class="section-title">Metodología</div>
 
-        <div class="experience-item">
-            <div class="exp-header">
-                <div>
-                    <span class="exp-title">QA Technical Lead</span><span class="exp-company"> — Epidata Consulting</span>
-                    <span class="exp-location">(Sector Gobierno)</span>
-                </div>
-                <div class="exp-date">Marzo 2024 – Presente</div>
-            </div>
-            <ul class="exp-description">
-                <li>Diseñé e implementé el <strong>QASL Framework</strong>, plataforma Shift-Left que centraliza pruebas funcionales, de rendimiento y seguridad con observabilidad en Grafana/InfluxDB.</li>
-                <li>Reduje el tiempo de detección de defectos en un 35% mediante generación temprana de casos de prueba (+1,300) y Quality Gates integrados en CI/CD.</li>
-                <li>Construí <strong>SIPQ-SENTINEL</strong>, sistema de monitoreo predictivo que usa IA (Claude) para anticipar fallos antes de ejecutar regresiones.</li>
-                <li>Lidero equipo de 2 QA Analysts, estableciendo metodología basada en IEEE 829/830 e ISTQB v4.0 con trazabilidad completa Epic → HU → Test Suite → Test Case.</li>
-            </ul>
-        </div>
-
-        <div class="experience-item">
-            <div class="exp-header">
-                <div>
-                    <span class="exp-title">Senior QA Automation Engineer</span><span class="exp-company"> — UPEX</span>
-                    <span class="exp-location">(Fintech / Healthtech)</span>
-                </div>
-                <div class="exp-date">Agosto 2020 – Diciembre 2024</div>
-            </div>
-            <ul class="exp-description">
-                <li>Disminuí defectos críticos en producción un 55% mediante automatización estratégica y Quality Gates alineados con PCI-DSS y HIPAA.</li>
-                <li>Aumenté la cobertura automatizada en un 40% desarrollando frameworks reutilizables con Playwright/TypeScript y sistema de 11 niveles de selectores.</li>
-                <li>Integré pruebas de seguridad (OWASP ZAP) en pipelines CI/CD para flujos críticos de autenticación y procesamiento de pagos.</li>
-                <li>Mentoreé a 4 QA Engineers en técnicas de automatización, BDD y testing basado en riesgos.</li>
-            </ul>
-        </div>
-
-        <div class="experience-item">
-            <div class="exp-header">
-                <div>
-                    <span class="exp-title">QA Lead / Project Manager</span><span class="exp-company"> — Stop Medical / Estendely</span>
-                    <span class="exp-location">(Healthtech)</span>
-                </div>
-                <div class="exp-date">Abril 2013 – Mayo 2020</div>
-            </div>
-            <ul class="exp-description">
-                <li>Implementé sistema HIS (Hospital Information System) en 5 centros médicos con cero incidentes críticos post-lanzamiento.</li>
-                <li>Reduje errores de migración de datos en un 65% mediante validación estructurada y scripts de verificación automatizados.</li>
-                <li>Lideré equipos multidisciplinarios asegurando cumplimiento HIPAA para gestión de datos clínicos de pacientes.</li>
-            </ul>
-        </div>
+      <div class="project-item">
+        <div class="project-name">Shift-Left QA Methodology Suite</div>
+        <p class="project-desc">
+          Metodología integral de 6 fases para implantar Shift-Left Testing en organizaciones.
+        </p>
+        <ul class="project-bullets">
+          <li>Basada en <strong>ISTQB v4.0, IEEE 829/830 e ISO/IEC 25010</strong></li>
+          <li>Plantillas de documentación de pruebas estilo ISTQB (Test Plan, Test Design, Test Cases)</li>
+          <li>Guías de proceso para equipos Agile/Scrum con integración en sprints</li>
+          <li>Propuestas de adopción organizacional con métricas de ROI y reducción de riesgo</li>
+        </ul>
+      </div>
     </section>
 
-    <!-- ══════════════════════════════════════════════════════════════════
-         PROYECTOS DESTACADOS
-    ══════════════════════════════════════════════════════════════════ -->
-    <section>
-        <div class="section-title">Proyectos Destacados</div>
-
-        <div class="project-item">
-            <span class="project-name">QASL Framework</span> — <span class="project-type">Plataforma Enterprise Shift-Left</span>
-            <p class="project-desc">
-                Plataforma unificada que integra análisis estático de requerimientos, E2E (Playwright), API (Newman), 
-                Performance (K6) y Security (OWASP ZAP) con observabilidad completa. Metodología de 6 fases IEEE 829/830 
-                con generación de +1,300 test cases y trazabilidad total.
-            </p>
-            <div class="project-tech">Stack: Playwright, TypeScript, Newman, K6, OWASP ZAP, Grafana, InfluxDB, Loki, Docker</div>
+    <!-- EDUCACIÓN / CERTIFICACIONES / IDIOMAS -->
+    <section class="section">
+      <div class="two-columns">
+        <div>
+          <div class="section-title">Educación</div>
+          <div class="edu-title">Lic. Comunicaciones y Electrónica</div>
+          <div class="edu-meta">ESCOELFA · 1985 – 1989</div>
         </div>
-
-        <div class="project-item">
-            <span class="project-name">INGRID Framework</span> — <span class="project-type">AI/LLM Security Testing</span>
-            <p class="project-desc">
-                Framework para evaluación automatizada de chatbots y sistemas LLM basado en OWASP LLM Top 10 2025 
-                y metodología LLM-as-Judge (Claude como evaluador). Cobertura: prompt injection, jailbreaks, PII detection, 
-                métricas de calidad (Relevancia, Precisión, Coherencia, Completitud).
-            </p>
-            <div class="project-tech">Stack: Playwright, TypeScript, Claude API, Python, Grafana, Prometheus, Docker</div>
+        <div>
+          <div class="section-title">Certificaciones</div>
+          <ul class="cert-list">
+            <li><strong>ISTQB Foundation Level</strong> – ISTQB (en proceso)</li>
+            <li><strong>Playwright Certification</strong> – UPEX (2023)</li>
+            <li><strong>API Testing Certification</strong> – UPEX (2024)</li>
+          </ul>
         </div>
-
-        <div class="project-item">
-            <span class="project-name">SIPQ-SENTINEL</span> — <span class="project-type">Monitoreo Predictivo con IA</span>
-            <p class="project-desc">
-                Sistema autónomo de monitoreo 24/7 que captura snapshots del DOM, detecta cambios usando Claude AI, 
-                predice fallos de tests y alerta antes de ejecutar suites de regresión. Cobertura de 15 módulos.
-            </p>
-            <div class="project-tech">Stack: TypeScript, Playwright, Claude API, Grafana, InfluxDB, Docker</div>
-        </div>
+      </div>
     </section>
 
-    <!-- ══════════════════════════════════════════════════════════════════
-         COMPETENCIAS TÉCNICAS
-    ══════════════════════════════════════════════════════════════════ -->
-    <section>
-        <div class="section-title">Competencias Técnicas</div>
-        <div class="skills-grid">
-            <div class="skill-row"><span class="skill-category">Automatización:</span> Playwright, TypeScript, Python, Pytest, Page Object Model, BDD/Cucumber, Sistema de selectores multinivel.</div>
-            <div class="skill-row"><span class="skill-category">API Testing:</span> Postman, Newman, REST/SOAP, Contract Testing, OAuth/JWT, API Performance.</div>
-            <div class="skill-row"><span class="skill-category">Performance:</span> K6, JMeter, Load/Stress Testing, análisis de métricas y bottlenecks.</div>
-            <div class="skill-row"><span class="skill-category">Security:</span> OWASP ZAP, OWASP LLM Top 10 2025, Vulnerability Assessment, Penetration Testing.</div>
-            <div class="skill-row"><span class="skill-category">AI/LLM Testing:</span> Claude API, LLM-as-Judge, Prompt Injection Testing, Hallucination Detection, Red Teaming.</div>
-            <div class="skill-row"><span class="skill-category">Observabilidad:</span> Grafana, InfluxDB, Prometheus, Loki, Dashboards ejecutivos en tiempo real.</div>
-            <div class="skill-row"><span class="skill-category">CI/CD & DevOps:</span> Docker, GitLab CI, GitHub Actions, Jenkins, Allure Reports.</div>
-            <div class="skill-row"><span class="skill-category">Gestión:</span> JIRA, Xray, TestRail, Confluence, Test Strategy, Risk-Based Testing.</div>
-            <div class="skill-row"><span class="skill-category">Estándares:</span> ISTQB v4.0, IEEE 829/830, ISO/IEC 25010, PCI-DSS, HIPAA, Agile/Scrum.</div>
-        </div>
+    <section class="section">
+      <div class="section-title">Idiomas</div>
+      <ul class="lang-list">
+        <li><strong>Español:</strong> Nativo</li>
+        <li><strong>Inglés:</strong> Profesional / B2+ (lectura técnica, escritura, conversación en desarrollo)</li>
+      </ul>
     </section>
 
-    <!-- ══════════════════════════════════════════════════════════════════
-         EDUCACIÓN Y CERTIFICACIONES
-    ══════════════════════════════════════════════════════════════════ -->
-    <section>
-        <div class="section-title">Educación y Certificaciones</div>
-        <div class="education-item">
-            <span class="edu-degree">Licenciatura en Comunicaciones y Electrónica</span><br>
-            <span class="edu-institution">ESCOELFA — Escuela de Comunicaciones y Electrónica</span>
-        </div>
-        <div class="certifications-list" style="margin-top: 8px;">
-            <strong>Certificaciones:</strong> API Testing Professional (UPEX, 2024) · Playwright Automation (UPEX, 2023) · 
-            Scrum Fundamentals · ISTQB Foundation Level (en preparación)
-        </div>
-    </section>
-
-    <!-- ══════════════════════════════════════════════════════════════════
-         IDIOMAS
-    ══════════════════════════════════════════════════════════════════ -->
-    <section>
-        <div class="section-title">Idiomas</div>
-        <div class="languages">
-            <strong>Español:</strong> Nativo &nbsp;&nbsp;·&nbsp;&nbsp; 
-            <strong>Inglés:</strong> Profesional (lectura técnica, documentación y comunicación escrita)
-        </div>
-    </section>
-
-</div>
-
+    <!-- FOOTER -->
+    <footer class="footer">
+      <strong>Elyer Gregorio Maldonado</strong> · QA Tech Lead & Test Automation Architect<br>
+(Portafolio disponible a solicitud) · Última actualización: Enero 2026
+    </footer>
+  </div>
 </body>
 </html>
