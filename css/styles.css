@@ -489,6 +489,19 @@ body {
     color: #10b981;
 }
 
+/* QASL-SENTINEL-UNIFIED Card Theme - Cyan/Purple */
+.unified-card::before {
+    background: linear-gradient(90deg, #8b5cf6, #06b6d4);
+}
+
+.unified-icon {
+    background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+}
+
+.unified-card .highlight i {
+    color: #8b5cf6;
+}
+
 /* QASL-MOBILE Card Theme - Orange */
 .mobile-card::before {
     background: linear-gradient(90deg, #f97316, #ea580c);
