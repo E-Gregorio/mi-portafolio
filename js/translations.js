@@ -2,15 +2,16 @@
 // TRANSLATIONS - i18n System
 // ===================================
 
-const translations = {
+window.translations = {
     es: {
         // Hero Section
         hero_name: "Elyer Gregorio Maldonado",
         hero_title: "QA Tech Lead & Test Automation Architect",
-        hero_subtitle: "Especializado en Shift-Left Testing, AI/LLM Testing y Observabilidad QA",
+        hero_subtitle: "Especializado en Shift-Left Testing, Multi-LLM QA Platforms, AI/LLM Testing y Observabilidad QA",
         stat_experience: "Años de experiencia",
-        stat_reduction: "Reducción de defectos",
-        stat_coverage: "Cobertura automatizada",
+        stat_microservices: "Microservicios QA",
+        stat_testcases: "Test Cases Generados",
+        stat_coverage: "E2E Pass Rate",
         contact: "Contacto",
 
         // About Section
@@ -22,8 +23,10 @@ const translations = {
         featured_title: "Proyectos Destacados",
         featured_intro: "Frameworks profesionales de código abierto que demuestran innovación real en QA automation y observabilidad.",
         
+        nexus_desc: "Primera plataforma de QA impulsada por modelos de lenguaje avanzados. 12 microservicios que integran Claude Opus 4.6, Sonnet 4.5 y Gemini 2.5 Pro para automatizar el ciclo completo: desde análisis de requisitos hasta monitoreo en producción con Decision Engine y VCR Calculator.",
+
         qasl_desc: "Plataforma unificada enterprise que integra análisis estático de HUs (SIGMA Analyzer), E2E (Playwright), API (Newman), Performance (K6) y Security (OWASP ZAP) con observabilidad completa en Grafana, InfluxDB y Loki.",
-        
+
         ingrid_desc: "Framework profesional para testing automatizado de chatbots y sistemas LLM basado en OWASP LLM Top 10 2025 y metodología LLM-as-Judge (Claude como evaluador). Pionero en AI Testing con enfoque en seguridad y calidad de respuestas.",
 
         impact_title: "Impacto Demostrable",
@@ -33,8 +36,8 @@ const translations = {
         skill_automation: "Automatización E2E",
         skill_performance: "Performance & Observability",
         skill_security: "Security Testing",
-        skill_ai: "AI/LLM Testing",
-        skill_api: "API Testing",
+        skill_ai: "AI/LLM & Chatbot Testing",
+        skill_api: "API Testing & MCP",
         skill_cicd: "CI/CD & DevOps",
         skill_management: "Gestión & QA",
         skill_standards: "Estándares & Metodología",
@@ -53,10 +56,11 @@ const translations = {
         // Hero Section
         hero_name: "Elyer Gregorio Maldonado",
         hero_title: "QA Tech Lead & Test Automation Architect",
-        hero_subtitle: "Specialized in Shift-Left Testing, AI/LLM Testing, and QA Observability",
+        hero_subtitle: "Specialized in Shift-Left Testing, Multi-LLM QA Platforms, AI/LLM Testing, and QA Observability",
         stat_experience: "Years of experience",
-        stat_reduction: "Defect reduction",
-        stat_coverage: "Automated coverage",
+        stat_microservices: "QA Microservices",
+        stat_testcases: "Test Cases Generated",
+        stat_coverage: "E2E Pass Rate",
         contact: "Contact",
 
         // About Section
@@ -68,8 +72,10 @@ const translations = {
         featured_title: "Featured Projects",
         featured_intro: "Professional open-source frameworks demonstrating real innovation in QA automation and observability.",
         
+        nexus_desc: "First QA platform powered by advanced language models. 12 microservices integrating Claude Opus 4.6, Sonnet 4.5, and Gemini 2.5 Pro to automate the complete cycle: from requirements analysis to production monitoring with Decision Engine and VCR Calculator.",
+
         qasl_desc: "Enterprise unified platform integrating static analysis of User Stories (SIGMA Analyzer), E2E (Playwright), API (Newman), Performance (K6), and Security (OWASP ZAP) with complete observability in Grafana, InfluxDB, and Loki.",
-        
+
         ingrid_desc: "Professional framework for automated testing of chatbots and LLM systems based on OWASP LLM Top 10 2025 and LLM-as-Judge methodology (Claude as evaluator). Pioneer in AI Testing with focus on security and response quality.",
 
         impact_title: "Demonstrable Impact",
@@ -79,8 +85,8 @@ const translations = {
         skill_automation: "E2E Automation",
         skill_performance: "Performance & Observability",
         skill_security: "Security Testing",
-        skill_ai: "AI/LLM Testing",
-        skill_api: "API Testing",
+        skill_ai: "AI/LLM & Chatbot Testing",
+        skill_api: "API Testing & MCP",
         skill_cicd: "CI/CD & DevOps",
         skill_management: "Management & QA",
         skill_standards: "Standards & Methodology",

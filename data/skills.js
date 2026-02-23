@@ -1,33 +1,48 @@
-// Datos de las habilidades
-const skillDescriptions = {
+// Datos de las habilidades - match con data-skill del HTML
+window.skillDescriptions = {
     'automation': {
-        title: 'Automatización de Pruebas',
-        description: 'Especialización en la automatización de pruebas de interfaz de usuario y rendimiento.',
-        examples: 'Experiencia con: Playwright para pruebas E2E, Cucumber para BDD, JMeter para pruebas de carga.'
+        title: 'Automatización E2E',
+        description: 'Especialización en automatización de pruebas end-to-end con frameworks enterprise. Experiencia construyendo frameworks avanzados con auth handling, network interception y parallel execution.',
+        examples: 'Playwright (TypeScript/Python), Page Object Model, BDD/Cucumber, Sistema de 11 niveles de selectores, QASL Framework con 6 fases Shift-Left.'
     },
-    'ciCd': {
-        title: 'CI/CD Tools',
-        description: 'Implementación y mantenimiento de pipelines de integración y despliegue continuo.',
-        examples: 'Configuración de flujos automatizados en Jenkins, GitHub Actions, GitLab CI y CircleCI.'
+    'performance': {
+        title: 'Performance & Observability',
+        description: 'Testing de rendimiento y observabilidad completa del ecosistema QA. Dashboards en tiempo real con métricas de E2E, API, Performance y Security.',
+        examples: 'K6 (Performance), JMeter (Load & Stress), Grafana (Dashboards), InfluxDB (Time-series), Prometheus (Métricas), New Relic (APM & Monitoring).'
     },
-    'testing': {
-        title: 'Testing Integral',
-        description: 'Enfoque completo en pruebas funcionales y no funcionales para asegurar la calidad del software.',
-        examples: 'Diseño de casos de prueba, ejecución de pruebas de regresión, pruebas de rendimiento y seguridad.'
+    'security': {
+        title: 'Security Testing',
+        description: 'Testing de seguridad tanto para aplicaciones web como para sistemas LLM. Cobertura OWASP Top 10 y OWASP LLM Top 10 2025.',
+        examples: 'OWASP ZAP (Pen Testing), Garak/NVIDIA NeMo (LLM Vulnerability Scanner), Prompt Injection Testing, Jailbreak Detection, PII Exposure.'
     },
-    'databases': {
-        title: 'Gestión de Bases de Datos',
-        description: 'Experiencia en pruebas y validación de datos en diferentes sistemas de gestión de bases de datos.',
-        examples: 'Consultas SQL complejas, validación de integridad de datos, pruebas de migración.'
+    'ai': {
+        title: 'AI/LLM Testing',
+        description: 'Testing avanzado de sistemas de inteligencia artificial con metodología Multi-LLM. Decision Engine con Claude Opus, Sonnet y Gemini.',
+        examples: 'Claude API (LLM-as-Judge), Multi-LLM Decision Engine (Opus 4.6 + Sonnet 4.5 + Gemini 2.5 Pro), INGRID Framework, Garak Red-Teaming, VCR Calculator.'
     },
-    'testManagement': {
-        title: 'Gestión de Pruebas',
-        description: 'Coordinación y seguimiento de actividades de testing usando herramientas especializadas.',
-        examples: 'Gestión de casos de prueba en JIRA, integración con Xray para trazabilidad completa.'
+    'api': {
+        title: 'API Testing',
+        description: 'Testing integral de APIs REST/SOAP con automatización completa y métricas de rendimiento. Contract testing y validación de seguridad.',
+        examples: 'Postman/Newman, REST/SOAP, Contract Testing, OAuth/JWT Testing, API Performance con K6, MCP (Model Context Protocol) para integraciones.'
     },
-    'agile': {
-        title: 'Metodologías Ágiles',
-        description: 'Aplicación de principios ágiles en el proceso de testing y desarrollo.',
-        examples: 'Participación en ceremonias Scrum, gestión de tableros Kanban, planificación de sprints.'
+    'mobile': {
+        title: 'Mobile Testing',
+        description: 'Testing automatizado de apps Android con captura inteligente de selectores. QASL Inspector Mobile con 8 niveles de confianza y grabación en tiempo real.',
+        examples: 'Maestro (Android), QASL Inspector Mobile (8 niveles selectores), Claude Vision (AI UX/UI), Device Streaming WebSocket, Allure Reports, ADB.'
+    },
+    'cicd': {
+        title: 'CI/CD & DevOps',
+        description: 'Implementación de pipelines automatizados con quality gates. Containerización con Docker y orquestación de microservicios.',
+        examples: 'Docker/Docker Compose, GitLab CI Runner, GitHub Actions, Jenkins, Pipeline Automation con 12 microservicios, Allure Reports.'
+    },
+    'management': {
+        title: 'Gestión & QA',
+        description: 'Coordinación de actividades de testing con integraciones automatizadas. MCP Interface para conectar con herramientas de gestión enterprise.',
+        examples: 'JIRA + Xray, TestRail, Azure DevOps, Confluence, MCP (Model Context Protocol), Test Strategy Design, Risk-Based Testing.'
+    },
+    'standards': {
+        title: 'Estándares & Metodología',
+        description: 'Aplicación de estándares internacionales en QA. Metodología Shift-Left con análisis estático de requisitos antes del desarrollo.',
+        examples: 'ISTQB v4.0 Foundation, IEEE 829/830/1028, ISO/IEC/IEEE 29119, ISO/IEC 25010, Agile/Scrum, Shift-Left Testing con SIGMA Analyzer.'
     }
 };

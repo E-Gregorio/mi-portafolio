@@ -14,6 +14,7 @@
     --secondary-light: #1e293b;
     
     /* Accent Colors */
+    --accent-nexus: #6366f1;
     --accent-qasl: #10b981;
     --accent-ingrid: #8b5cf6;
     --accent-gold: #f59e0b;
@@ -387,14 +388,24 @@ body {
 
 .featured-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 1.5rem;
     margin-bottom: 3rem;
+}
+
+/* NEXUS card spans full width as hero project */
+.nexus-card {
+    grid-column: 1 / -1;
+    background: linear-gradient(135deg, #fefefe 0%, #f0f0ff 100%);
+    border: 2px solid rgba(99, 102, 241, 0.3);
 }
 
 @media (max-width: 1400px) {
     .featured-grid {
         grid-template-columns: repeat(2, 1fr);
+    }
+    .nexus-card {
+        grid-column: 1 / -1;
     }
 }
 
@@ -500,6 +511,77 @@ body {
 
 .unified-card .highlight i {
     color: #8b5cf6;
+}
+
+/* QASL NEXUS LLM Card Theme - Indigo/Cyan */
+.nexus-card::before {
+    background: linear-gradient(90deg, #6366f1, #06b6d4);
+}
+
+.nexus-card:hover {
+    border-color: #6366f1;
+}
+
+.nexus-icon {
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+}
+
+.nexus-card .highlight i {
+    color: #6366f1;
+}
+
+.badge-nexus {
+    background: linear-gradient(135deg, #6366f1, #4f46e5);
+    color: var(--white);
+}
+
+/* QASL NEXUS LLM Showcase */
+.nexus-showcase {
+    background: linear-gradient(145deg, #0f172a 0%, #1e1b4b 50%, #0c4a6e 100%);
+}
+
+.nexus-showcase::before {
+    background: linear-gradient(90deg, #6366f1, #06b6d4, #10b981);
+}
+
+.nexus-showcase .dashboard-header h4 {
+    color: #a5b4fc;
+}
+
+.nexus-showcase .dashboard-header h4 i {
+    color: #6366f1;
+}
+
+.nexus-showcase .metric-item:hover {
+    background: rgba(99, 102, 241, 0.1);
+}
+
+.nexus-showcase .dashboard-item:hover {
+    box-shadow: 0 25px 50px rgba(99, 102, 241, 0.2);
+    border-color: rgba(99, 102, 241, 0.3);
+}
+
+.nexus-showcase .dashboard-label span i {
+    color: #6366f1;
+}
+
+.nexus-showcase .unit-tests-info {
+    background: rgba(99, 102, 241, 0.05);
+    border-color: rgba(99, 102, 241, 0.15);
+    border-left-color: #6366f1;
+}
+
+.nexus-showcase .unit-tests-info h5 {
+    color: #6366f1;
+}
+
+.nexus-showcase .unit-test-files span:hover {
+    background: rgba(99, 102, 241, 0.1);
+    border-color: rgba(99, 102, 241, 0.3);
+}
+
+.nexus-showcase .unit-test-files span i {
+    color: #6366f1;
 }
 
 /* QASL-MOBILE Card Theme - Orange */
