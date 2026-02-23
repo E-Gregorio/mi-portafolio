@@ -403,7 +403,7 @@
         <div>
           <div class="skill-label">Performance & Observability</div>
           <div class="skill-value">
-            K6, JMeter, Grafana, InfluxDB, Prometheus, Loki, New Relic (APM & Monitoring), real-time metrics, executive dashboards
+            K6, JMeter, Grafana, InfluxDB, Prometheus, Loki, New Relic (APM & Monitoring), Soak Testing (memory leak detection), Stress Testing (race conditions, breaking points), real-time metrics, executive dashboards
           </div>
         </div>
         <div>
@@ -439,7 +439,7 @@
         <div>
           <div class="skill-label">CI/CD & DevOps</div>
           <div class="skill-value">
-            Docker, Docker Compose, Git/GitHub, GitLab CI, GitHub Actions, Jenkins, pipeline automation
+            Docker, Docker Compose, Git/GitHub, GitLab CI, GitLab Runner, GitHub Actions, Jenkins, pipeline automation, container orchestration
           </div>
         </div>
         <div>
@@ -502,6 +502,12 @@
           </li>
           <li>
             Created <strong>executive dashboards</strong> in Grafana with real-time metrics for technical and business stakeholders.
+          </li>
+          <li>
+            Designed and deployed <strong>complete QA infrastructure architecture with 2 dedicated VMs</strong> (29 tools): Automation VM (Playwright, Newman, GitLab Runner CI/CD) and Performance/Security VM (K6, JMeter, OWASP ZAP, Garak, MobSF) with <strong>5 Docker containers</strong> orchestrated via Compose (Grafana, Prometheus, InfluxDB). Project approved by Direction, Server Dept., and SOC.
+          </li>
+          <li>
+            Implemented <strong>Soak Testing</strong> (1-4h) for memory leak detection and long-term degradation, <strong>Stress Testing</strong> (1000+ VUs) to identify race conditions and system breaking points, with real-time monitoring.
           </li>
           <li>
             Mentored and coached 5+ junior/mid-level QA professionals in automation, test design, and AI Testing.
@@ -751,6 +757,31 @@
       </div>
     </section>
 
+    <!-- QA INFRASTRUCTURE ARCHITECTURE -->
+    <section class="section">
+      <div class="section-title">QA Infrastructure Architecture Project</div>
+
+      <div class="project-item">
+        <div class="project-name">Dual-VM Ecosystem – Complete QA Infrastructure <span class="project-badge">Infra + DevOps</span></div>
+        <p class="project-note">Client: Buenos Aires City Government agency (under confidentiality agreement)</p>
+        <p class="project-desc">
+          Design, proposal, and deployment of a complete QA infrastructure architecture for a Buenos Aires City Government agency. Dual-VM ecosystem with <strong>29 verified tools and services</strong>, approved by three departments: Quality Assurance Direction, Server Department, and Information Security (SOC). Complete professional documentation: 2 Technical Reports + 2 User Manuals.
+        </p>
+        <ul class="project-bullets">
+          <li><strong>Automation VM</strong> (4 vCPUs, 7.5 GiB RAM): Playwright (Chromium, Firefox, WebKit), Newman, Allure Reports, GitLab Runner (CI/CD), Docker CE + Compose — 12 tools for E2E, API, and automated pipelines</li>
+          <li><strong>Performance & Security VM</strong> (8 vCPUs, 15 GiB RAM): K6, JMeter, OWASP ZAP, Garak, MobSF + full monitoring stack — 17 tools for non-functional testing</li>
+          <li><strong>5 Docker containers</strong> orchestrated with Docker Compose: Grafana (:3000), Prometheus (:9091), InfluxDB (:8086), Node Exporter (:9100), MobSF (:8000)</li>
+          <li><strong>Soak Testing</strong> (1-4 hours, 50-100 VUs): memory leak detection and long-term performance degradation analysis</li>
+          <li><strong>Stress Testing</strong> (200-1000+ concurrent VUs): identification of race conditions, async timing issues, and system breaking points</li>
+          <li><strong>Real-time monitoring</strong>: Grafana dashboards with Prometheus + InfluxDB metrics, latency visualization (p50, p90, p99), throughput and error tracking during execution</li>
+          <li><strong>Complete security testing</strong>: OWASP ZAP (SQLi, XSS, CSRF), MobSF (static APK/IPA analysis), Garak (LLM model security)</li>
+        </ul>
+        <div class="project-tech">
+          <strong>Stack:</strong> RHEL 10.1, Docker CE, Docker Compose, K6, JMeter, OWASP ZAP, Garak, MobSF, Grafana, Prometheus, InfluxDB, Node Exporter, Playwright, Newman, Allure, GitLab Runner, Node.js, Python, Java 21
+        </div>
+      </div>
+    </section>
+
     <!-- METHODOLOGY -->
     <section class="section">
       <div class="section-title">Methodology</div>
@@ -792,7 +823,7 @@
       <div class="section-title">Languages</div>
       <ul class="lang-list">
         <li><strong>Spanish:</strong> Native</li>
-        <li><strong>English:</strong> Professional / B2+ (technical reading, writing, conversation in progress)</li>
+        <li><strong>English:</strong> Advanced technical reading (documentation, frameworks, logs, code). Technical writing assisted by professional translation tools. Oral communication actively developing.</li>
       </ul>
     </section>
 
