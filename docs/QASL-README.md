@@ -316,7 +316,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **Elyer Gregorio Maldonado**
 
-- LinkedIn: [@elyer-maldonado](https://www.linkedin.com/in/elyer-maldonado)
+- LinkedIn: [@elyergregorio](https://www.linkedin.com/in/elyergregorio)
 - GitHub: [@E-Gregorio](https://github.com/E-Gregorio)
 - Email: elyer.g.maldonado@gmail.com
 
