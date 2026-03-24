@@ -741,6 +741,73 @@
                         </span>
                     </div>
                 </div>
+
+                <!-- QASL-BACKEND-LIVE-SCANNER -->
+                <div class="featured-card scanner-card">
+                    <div class="featured-header">
+                        <div class="featured-icon" style="background: linear-gradient(135deg, #00ff88, #00d4aa);">
+                            <i class="fas fa-radar"></i>
+                        </div>
+                        <div>
+                            <h3>QASL-BACKEND-LIVE-SCANNER</h3>
+                            <p class="featured-subtitle">Integration Discovery Engine from Playwright HAR</p>
+                        </div>
+                    </div>
+
+                    <div class="featured-badges">
+                        <span class="badge badge-primary">Production 2026</span>
+                        <span class="badge badge-tech">Grafana 11.4</span>
+                        <span class="badge badge-tech">30 Paneles</span>
+                        <span class="badge badge-innovation">Integration Discovery</span>
+                    </div>
+
+                    <p class="featured-description">
+                        Analiza archivos <strong>.har</strong> generados por Playwright E2E y descubre autom&aacute;ticamente todas las
+                        <strong>integraciones cross-system</strong>, genera Health Score, veredicto de release y un
+                        <strong>dashboard Grafana con tablero de control visual</strong> en tiempo real.
+                    </p>
+
+                    <div class="featured-highlights">
+                        <div class="highlight">
+                            <i class="fas fa-heartbeat"></i>
+                            <span><strong>Health Score 0-100</strong> basado en severidad de integraciones detectadas</span>
+                        </div>
+                        <div class="highlight">
+                            <i class="fas fa-chart-line"></i>
+                            <span><strong>30 Paneles Grafana</strong> con Modo TV/Kiosk para salas de monitoreo</span>
+                        </div>
+                        <div class="highlight">
+                            <i class="fas fa-project-diagram"></i>
+                            <span><strong>Tablero de Control SVG</strong> animado con flujo E2E en tiempo real</span>
+                        </div>
+                        <div class="highlight">
+                            <i class="fas fa-gavel"></i>
+                            <span><strong>Veredicto Release</strong>: APROBADO / OBSERVACIONES / RIESGO ALTO</span>
+                        </div>
+                    </div>
+
+                    <div class="featured-tech-stack">
+                        <strong>Stack:</strong>
+                        <div class="tech-tags">
+                            <span>Node.js</span>
+                            <span>Playwright HAR</span>
+                            <span>Grafana 11.4</span>
+                            <span>Express.js</span>
+                            <span>Docker</span>
+                            <span>Infinity Plugin</span>
+                            <span>SVG Animations</span>
+                        </div>
+                    </div>
+
+                    <div class="featured-actions">
+                        <a href="https://github.com/E-Gregorio/qasl-backend-live-scanner" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                            <i class="fab fa-github"></i> Ver en GitHub
+                        </a>
+                        <a href="https://www.linkedin.com/in/elyergregorio" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-demo">
+                            <i class="fas fa-video"></i> Solicitar Demo
+                        </a>
+                    </div>
+                </div>
             </div>
 
             <!-- QASL NEXUS LLM DASHBOARD SHOWCASE - New Relic -->
@@ -1255,6 +1322,60 @@
                     <br><br>
                     <a href="docs/INGRID-Report-2025-12-19.pdf" target="_blank" class="btn btn-secondary" style="margin-top: 1rem;">
                         <i class="fas fa-file-pdf"></i> Descargar Reporte Completo (PDF)
+                    </a>
+                </div>
+            </div>
+
+            <!-- QASL-BACKEND-LIVE-SCANNER DASHBOARD SHOWCASE -->
+            <div class="dashboard-showcase scanner-showcase" style="background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #0d1117 100%); border: 1px solid #00ff88;">
+                <div class="dashboard-header">
+                    <h4 style="color: #00ff88;"><i class="fas fa-radar"></i> QASL-BACKEND-LIVE-SCANNER - Dashboard Grafana</h4>
+                    <p>Integration Discovery Engine - Health Score, Integraciones y Tablero de Control en tiempo real</p>
+                </div>
+
+                <!-- Metrics Summary -->
+                <div class="metrics-summary">
+                    <div class="metric-item">
+                        <span class="metric-value" style="color: #00ff88;">75</span>
+                        <span class="metric-label">Requests</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-value success">73</span>
+                        <span class="metric-label">Exitosos 2xx</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-value warning">6</span>
+                        <span class="metric-label">Integraciones</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-value info">50</span>
+                        <span class="metric-label">Health Score</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-value" style="color: #00ff88;">203ms</span>
+                        <span class="metric-label">Latencia Prom.</span>
+                    </div>
+                </div>
+
+                <!-- Dashboard Gallery -->
+                <div class="dashboard-gallery">
+                    <div class="dashboard-item" onclick="openLightbox('img/qasl-scanner/grafana-panel-1.png')">
+                        <img src="img/qasl-scanner/grafana-panel-1.png" alt="QASL Scanner - Health Score y KPIs" loading="lazy">
+                        <div class="dashboard-label">
+                            <span><i class="fas fa-heartbeat"></i> Health Score, KPIs y Performance</span>
+                        </div>
+                    </div>
+                    <div class="dashboard-item" onclick="openLightbox('img/qasl-scanner/grafana-panel-2.png')">
+                        <img src="img/qasl-scanner/grafana-panel-2.png" alt="QASL Scanner - Integraciones y Tablero de Control" loading="lazy">
+                        <div class="dashboard-label">
+                            <span><i class="fas fa-project-diagram"></i> Integraciones y Tablero de Control SVG</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin-top: 1.5rem;">
+                    <a href="https://github.com/E-Gregorio/qasl-backend-live-scanner" target="_blank" class="btn btn-primary" style="background: #00ff88; color: #000;">
+                        <i class="fab fa-github"></i> Ver en GitHub
                     </a>
                 </div>
             </div>
