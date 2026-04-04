@@ -559,6 +559,46 @@
             transform: scaleY(1)
         }
 
+        /* PROJECT WITH IMAGE */
+        .project.with-image {
+            grid-template-columns: 1fr 280px auto;
+            align-items: start
+        }
+
+        .proj-image {
+            width: 280px;
+            height: 160px;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 12px rgba(0,0,0,.08);
+            transition: all .25s
+        }
+
+        .proj-image:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 24px rgba(45,91,255,.15)
+        }
+
+        .proj-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top left
+        }
+
+        @media (max-width: 900px) {
+            .project.with-image {
+                grid-template-columns: 1fr;
+                gap: 16px
+            }
+            .proj-image {
+                width: 100%;
+                height: auto;
+                max-height: 200px
+            }
+        }
+
         .proj-badges {
             display: flex;
             gap: 6px;
@@ -1249,7 +1289,7 @@
                 </div>
             </div>
 
-            <div class="project">
+            <div class="project with-image">
                 <div>
                     <div class="proj-badges"><span class="badge b-amber">LLM Testing</span><span
                             class="badge b-green">OWASP LLM 7/10</span><span class="badge b-purple">AI Assistant</span>
@@ -1266,6 +1306,9 @@
                             class="tech">Grafana</span><span class="tech">Prometheus</span><span class="tech">NIST AI
                             RMF</span></div>
                 </div>
+                <div class="proj-image">
+                    <img src="img/ingrid-dashboard-main.png" alt="INGRID v2.0 Dashboard - LLM Testing Framework" loading="lazy">
+                </div>
                 <div class="proj-cta">
                     <a href="https://github.com/E-Gregorio/ingrid-AI-framework" target="_blank" rel="noopener"
                         class="link-btn">Ver repositorio &rarr;</a>
@@ -1273,7 +1316,7 @@
                 </div>
             </div>
 
-            <div class="project">
+            <div class="project with-image">
                 <div>
                     <div class="proj-badges"><span class="badge b-purple">MLOps QA</span><span
                             class="badge b-green">Health Score 88/100</span><span
@@ -1289,6 +1332,9 @@
                             API</span><span class="tech">Grafana</span><span class="tech">InfluxDB</span><span
                             class="tech">Docker</span><span class="tech">Node.js</span></div>
                 </div>
+                <div class="proj-image">
+                    <img src="img/monitor-dashboard-unificado.png" alt="QASL Dashboard Unificado - MLOps Layer" loading="lazy">
+                </div>
                 <div class="proj-cta">
                     <a href="https://github.com/E-Gregorio/QASL-NEXUS-LLM" target="_blank" rel="noopener"
                         class="link-btn">Ver repositorio &rarr;</a>
@@ -1296,7 +1342,7 @@
                 </div>
             </div>
 
-            <div class="project">
+            <div class="project with-image">
                 <div>
                     <div class="proj-badges"><span class="badge b-blue">Command Center</span><span
                             class="badge b-red">DEFCON DC-1 a DC-5</span></div>
@@ -1311,6 +1357,9 @@
                             class="tech">Grafana</span><span class="tech">Prometheus</span><span
                             class="tech">InfluxDB</span><span class="tech">PDFKit</span></div>
                 </div>
+                <div class="proj-image">
+                    <img src="img/monitor-owasp-llm.png" alt="OWASP LLM Top 10 2025 - Security Tests" loading="lazy">
+                </div>
                 <div class="proj-cta">
                     <a href="https://github.com/E-Gregorio/QASL-SENTINEL-UNIFIED" target="_blank" rel="noopener"
                         class="link-btn">Ver repositorio &rarr;</a>
@@ -1318,7 +1367,7 @@
                 </div>
             </div>
 
-            <div class="project">
+            <div class="project with-image">
                 <div>
                     <div class="proj-badges"><span class="badge b-blue">API Cinematogr&aacute;fico</span><span
                             class="badge b-dark">Producci&oacute;n</span></div>
@@ -1333,6 +1382,9 @@
                             class="tech">WebSocket</span><span class="tech">Grafana</span><span
                             class="tech">Express.js</span><span class="tech">Docker</span><span class="tech">SVG
                             Animations</span></div>
+                </div>
+                <div class="proj-image">
+                    <img src="img/monitor-ai-assistant.png" alt="AI Assistant - Tu Experto en QA powered by Claude" loading="lazy">
                 </div>
                 <div class="proj-cta">
                     <a href="https://github.com/E-Gregorio/QASL-BAKEND-LIVE" target="_blank" rel="noopener"
