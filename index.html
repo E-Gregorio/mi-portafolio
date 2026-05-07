@@ -14,7 +14,10 @@
 <meta property="og:title" content="Elyer Gregorio Maldonado — QA Tool Author">
 <meta property="og:description" content="QA Tech Lead · Tool Author · AI/LLM Testing Architect. Ecosistema QASL con 4 algoritmos forenses propios.">
 <meta property="og:url" content="https://e-gregorio.github.io/mi-portafolio/">
+<meta property="og:image" content="https://e-gregorio.github.io/mi-portafolio/img/ingrid-dashboard-main.png">
+<meta property="og:image:alt" content="QASL Ecosystem — dashboards y reportes forenses">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://e-gregorio.github.io/mi-portafolio/img/ingrid-dashboard-main.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -133,6 +136,36 @@ body::before {
   transition: background .15s;
 }
 .cta-mini:hover { background: var(--accent); }
+
+.nav-toggle {
+  display: none;
+  margin-left: auto;
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  border: 1px solid var(--rule);
+  background: var(--paper-2);
+  color: var(--ink);
+  box-shadow: var(--shadow-sm);
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.nav-toggle:hover { border-color: var(--rule-strong); }
+.nav-toggle .bars {
+  width: 18px; height: 12px; position: relative; display: inline-block;
+}
+.nav-toggle .bars::before,
+.nav-toggle .bars::after,
+.nav-toggle .bars span {
+  content: "";
+  position: absolute; left: 0; right: 0;
+  height: 2px; background: var(--ink);
+  border-radius: 2px;
+}
+.nav-toggle .bars::before { top: 0; }
+.nav-toggle .bars span { top: 5px; }
+.nav-toggle .bars::after { bottom: 0; }
 
 /* ─── HERO ────────────────────────────────────────────────── */
 .hero {
@@ -1508,7 +1541,31 @@ body::before {
 }
 @media (max-width: 720px) {
   .container { padding: 0 20px; }
-  .topnav { display: none; }
+  .nav-toggle { display: inline-flex; }
+  .cta-mini { display: none; }
+  .topbar { position: relative; }
+  .topnav {
+    display: none;
+    position: absolute;
+    left: 0; right: 0;
+    top: calc(100% + 12px);
+    margin-left: 0;
+    padding: 14px 14px;
+    background: var(--paper-2);
+    border: 1px solid var(--rule);
+    border-radius: 12px;
+    box-shadow: var(--shadow-md);
+    flex-direction: column;
+    gap: 14px;
+    z-index: 50;
+  }
+  .topnav.is-open { display: flex; }
+  .topnav a {
+    font-size: 12px;
+    padding: 10px 10px;
+    border-radius: 10px;
+    background: rgba(20,17,15,.02);
+  }
   .eco-canvas { padding: 36px 22px; }
   .proof-bar { grid-template-columns: 1fr; }
   .eco-card.framework, .layer-mathcore .eco-card { padding: 20px; }
@@ -1543,7 +1600,10 @@ body::before {
   <header class="topbar">
     <span class="brand-mark">EM</span>
     <span class="brand-name">Elyer Gregorio Maldonado<span class="role">— QA Tool Author</span></span>
-    <nav class="topnav">
+    <button class="nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="topnav">
+      <span class="bars"><span></span></span>
+    </button>
+    <nav class="topnav" id="topnav">
       <a href="#ecosistema">Ecosistema</a>
       <a href="#flagship">Flagship</a>
       <a href="#marco-normativo">Marco Normativo</a>
@@ -2569,6 +2629,31 @@ body::before {
 
       <div class="eco-extra-item">
         <div class="eco-extra-left">
+          <div class="eco-extra-name">QASL · <em>AFQI</em></div>
+          <div class="eco-extra-domain">Open Source · AI Forensic Quality Index</div>
+        </div>
+        <div>
+          <p class="eco-extra-desc">
+            Algoritmo forense para auditar sistemas AI/LLM como <strong>sistema</strong> (no solo outputs).
+            Emite un veredicto <strong>0–100</strong> con causa raíz y recomendación, evaluando D1+D2+D3 y
+            penalizando riesgo (Λ) sin promediar.
+          </p>
+          <div class="eco-extra-stack">
+            <span class="pill">Python 3.10+</span>
+            <span class="pill">numpy</span>
+            <span class="pill">OWASP LLM Top 10</span>
+            <span class="pill">NIST AI RMF</span>
+          </div>
+        </div>
+        <div class="eco-extra-right">
+          <span class="eco-extra-status"><span class="dot dot-public"></span> Público · GitHub</span>
+          <a href="https://github.com/E-Gregorio/qasl-afqi" target="_blank" rel="noopener"
+             class="eco-extra-cta">Ver repo →</a>
+        </div>
+      </div>
+
+      <div class="eco-extra-item">
+        <div class="eco-extra-left">
           <div class="eco-extra-name">QASL · <em>TOMEX</em></div>
           <div class="eco-extra-domain">Autonomous AI Scanner</div>
         </div>
@@ -2801,6 +2886,34 @@ body::before {
   </section>
 
 </div>
+
+<script>
+(() => {
+  const nav = document.getElementById('topnav');
+  const btn = document.querySelector('.nav-toggle');
+  if (!nav || !btn) return;
+
+  const close = () => {
+    nav.classList.remove('is-open');
+    btn.setAttribute('aria-expanded', 'false');
+  };
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = nav.classList.toggle('is-open');
+    btn.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!nav.classList.contains('is-open')) return;
+    if (e.target.closest('.topbar')) return;
+    close();
+  });
+
+  nav.querySelectorAll('a').forEach((a) => a.addEventListener('click', close));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
+})();
+</script>
 
 </body>
 </html>
