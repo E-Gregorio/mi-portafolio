@@ -2093,9 +2093,12 @@ body::before {
           <strong>No es un agregador de scanners</strong> (eso lo hacen DefectDojo o Dependency-Track).
           Es la capa de interpretación forense que se monta encima: convierte una bolsa ruidosa de findings
           (Semgrep · Trivy · OWASP-ZAP · gitleaks · Checkov) en un score
-          <strong>0-100 con grado A/B/C/D/F</strong> sobre 3 dimensiones (Static · Dependencies · Runtime),
-          entregando dos PDFs separados por audiencia: Executive (3pp) y
-          <em>Dictamen Forense pericial</em> (1p firmable).
+          <strong>0-100 con grado A/B/C/D/F</strong> sobre 3 dimensiones forenses
+          (Static · Dependencies · Runtime). Stack completo de operación: <strong>FastAPI Normalizer</strong>
+          con Swagger UI interactivo y contrato OpenAPI 3.1, <strong>PostgreSQL 16</strong> como single source
+          of truth, <strong>3 dashboards Grafana auto-provisionados</strong> al arranque, y un PDF Generator
+          que entrega dos documentos separados por audiencia: <strong>Executive Report</strong> (3pp · CISOs y
+          management) y <em>Dictamen Forense pericial</em> (1p firmable · auditores y compliance).
         </p>
 
         <figure class="flagship-hero" style="background:#f3ece0;">
@@ -2155,18 +2158,33 @@ body::before {
         <div class="flagship-thumbnails">
           <figure>
             <img src="img/flagships/testsec-executive-report.png"
-                 alt="Executive Report 3 páginas estilo INGRID corporate">
-            <figcaption>EXECUTIVE REPORT · 3PP · INGRID CORPORATE</figcaption>
+                 alt="Executive Report 3 páginas — INGRID corporate style">
+            <figcaption>EXECUTIVE REPORT · 3PP · INGRID CORPORATE · CISO/MANAGEMENT</figcaption>
+          </figure>
+          <figure>
+            <img src="img/flagships/testsec-dashboards-folder.png"
+                 alt="Folder Grafana — 3 dashboards auto-provisionados al arranque">
+            <figcaption>GRAFANA · FOLDER VIEW · 3 DASHBOARDS · AUTO-PROVISIONED</figcaption>
+          </figure>
+          <figure>
+            <img src="img/flagships/testsec-grafana-executive.png"
+                 alt="Executive Overview dashboard — KPIs, donut, CFQI per project, 30-day trend">
+            <figcaption>GRAFANA · EXECUTIVE · 4 SEVERITY KPIS · CFQI PER PROJECT · 30D TREND</figcaption>
           </figure>
           <figure>
             <img src="img/flagships/testsec-grafana-forensic.png"
                  alt="CFQI Forensic Analysis dashboard — 4 gauges D1/D2/D3 + audit table">
-            <figcaption>GRAFANA · CFQI FORENSIC · 4 GAUGES · AUDIT TABLE</figcaption>
+            <figcaption>GRAFANA · CFQI FORENSIC · 4 GAUGES · AUDIT TABLE PER PROJECT</figcaption>
           </figure>
           <figure>
             <img src="img/flagships/testsec-grafana-owasp.png"
                  alt="OWASP Top 10 Coverage & Remediation SLA dashboard">
-            <figcaption>GRAFANA · OWASP TOP 10 · MTTR · SLA TRACKING</figcaption>
+            <figcaption>GRAFANA · OWASP TOP 10 · CRITICALS · MTTR · SLA TRACKING</figcaption>
+          </figure>
+          <figure>
+            <img src="img/flagships/testsec-swagger-ui.png"
+                 alt="FastAPI Normalizer — Swagger UI interactivo">
+            <figcaption>FASTAPI NORMALIZER · SWAGGER UI · 6 ENDPOINTS · OPENAPI 3.1</figcaption>
           </figure>
         </div>
 
