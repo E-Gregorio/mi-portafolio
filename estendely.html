@@ -1,0 +1,2694 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Estendely — Del requerimiento al dictamen · QA Forense para sistemas con IA</title>
+<meta name="description" content="Estendely · Quality Assurance Shift-Left con dictamen forense técnico firmable. Greenfield · Re-engineering · Sistemas críticos · AI/LLM. Powered by QASL Ecosystem.">
+<meta name="author" content="Elyer Gregorio Maldonado">
+<meta name="keywords" content="QA Forense, Quality Assurance Shift-Left, AI/LLM Testing, Re-engineering, Dictamen Forense, OWASP LLM Top 10, ISO 29119, ISTQB, QASL, Estendely, QASL Test Security">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='14' fill='%2314110F'/><text y='72' x='50' text-anchor='middle' font-size='58' fill='%23FAF6F0' font-family='Georgia, serif' font-weight='bold' font-style='italic'>E</text></svg>">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Estendely — Del requerimiento al dictamen">
+<meta property="og:description" content="QA Forense para sistemas con IA. Auditoría con dictamen forense técnico firmable. ISTQB v4 · ISO 29119 · OWASP LLM Top 10.">
+<meta property="og:url" content="https://e-gregorio.github.io/mi-portafolio/estendely.html">
+<meta property="og:image" content="https://e-gregorio.github.io/mi-portafolio/img/flagships/testsec-dictamen-forense.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500;1,6..72,600;1,6..72,700&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --paper:         #FAF6F0;
+  --paper-2:       #FFFFFF;
+  --paper-3:       #F3ECE0;
+  --ink:           #14110F;
+  --ink-2:         #2A2520;
+  --ink-3:         #3D3530;
+  --rule:          #E5DCCB;
+  --rule-strong:   #C9BBA8;
+  --rule-dark:     rgba(255,255,255,.10);
+  --rule-dark-strong: rgba(255,255,255,.20);
+  --text-1:        #14110F;
+  --text-2:        #524A40;
+  --text-3:        #8B8170;
+  --text-on-dark-1: #FAF6F0;
+  --text-on-dark-2: rgba(250,246,240,.72);
+  --text-on-dark-3: rgba(250,246,240,.45);
+  --accent:        #B33A1F;
+  --accent-2:      #8E2A12;
+  --accent-soft:   #FBEEE7;
+  --accent-glow:   rgba(179,58,31,0.28);
+  --gold:          #B8860B;
+  --gold-2:        #946B07;
+  --gold-soft:     #FBF4E3;
+
+  --c-mathcore:    #1F3A5F;
+  --c-mathcore-soft: #E5ECF4;
+  --c-ingrid:      #6B3FA0;
+  --c-ingrid-soft: #EFE8F7;
+  --c-testsec:     #2D5F3F;
+  --c-testsec-soft:#E8F0E9;
+  --c-framework:   #B33A1F;
+  --c-framework-soft:#FBEEE7;
+
+  --serif: 'Newsreader', Georgia, serif;
+  --sans:  'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono:  'JetBrains Mono', 'SF Mono', Consolas, monospace;
+
+  --shadow-sm: 0 1px 2px rgba(20,17,15,.04), 0 0 0 1px rgba(20,17,15,.04);
+  --shadow-md: 0 8px 20px -4px rgba(20,17,15,.10), 0 0 0 1px rgba(20,17,15,.05);
+  --shadow-lg: 0 24px 60px -12px rgba(20,17,15,.20), 0 0 0 1px rgba(20,17,15,.06);
+  --shadow-xl: 0 40px 80px -20px rgba(20,17,15,.40), 0 0 0 1px rgba(20,17,15,.10);
+  --shadow-doc: 0 30px 80px -10px rgba(0,0,0,0.55), 0 12px 30px -8px rgba(0,0,0,0.4);
+}
+
+html, body {
+  background: var(--paper);
+  color: var(--text-1);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+}
+
+.serif { font-family: var(--serif); }
+.mono  { font-family: var(--mono); }
+
+a { color: inherit; }
+
+/* ─── ANIMATIONS ──────────────────────────────────────── */
+@keyframes float-doc {
+  0%, 100% { transform: rotate(-3deg) translateY(0); }
+  50%      { transform: rotate(-3deg) translateY(-10px); }
+}
+@keyframes float-card {
+  0%, 100% { transform: rotate(2.5deg) translateY(0); }
+  50%      { transform: rotate(2.5deg) translateY(8px); }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fade-up .8s ease-out backwards; }
+.fade-up.delay-1 { animation-delay: .1s; }
+.fade-up.delay-2 { animation-delay: .25s; }
+.fade-up.delay-3 { animation-delay: .4s; }
+.fade-up.delay-4 { animation-delay: .55s; }
+
+/* ─── LAYOUT ──────────────────────────────────────────── */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+  position: relative;
+  z-index: 2;
+}
+
+/* ─── BANDS (full-width sections) ─────────────────────── */
+.band-light  { background: var(--paper);   color: var(--text-1); position: relative; }
+.band-dark   { background: var(--ink);     color: var(--text-on-dark-1); position: relative; }
+.band-paper2 { background: var(--paper-2); color: var(--text-1); position: relative; }
+
+.band-dark .grid-bg::before,
+.band-light .grid-bg::before {
+  content: ""; position: absolute; inset: 0;
+  pointer-events: none; z-index: 1;
+}
+.band-dark .grid-bg::before {
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,.05) 1px, transparent 0);
+  background-size: 26px 26px;
+}
+.band-light .grid-bg::before {
+  background-image: radial-gradient(circle at 1px 1px, rgba(20,17,15,.05) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* ─── TOPBAR ──────────────────────────────────────────── */
+.topbar-band {
+  background: var(--ink);
+  border-bottom: 1px solid var(--rule-dark);
+}
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 18px 0;
+  color: var(--text-on-dark-1);
+}
+.brand-mark {
+  width: 38px; height: 38px;
+  background: var(--accent); color: #fff;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-weight: 700; font-style: italic;
+  font-size: 22px;
+  border-radius: 8px;
+  box-shadow: 0 0 20px var(--accent-glow);
+}
+.brand-name {
+  font-family: var(--serif); font-weight: 600;
+  font-size: 19px; letter-spacing: -0.01em; color: #fff;
+}
+.brand-name .role {
+  color: var(--text-on-dark-3); font-style: italic; font-weight: 400;
+  font-size: 13px;
+  margin-left: 8px;
+}
+.topnav {
+  display: flex; gap: 26px; margin-left: auto;
+  font-family: var(--mono); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase;
+}
+.topnav a {
+  color: var(--text-on-dark-2); text-decoration: none;
+  padding-bottom: 2px; border-bottom: 1px solid transparent;
+  transition: color .15s, border-color .15s;
+}
+.topnav a:hover { color: #fff; border-bottom-color: var(--accent); }
+
+.lang-toggle {
+  display: inline-flex;
+  margin-left: 18px;
+  border: 1px solid var(--rule-dark-strong);
+  border-radius: 999px;
+  overflow: hidden;
+  font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.12em;
+}
+.lang-toggle button {
+  background: transparent;
+  color: var(--text-on-dark-2);
+  border: 0;
+  padding: 7px 11px;
+  cursor: pointer;
+  font: inherit;
+  letter-spacing: inherit;
+}
+.lang-toggle button.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+.cta-mini {
+  margin-left: 14px;
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: #fff; background: var(--accent);
+  padding: 9px 18px; border-radius: 999px;
+  text-decoration: none;
+  transition: background .15s, transform .15s;
+}
+.cta-mini:hover { background: var(--accent-2); transform: translateY(-1px); }
+
+/* ─── HERO (DARK, DRAMATIC) ───────────────────────────── */
+.hero-band {
+  background: var(--ink);
+  background-image:
+    radial-gradient(ellipse 800px 600px at 20% 20%, rgba(179,58,31,0.10), transparent 60%),
+    radial-gradient(ellipse 600px 500px at 80% 100%, rgba(184,134,11,0.06), transparent 60%);
+  border-bottom: 1px solid var(--rule-dark);
+  overflow: hidden;
+}
+.hero {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 48px;
+  align-items: center;
+  padding: 100px 0 110px;
+  position: relative;
+}
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 14px;
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 36px;
+}
+.hero-eyebrow::before {
+  content: ""; display: inline-block;
+  width: 40px; height: 1.5px; background: var(--accent);
+}
+.hero-eyebrow::after {
+  content: "EST · 2026 · BUENOS AIRES";
+  font-size: 10px; font-weight: 600;
+  color: var(--text-on-dark-3);
+  letter-spacing: 0.18em;
+  margin-left: 14px;
+  padding-left: 14px;
+  border-left: 1px solid var(--rule-dark-strong);
+}
+
+.hero-title {
+  font-family: var(--serif); font-weight: 500;
+  font-size: clamp(52px, 7.4vw, 112px);
+  line-height: 0.95; letter-spacing: -0.035em;
+  color: #fff;
+  margin-bottom: 36px;
+}
+.hero-title em {
+  font-style: italic; color: var(--accent); font-weight: 500;
+}
+.hero-title .gold-underline {
+  position: relative; display: inline-block; font-style: italic; font-weight: 500;
+  color: var(--gold-soft);
+}
+.hero-title .gold-underline::after {
+  content: ""; position: absolute;
+  left: 0; right: 0; bottom: 8px; height: 14px;
+  background: rgba(184,134,11,0.18); z-index: -1;
+}
+
+.hero-sub {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(18px, 1.4vw, 22px); line-height: 1.45;
+  color: var(--text-on-dark-2);
+  max-width: 580px; margin-bottom: 28px;
+  font-style: italic;
+}
+.hero-sub strong {
+  font-style: normal; font-weight: 600; color: #fff;
+}
+
+.hero-scope {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-bottom: 44px;
+}
+.scope-pill {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-on-dark-2);
+  background: rgba(255,255,255,0.04); border: 1px solid var(--rule-dark-strong);
+  padding: 8px 13px; border-radius: 999px;
+  backdrop-filter: blur(4px);
+}
+.scope-pill.is-hot {
+  color: var(--gold-soft);
+  border-color: rgba(184,134,11,0.35);
+  background: rgba(184,134,11,0.08);
+}
+
+.hero-ctas {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  align-items: center;
+}
+.btn-primary, .btn-ghost, .btn-light, .btn-ghost-dark {
+  font-family: var(--mono); font-size: 12px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  padding: 17px 28px; border-radius: 999px;
+  text-decoration: none;
+  transition: all .2s;
+  display: inline-flex; align-items: center; gap: 10px;
+  cursor: pointer; border: 0;
+  white-space: nowrap;
+}
+.btn-primary {
+  color: #fff; background: var(--accent);
+  box-shadow: 0 8px 28px -6px var(--accent-glow), 0 0 0 1px var(--accent);
+}
+.btn-primary:hover { background: var(--accent-2); transform: translateY(-2px); box-shadow: 0 14px 36px -8px var(--accent-glow); }
+.btn-ghost {
+  color: #fff; background: transparent;
+  border: 1.5px solid rgba(255,255,255,0.4);
+}
+.btn-ghost:hover { background: #fff; color: var(--ink); border-color: #fff; }
+.btn-light {
+  color: var(--ink); background: var(--paper);
+  border: 1.5px solid var(--paper);
+}
+.btn-light:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 14px 36px -8px rgba(255,255,255,0.2); }
+.btn-ghost-dark {
+  color: var(--ink); background: transparent;
+  border: 1.5px solid var(--ink);
+}
+.btn-ghost-dark:hover { background: var(--ink); color: #fff; }
+
+.hero-meta {
+  font-family: var(--mono); font-size: 10.5px;
+  color: var(--text-on-dark-3); letter-spacing: 0.06em;
+  margin-left: 6px;
+  display: inline-flex; gap: 6px; align-items: center;
+}
+.hero-meta::before {
+  content: "—"; color: var(--accent);
+}
+
+/* HERO RIGHT — floating dictamen + dashboard */
+.hero-stack {
+  position: relative;
+  width: 100%;
+  height: 540px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+}
+.floating-doc {
+  position: absolute;
+  width: 78%;
+  max-width: 380px;
+  top: 0;
+  right: 6%;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: var(--shadow-doc);
+  transform: rotate(-3deg);
+  animation: float-doc 7s ease-in-out infinite;
+  background: #fff;
+  z-index: 3;
+}
+.floating-doc img {
+  display: block; width: 100%; height: auto;
+}
+.floating-doc::after {
+  content: "DICTAMEN FORENSE · MUESTRA";
+  position: absolute; top: 14px; left: 14px;
+  font-family: var(--mono); font-size: 8.5px; font-weight: 700;
+  letter-spacing: 0.2em;
+  background: var(--ink); color: #fff;
+  padding: 5px 8px; border-radius: 3px;
+  z-index: 2;
+}
+.floating-card {
+  position: absolute;
+  width: 70%;
+  max-width: 320px;
+  bottom: 0;
+  left: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--shadow-doc);
+  transform: rotate(2.5deg);
+  animation: float-card 8s ease-in-out infinite;
+  background: var(--ink);
+  border: 1px solid var(--rule-dark-strong);
+  z-index: 2;
+}
+.floating-card img {
+  display: block; width: 100%; height: auto;
+}
+.floating-tag {
+  position: absolute;
+  bottom: -10px; right: 8%;
+  font-family: var(--mono); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--gold-soft);
+  background: var(--ink);
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(184,134,11,0.35);
+  z-index: 4;
+}
+
+/* ─── PROOF BAR ───────────────────────────────────────── */
+.proofbar-band {
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+}
+.proof-bar {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  padding: 56px 0 64px;
+}
+.proof-cell {
+  text-align: left;
+  padding: 0 28px;
+  position: relative;
+}
+.proof-cell + .proof-cell::before {
+  content: ""; position: absolute;
+  left: 0; top: 12px; bottom: 12px;
+  width: 1px; background: var(--rule);
+}
+.proof-num {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 84px; line-height: 0.9;
+  letter-spacing: -0.05em; color: var(--ink);
+  font-style: italic;
+}
+.proof-num sup {
+  font-size: 28px; vertical-align: super;
+  color: var(--accent); font-style: normal; font-weight: 600;
+  margin-left: 2px;
+}
+.proof-num .small {
+  font-size: 32px; font-style: normal; color: var(--text-2);
+}
+.proof-label {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--text-3); margin-top: 14px;
+  line-height: 1.4;
+}
+
+/* ─── MANIFEST ────────────────────────────────────────── */
+.manifest-band {
+  background: var(--ink);
+  background-image:
+    radial-gradient(ellipse 1100px 400px at 50% 100%, rgba(179,58,31,0.10), transparent 60%);
+  border-top: 1px solid var(--rule-dark);
+  border-bottom: 1px solid var(--rule-dark);
+  position: relative;
+}
+.manifest {
+  padding: 130px 0 130px;
+  text-align: left;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.manifest-rule {
+  display: inline-flex; align-items: center; gap: 16px;
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 56px;
+}
+.manifest-rule::before, .manifest-rule::after {
+  content: ""; display: inline-block;
+  width: 56px; height: 1.5px; background: var(--accent);
+}
+.manifest-title {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(40px, 5.6vw, 88px);
+  line-height: 1.05; letter-spacing: -0.028em;
+  color: #fff;
+  margin-bottom: 56px;
+}
+.manifest-title em {
+  font-style: italic; color: var(--accent); font-weight: 500;
+}
+.manifest-title .underline-gold {
+  font-style: italic; color: var(--gold-soft); font-weight: 500;
+  position: relative;
+}
+.manifest-attribution {
+  display: inline-flex; align-items: center; gap: 16px;
+  font-family: var(--mono); font-size: 11.5px; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--text-on-dark-3);
+  padding-top: 36px;
+  border-top: 1px solid var(--rule-dark-strong);
+  width: fit-content;
+}
+.manifest-attribution strong {
+  color: #fff; font-weight: 700;
+}
+
+/* ─── SECTION BAND (header) ───────────────────────────── */
+.section-band {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 48px;
+  padding: 110px 0 48px;
+  flex-wrap: wrap;
+}
+.band-dark .section-band, .hero-band .section-band { color: #fff; }
+.section-band-left { max-width: 760px; }
+.band-eyebrow {
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 22px;
+  display: inline-flex; align-items: center; gap: 14px;
+}
+.band-eyebrow::before {
+  content: ""; display: inline-block;
+  width: 32px; height: 1.5px; background: var(--accent);
+}
+.band-title {
+  font-family: var(--serif); font-weight: 500;
+  font-size: clamp(38px, 4.6vw, 64px);
+  line-height: 1.04; letter-spacing: -0.028em;
+  color: var(--ink); margin-bottom: 16px;
+}
+.band-dark .band-title { color: #fff; }
+.band-title em { font-style: italic; color: var(--accent); }
+.band-desc {
+  font-family: var(--serif); font-style: italic;
+  font-size: 19px; color: var(--text-2);
+  max-width: 640px; line-height: 1.5;
+}
+.band-dark .band-desc { color: var(--text-on-dark-2); }
+.band-meta {
+  font-family: var(--mono); font-size: 10.5px;
+  color: var(--text-3); letter-spacing: 0.06em;
+  text-align: right; line-height: 1.7;
+  padding-bottom: 6px;
+}
+.band-dark .band-meta { color: var(--text-on-dark-3); }
+.band-meta strong { color: var(--ink); font-weight: 700; }
+.band-dark .band-meta strong { color: #fff; }
+
+/* ─── ENGRANAJE ───────────────────────────────────────── */
+.engranaje { padding-bottom: 110px; }
+.engranaje-card {
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: 18px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+.engranaje-header {
+  background: var(--ink); color: #fff;
+  padding: 22px 32px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 24px; flex-wrap: wrap;
+  border-bottom: 4px solid var(--accent);
+}
+.engranaje-header-title {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 19px; letter-spacing: -0.01em;
+}
+.engranaje-header-title em { color: var(--accent); font-style: italic; }
+.engranaje-header-meta {
+  display: flex; gap: 26px;
+  font-family: var(--mono); font-size: 10.5px;
+  color: var(--text-on-dark-3); letter-spacing: 0.04em;
+  flex-wrap: wrap;
+}
+.engranaje-header-meta strong { color: #fff; font-weight: 700; }
+.engranaje-figure { background: var(--paper-3); }
+.engranaje-figure img { display: block; width: 100%; height: auto; }
+.engranaje-content {
+  padding: 48px 56px;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+.engranaje-lead {
+  font-family: var(--serif); font-size: 19px;
+  line-height: 1.55; color: var(--text-1);
+}
+.engranaje-lead strong { color: var(--accent); font-weight: 600; }
+.engranaje-bullets {
+  list-style: none;
+  display: grid; gap: 16px;
+  font-family: var(--sans); font-size: 14.5px; color: var(--text-2);
+}
+.engranaje-bullets li {
+  padding-left: 26px; position: relative;
+  line-height: 1.55;
+}
+.engranaje-bullets li::before {
+  content: "▸"; position: absolute; left: 0;
+  color: var(--accent); font-weight: 700; font-size: 16px;
+  top: -1px;
+}
+.engranaje-bullets strong { color: var(--ink); font-weight: 700; }
+
+/* ─── 5 CAPAS INTEGRADAS ─────────────────────────────── */
+.capas { padding: 110px 0; }
+.capas-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  border: 1px solid var(--rule-dark);
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--ink-2);
+}
+.capa {
+  padding: 32px 24px 32px;
+  position: relative;
+  border-right: 1px solid var(--rule-dark);
+  background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.02) 100%);
+}
+.capa:last-child { border-right: 0; }
+.capa-num {
+  font-family: var(--serif); font-style: italic; font-weight: 500;
+  font-size: 13px; color: var(--text-on-dark-3);
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+.capa-name {
+  font-family: var(--mono); font-size: 11.5px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 14px;
+}
+.capa-title {
+  font-family: var(--serif); font-weight: 600;
+  font-size: 22px; line-height: 1.15;
+  letter-spacing: -0.01em; color: #fff;
+  margin-bottom: 12px;
+}
+.capa-desc {
+  font-family: var(--sans); font-size: 13px;
+  color: var(--text-on-dark-2); line-height: 1.55;
+  margin-bottom: 18px;
+}
+.capa-stack {
+  font-family: var(--mono); font-size: 10px;
+  color: var(--text-on-dark-3); letter-spacing: 0.04em;
+  line-height: 1.7;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule-dark);
+}
+.capa-stack strong { color: #fff; font-weight: 700; }
+.capa.is-static    .capa-name { color: #B5B5DC; }
+.capa.is-e2e       .capa-name { color: #B33A1F; }
+.capa.is-api       .capa-name { color: #D4A246; }
+.capa.is-perf      .capa-name { color: #6BB590; }
+.capa.is-security  .capa-name { color: #DC8366; }
+
+/* ─── QASL TEST SECURITY ──────────────────────────────── */
+.testsec { padding: 110px 0; }
+.testsec-card {
+  background: linear-gradient(160deg, #FFFFFF 0%, #E8F0E9 100%);
+  border: 1px solid var(--c-testsec-soft);
+  border-radius: 18px;
+  padding: 56px 56px 48px;
+  position: relative;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+.testsec-card::before {
+  content: ""; position: absolute;
+  left: 0; top: 0; bottom: 0; width: 6px;
+  background: var(--c-testsec);
+}
+.testsec-eyebrow {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--c-testsec); margin-bottom: 14px;
+  display: inline-flex; align-items: center; gap: 12px;
+}
+.testsec-eyebrow::before {
+  content: ""; display: inline-block;
+  width: 28px; height: 1.5px; background: var(--c-testsec);
+}
+.testsec-title {
+  font-family: var(--serif); font-weight: 500;
+  font-size: clamp(36px, 4vw, 54px);
+  line-height: 1.05; letter-spacing: -0.025em;
+  color: var(--ink); margin-bottom: 14px;
+}
+.testsec-title em { font-style: italic; color: var(--c-testsec); }
+.testsec-lead {
+  font-family: var(--serif); font-style: italic;
+  font-size: 19px; line-height: 1.5; color: var(--text-2);
+  max-width: 720px; margin-bottom: 36px;
+}
+.testsec-lead strong { font-style: normal; color: var(--ink); font-weight: 700; }
+
+/* Scanner flow */
+.scanner-flow {
+  background: var(--ink);
+  border-radius: 14px;
+  padding: 32px 40px;
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+}
+.scanner-flow::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,.04) 1px, transparent 0);
+  background-size: 22px 22px;
+}
+.scanner-flow-label {
+  position: relative; z-index: 1;
+  font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--text-on-dark-3); margin-bottom: 22px;
+}
+.scanner-flow-grid {
+  position: relative; z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr auto 0.6fr;
+  gap: 28px;
+  align-items: center;
+}
+.scanners-list {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.scanner-pill {
+  font-family: var(--mono); font-size: 11.5px; font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #fff;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid var(--rule-dark-strong);
+  padding: 9px 14px; border-radius: 6px;
+}
+.flow-arrow {
+  font-family: var(--mono); font-size: 22px; font-weight: 600;
+  color: var(--c-testsec);
+  text-align: center;
+}
+.flow-arrow .arrow-label {
+  display: block;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--text-on-dark-3);
+  margin-top: 4px;
+}
+.cfqi-badge {
+  display: inline-flex; flex-direction: column; align-items: stretch;
+  background: linear-gradient(180deg, rgba(45,95,63,0.22) 0%, rgba(45,95,63,0.06) 100%);
+  border: 1px solid var(--c-testsec);
+  border-radius: 10px;
+  padding: 16px 20px;
+}
+.cfqi-badge-label {
+  font-family: var(--mono); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.18em; color: var(--text-on-dark-3);
+  margin-bottom: 4px;
+}
+.cfqi-badge-name {
+  font-family: var(--serif); font-style: italic; font-weight: 600;
+  font-size: 22px; color: #fff;
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+}
+.cfqi-badge-meta {
+  font-family: var(--mono); font-size: 10.5px;
+  color: var(--text-on-dark-2);
+  letter-spacing: 0.04em;
+}
+.cfqi-badge-meta strong { color: var(--gold-soft); font-weight: 700; }
+
+/* Test Security deliverables */
+.testsec-deliverables {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 36px;
+}
+.deliverable {
+  background: rgba(255,255,255,0.6);
+  border: 1px solid rgba(45,95,63,0.18);
+  border-radius: 10px;
+  padding: 22px 22px;
+}
+.deliverable-num {
+  font-family: var(--serif); font-style: italic; font-weight: 500;
+  font-size: 36px; line-height: 1;
+  color: var(--c-testsec);
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+.deliverable-name {
+  font-family: var(--mono); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--text-3); margin-bottom: 8px;
+}
+.deliverable-desc {
+  font-family: var(--sans); font-size: 13px;
+  color: var(--text-2); line-height: 1.5;
+}
+.deliverable-desc strong { color: var(--ink); font-weight: 700; }
+
+.testsec-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(45,95,63,0.18);
+}
+.testsec-meta-block .meta-label {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--text-3); margin-bottom: 12px;
+  display: inline-flex; align-items: center; gap: 12px;
+}
+.testsec-meta-block .meta-label::before {
+  content: ""; display: inline-block;
+  width: 22px; height: 1.5px; background: var(--c-testsec);
+}
+.pill-row {
+  display: flex; flex-wrap: wrap; gap: 7px;
+}
+.pill {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.04em; color: var(--text-2);
+  background: rgba(255,255,255,0.85); border: 1px solid var(--rule);
+  padding: 6px 11px; border-radius: 5px;
+}
+.pill-gold {
+  background: var(--gold-soft);
+  border-color: rgba(184,134,11,0.25);
+  color: var(--gold-2);
+}
+
+/* ─── DICTAMEN SHOWCASE ─────────────────────────────── */
+.dictamen-band {
+  background: var(--paper);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.dictamen { padding-bottom: 110px; }
+.dictamen-card {
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+}
+.dictamen-figure {
+  background: linear-gradient(160deg, var(--paper-3) 0%, #DDD3BD 100%);
+  padding: 44px 40px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  min-height: 600px;
+}
+.dictamen-figure::before {
+  content: "MUESTRA · SAMPLE · NDA-FREE";
+  position: absolute; top: 22px; right: 22px;
+  font-family: var(--mono); font-size: 9.5px; font-weight: 700;
+  letter-spacing: 0.18em;
+  background: var(--ink); color: #fff;
+  padding: 7px 12px; border-radius: 4px;
+  z-index: 2;
+}
+.dictamen-figure img {
+  display: block; width: 100%; height: auto;
+  max-height: 720px; object-fit: contain;
+  box-shadow: var(--shadow-doc);
+  border-radius: 4px;
+  transform: rotate(-1deg);
+  transition: transform .4s ease;
+}
+.dictamen-card:hover .dictamen-figure img {
+  transform: rotate(0deg) scale(1.02);
+}
+.dictamen-text {
+  padding: 56px 56px;
+  display: flex; flex-direction: column;
+  justify-content: center;
+}
+.dictamen-eyebrow {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--c-testsec); margin-bottom: 16px;
+  display: inline-flex; align-items: center; gap: 12px;
+}
+.dictamen-eyebrow::before {
+  content: ""; display: inline-block;
+  width: 24px; height: 1.5px; background: var(--c-testsec);
+}
+.dictamen-title {
+  font-family: var(--serif); font-weight: 500;
+  font-size: clamp(34px, 3.4vw, 46px); line-height: 1.05;
+  letter-spacing: -0.022em; color: var(--ink);
+  margin-bottom: 16px;
+}
+.dictamen-title em { font-style: italic; color: var(--c-testsec); font-weight: 500; }
+.dictamen-lead {
+  font-family: var(--serif); font-style: italic;
+  font-size: 18px; line-height: 1.55;
+  color: var(--text-2); margin-bottom: 26px;
+}
+.dictamen-features {
+  list-style: none;
+  display: grid; gap: 11px;
+  font-family: var(--sans); font-size: 14px;
+  color: var(--text-2); line-height: 1.5;
+  margin-bottom: 32px;
+  padding: 22px 24px;
+  background: var(--paper-3);
+  border-left: 3px solid var(--c-testsec);
+  border-radius: 0 8px 8px 0;
+}
+.dictamen-features li {
+  padding-left: 22px; position: relative;
+}
+.dictamen-features li::before {
+  content: "▸"; position: absolute; left: 0;
+  color: var(--c-testsec); font-weight: 700;
+}
+.dictamen-features strong { color: var(--ink); font-weight: 700; }
+.dictamen-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.btn-testsec {
+  font-family: var(--mono); font-size: 11.5px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  padding: 16px 26px; border-radius: 999px;
+  text-decoration: none;
+  transition: all .15s;
+  display: inline-flex; align-items: center; gap: 10px;
+  color: #fff; background: var(--c-testsec);
+  box-shadow: 0 8px 24px -6px rgba(45,95,63,0.4);
+}
+.btn-testsec:hover { background: #1e442a; transform: translateY(-2px); }
+
+/* ─── SERVICIOS ────────────────────────────────────────── */
+.servicios-band {
+  background: var(--paper-2);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.servicios { padding-bottom: 110px; }
+.servicios-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+}
+.servicio {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  padding: 36px 32px 30px;
+  position: relative;
+  display: flex; flex-direction: column;
+  box-shadow: var(--shadow-sm);
+  transition: transform .25s, box-shadow .25s, border-color .25s;
+}
+.servicio:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--rule-strong);
+}
+.servicio::before {
+  content: ""; position: absolute;
+  left: 0; top: 0; bottom: 0; width: 6px;
+  border-radius: 14px 0 0 14px;
+}
+.servicio.is-ai::before       { background: var(--c-ingrid); }
+.servicio.is-shiftleft::before{ background: var(--c-framework); }
+.servicio.is-voice::before    { background: var(--c-testsec); }
+
+.servicio-eyebrow {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  margin-bottom: 20px;
+  display: inline-flex; align-items: center; gap: 12px;
+}
+.servicio-eyebrow::before {
+  content: ""; display: inline-block;
+  width: 22px; height: 1.5px; background: currentColor;
+}
+.servicio.is-ai .servicio-eyebrow        { color: var(--c-ingrid); }
+.servicio.is-shiftleft .servicio-eyebrow { color: var(--c-framework); }
+.servicio.is-voice .servicio-eyebrow     { color: var(--c-testsec); }
+
+.servicio-title {
+  font-family: var(--serif); font-weight: 600;
+  font-size: 30px; line-height: 1.08;
+  letter-spacing: -0.022em; color: var(--ink);
+  margin-bottom: 12px;
+}
+.servicio-title em { font-style: italic; font-weight: 500; }
+.servicio.is-ai .servicio-title em        { color: var(--c-ingrid); }
+.servicio.is-shiftleft .servicio-title em { color: var(--c-framework); }
+.servicio.is-voice .servicio-title em     { color: var(--c-testsec); }
+
+.servicio-tagline {
+  font-family: var(--serif); font-style: italic;
+  font-size: 15.5px; color: var(--text-2);
+  line-height: 1.45; margin-bottom: 22px;
+}
+.servicio-list {
+  list-style: none;
+  display: grid; gap: 11px;
+  font-family: var(--sans); font-size: 13.5px;
+  color: var(--text-2); line-height: 1.5;
+  margin-bottom: 26px;
+  padding-bottom: 26px;
+  border-bottom: 1px dashed var(--rule);
+}
+.servicio-list li { padding-left: 22px; position: relative; }
+.servicio-list li::before {
+  content: "✓"; position: absolute; left: 0;
+  font-weight: 700; font-size: 13px;
+}
+.servicio.is-ai .servicio-list li::before        { color: var(--c-ingrid); }
+.servicio.is-shiftleft .servicio-list li::before { color: var(--c-framework); }
+.servicio.is-voice .servicio-list li::before     { color: var(--c-testsec); }
+
+.servicio-price {
+  display: flex; align-items: baseline; gap: 10px;
+  margin-bottom: 6px;
+}
+.servicio-price-label {
+  font-family: var(--mono); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--text-3);
+}
+.servicio-price-num {
+  font-family: var(--serif); font-weight: 600; font-style: italic;
+  font-size: 36px; color: var(--ink);
+  line-height: 1; letter-spacing: -0.02em;
+}
+.servicio-price-num .currency { font-size: 16px; color: var(--text-2); font-style: normal; font-weight: 500; vertical-align: super; margin-right: 2px; }
+.servicio-price-num .unit { font-size: 14px; color: var(--text-2); font-style: normal; font-weight: 500; margin-left: 4px; }
+.servicio-price-note {
+  font-family: var(--serif); font-style: italic;
+  font-size: 13px; color: var(--text-3);
+  margin-bottom: 24px;
+}
+.servicio-cta {
+  margin-top: auto;
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 14px 18px; border-radius: 999px;
+  text-decoration: none; text-align: center;
+  color: #fff;
+  transition: filter .15s, transform .15s;
+}
+.servicio.is-ai .servicio-cta        { background: var(--c-ingrid); }
+.servicio.is-shiftleft .servicio-cta { background: var(--c-framework); }
+.servicio.is-voice .servicio-cta     { background: var(--c-testsec); }
+.servicio-cta:hover { filter: brightness(1.12); transform: translateY(-1px); }
+
+/* ─── SECTORES (DARK) ──────────────────────────────── */
+.sectores-band {
+  background: var(--ink);
+  border-bottom: 1px solid var(--rule-dark);
+}
+.sectores { padding: 0 0 110px; }
+.sectores-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.sector {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--rule-dark);
+  border-radius: 14px;
+  padding: 30px 28px;
+  transition: transform .25s, box-shadow .25s, background .25s, border-color .25s;
+}
+.sector:hover {
+  transform: translateY(-3px);
+  background: rgba(255,255,255,0.06);
+  border-color: var(--rule-dark-strong);
+}
+.sector-icon {
+  width: 50px; height: 50px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(179,58,31,0.12);
+  border: 1px solid rgba(179,58,31,0.35);
+  border-radius: 10px;
+  font-family: var(--serif); font-style: italic; font-weight: 600;
+  font-size: 24px; color: var(--gold-soft);
+  margin-bottom: 18px;
+}
+.sector-title {
+  font-family: var(--serif); font-weight: 600;
+  font-size: 21px; color: #fff;
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
+}
+.sector-desc {
+  font-family: var(--sans); font-size: 13.5px;
+  color: var(--text-on-dark-2); line-height: 1.5;
+  margin-bottom: 16px;
+}
+.sector-tags {
+  font-family: var(--mono); font-size: 9.5px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-on-dark-3); line-height: 1.7;
+  padding-top: 12px;
+  border-top: 1px solid var(--rule-dark);
+}
+
+/* ─── MARCO NORMATIVO ───────────────────────────────── */
+.normativo { padding: 0 0 110px; }
+.normativo-board {
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: 18px;
+  padding: 64px 64px 56px;
+  box-shadow: var(--shadow-md);
+  position: relative;
+}
+.normativo-board::before {
+  content: ""; position: absolute;
+  left: 64px; right: 64px; top: 0; height: 4px;
+  background: linear-gradient(90deg, var(--gold) 0%, var(--accent) 50%, var(--c-mathcore) 100%);
+}
+.normativo-lead {
+  font-family: var(--serif); font-style: italic;
+  font-size: 20px; line-height: 1.55; color: var(--text-2);
+  max-width: 880px;
+  border-left: 3px solid var(--gold);
+  padding-left: 24px;
+  margin-bottom: 56px;
+}
+.normativo-lead strong {
+  font-style: normal; font-weight: 700; color: var(--ink);
+}
+.standards-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 14px;
+  margin-bottom: 56px;
+}
+.standard {
+  background: var(--paper-3);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 20px 18px;
+  text-align: left;
+  transition: border-color .15s, transform .15s;
+}
+.standard:hover { border-color: var(--accent); transform: translateY(-2px); }
+.standard-name {
+  font-family: var(--mono); font-size: 12px; font-weight: 700;
+  letter-spacing: 0.04em; color: var(--ink);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.standard-desc {
+  font-family: var(--sans); font-size: 11.5px;
+  color: var(--text-3); line-height: 1.4;
+}
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  padding-top: 40px;
+  border-top: 1px solid var(--rule);
+}
+.benefit { display: flex; flex-direction: column; gap: 8px; }
+.benefit-label {
+  font-family: var(--mono); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--accent);
+}
+.benefit-title {
+  font-family: var(--serif); font-weight: 600;
+  font-size: 18px; color: var(--ink);
+  line-height: 1.2; margin-bottom: 4px;
+}
+.benefit-text {
+  font-family: var(--sans); font-size: 13px;
+  color: var(--text-2); line-height: 1.5;
+}
+
+/* ─── CONTACTO (DARK) ───────────────────────────────── */
+.contacto-band {
+  background: var(--ink);
+  background-image:
+    radial-gradient(ellipse 800px 600px at 80% 20%, rgba(179,58,31,0.10), transparent 60%),
+    radial-gradient(ellipse 600px 500px at 0% 100%, rgba(184,134,11,0.06), transparent 60%);
+  border-top: 1px solid var(--rule-dark);
+  position: relative;
+  overflow: hidden;
+}
+.contacto { padding: 110px 0 80px; }
+.contacto-hero {
+  text-align: left;
+  margin-bottom: 64px;
+}
+.contacto-hero .band-eyebrow { color: var(--accent); }
+.contacto-title {
+  font-family: var(--serif); font-weight: 500;
+  font-size: clamp(48px, 6vw, 88px);
+  line-height: 1.0; letter-spacing: -0.03em;
+  color: #fff; margin-bottom: 24px;
+}
+.contacto-title em { color: var(--accent); font-style: italic; }
+.contacto-lead {
+  font-family: var(--serif); font-style: italic;
+  font-size: 21px; color: var(--text-on-dark-2);
+  line-height: 1.5; max-width: 720px;
+}
+
+.contacto-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+.contacto-channels {
+  display: grid; gap: 14px;
+}
+.channel {
+  display: flex; align-items: center; gap: 18px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--rule-dark);
+  border-radius: 12px;
+  padding: 22px 26px;
+  text-decoration: none;
+  color: #fff;
+  transition: border-color .15s, transform .15s, background .15s;
+}
+.channel:hover {
+  border-color: var(--accent);
+  background: rgba(179,58,31,0.08);
+  transform: translateX(3px);
+}
+.channel-icon {
+  width: 48px; height: 48px;
+  border-radius: 10px;
+  background: rgba(179,58,31,0.15);
+  border: 1px solid rgba(179,58,31,0.4);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-style: italic; font-weight: 700;
+  font-size: 22px; color: var(--gold-soft);
+  flex-shrink: 0;
+}
+.channel-text { flex: 1; }
+.channel-label {
+  font-family: var(--mono); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--text-on-dark-3); margin-bottom: 4px;
+}
+.channel-value {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 18px; color: #fff;
+  letter-spacing: -0.01em;
+}
+.channel-arrow {
+  font-family: var(--mono); font-size: 20px;
+  color: var(--text-on-dark-3);
+}
+
+.contacto-aside {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--rule-dark);
+  border-radius: 14px;
+  padding: 36px 36px;
+}
+.aside-eyebrow {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 16px;
+}
+.aside-title {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 28px; color: #fff;
+  letter-spacing: -0.022em; line-height: 1.15;
+  margin-bottom: 16px;
+}
+.aside-title em { color: var(--gold-soft); font-style: italic; }
+.aside-text {
+  font-family: var(--serif); font-style: italic;
+  font-size: 15.5px; color: var(--text-on-dark-2);
+  line-height: 1.55; margin-bottom: 22px;
+}
+.aside-list {
+  list-style: none;
+  display: grid; gap: 12px;
+  font-family: var(--mono); font-size: 11px;
+  color: var(--text-on-dark-2); letter-spacing: 0.04em;
+}
+.aside-list li {
+  padding-left: 26px; position: relative;
+  line-height: 1.4;
+}
+.aside-list li::before {
+  content: ""; position: absolute; left: 0; top: 4px;
+  width: 16px; height: 1.5px;
+  background: var(--accent);
+}
+.aside-list li strong { color: #fff; font-weight: 700; }
+
+/* ─── FOOTER ──────────────────────────────────────────── */
+.footer {
+  border-top: 1px solid var(--rule-dark);
+  padding: 36px 0 0;
+  margin-top: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 32px; flex-wrap: wrap;
+  font-family: var(--mono); font-size: 10.5px;
+  color: var(--text-on-dark-3); letter-spacing: 0.06em;
+}
+.footer .footer-brand {
+  font-family: var(--serif); font-style: italic;
+  font-size: 14px; color: var(--text-on-dark-2);
+  letter-spacing: 0;
+}
+.footer .footer-brand strong {
+  color: #fff; font-style: normal; font-weight: 700;
+}
+.footer-links { display: flex; gap: 22px; }
+.footer-links a {
+  color: var(--text-on-dark-2); text-decoration: none;
+}
+.footer-links a:hover { color: var(--accent); }
+
+/* ─── QASL-FORGE / Testing Reverso ─────────────────── */
+.forge-band {
+  background: var(--ink);
+  background-image:
+    radial-gradient(ellipse 1100px 500px at 20% 0%, rgba(184,134,11,0.18), transparent 60%),
+    radial-gradient(ellipse 800px 400px at 100% 100%, rgba(179,58,31,0.10), transparent 60%);
+  border-top: 1px solid var(--rule-dark);
+  border-bottom: 1px solid var(--rule-dark);
+  position: relative;
+  overflow: hidden;
+}
+.forge { padding: 0 0 110px; }
+.forge .band-eyebrow { color: var(--gold); }
+.forge .band-eyebrow::before { background: var(--gold); }
+
+.forge-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(184,134,11,0.30);
+  border-radius: 18px;
+  padding: 56px 56px 48px;
+  position: relative;
+  overflow: hidden;
+}
+.forge-card::before {
+  content: ""; position: absolute;
+  top: 0; left: 0; right: 0; height: 4px;
+  background: linear-gradient(90deg, var(--gold) 0%, var(--accent) 50%, var(--c-mathcore) 100%);
+}
+.forge-eyebrow {
+  display: inline-flex; align-items: center; gap: 16px;
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--gold-soft); margin-bottom: 28px;
+}
+.forge-eyebrow::before, .forge-eyebrow::after {
+  content: ""; display: inline-block;
+  width: 36px; height: 1.5px; background: var(--gold);
+}
+.forge-lemma {
+  display: inline-block;
+  font-family: var(--serif); font-style: italic; font-weight: 500;
+  font-size: clamp(24px, 2.4vw, 34px);
+  color: var(--gold-soft);
+  border-left: 3px solid var(--gold);
+  padding: 8px 0 8px 24px;
+  margin-bottom: 36px;
+  line-height: 1.3;
+}
+.forge-narrative {
+  font-family: var(--serif); font-size: 18.5px;
+  color: var(--text-on-dark-2); line-height: 1.55;
+  max-width: 880px; margin-bottom: 48px;
+}
+.forge-narrative strong { color: #fff; font-weight: 600; }
+.forge-narrative .tm { color: var(--gold-soft); font-style: italic; }
+
+.forge-phases {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0;
+  margin-bottom: 48px;
+  border: 1px solid var(--rule-dark-strong);
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(0,0,0,0.25);
+}
+.forge-phase {
+  padding: 22px 16px 22px;
+  border-right: 1px solid var(--rule-dark);
+  position: relative;
+  transition: background .2s;
+}
+.forge-phase:last-child { border-right: 0; }
+.forge-phase:hover { background: rgba(184,134,11,0.06); }
+.forge-phase.is-gate {
+  background: linear-gradient(180deg, rgba(179,58,31,0.10) 0%, rgba(179,58,31,0.02) 100%);
+}
+.forge-phase-num {
+  font-family: var(--serif); font-style: italic; font-weight: 600;
+  font-size: 26px; color: var(--gold);
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+  line-height: 1;
+}
+.forge-phase.is-gate .forge-phase-num { color: var(--accent); }
+.forge-phase-name {
+  font-family: var(--mono); font-size: 9.5px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--text-on-dark-3); margin-bottom: 12px;
+  line-height: 1.4;
+}
+.forge-phase-title {
+  font-family: var(--serif); font-weight: 600;
+  font-size: 14.5px; color: #fff;
+  line-height: 1.25; margin-bottom: 8px;
+}
+.forge-phase-tool {
+  font-family: var(--mono); font-size: 9.5px;
+  color: var(--text-on-dark-3);
+  letter-spacing: 0.04em; line-height: 1.4;
+}
+.forge-phase-gate-badge {
+  display: inline-block;
+  font-family: var(--mono); font-size: 8.5px; font-weight: 700;
+  letter-spacing: 0.18em; color: var(--accent);
+  background: rgba(179,58,31,0.18);
+  padding: 3px 6px; border-radius: 3px;
+  margin-top: 8px;
+  text-transform: uppercase;
+}
+
+.forge-trademarks-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-bottom: 48px;
+  padding-top: 40px;
+  border-top: 1px solid var(--rule-dark);
+}
+.forge-tm { display: flex; flex-direction: column; }
+.forge-tm-name {
+  font-family: var(--serif); font-style: italic; font-weight: 600;
+  font-size: 23px; color: var(--gold-soft);
+  letter-spacing: -0.01em; line-height: 1.15;
+  margin-bottom: 10px;
+}
+.forge-tm-name sup {
+  font-family: var(--mono); font-size: 11px; font-style: normal;
+  vertical-align: super; color: var(--gold);
+  margin-left: 2px; font-weight: 700;
+}
+.forge-tm-desc {
+  font-family: var(--sans); font-size: 13.5px;
+  color: var(--text-on-dark-2); line-height: 1.55;
+}
+
+.forge-proof {
+  background: rgba(184,134,11,0.10);
+  border: 1px solid rgba(184,134,11,0.30);
+  border-left: 4px solid var(--gold);
+  border-radius: 0 10px 10px 0;
+  padding: 26px 30px;
+}
+.forge-proof-label {
+  font-family: var(--mono); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--gold); margin-bottom: 10px;
+}
+.forge-proof-quote {
+  font-family: var(--serif); font-style: italic; font-weight: 400;
+  font-size: 19px; line-height: 1.55;
+  color: #fff;
+}
+.forge-proof-quote strong { font-style: normal; font-weight: 700; color: var(--gold-soft); }
+
+/* ─── 4th SERVICE: FORGE Engagement (FLAGSHIP) ──────── */
+.servicio.is-forge::before { background: var(--gold); }
+.servicio.is-forge .servicio-eyebrow { color: var(--gold-2); }
+.servicio.is-forge .servicio-title em { color: var(--gold-2); }
+.servicio.is-forge .servicio-list li::before { color: var(--gold-2); }
+.servicio.is-forge .servicio-cta { background: var(--gold-2); }
+.servicio.is-forge {
+  border-color: rgba(184,134,11,0.4);
+  background: linear-gradient(180deg, var(--paper) 0%, var(--gold-soft) 100%);
+}
+.servicio.is-forge::after {
+  content: "FLAGSHIP";
+  position: absolute;
+  top: 18px; right: 18px;
+  font-family: var(--mono); font-size: 9.5px; font-weight: 700;
+  letter-spacing: 0.18em;
+  color: #fff; background: var(--gold-2);
+  padding: 5px 9px; border-radius: 3px;
+}
+
+/* ─── TRADEMARKS BAR ──────────────────────────────── */
+.trademarks-bar {
+  background: rgba(0,0,0,0.4);
+  border-top: 1px solid var(--rule-dark);
+  border-bottom: 1px solid var(--rule-dark);
+  padding: 24px 0 22px;
+  margin-top: 48px;
+  border-radius: 12px;
+}
+.trademarks-content {
+  font-family: var(--mono); font-size: 10px;
+  color: var(--text-on-dark-3); letter-spacing: 0.06em;
+  line-height: 1.7; text-align: center;
+  padding: 0 24px;
+}
+.trademarks-content strong {
+  color: var(--gold-soft); font-weight: 700;
+  letter-spacing: 0.20em; text-transform: uppercase;
+  font-size: 10.5px;
+}
+.trademarks-list {
+  margin-top: 12px;
+  font-family: var(--mono); font-size: 11px;
+  color: var(--text-on-dark-2);
+  line-height: 1.9; letter-spacing: 0.04em;
+}
+.trademarks-list .tm-name { display: inline-block; margin: 0 4px; }
+.trademarks-list .tm-name sup {
+  color: var(--gold); font-size: 9px;
+  vertical-align: super; font-weight: 700;
+}
+.trademarks-legal {
+  margin-top: 14px;
+  font-size: 9.5px;
+  color: var(--text-on-dark-3);
+  opacity: 0.8;
+  letter-spacing: 0.06em;
+}
+
+/* ─── RESPONSIVE ──────────────────────────────────────── */
+@media (max-width: 1180px) {
+  .hero { grid-template-columns: 1fr; gap: 48px; padding: 64px 0 80px; }
+  .hero-stack { height: 460px; }
+  .servicios-grid { grid-template-columns: repeat(2, 1fr); }
+  .forge-phases { grid-template-columns: repeat(4, 1fr); }
+  .forge-phases .forge-phase:nth-child(4) { border-right: 0; }
+  .forge-phases .forge-phase:nth-child(-n+4) { border-bottom: 1px solid var(--rule-dark); }
+  .forge-trademarks-row { grid-template-columns: 1fr; gap: 22px; }
+  .forge-card { padding: 40px 36px 36px; }
+  .sectores-grid { grid-template-columns: repeat(2, 1fr); }
+  .standards-grid { grid-template-columns: repeat(3, 1fr); }
+  .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+  .engranaje-content { grid-template-columns: 1fr; gap: 32px; padding: 36px 32px; }
+  .dictamen-card { grid-template-columns: 1fr; }
+  .dictamen-text { padding: 36px 32px; }
+  .testsec-card { padding: 40px 36px 36px; }
+  .scanner-flow-grid { grid-template-columns: 1fr; gap: 16px; }
+  .flow-arrow { transform: rotate(90deg); margin: 8px 0; }
+  .testsec-deliverables { grid-template-columns: 1fr; }
+  .testsec-meta { grid-template-columns: 1fr; gap: 24px; }
+  .contacto-grid { grid-template-columns: 1fr; gap: 32px; }
+  .normativo-board { padding: 48px 36px 40px; }
+  .normativo-board::before { left: 36px; right: 36px; }
+  .capas-grid { grid-template-columns: repeat(5, 1fr); }
+}
+@media (max-width: 880px) {
+  .topnav { display: none; }
+  .lang-toggle { margin-left: auto; }
+  .cta-mini { display: none; }
+  .servicios-grid { grid-template-columns: 1fr; }
+  .forge-phases { grid-template-columns: repeat(2, 1fr); }
+  .forge-phase { border-right: 1px solid var(--rule-dark); border-bottom: 1px solid var(--rule-dark); }
+  .forge-phase:nth-child(2n) { border-right: 0; }
+  .forge-card { padding: 32px 24px 28px; }
+  .proof-bar { grid-template-columns: repeat(2, 1fr); gap: 32px 0; }
+  .proof-cell { padding: 16px 18px; }
+  .proof-cell + .proof-cell::before { display: none; }
+  .proof-num { font-size: 64px; }
+  .standards-grid { grid-template-columns: repeat(2, 1fr); }
+  .sectores-grid { grid-template-columns: 1fr; }
+  .benefits-grid { grid-template-columns: 1fr; }
+  .capas-grid { grid-template-columns: 1fr; }
+  .capa { border-right: 0; border-bottom: 1px solid var(--rule-dark); }
+  .capa:last-child { border-bottom: 0; }
+  .section-band { padding: 72px 0 32px; }
+  .servicio { padding: 28px 24px; }
+  .dictamen-text, .engranaje-content { padding: 28px 22px; }
+  .manifest { padding: 80px 0; }
+  .container { padding: 0 22px; }
+}
+
+/* ─── BILINGUAL ───────────────────────────────────────── */
+[data-i18n-en] { display: none; }
+html[lang="en"] [data-i18n-es] { display: none; }
+html[lang="en"] [data-i18n-en] { display: inline; }
+html[lang="en"] li[data-i18n-en] { display: list-item; }
+</style>
+</head>
+<body>
+
+<!-- ═════════ TOPBAR ═════════ -->
+<div class="topbar-band">
+  <div class="container">
+    <header class="topbar">
+      <span class="brand-mark">E</span>
+      <span class="brand-name">
+        Estendely
+        <span class="role">· QA Forensics</span>
+      </span>
+      <nav class="topnav" id="topnav">
+        <a href="#forge">FORGE</a>
+        <a href="#engranaje" data-i18n-es>Engranaje</a><a href="#engranaje" data-i18n-en>Method</a>
+        <a href="#capas" data-i18n-es>Capas</a><a href="#capas" data-i18n-en>Layers</a>
+        <a href="#testsec">Test Security</a>
+        <a href="#dictamen" data-i18n-es>Dictamen</a><a href="#dictamen" data-i18n-en>Verdict</a>
+        <a href="#servicios" data-i18n-es>Servicios</a><a href="#servicios" data-i18n-en>Services</a>
+        <a href="#contacto" data-i18n-es>Contacto</a><a href="#contacto" data-i18n-en>Contact</a>
+      </nav>
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" id="lang-es" class="active" onclick="setLang('es')">ES</button>
+        <button type="button" id="lang-en" onclick="setLang('en')">EN</button>
+      </div>
+      <a href="#contacto" class="cta-mini" data-i18n-es>Solicitar dictamen →</a>
+      <a href="#contacto" class="cta-mini" data-i18n-en>Request a verdict →</a>
+    </header>
+  </div>
+</div>
+
+<!-- ═════════ HERO (DARK) ═════════ -->
+<div class="hero-band">
+  <div class="container">
+    <section class="hero">
+      <div class="hero-left">
+        <div class="hero-eyebrow fade-up">
+          <span data-i18n-es>QASL · Quality Assurance Shift-Left</span>
+          <span data-i18n-en>QASL · Quality Assurance Shift-Left</span>
+        </div>
+
+        <h1 class="hero-title fade-up delay-1">
+          <span data-i18n-es>Del <em>requerimiento</em><br>al <span class="gold-underline">dictamen</span>.</span>
+          <span data-i18n-en>From <em>requirement</em><br>to <span class="gold-underline">verdict</span>.</span>
+        </h1>
+
+        <p class="hero-sub fade-up delay-2">
+          <span data-i18n-es>QASL · Quality Assurance Shift-Left con dictamen forense técnico firmable. <strong>Detectamos temprano. Defendemos bajo auditoría.</strong></span>
+          <span data-i18n-en>Shift-Left QA with audit-grade forensic verdicts. <strong>Caught in dev. Defended under audit.</strong></span>
+        </p>
+
+        <div class="hero-scope fade-up delay-3">
+          <span class="scope-pill">Greenfield</span>
+          <span class="scope-pill">Re-engineering</span>
+          <span class="scope-pill" data-i18n-es>Sistemas críticos</span>
+          <span class="scope-pill" data-i18n-en>Critical systems</span>
+          <span class="scope-pill is-hot">AI / LLM</span>
+          <span class="scope-pill is-hot">Voice AI</span>
+        </div>
+
+        <div class="hero-ctas fade-up delay-4">
+          <a href="#contacto" class="btn-primary">
+            <span data-i18n-es>Solicitar dictamen</span>
+            <span data-i18n-en>Request a verdict</span>
+            →
+          </a>
+          <a href="#engranaje" class="btn-ghost">
+            <span data-i18n-es>Ver el engranaje</span>
+            <span data-i18n-en>See the method</span>
+            ↓
+          </a>
+        </div>
+      </div>
+
+      <aside class="hero-stack fade-up delay-3">
+        <figure class="floating-doc">
+          <img src="img/flagships/testsec-dictamen-forense.png" alt="Dictamen Forense CFQI v1.0" loading="eager">
+        </figure>
+        <figure class="floating-card">
+          <img src="img/flagships/testsec-grafana-executive.png" alt="Dashboard ejecutivo Grafana" loading="eager">
+        </figure>
+        <span class="floating-tag">CFQI v1.0 · Live</span>
+      </aside>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ PROOF BAR ═════════ -->
+<div class="proofbar-band">
+  <div class="container">
+    <section class="proof-bar">
+      <div class="proof-cell">
+        <div class="proof-num">13<sup>+</sup></div>
+        <div class="proof-label" data-i18n-es>Años en QA</div>
+        <div class="proof-label" data-i18n-en>Years in QA</div>
+      </div>
+      <div class="proof-cell">
+        <div class="proof-num">12<sup>+</sup></div>
+        <div class="proof-label" data-i18n-es>Tools propias en producción</div>
+        <div class="proof-label" data-i18n-en>Proprietary tools in production</div>
+      </div>
+      <div class="proof-cell">
+        <div class="proof-num">4</div>
+        <div class="proof-label" data-i18n-es>Algoritmos forenses · CFQI · AFQI · MATHCORE · VCR</div>
+        <div class="proof-label" data-i18n-en>Forensic algorithms · CFQI · AFQI · MATHCORE · VCR</div>
+      </div>
+      <div class="proof-cell">
+        <div class="proof-num">10</div>
+        <div class="proof-label" data-i18n-es>Estándares aplicados · ISO · IEEE · ISTQB · OWASP · NIST</div>
+        <div class="proof-label" data-i18n-en>Standards applied · ISO · IEEE · ISTQB · OWASP · NIST</div>
+      </div>
+      <div class="proof-cell">
+        <div class="proof-num">5</div>
+        <div class="proof-label" data-i18n-es>Capas integradas · Static · E2E · API · Perf · Security</div>
+        <div class="proof-label" data-i18n-en>Integrated layers · Static · E2E · API · Perf · Security</div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ MANIFEST (DARK) ═════════ -->
+<div class="manifest-band">
+  <div class="container">
+    <section class="manifest">
+      <div class="manifest-rule">
+        <span data-i18n-es>— Tesis de Estendely —</span>
+        <span data-i18n-en>— Estendely Thesis —</span>
+      </div>
+      <h2 class="manifest-title">
+        <span data-i18n-es>Calidad no es una <em>herramienta</em>.<br>Es un <em>engranaje</em> entre seis actores<br>donde nadie trabaja solo.</span>
+        <span data-i18n-en>Quality is not a <em>tool</em>.<br>It is a <em>gear</em> between six actors<br>where nobody works alone.</span>
+      </h2>
+      <div class="manifest-attribution">
+        <span data-i18n-es>QASL · <strong>Contrato blindado entre roles</strong></span>
+        <span data-i18n-en>QASL · <strong>A hardened contract between roles</strong></span>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ QASL-FORGE / Testing Reverso ═════════ -->
+<div class="forge-band">
+  <div class="container">
+    <section class="forge" id="forge">
+      <header class="section-band">
+        <div class="section-band-left">
+          <div class="band-eyebrow">
+            <span data-i18n-es>I · Metodología registrada</span>
+            <span data-i18n-en>I · Registered Methodology</span>
+          </div>
+          <h2 class="band-title">
+            QASL-FORGE<sup style="font-family: var(--mono); font-size: 18px; color: var(--gold); vertical-align: super; margin-left: 2px;">™</sup> · <em>Testing Reverso<sup style="font-family: var(--mono); font-size: 18px; vertical-align: super; margin-left: 2px;">™</sup></em>
+          </h2>
+          <p class="band-desc">
+            <span data-i18n-es>Forensic Observation and Reverse Generation Engine. Una metodología de ingeniería inversa de calidad — registrada, documentada y validada en producción real.</span>
+            <span data-i18n-en>Forensic Observation and Reverse Generation Engine. A reverse quality engineering methodology — registered, documented and validated in real production.</span>
+          </p>
+        </div>
+        <div class="band-meta">
+          <strong>QASL-FORGE™</strong><br>
+          7 <span data-i18n-es>fases · gates bloqueantes</span><span data-i18n-en>phases · blocking gates</span><br>
+          <span data-i18n-es>Ley 11.723 · Berna · ADPIC · INPI</span>
+          <span data-i18n-en>Law 11.723 · Berne · TRIPS · INPI</span>
+        </div>
+      </header>
+
+      <div class="forge-card">
+        <div class="forge-eyebrow">
+          <span data-i18n-es>Tesis de QASL-FORGE</span>
+          <span data-i18n-en>QASL-FORGE Thesis</span>
+        </div>
+
+        <div class="forge-lemma">
+          <span data-i18n-es>"Las columnas, antes que la puerta."</span>
+          <span data-i18n-en>"The columns before the door."</span>
+        </div>
+
+        <p class="forge-narrative">
+          <span data-i18n-es>QASL-FORGE invierte el orden tradicional de certificación de software. <strong>El frontend va último, no primero.</strong> La metodología arranca por la observación forense del tráfico que el sistema genera cuando un <span class="tm">Quality Reverse Engineer™</span> recorre el flujo, y desde ahí reconstruye toda la arquitectura — capas estructurales primero, capa visible al final. Sin veredicto ÍNTEGRO en Fase 04, la cadena se detiene. <strong>La forensia precede al veredicto.</strong></span>
+          <span data-i18n-en>QASL-FORGE inverts the traditional order of software certification. <strong>Frontend goes last, not first.</strong> The methodology starts with forensic observation of the traffic the system generates when a <span class="tm">Quality Reverse Engineer™</span> walks the flow, and from there reconstructs the entire architecture — structural layers first, visible facade last. Without an INTEGRO verdict at Phase 04, the chain halts. <strong>Forensics precede the verdict.</strong></span>
+        </p>
+
+        <!-- 7 Phases timeline -->
+        <div class="forge-phases">
+          <div class="forge-phase">
+            <div class="forge-phase-num"><em>01</em></div>
+            <div class="forge-phase-name" data-i18n-es>Reconocimiento</div>
+            <div class="forge-phase-name" data-i18n-en>Reconnaissance</div>
+            <div class="forge-phase-title" data-i18n-es>QRE captura HAR</div>
+            <div class="forge-phase-title" data-i18n-en>QRE captures HAR</div>
+            <div class="forge-phase-tool">Quality Reverse Engineer™</div>
+          </div>
+          <div class="forge-phase">
+            <div class="forge-phase-num"><em>02</em></div>
+            <div class="forge-phase-name" data-i18n-es>Disección</div>
+            <div class="forge-phase-name" data-i18n-en>Dissection</div>
+            <div class="forge-phase-title" data-i18n-es>Parametrización dinámica</div>
+            <div class="forge-phase-title" data-i18n-en>Dynamic parametrization</div>
+            <div class="forge-phase-tool">QASL-Correlator™</div>
+          </div>
+          <div class="forge-phase">
+            <div class="forge-phase-num"><em>03</em></div>
+            <div class="forge-phase-name" data-i18n-es>Cartografía</div>
+            <div class="forge-phase-name" data-i18n-en>Mapping</div>
+            <div class="forge-phase-title" data-i18n-es>Mapa de integraciones</div>
+            <div class="forge-phase-title" data-i18n-en>Integration map</div>
+            <div class="forge-phase-tool">Backend Live Scanner™</div>
+          </div>
+          <div class="forge-phase is-gate">
+            <div class="forge-phase-num"><em>04</em></div>
+            <div class="forge-phase-name" data-i18n-es>Autopsia Forense</div>
+            <div class="forge-phase-name" data-i18n-en>Forensic Autopsy</div>
+            <div class="forge-phase-title" data-i18n-es>Veredicto íntegro</div>
+            <div class="forge-phase-title" data-i18n-en>Integrity verdict</div>
+            <div class="forge-phase-tool">Forensic Analyzer™</div>
+            <span class="forge-phase-gate-badge" data-i18n-es>Gate bloqueante</span>
+            <span class="forge-phase-gate-badge" data-i18n-en>Blocking Gate</span>
+          </div>
+          <div class="forge-phase">
+            <div class="forge-phase-num"><em>05</em></div>
+            <div class="forge-phase-name" data-i18n-es>Fortificación</div>
+            <div class="forge-phase-name" data-i18n-en>Fortification</div>
+            <div class="forge-phase-title" data-i18n-es>Performance · Security</div>
+            <div class="forge-phase-title" data-i18n-en>Performance · Security</div>
+            <div class="forge-phase-tool">Newman · K6 · OWASP ZAP</div>
+          </div>
+          <div class="forge-phase">
+            <div class="forge-phase-num"><em>06</em></div>
+            <div class="forge-phase-name" data-i18n-es>Síntesis Frontend</div>
+            <div class="forge-phase-name" data-i18n-en>Frontend Synthesis</div>
+            <div class="forge-phase-title" data-i18n-es>UI E2E último</div>
+            <div class="forge-phase-title" data-i18n-en>UI E2E last</div>
+            <div class="forge-phase-tool">Playwright · Maestro</div>
+          </div>
+          <div class="forge-phase">
+            <div class="forge-phase-num"><em>07</em></div>
+            <div class="forge-phase-name" data-i18n-es>Cristalización</div>
+            <div class="forge-phase-name" data-i18n-en>Crystallization</div>
+            <div class="forge-phase-title" data-i18n-es>Documentación viva</div>
+            <div class="forge-phase-title" data-i18n-en>Living documentation</div>
+            <div class="forge-phase-tool" data-i18n-es>Sprint versionado</div>
+            <div class="forge-phase-tool" data-i18n-en>Versioned sprint</div>
+          </div>
+        </div>
+
+        <!-- 3 Trademarked concepts -->
+        <div class="forge-trademarks-row">
+          <div class="forge-tm">
+            <div class="forge-tm-name">Quality Reverse Engineer<sup>™</sup></div>
+            <div class="forge-tm-desc">
+              <span data-i18n-es>Nuevo rol profesional formalmente definido. El QRE no escribe tests — los descubre desde la conducta del sistema observada en tiempo real.</span>
+              <span data-i18n-en>A formally defined new professional role. The QRE doesn't write tests — they discover them from observed system behavior in real time.</span>
+            </div>
+          </div>
+          <div class="forge-tm">
+            <div class="forge-tm-name">Data Scavenging<sup>™</sup></div>
+            <div class="forge-tm-desc">
+              <span data-i18n-es>Anti-patrón bautizado y caracterizado por primera vez por el autor: sustitución silenciosa del identificador de negocio en cadenas E2E que pasa desapercibida en testing tradicional.</span>
+              <span data-i18n-en>Anti-pattern named and characterized for the first time by the author: silent substitution of business identifier in E2E chains that goes unnoticed in traditional testing.</span>
+            </div>
+          </div>
+          <div class="forge-tm">
+            <div class="forge-tm-name">Token Lifecycle Workflow<sup>™</sup></div>
+            <div class="forge-tm-desc">
+              <span data-i18n-es>Taxonomía de 7 fases del ciclo de vida de tokens con scoring automático: Birth · Transit · Validate · Use · Refresh · Revoke · Audit.</span>
+              <span data-i18n-en>7-phase taxonomy of token lifecycle with automatic scoring: Birth · Transit · Validate · Use · Refresh · Revoke · Audit.</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ ENGRANAJE ═════════ -->
+<div class="band-light">
+  <div class="container">
+    <section class="engranaje" id="engranaje">
+      <header class="section-band">
+        <div class="section-band-left">
+          <div class="band-eyebrow">
+            <span data-i18n-es>II · Método</span>
+            <span data-i18n-en>II · Method</span>
+          </div>
+          <h2 class="band-title">
+            <span data-i18n-es>El <em>engranaje</em> DoR/DoD</span>
+            <span data-i18n-en>The <em>DoR/DoD</em> gear</span>
+          </h2>
+          <p class="band-desc">
+            <span data-i18n-es>Once fases. Seis actores. Nueve handoffs blindados. Cada DoD de un actor es el DoR del siguiente — sin DoD cerrado, no hay avance.</span>
+            <span data-i18n-en>Eleven phases. Six actors. Nine hardened handoffs. Each DoD becomes the next actor's DoR — without a closed DoD, the work doesn't move.</span>
+          </p>
+        </div>
+        <div class="band-meta">
+          <strong>QASL Framework</strong><br>
+          v1.0 · ISTQB v4 · ISO 29119<br>
+          <span data-i18n-es>Master view · DoR/DoD encadenado</span>
+          <span data-i18n-en>Master view · Chained DoR/DoD</span>
+        </div>
+      </header>
+
+      <div class="engranaje-card">
+        <div class="engranaje-header">
+          <div class="engranaje-header-title">
+            QASL <em>Framework</em>
+            <span style="color: rgba(255,255,255,.4); font-family: var(--mono); font-size: 13px; font-style: normal; margin-left: 8px;">/ Master View · DoR/DoD</span>
+          </div>
+          <div class="engranaje-header-meta">
+            <span><strong>11</strong> <span data-i18n-es>fases</span><span data-i18n-en>phases</span></span>
+            <span><strong>6</strong> <span data-i18n-es>actores</span><span data-i18n-en>actors</span></span>
+            <span><strong>9</strong> handoffs</span>
+            <span><strong>100%</strong> <span data-i18n-es>cobertura</span><span data-i18n-en>coverage</span></span>
+          </div>
+        </div>
+
+        <div class="engranaje-figure">
+          <img src="img/flagships/framework-flow-state-1.png" alt="QASL Framework — DoR/DoD Master View" loading="lazy">
+        </div>
+
+        <div class="engranaje-content">
+          <p class="engranaje-lead">
+            <span data-i18n-es><strong>Calidad no se delega a una sola persona ni a una sola herramienta.</strong> Estendely opera un engranaje formal donde cliente, analista funcional, QA estático, dev, QA de trazabilidad y stakeholder firman criterios de entrada y salida en cada fase. Lo que en otras consultoras es un Word con bullets, acá es un contrato blindado entre roles.</span>
+            <span data-i18n-en><strong>Quality isn't delegated to a single person or a single tool.</strong> Estendely runs a formal gear where client, functional analyst, static QA, dev, traceability QA and stakeholder all sign entry and exit criteria at every phase. What other firms hand off as a Word doc with bullets is, here, a hardened contract between roles.</span>
+          </p>
+          <ul class="engranaje-bullets">
+            <li><span data-i18n-es><strong>Fases F00–F10</strong> — del brief del cliente al sign-off ejecutivo, pasando por análisis estático con IA, refinamiento, automatización E2E/API/Performance/Security y trazabilidad final.</span><span data-i18n-en><strong>Phases F00–F10</strong> — from client brief to executive sign-off, including AI static analysis, refinement, E2E/API/Performance/Security automation and final traceability.</span></li>
+            <li><span data-i18n-es><strong>Pipeline GitHub Actions 26 s</strong> — 11/11 verde end-to-end, con stages INFO → E2E → API → NOTIFY → DEPLOY.</span><span data-i18n-en><strong>26-second GitHub Actions pipeline</strong> — 11/11 green end-to-end, with INFO → E2E → API → NOTIFY → DEPLOY stages.</span></li>
+            <li><span data-i18n-es><strong>5 capas integradas</strong> — Static · E2E · API · Performance · Security, sobre un mismo motor de trazabilidad.</span><span data-i18n-en><strong>5 integrated layers</strong> — Static · E2E · API · Performance · Security, on a single traceability engine.</span></li>
+            <li><span data-i18n-es><strong>Stack productivo</strong> — Playwright + TS, K6 + InfluxDB, OWASP ZAP + Docker, Newman + Postman, Grafana 11.4, Claude AI, Allure + HTMLExtra.</span><span data-i18n-en><strong>Production stack</strong> — Playwright + TS, K6 + InfluxDB, OWASP ZAP + Docker, Newman + Postman, Grafana 11.4, Claude AI, Allure + HTMLExtra.</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ 5 CAPAS INTEGRADAS (DARK) ═════════ -->
+<div class="band-dark">
+  <div class="container">
+    <section class="capas" id="capas">
+      <header class="section-band">
+        <div class="section-band-left">
+          <div class="band-eyebrow">
+            <span data-i18n-es>III · Cobertura</span>
+            <span data-i18n-en>III · Coverage</span>
+          </div>
+          <h2 class="band-title">
+            <span data-i18n-es>Cinco capas. <em>Una sola cobertura.</em></span>
+            <span data-i18n-en>Five layers. <em>One single coverage.</em></span>
+          </h2>
+          <p class="band-desc">
+            <span data-i18n-es>El testing fragmentado es el síntoma de una arquitectura de calidad incompleta. Estendely cubre las cinco capas en un solo engranaje, con un solo motor de trazabilidad y un solo dictamen final.</span>
+            <span data-i18n-en>Fragmented testing is a symptom of an incomplete quality architecture. Estendely covers all five layers in a single gear, with one traceability engine and one final verdict.</span>
+          </p>
+        </div>
+        <div class="band-meta">
+          <strong>QASL Framework</strong><br>
+          5 <span data-i18n-es>capas</span><span data-i18n-en>layers</span> · 1 <span data-i18n-es>motor</span><span data-i18n-en>engine</span><br>
+          <span data-i18n-es>Pipeline · trazabilidad · dictamen</span>
+          <span data-i18n-en>Pipeline · traceability · verdict</span>
+        </div>
+      </header>
+
+      <div class="capas-grid">
+        <div class="capa is-static">
+          <div class="capa-num"><em>I.</em></div>
+          <div class="capa-name">Static</div>
+          <h3 class="capa-title">
+            <span data-i18n-es>Análisis pre-código</span>
+            <span data-i18n-en>Pre-code analysis</span>
+          </h3>
+          <p class="capa-desc">
+            <span data-i18n-es>Historias de usuario, criterios de aceptación, gaps detectados con IA. 1.300+ test cases generados antes de la primera línea de código.</span>
+            <span data-i18n-en>User stories, acceptance criteria, gaps detected with AI. 1,300+ test cases generated before the first line of code.</span>
+          </p>
+          <div class="capa-stack">
+            <strong>Claude AI</strong> · ISO 29148 · 17 docs ejecutables · INVEST
+          </div>
+        </div>
+
+        <div class="capa is-e2e">
+          <div class="capa-num"><em>II.</em></div>
+          <div class="capa-name">E2E</div>
+          <h3 class="capa-title">
+            <span data-i18n-es>Automatización end-to-end</span>
+            <span data-i18n-en>End-to-end automation</span>
+          </h3>
+          <p class="capa-desc">
+            <span data-i18n-es>Flujos completos del usuario sobre browser, mobile y APIs. Page Object Model, fixtures, ejecución paralela.</span>
+            <span data-i18n-en>Full user flows across browser, mobile and APIs. Page Object Model, fixtures, parallel execution.</span>
+          </p>
+          <div class="capa-stack">
+            <strong>Playwright + TS</strong> · Maestro · Allure · HTMLExtra
+          </div>
+        </div>
+
+        <div class="capa is-api">
+          <div class="capa-num"><em>III.</em></div>
+          <div class="capa-name">API</div>
+          <h3 class="capa-title">
+            <span data-i18n-es>Integración &amp; contratos</span>
+            <span data-i18n-en>Integration &amp; contracts</span>
+          </h3>
+          <p class="capa-desc">
+            <span data-i18n-es>Validación de contratos OpenAPI, integraciones B2B, microservicios. Health Score y verdict de release automático.</span>
+            <span data-i18n-en>OpenAPI contract validation, B2B integrations, microservices. Health Score and automatic release verdict.</span>
+          </p>
+          <div class="capa-stack">
+            <strong>Newman + Postman</strong> · OpenAPI 3.1 · FastAPI · HAR-based
+          </div>
+        </div>
+
+        <div class="capa is-perf">
+          <div class="capa-num"><em>IV.</em></div>
+          <div class="capa-name">Performance</div>
+          <h3 class="capa-title">
+            <span data-i18n-es>Carga, estrés &amp; soak</span>
+            <span data-i18n-en>Load, stress &amp; soak</span>
+          </h3>
+          <p class="capa-desc">
+            <span data-i18n-es>1000+ VUs, soak de 1–4 h, race conditions, memory leaks, métricas p50/p90/p99. Voice AI bajo carga.</span>
+            <span data-i18n-en>1000+ VUs, 1–4h soak, race conditions, memory leaks, p50/p90/p99 metrics. Voice AI under load.</span>
+          </p>
+          <div class="capa-stack">
+            <strong>K6 + InfluxDB</strong> · JMeter · Gatling · ElevenLabs SDK
+          </div>
+        </div>
+
+        <div class="capa is-security">
+          <div class="capa-num"><em>V.</em></div>
+          <div class="capa-name">Security</div>
+          <h3 class="capa-title">
+            <span data-i18n-es>Forense &amp; AppSec</span>
+            <span data-i18n-en>Forensic &amp; AppSec</span>
+          </h3>
+          <p class="capa-desc">
+            <span data-i18n-es>SQLi, XSS, CSRF, secretos expuestos. Análisis estático + dependencias + runtime. Output: dictamen forense CFQI con grado A–F.</span>
+            <span data-i18n-en>SQLi, XSS, CSRF, exposed secrets. Static + dependencies + runtime analysis. Output: CFQI forensic verdict with A–F grade.</span>
+          </p>
+          <div class="capa-stack">
+            <strong>QASL Test Security</strong> · OWASP ZAP · Semgrep · Trivy · MobSF
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ QASL TEST SECURITY ═════════ -->
+<div class="band-light">
+  <div class="container">
+    <section class="testsec" id="testsec">
+      <header class="section-band">
+        <div class="section-band-left">
+          <div class="band-eyebrow">
+            <span data-i18n-es>IV · Capa Forense</span>
+            <span data-i18n-en>IV · Forensic Layer</span>
+          </div>
+          <h2 class="band-title">
+            QASL <em>Test Security</em>
+          </h2>
+          <p class="band-desc">
+            <span data-i18n-es>La capa de interpretación forense que ningún competidor tiene. No agregamos scanners — interpretamos sus hallazgos en un dictamen con verdicto numérico, grado y recomendación.</span>
+            <span data-i18n-en>The forensic interpretation layer no competitor has. We don't aggregate scanners — we interpret their findings into a verdict with score, grade and recommendation.</span>
+          </p>
+        </div>
+        <div class="band-meta">
+          <strong>CFQI v1.0</strong> · Code Forensic Quality Index<br>
+          3 <span data-i18n-es>dimensiones</span><span data-i18n-en>dimensions</span> · A→F · 0–100<br>
+          <span data-i18n-es>Privado · Manual operativo + Demo</span>
+          <span data-i18n-en>Private · Operational manual + Demo</span>
+        </div>
+      </header>
+
+      <div class="testsec-card">
+        <div class="testsec-eyebrow">Application Security · Forensic</div>
+        <h3 class="testsec-title">
+          <span data-i18n-es>De una bolsa de findings <em>a un dictamen.</em></span>
+          <span data-i18n-en>From a bag of findings <em>to a verdict.</em></span>
+        </h3>
+        <p class="testsec-lead">
+          <span data-i18n-es><strong>No es un agregador de scanners</strong> (eso lo hacen DefectDojo o Dependency-Track). Es la capa de interpretación forense que se monta encima: convierte una bolsa ruidosa de hallazgos en un score 0–100 con grado A/B/C/D/F sobre 3 dimensiones (Static · Dependencies · Runtime), entregando dos PDFs separados por audiencia: <strong>Executive</strong> (3pp) y <strong>Dictamen Forense</strong> (1p firmable).</span>
+          <span data-i18n-en><strong>Not a scanner aggregator</strong> (that's what DefectDojo or Dependency-Track do). It's the forensic interpretation layer on top: turns a noisy bag of findings into a 0–100 score with A/B/C/D/F grade across 3 dimensions (Static · Dependencies · Runtime), delivering two PDFs separated by audience: <strong>Executive</strong> (3pp) and <strong>Forensic Verdict</strong> (1pp signable).</span>
+        </p>
+
+        <!-- Scanner flow -->
+        <div class="scanner-flow">
+          <div class="scanner-flow-label">
+            <span data-i18n-es>Flujo: scanners → CFQI → dictamen</span>
+            <span data-i18n-en>Flow: scanners → CFQI → verdict</span>
+          </div>
+          <div class="scanner-flow-grid">
+            <div class="scanners-list">
+              <span class="scanner-pill">Semgrep</span>
+              <span class="scanner-pill">Trivy</span>
+              <span class="scanner-pill">OWASP ZAP</span>
+              <span class="scanner-pill">gitleaks</span>
+              <span class="scanner-pill">Checkov</span>
+              <span class="scanner-pill">MobSF</span>
+              <span class="scanner-pill">Garak</span>
+            </div>
+            <div class="flow-arrow">
+              →
+              <span class="arrow-label">CFQI</span>
+            </div>
+            <div class="cfqi-badge">
+              <div class="cfqi-badge-label">Output</div>
+              <div class="cfqi-badge-name">Code Forensic Quality Index</div>
+              <div class="cfqi-badge-meta">
+                <span data-i18n-es>Score <strong>0–100</strong> · Grado <strong>A/B/C/D/F</strong></span>
+                <span data-i18n-en>Score <strong>0–100</strong> · Grade <strong>A/B/C/D/F</strong></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Deliverables -->
+        <div class="testsec-deliverables">
+          <div class="deliverable">
+            <div class="deliverable-num">3</div>
+            <div class="deliverable-name" data-i18n-es>Dimensiones forenses</div>
+            <div class="deliverable-name" data-i18n-en>Forensic dimensions</div>
+            <div class="deliverable-desc">
+              <span data-i18n-es><strong>D1 · Genealogía estructural</strong> (35%) · <strong>D2 · Behavior coherence</strong> (30%) · <strong>D3 · Operational quality</strong> (35%). Sin promediar — penalización Λ por riesgo.</span>
+              <span data-i18n-en><strong>D1 · Structural genealogy</strong> (35%) · <strong>D2 · Behavior coherence</strong> (30%) · <strong>D3 · Operational quality</strong> (35%). No naive averaging — Λ risk penalty.</span>
+            </div>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-num">2</div>
+            <div class="deliverable-name" data-i18n-es>PDFs por audiencia</div>
+            <div class="deliverable-name" data-i18n-en>PDFs per audience</div>
+            <div class="deliverable-desc">
+              <span data-i18n-es><strong>Executive Report</strong> (3pp · CIO/CISO/management) y <strong>Dictamen Forense</strong> (1p firmable · auditores y compliance).</span>
+              <span data-i18n-en><strong>Executive Report</strong> (3pp · CIO/CISO/management) and <strong>Forensic Verdict</strong> (1pp signable · auditors and compliance).</span>
+            </div>
+          </div>
+          <div class="deliverable">
+            <div class="deliverable-num">3</div>
+            <div class="deliverable-name" data-i18n-es>Dashboards Grafana</div>
+            <div class="deliverable-name" data-i18n-en>Grafana dashboards</div>
+            <div class="deliverable-desc">
+              <span data-i18n-es><strong>Executive · Forensic · OWASP coverage</strong>. Auto-provisionados, alimentados por PostgreSQL 16 y FastAPI.</span>
+              <span data-i18n-en><strong>Executive · Forensic · OWASP coverage</strong>. Auto-provisioned, powered by PostgreSQL 16 and FastAPI.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stack & standards -->
+        <div class="testsec-meta">
+          <div class="testsec-meta-block">
+            <div class="meta-label">Stack</div>
+            <div class="pill-row">
+              <span class="pill">FastAPI</span>
+              <span class="pill">PostgreSQL 16</span>
+              <span class="pill">Streamlit</span>
+              <span class="pill">PDFKit</span>
+              <span class="pill">Node 18+</span>
+              <span class="pill">Docker Compose v2</span>
+              <span class="pill">Python 3.10+</span>
+              <span class="pill">fastjsonschema</span>
+            </div>
+          </div>
+          <div class="testsec-meta-block">
+            <div class="meta-label" data-i18n-es>Estándares aplicados</div>
+            <div class="meta-label" data-i18n-en>Applied standards</div>
+            <div class="pill-row">
+              <span class="pill pill-gold">OWASP Top 10 2021</span>
+              <span class="pill pill-gold">OWASP ASVS 4.0</span>
+              <span class="pill pill-gold">NIST SP 800-218 (SSDF)</span>
+              <span class="pill pill-gold">ISO/IEC 27034</span>
+              <span class="pill pill-gold">CWE / CVE / CVSS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ DICTAMEN SHOWCASE ═════════ -->
+<div class="dictamen-band">
+  <div class="container">
+    <section class="dictamen" id="dictamen">
+      <header class="section-band">
+        <div class="section-band-left">
+          <div class="band-eyebrow">
+            <span data-i18n-es>V · Entregable</span>
+            <span data-i18n-en>V · Deliverable</span>
+          </div>
+          <h2 class="band-title">
+            <span data-i18n-es>Esto es lo que <em>recibe</em> tu equipo.</span>
+            <span data-i18n-en>This is what your team <em>actually gets.</em></span>
+          </h2>
+          <p class="band-desc">
+            <span data-i18n-es>Un documento de una página firmable con expediente, autor, veredicto numérico, hallazgos por dimensión y recomendación accionable. No opinión — algoritmo aplicado sobre tres capas.</span>
+            <span data-i18n-en>A one-page signable document with file number, author, numeric verdict, findings per dimension and actionable recommendation. Not opinion — algorithm applied across three layers.</span>
+          </p>
+        </div>
+        <div class="band-meta">
+          <strong>CFQI v1.0</strong><br>
+          <span data-i18n-es>Auditable · Firmable · Defendible</span>
+          <span data-i18n-en>Auditable · Defendable · Signable</span>
+        </div>
+      </header>
+
+      <div class="dictamen-card">
+        <div class="dictamen-figure">
+          <img src="img/flagships/testsec-dictamen-forense.png" alt="Dictamen Forense CFQI v1.0 — muestra" loading="lazy">
+        </div>
+        <div class="dictamen-text">
+          <div class="dictamen-eyebrow">
+            <span data-i18n-es>Algoritmo CFQI · 3 dimensiones</span>
+            <span data-i18n-en>CFQI algorithm · 3 dimensions</span>
+          </div>
+          <h3 class="dictamen-title">
+            <span data-i18n-es>Veredicto numérico. <em>Recomendación accionable.</em></span>
+            <span data-i18n-en>Numeric verdict. <em>Actionable recommendation.</em></span>
+          </h3>
+          <p class="dictamen-lead">
+            <span data-i18n-es>Cada auditoría termina en un documento de una página firmable: expediente numerado, autor identificado, verdicto 0–100 con grado A/B/C/D/F, hallazgos por dimensión y recomendación. No es opinión técnica: es algoritmo aplicado sobre tres capas — estática, dependencias, runtime.</span>
+            <span data-i18n-en>Every audit ends in a one-page signed document: numbered file, named author, 0–100 verdict with A/B/C/D/F grade, findings per dimension and a recommendation. Not technical opinion — algorithm applied across three layers: static, dependencies, runtime.</span>
+          </p>
+          <ul class="dictamen-features">
+            <li><span data-i18n-es><strong>D1 · Genealogía estructural</strong> — 35% · raíces del código.</span><span data-i18n-en><strong>D1 · Structural genealogy</strong> — 35% · code roots.</span></li>
+            <li><span data-i18n-es><strong>D2 · Behavior coherence</strong> — 30% · entrada/salida.</span><span data-i18n-en><strong>D2 · Behavior coherence</strong> — 30% · I/O.</span></li>
+            <li><span data-i18n-es><strong>D3 · Operational quality</strong> — 35% · runtime real.</span><span data-i18n-en><strong>D3 · Operational quality</strong> — 35% · live runtime.</span></li>
+            <li><span data-i18n-es>Penalización <strong>Λ</strong> por riesgo · sin promediar dimensiones.</span><span data-i18n-en><strong>Λ</strong> risk penalty · no naive averaging.</span></li>
+          </ul>
+          <div class="dictamen-ctas">
+            <a href="#contacto" class="btn-testsec">
+              <span data-i18n-es>Pedir dictamen de muestra</span>
+              <span data-i18n-en>Request sample verdict</span>
+              →
+            </a>
+            <a href="https://github.com/E-Gregorio/qasl-mathcore" class="btn-ghost-dark" target="_blank" rel="noopener">
+              <span data-i18n-es>Ver MATHCORE (open source)</span>
+              <span data-i18n-en>See MATHCORE (open source)</span>
+              →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ SERVICIOS ═════════ -->
+<div class="servicios-band">
+  <div class="container">
+    <section class="servicios" id="servicios">
+      <header class="section-band">
+        <div class="section-band-left">
+          <div class="band-eyebrow">
+            <span data-i18n-es>VI · Servicios</span>
+            <span data-i18n-en>VI · Services</span>
+          </div>
+          <h2 class="band-title">
+            <span data-i18n-es>Tres frentes. <em>Un mismo motor.</em></span>
+            <span data-i18n-en>Three fronts. <em>One engine.</em></span>
+          </h2>
+          <p class="band-desc">
+            <span data-i18n-es>Cada servicio termina con un dictamen forense técnico firmable. No reportes ejecutivos genéricos: documentos con expediente, verdicto numérico, causa raíz y recomendación.</span>
+            <span data-i18n-en>Every engagement ends in a forensic verdict. Not a generic executive report — a document with file number, numeric score, root cause and recommendation.</span>
+          </p>
+        </div>
+        <div class="band-meta">
+          <strong>Pricing · USD</strong><br>
+          <span data-i18n-es>Precios "desde" · Sujetos a alcance</span>
+          <span data-i18n-en>"From" pricing · Scope-based</span>
+        </div>
+      </header>
+
+      <div class="servicios-grid">
+
+        <article class="servicio is-forge">
+          <div class="servicio-eyebrow">QASL-FORGE™ · Flagship</div>
+          <h3 class="servicio-title">
+            <span data-i18n-es>Engagement <em>QASL-FORGE™</em></span>
+            <span data-i18n-en>QASL-FORGE™ <em>Engagement</em></span>
+          </h3>
+          <p class="servicio-tagline">
+            <span data-i18n-es>Testing Reverso™ completo aplicado a tu sistema crítico. 7 fases. Dictamen final.</span>
+            <span data-i18n-en>Full Testing Reverso™ on your critical system. 7 phases. Final verdict.</span>
+          </p>
+          <ul class="servicio-list">
+            <li><span data-i18n-es>7 fases formales · gates bloqueantes</span><span data-i18n-en>7 formal phases · blocking gates</span></li>
+            <li><span data-i18n-es>QRE™ asignado · captura HAR + análisis</span><span data-i18n-en>QRE™ assigned · HAR capture + analysis</span></li>
+            <li><span data-i18n-es>Detección de Data Scavenging™ · race conditions</span><span data-i18n-en>Data Scavenging™ detection · race conditions</span></li>
+            <li><span data-i18n-es>Token Lifecycle Workflow™ · taxonomía completa</span><span data-i18n-en>Token Lifecycle Workflow™ · full taxonomy</span></li>
+            <li><span data-i18n-es>Entrega: Forensic Report PDF + sprint cristalizado</span><span data-i18n-en>Deliverables: Forensic PDF + crystallized sprint</span></li>
+          </ul>
+          <div class="servicio-price">
+            <span class="servicio-price-label" data-i18n-es>Desde</span>
+            <span class="servicio-price-label" data-i18n-en>From</span>
+            <span class="servicio-price-num"><span class="currency">USD</span>12.000</span>
+          </div>
+          <div class="servicio-price-note">
+            <span data-i18n-es>Engagement completo · 6 semanas · metodología registrada</span>
+            <span data-i18n-en>Full engagement · 6 weeks · registered methodology</span>
+          </div>
+          <a href="#contacto" class="servicio-cta">
+            <span data-i18n-es>Reservar engagement →</span>
+            <span data-i18n-en>Book engagement →</span>
+          </a>
+        </article>
+
+        <article class="servicio is-ai">
+          <div class="servicio-eyebrow">AI / LLM Forensics</div>
+          <h3 class="servicio-title">
+            <span data-i18n-es>Auditoría Forense <em>AI / LLM</em></span>
+            <span data-i18n-en>AI / LLM Forensic <em>Audit</em></span>
+          </h3>
+          <p class="servicio-tagline">
+            <span data-i18n-es>Para chatbots, copilots, RAG y sistemas con IA en producción.</span>
+            <span data-i18n-en>For chatbots, copilots, RAG and AI systems in production.</span>
+          </p>
+          <ul class="servicio-list">
+            <li><span data-i18n-es>Red-teaming con Garak (NVIDIA NeMo)</span><span data-i18n-en>Red-teaming with Garak (NVIDIA NeMo)</span></li>
+            <li><span data-i18n-es>LLM-as-Judge multi-modelo (Claude · GPT-4 · Gemini)</span><span data-i18n-en>Multi-model LLM-as-Judge (Claude · GPT-4 · Gemini)</span></li>
+            <li><span data-i18n-es>Cobertura OWASP LLM Top 10 · NIST AI RMF</span><span data-i18n-en>Coverage: OWASP LLM Top 10 · NIST AI RMF</span></li>
+            <li><span data-i18n-es>Structural fingerprinting (MATHCORE)</span><span data-i18n-en>Structural fingerprinting (MATHCORE)</span></li>
+            <li><span data-i18n-es>Entrega: AFQI Dictamen + Executive Report</span><span data-i18n-en>Deliverables: AFQI Verdict + Executive Report</span></li>
+          </ul>
+          <div class="servicio-price">
+            <span class="servicio-price-label" data-i18n-es>Desde</span>
+            <span class="servicio-price-label" data-i18n-en>From</span>
+            <span class="servicio-price-num"><span class="currency">USD</span>4.800</span>
+          </div>
+          <div class="servicio-price-note">
+            <span data-i18n-es>Auditoría completa · 1 sprint · dictamen incluido</span>
+            <span data-i18n-en>Full audit · 1 sprint · verdict included</span>
+          </div>
+          <a href="#contacto" class="servicio-cta">
+            <span data-i18n-es>Cotizar auditoría →</span>
+            <span data-i18n-en>Request audit quote →</span>
+          </a>
+        </article>
+
+        <article class="servicio is-shiftleft">
+          <div class="servicio-eyebrow" data-i18n-es>QA Shift-Left · Greenfield + Re-engineering</div>
+          <div class="servicio-eyebrow" data-i18n-en>Shift-Left QA · Greenfield + Re-engineering</div>
+          <h3 class="servicio-title">
+            <span data-i18n-es>Implementación <em>Shift-Left</em> QA</span>
+            <span data-i18n-en><em>Shift-Left</em> QA Implementation</span>
+          </h3>
+          <p class="servicio-tagline">
+            <span data-i18n-es>El engranaje completo desde el requerimiento. Greenfield o sistemas heredados.</span>
+            <span data-i18n-en>The full gear from requirement to verdict. Greenfield or legacy systems.</span>
+          </p>
+          <ul class="servicio-list">
+            <li><span data-i18n-es>Engranaje DoR/DoD F00–F10 · 6 actores · 9 handoffs</span><span data-i18n-en>DoR/DoD gear F00–F10 · 6 actors · 9 handoffs</span></li>
+            <li><span data-i18n-es>Pipeline GitLab/GitHub · 5 capas integradas</span><span data-i18n-en>GitLab/GitHub pipeline · 5 integrated layers</span></li>
+            <li><span data-i18n-es>Análisis estático con IA · 1.300+ test cases pre-dev</span><span data-i18n-en>AI-driven static analysis · 1,300+ pre-dev test cases</span></li>
+            <li><span data-i18n-es>Re-engineering: dictamen del legacy + plan de migración</span><span data-i18n-en>Re-engineering: legacy verdict + migration plan</span></li>
+            <li><span data-i18n-es>Dashboard ejecutivo + observabilidad QA en vivo</span><span data-i18n-en>Executive dashboard + live QA observability</span></li>
+          </ul>
+          <div class="servicio-price">
+            <span class="servicio-price-label" data-i18n-es>Desde</span>
+            <span class="servicio-price-label" data-i18n-en>From</span>
+            <span class="servicio-price-num"><span class="currency">USD</span>7.500<span class="unit" data-i18n-es>/mes</span><span class="unit" data-i18n-en>/mo</span></span>
+          </div>
+          <div class="servicio-price-note">
+            <span data-i18n-es>Retainer · equipo virtual · pipeline completo</span>
+            <span data-i18n-en>Retainer · virtual team · full pipeline</span>
+          </div>
+          <a href="#contacto" class="servicio-cta">
+            <span data-i18n-es>Agendar demo →</span>
+            <span data-i18n-en>Schedule demo →</span>
+          </a>
+        </article>
+
+        <article class="servicio is-voice">
+          <div class="servicio-eyebrow">Voice AI · Stress Testing</div>
+          <h3 class="servicio-title">
+            <span data-i18n-es>Voice AI <em>Stress Testing</em></span>
+            <span data-i18n-en>Voice AI <em>Stress Testing</em></span>
+          </h3>
+          <p class="servicio-tagline">
+            <span data-i18n-es>Para call centers, asistentes telefónicos y agentes de voz.</span>
+            <span data-i18n-en>For call centers, telephone assistants and voice agents.</span>
+          </p>
+          <ul class="servicio-list">
+            <li><span data-i18n-es>ElevenLabs · OpenAI Realtime · Whisper</span><span data-i18n-en>ElevenLabs · OpenAI Realtime · Whisper</span></li>
+            <li><span data-i18n-es>Validación voz → texto → LLM → texto → voz</span><span data-i18n-en>Voice → text → LLM → text → voice validation</span></li>
+            <li><span data-i18n-es>JMeter + wrapper Python · saturación 429/500</span><span data-i18n-en>JMeter + Python wrapper · 429/500 saturation</span></li>
+            <li><span data-i18n-es>Latencia · calidad conversacional · drift</span><span data-i18n-en>Latency · conversational quality · drift</span></li>
+            <li><span data-i18n-es>Entrega: Dictamen + métricas p50/p90/p99</span><span data-i18n-en>Deliverables: Verdict + p50/p90/p99 metrics</span></li>
+          </ul>
+          <div class="servicio-price">
+            <span class="servicio-price-label" data-i18n-es>Desde</span>
+            <span class="servicio-price-label" data-i18n-en>From</span>
+            <span class="servicio-price-num"><span class="currency">USD</span>3.200</span>
+          </div>
+          <div class="servicio-price-note">
+            <span data-i18n-es>Proyecto puntual · 1 endpoint · dictamen incluido</span>
+            <span data-i18n-en>One-off project · 1 endpoint · verdict included</span>
+          </div>
+          <a href="#contacto" class="servicio-cta">
+            <span data-i18n-es>Solicitar evaluación →</span>
+            <span data-i18n-en>Request evaluation →</span>
+          </a>
+        </article>
+
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ SECTORES (DARK) ═════════ -->
+<div class="sectores-band">
+  <div class="container">
+    <section class="sectores" id="sectores">
+      <header class="section-band">
+        <div class="section-band-left">
+          <div class="band-eyebrow">
+            <span data-i18n-es>VII · Sectores</span>
+            <span data-i18n-en>VII · Sectors</span>
+          </div>
+          <h2 class="band-title">
+            <span data-i18n-es>Donde no <em>se puede</em> fallar.</span>
+            <span data-i18n-en>Where failure <em>isn't</em> an option.</span>
+          </h2>
+          <p class="band-desc">
+            <span data-i18n-es>Estendely está diseñado para verticales con auditoría regulatoria, datos sensibles y consecuencias reales por fallas. Cada sector recibe un marco normativo a medida.</span>
+            <span data-i18n-en>Estendely is built for verticals with regulatory audit, sensitive data and real consequences for failures. Each sector receives a tailored compliance framework.</span>
+          </p>
+        </div>
+      </header>
+
+      <div class="sectores-grid">
+        <div class="sector">
+          <div class="sector-icon">B</div>
+          <h3 class="sector-title">
+            <span data-i18n-es>Banca &amp; Fintech</span>
+            <span data-i18n-en>Banking &amp; Fintech</span>
+          </h3>
+          <p class="sector-desc">
+            <span data-i18n-es>Validación de flujos de pago, autenticación y core legacy bajo migración. Stress testing PCI-DSS.</span>
+            <span data-i18n-en>Payment flows, authentication and legacy core under migration. PCI-DSS stress testing.</span>
+          </p>
+          <div class="sector-tags">PCI-DSS · ISO 8583 · ISO 27001 · K6 1000+ VUs</div>
+        </div>
+
+        <div class="sector">
+          <div class="sector-icon">S</div>
+          <h3 class="sector-title">
+            <span data-i18n-es>Salud &amp; HealthTech</span>
+            <span data-i18n-en>Healthcare &amp; HealthTech</span>
+          </h3>
+          <p class="sector-desc">
+            <span data-i18n-es>HIS, telemedicina y migraciones de datos clínicos. Compliance HIPAA + ISO 13485.</span>
+            <span data-i18n-en>HIS, telemedicine and clinical data migrations. HIPAA + ISO 13485 compliance.</span>
+          </p>
+          <div class="sector-tags">HIPAA · ISO 13485 · HL7 · 5 centros médicos</div>
+        </div>
+
+        <div class="sector">
+          <div class="sector-icon">G</div>
+          <h3 class="sector-title">
+            <span data-i18n-es>Gobierno</span>
+            <span data-i18n-en>Government</span>
+          </h3>
+          <p class="sector-desc">
+            <span data-i18n-es>Sistemas públicos, RFP, infraestructura QA dual-VM aprobada por Dirección, Servidores y SOC.</span>
+            <span data-i18n-en>Public systems, RFPs, dual-VM QA infrastructure cleared by Engineering, Servers and SOC.</span>
+          </p>
+          <div class="sector-tags">ISO 29119 · IEEE 1028 · 29 herramientas · NDA</div>
+        </div>
+
+        <div class="sector">
+          <div class="sector-icon">E</div>
+          <h3 class="sector-title">
+            <span data-i18n-es>Enterprise &amp; AI/LLM</span>
+            <span data-i18n-en>Enterprise &amp; AI/LLM</span>
+          </h3>
+          <p class="sector-desc">
+            <span data-i18n-es>Plataformas Multi-LLM, copilots internos, voice agents y RAG en producción a escala.</span>
+            <span data-i18n-en>Multi-LLM platforms, internal copilots, voice agents and RAG at production scale.</span>
+          </p>
+          <div class="sector-tags">OWASP LLM · NIST AI RMF · 614+ test cases · 12 microservicios</div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ MARCO NORMATIVO ═════════ -->
+<div class="band-light">
+  <div class="container">
+    <section class="normativo" id="normativo">
+      <header class="section-band">
+        <div class="section-band-left">
+          <div class="band-eyebrow">
+            <span data-i18n-es>VIII · Marco normativo</span>
+            <span data-i18n-en>VIII · Compliance framework</span>
+          </div>
+          <h2 class="band-title">
+            <span data-i18n-es>Respaldado por <em>estándares internacionales</em></span>
+            <span data-i18n-en>Backed by <em>international standards</em></span>
+          </h2>
+          <p class="band-desc">
+            <span data-i18n-es>Ningún criterio inventado. Cada decisión se apoya en estándares públicos vigentes que cualquier auditor o regulador puede cross-validar.</span>
+            <span data-i18n-en>No invented criteria. Every decision rests on current public standards any auditor or regulator can cross-validate.</span>
+          </p>
+        </div>
+        <div class="band-meta">
+          <strong>10 <span data-i18n-es>estándares</span><span data-i18n-en>standards</span></strong><br>
+          <span data-i18n-es>2 certificaciones ISO empresariales</span>
+          <span data-i18n-en>2 enterprise ISO certifications</span><br>
+          ISO + IEEE + ISTQB + OWASP + NIST
+        </div>
+      </header>
+
+      <div class="normativo-board">
+        <p class="normativo-lead">
+          <span data-i18n-es>El framework no inventa categorías propias para todo. Cada control y cada métrica se apoya en <strong>estándares públicos vigentes</strong> reconocidos por gobierno, banca, salud y enterprise — facilitando auditorías, RFPs y compliance regulatorio.</span>
+          <span data-i18n-en>The framework doesn't reinvent categories. Every control and every metric is grounded in <strong>current public standards</strong> recognized by government, banking, healthcare and enterprise — easing audits, RFPs and regulatory compliance.</span>
+        </p>
+
+        <div class="standards-grid">
+          <div class="standard"><div class="standard-name">ISO 9001:2015</div><div class="standard-desc" data-i18n-es>Sistema de gestión de calidad</div><div class="standard-desc" data-i18n-en>Quality management system</div></div>
+          <div class="standard"><div class="standard-name">ISO/IEC 27001:2022</div><div class="standard-desc" data-i18n-es>Seguridad de la información</div><div class="standard-desc" data-i18n-en>Information security management</div></div>
+          <div class="standard"><div class="standard-name">ISTQB v4 · CTFL</div><div class="standard-desc" data-i18n-es>Foundation Level testing</div><div class="standard-desc" data-i18n-en>Foundation Level testing</div></div>
+          <div class="standard"><div class="standard-name">ISO/IEC/IEEE 29119</div><div class="standard-desc" data-i18n-es>Procesos · Documentación · Técnicas</div><div class="standard-desc" data-i18n-en>Processes · Documentation · Techniques</div></div>
+          <div class="standard"><div class="standard-name">ISO/IEC/IEEE 29148</div><div class="standard-desc" data-i18n-es>Especificación de requerimientos</div><div class="standard-desc" data-i18n-en>Requirements specification</div></div>
+          <div class="standard"><div class="standard-name">IEEE 1028</div><div class="standard-desc" data-i18n-es>Software reviews &amp; audits</div><div class="standard-desc" data-i18n-en>Software reviews &amp; audits</div></div>
+          <div class="standard"><div class="standard-name">ISO/IEC 20246</div><div class="standard-desc" data-i18n-es>Work product reviews</div><div class="standard-desc" data-i18n-en>Work product reviews</div></div>
+          <div class="standard"><div class="standard-name">ISO/IEC 27034</div><div class="standard-desc" data-i18n-es>Application security</div><div class="standard-desc" data-i18n-en>Application security</div></div>
+          <div class="standard"><div class="standard-name">OWASP LLM Top 10</div><div class="standard-desc" data-i18n-es>Riesgos de seguridad en LLM</div><div class="standard-desc" data-i18n-en>LLM security risks</div></div>
+          <div class="standard"><div class="standard-name">NIST AI RMF 1.0</div><div class="standard-desc" data-i18n-es>Risk Management para IA</div><div class="standard-desc" data-i18n-en>AI Risk Management framework</div></div>
+        </div>
+
+        <div class="benefits-grid">
+          <div class="benefit">
+            <div class="benefit-label">Compliance</div>
+            <div class="benefit-title"><span data-i18n-es>Compliance &amp; certificación</span><span data-i18n-en>Compliance &amp; certification</span></div>
+            <div class="benefit-text"><span data-i18n-es>Procesos auditables · ISO 9001 + 27001 · documentación IEEE · metodología ISTQB.</span><span data-i18n-en>Auditable processes · ISO 9001 + 27001 · IEEE documentation · ISTQB methodology.</span></div>
+          </div>
+          <div class="benefit">
+            <div class="benefit-label" data-i18n-es>Trazabilidad</div>
+            <div class="benefit-label" data-i18n-en>Traceability</div>
+            <div class="benefit-title"><span data-i18n-es>Trazabilidad &amp; auditoría</span><span data-i18n-en>Traceability &amp; audit</span></div>
+            <div class="benefit-text"><span data-i18n-es>Cada proceso con base en estándar público · auditorías facilitadas · gestión de riesgos basada en NIST.</span><span data-i18n-en>Every process grounded in public standards · audit-ready · NIST-based risk management.</span></div>
+          </div>
+          <div class="benefit">
+            <div class="benefit-label" data-i18n-es>Valor comercial</div>
+            <div class="benefit-label" data-i18n-en>Commercial value</div>
+            <div class="benefit-title"><span data-i18n-es>Diferenciación &amp; confianza</span><span data-i18n-en>Differentiation &amp; trust</span></div>
+            <div class="benefit-text"><span data-i18n-es>Credibilidad respaldada por estándares · ventaja en RFP · transparencia metodológica.</span><span data-i18n-en>Standards-backed credibility · RFP advantage · methodological transparency.</span></div>
+          </div>
+          <div class="benefit">
+            <div class="benefit-label" data-i18n-es>Eficiencia</div>
+            <div class="benefit-label" data-i18n-en>Efficiency</div>
+            <div class="benefit-title"><span data-i18n-es>Procesos &amp; métricas</span><span data-i18n-en>Processes &amp; metrics</span></div>
+            <div class="benefit-text"><span data-i18n-es>Reducción de variabilidad · KPIs alineados a estándares · automation con criterios objetivos.</span><span data-i18n-en>Variability reduction · standards-aligned KPIs · objective automation criteria.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ CONTACTO (DARK) ═════════ -->
+<div class="contacto-band">
+  <div class="container">
+    <section class="contacto" id="contacto">
+      <header class="contacto-hero">
+        <div class="band-eyebrow">
+          <span data-i18n-es>IX · Contacto</span>
+          <span data-i18n-en>IX · Contact</span>
+        </div>
+        <h2 class="contacto-title">
+          <span data-i18n-es>Pedí tu <em>dictamen.</em></span>
+          <span data-i18n-en>Request your <em>verdict.</em></span>
+        </h2>
+        <p class="contacto-lead">
+          <span data-i18n-es>Cuéntame qué sistema necesitás auditar. Te respondo en menos de 24 horas con un alcance preliminar y precio cerrado.</span>
+          <span data-i18n-en>Tell me what system you need audited. I'll reply within 24 hours with a preliminary scope and a fixed price.</span>
+        </p>
+      </header>
+
+      <div class="contacto-grid">
+        <div class="contacto-channels">
+          <a href="mailto:elyer.g.maldonado@gmail.com?subject=Estendely%20%E2%80%94%20Solicitud%20de%20dictamen" class="channel">
+            <span class="channel-icon">@</span>
+            <div class="channel-text">
+              <div class="channel-label">Email</div>
+              <div class="channel-value">elyer.g.maldonado@gmail.com</div>
+            </div>
+            <span class="channel-arrow">→</span>
+          </a>
+          <a href="https://wa.me/5491170619954?text=Hola%20Elyer%2C%20vengo%20de%20Estendely.com" target="_blank" rel="noopener" class="channel">
+            <span class="channel-icon">W</span>
+            <div class="channel-text">
+              <div class="channel-label">WhatsApp</div>
+              <div class="channel-value">+54 11 7061-9954</div>
+            </div>
+            <span class="channel-arrow">→</span>
+          </a>
+          <a href="https://www.linkedin.com/in/elyergregorio/" target="_blank" rel="noopener" class="channel">
+            <span class="channel-icon">in</span>
+            <div class="channel-text">
+              <div class="channel-label">LinkedIn</div>
+              <div class="channel-value">linkedin.com/in/elyergregorio</div>
+            </div>
+            <span class="channel-arrow">→</span>
+          </a>
+        </div>
+
+        <aside class="contacto-aside">
+          <div class="aside-eyebrow">
+            <span data-i18n-es>Cómo trabajamos</span>
+            <span data-i18n-en>How we work</span>
+          </div>
+          <h3 class="aside-title">
+            <span data-i18n-es>De la primera llamada al <em>dictamen</em>, en 6 pasos.</span>
+            <span data-i18n-en>From first call to <em>verdict</em>, in 6 steps.</span>
+          </h3>
+          <p class="aside-text">
+            <span data-i18n-es>Cero ambigüedad. Cada paso con DoR/DoD escrito.</span>
+            <span data-i18n-en>Zero ambiguity. Every step has a written DoR/DoD.</span>
+          </p>
+          <ul class="aside-list">
+            <li><span data-i18n-es><strong>1</strong> · Llamada de descubrimiento (30 min)</span><span data-i18n-en><strong>1</strong> · Discovery call (30 min)</span></li>
+            <li><span data-i18n-es><strong>2</strong> · Propuesta con alcance + precio cerrado</span><span data-i18n-en><strong>2</strong> · Proposal with scope + fixed price</span></li>
+            <li><span data-i18n-es><strong>3</strong> · NDA + acceso al sistema</span><span data-i18n-en><strong>3</strong> · NDA + system access</span></li>
+            <li><span data-i18n-es><strong>4</strong> · Ejecución del engranaje QASL</span><span data-i18n-en><strong>4</strong> · QASL gear execution</span></li>
+            <li><span data-i18n-es><strong>5</strong> · Dictamen forense técnico firmable</span><span data-i18n-en><strong>5</strong> · Audit-grade signed verdict</span></li>
+            <li><span data-i18n-es><strong>6</strong> · Sesión de cierre + roadmap</span><span data-i18n-en><strong>6</strong> · Closing session + roadmap</span></li>
+          </ul>
+        </aside>
+      </div>
+
+      <div class="trademarks-bar">
+        <div class="trademarks-content">
+          <strong>
+            <span data-i18n-es>Marcas registradas / Registered Trademarks</span>
+            <span data-i18n-en>Registered Trademarks</span>
+          </strong>
+          <div class="trademarks-list">
+            <span class="tm-name">Estendely<sup>™</sup></span> ·
+            <span class="tm-name">QASL<sup>™</sup></span> ·
+            <span class="tm-name">QASL-FORGE<sup>™</sup></span> ·
+            <span class="tm-name">Testing Reverso<sup>™</sup></span> ·
+            <span class="tm-name">Quality Reverse Engineer<sup>™</sup></span> ·
+            <span class="tm-name">QRE<sup>™</sup></span> ·
+            <span class="tm-name">Data Scavenging<sup>™</sup></span> ·
+            <span class="tm-name">Token Lifecycle Workflow<sup>™</sup></span> ·
+            <span class="tm-name">QASL Forensic Analyzer<sup>™</sup></span> ·
+            <span class="tm-name">QASL Correlator<sup>™</sup></span> ·
+            <span class="tm-name">QASL Backend Live Scanner<sup>™</sup></span> ·
+            <span class="tm-name">CFQI<sup>™</sup></span> ·
+            <span class="tm-name">AFQI<sup>™</sup></span> ·
+            <span class="tm-name">MATHCORE<sup>™</sup></span> ·
+            <span class="tm-name">INGRID<sup>™</sup></span> ·
+            <span class="tm-name">QASL NEXUS LLM<sup>™</sup></span> ·
+            <span class="tm-name">QASL TOMEX<sup>™</sup></span>
+          </div>
+          <div class="trademarks-legal">
+            <span data-i18n-es>Protegido por Ley argentina 11.723 · Convenio de Berna · Acuerdo ADPIC · Régimen de Marcas Ley 22.362</span>
+            <span data-i18n-en>Protected under Argentine Law 11.723 · Berne Convention · TRIPS Agreement · Trademark Law 22.362</span>
+          </div>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <div class="footer-brand">
+          © 2026 <strong>Estendely</strong> · <span data-i18n-es>Buenos Aires · Remoto LATAM/Global</span><span data-i18n-en>Buenos Aires · Remote LATAM/Global</span>
+        </div>
+        <nav class="footer-links">
+          <a href="#forge">FORGE</a>
+          <a href="#engranaje" data-i18n-es>Engranaje</a><a href="#engranaje" data-i18n-en>Method</a>
+          <a href="#testsec">Test Security</a>
+          <a href="#dictamen" data-i18n-es>Dictamen</a><a href="#dictamen" data-i18n-en>Verdict</a>
+          <a href="index.html" data-i18n-es>Portafolio</a><a href="index.html" data-i18n-en>Portfolio</a>
+          <a href="https://github.com/E-Gregorio" target="_blank" rel="noopener">GitHub</a>
+        </nav>
+      </footer>
+    </section>
+  </div>
+</div>
+
+<script>
+function setLang(lang) {
+  document.documentElement.setAttribute('lang', lang);
+  document.getElementById('lang-es').classList.toggle('active', lang === 'es');
+  document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+}
+</script>
+
+</body>
+</html>

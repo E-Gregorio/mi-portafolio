@@ -1603,11 +1603,12 @@ body::before {
     <button class="nav-toggle" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="topnav">
       <span class="bars"><span></span></span>
     </button>
-    <nav class="topnav" id="topnav">
+    <nav class="topnav" id="topnav" aria-label="Navegación principal">
       <a href="#ecosistema">Ecosistema</a>
       <a href="#flagship">Flagship</a>
       <a href="#marco-normativo">Marco Normativo</a>
       <a href="#ecosistema-completo">Más</a>
+      <a href="#vistas">Vistas</a>
       <a href="#contacto">Contacto</a>
     </nav>
     <a href="https://www.linkedin.com/in/elyergregorio/" target="_blank" rel="noopener" class="cta-mini">LinkedIn →</a>
@@ -2807,6 +2808,99 @@ body::before {
     </div>
   </section>
 
+  <!-- ═══ VISTAS ESPECIALIZADAS (links a splits) ════════ -->
+  <section id="vistas" style="max-width: 1280px; margin: 0 auto; padding: 80px 32px 100px; position: relative; z-index: 1;">
+
+    <header style="display: flex; align-items: flex-end; justify-content: space-between; gap: 48px; padding-bottom: 36px; flex-wrap: wrap; border-bottom: 1px solid var(--rule); margin-bottom: 36px;">
+      <div style="max-width: 760px;">
+        <div style="font-family: var(--mono); font-size: 11px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--accent); margin-bottom: 18px; display: inline-flex; align-items: center; gap: 14px;">
+          <span style="display: inline-block; width: 32px; height: 1.5px; background: var(--accent);"></span>
+          VI · Vistas especializadas
+        </div>
+        <h2 style="font-family: var(--serif); font-weight: 500; font-size: clamp(34px, 4vw, 54px); line-height: 1.04; letter-spacing: -0.028em; color: var(--ink); margin-bottom: 14px;">
+          ¿Buscás un foco <em style="font-style: italic; color: var(--accent);">específico</em>?
+        </h2>
+        <p style="font-family: var(--serif); font-style: italic; font-size: 18px; color: var(--text-2); max-width: 720px; line-height: 1.5;">
+          Tres portafolios temáticos para reclutadores con vacantes específicas en AI/LLM, AppSec o Quality Engineering. Cada uno profundiza en su área con detalle técnico, evidencia visual real y stack consolidado. Bilingüe ES/EN.
+        </p>
+      </div>
+      <div style="font-family: var(--mono); font-size: 10.5px; color: var(--text-3); letter-spacing: 0.06em; text-align: right; line-height: 1.7; padding-bottom: 4px;">
+        <strong style="color: var(--ink); font-weight: 700;">3 vistas</strong><br>
+        Bilingüe ES/EN<br>
+        Privado · Demo bajo NDA
+      </div>
+    </header>
+
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px;">
+
+      <!-- AI/LLM SPLIT -->
+      <a href="qasl-ai.html" style="text-decoration: none; color: inherit; background: var(--paper-2); border: 1px solid var(--rule); border-radius: 14px; padding: 32px 28px 26px; position: relative; display: flex; flex-direction: column; box-shadow: var(--shadow-sm); transition: transform .25s, box-shadow .25s, border-color .25s; overflow: hidden;"
+         onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='var(--shadow-md)'; this.style.borderColor='var(--c-ingrid)';"
+         onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow-sm)'; this.style.borderColor='var(--rule)';"
+         onfocus="this.style.transform='translateY(-4px)'; this.style.boxShadow='var(--shadow-md)'; this.style.borderColor='var(--c-ingrid)';"
+         onblur="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow-sm)'; this.style.borderColor='var(--rule)';">
+        <span style="position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: var(--c-ingrid); border-radius: 14px 0 0 14px;"></span>
+        <div style="font-family: var(--mono); font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-ingrid); margin-bottom: 14px;">QASL · AI/LLM</div>
+        <h3 style="font-family: var(--serif); font-weight: 600; font-size: 24px; line-height: 1.1; color: var(--ink); margin-bottom: 10px; letter-spacing: -0.02em;">
+          AI/LLM <em style="font-style: italic; color: var(--c-ingrid); font-weight: 500;">Forensic Testing</em>
+        </h3>
+        <p style="font-family: var(--serif); font-style: italic; font-size: 14px; color: var(--text-2); line-height: 1.5; margin-bottom: 20px; flex: 1;">
+          INGRID (AFQI v1.0) + MATHCORE + Garak (NVIDIA NeMo). Cobertura completa OWASP LLM Top 10 (2025), NIST AI RMF, ISO/IEC 42001.
+        </p>
+        <div style="font-family: var(--mono); font-size: 10px; color: var(--text-3); letter-spacing: 0.04em; line-height: 1.6; padding-top: 14px; border-top: 1px dashed var(--rule); margin-bottom: 16px;">
+          Para vacantes: <strong style="color: var(--c-ingrid); font-weight: 700;">AI Quality Engineer · LLM Security · MLOps QA</strong>
+        </div>
+        <span style="font-family: var(--mono); font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-ingrid); align-self: flex-start;">Ver portafolio →</span>
+      </a>
+
+      <!-- TEST SECURITY SPLIT -->
+      <a href="qasl-testsec.html" style="text-decoration: none; color: inherit; background: var(--paper-2); border: 1px solid var(--rule); border-radius: 14px; padding: 32px 28px 26px; position: relative; display: flex; flex-direction: column; box-shadow: var(--shadow-sm); transition: transform .25s, box-shadow .25s, border-color .25s; overflow: hidden;"
+         onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='var(--shadow-md)'; this.style.borderColor='var(--c-testsec)';"
+         onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow-sm)'; this.style.borderColor='var(--rule)';"
+         onfocus="this.style.transform='translateY(-4px)'; this.style.boxShadow='var(--shadow-md)'; this.style.borderColor='var(--c-testsec)';"
+         onblur="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow-sm)'; this.style.borderColor='var(--rule)';">
+        <span style="position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: var(--c-testsec); border-radius: 14px 0 0 14px;"></span>
+        <div style="font-family: var(--mono); font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-testsec); margin-bottom: 14px;">QASL · TEST SECURITY</div>
+        <h3 style="font-family: var(--serif); font-weight: 600; font-size: 24px; line-height: 1.1; color: var(--ink); margin-bottom: 10px; letter-spacing: -0.02em;">
+          Application <em style="font-style: italic; color: var(--c-testsec); font-weight: 500;">Security Forensic</em>
+        </h3>
+        <p style="font-family: var(--serif); font-style: italic; font-size: 14px; color: var(--text-2); line-height: 1.5; margin-bottom: 20px; flex: 1;">
+          CFQI v1.0 + 6 scanners integrados (Semgrep · Trivy · OWASP ZAP · gitleaks · Checkov · MobSF). OWASP Top 10 2021, ASVS 4.0, NIST SSDF.
+        </p>
+        <div style="font-family: var(--mono); font-size: 10px; color: var(--text-3); letter-spacing: 0.04em; line-height: 1.6; padding-top: 14px; border-top: 1px dashed var(--rule); margin-bottom: 16px;">
+          Para vacantes: <strong style="color: var(--c-testsec); font-weight: 700;">AppSec Engineer · DevSecOps · Pentest QA</strong>
+        </div>
+        <span style="font-family: var(--mono); font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-testsec); align-self: flex-start;">Ver portafolio →</span>
+      </a>
+
+      <!-- FRAMEWORK SPLIT -->
+      <a href="qasl-framework.html" style="text-decoration: none; color: inherit; background: var(--paper-2); border: 1px solid var(--rule); border-radius: 14px; padding: 32px 28px 26px; position: relative; display: flex; flex-direction: column; box-shadow: var(--shadow-sm); transition: transform .25s, box-shadow .25s, border-color .25s; overflow: hidden;"
+         onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='var(--shadow-md)'; this.style.borderColor='var(--c-framework)';"
+         onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow-sm)'; this.style.borderColor='var(--rule)';"
+         onfocus="this.style.transform='translateY(-4px)'; this.style.boxShadow='var(--shadow-md)'; this.style.borderColor='var(--c-framework)';"
+         onblur="this.style.transform='translateY(0)'; this.style.boxShadow='var(--shadow-sm)'; this.style.borderColor='var(--rule)';">
+        <span style="position: absolute; left: 0; top: 0; bottom: 0; width: 6px; background: var(--c-framework); border-radius: 14px 0 0 14px;"></span>
+        <div style="font-family: var(--mono); font-size: 10px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--c-framework); margin-bottom: 14px;">QASL · FRAMEWORK</div>
+        <h3 style="font-family: var(--serif); font-weight: 600; font-size: 24px; line-height: 1.1; color: var(--ink); margin-bottom: 10px; letter-spacing: -0.02em;">
+          Shift-Left <em style="font-style: italic; color: var(--c-framework); font-weight: 500;">Quality Engineering</em>
+        </h3>
+        <p style="font-family: var(--serif); font-style: italic; font-size: 14px; color: var(--text-2); line-height: 1.5; margin-bottom: 20px; flex: 1;">
+          DoR/DoD encadenado entre 6 actores · 11 fases F00→F10 · 5 capas integradas · pipeline 26s · QASL Mobile + Backend Services. ISTQB v4 · ISO 29119.
+        </p>
+        <div style="font-family: var(--mono); font-size: 10px; color: var(--text-3); letter-spacing: 0.04em; line-height: 1.6; padding-top: 14px; border-top: 1px dashed var(--rule); margin-bottom: 16px;">
+          Para vacantes: <strong style="color: var(--c-framework); font-weight: 700;">QA Tech Lead · SDET Senior · QA Manager</strong>
+        </div>
+        <span style="font-family: var(--mono); font-size: 10.5px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--c-framework); align-self: flex-start;">Ver portafolio →</span>
+      </a>
+
+    </div>
+
+    <p style="margin-top: 28px; font-family: var(--mono); font-size: 10.5px; color: var(--text-3); letter-spacing: 0.06em; text-align: center; line-height: 1.6;">
+      Cada vista es una pieza independiente del mismo ecosistema · navegación cruzada habilitada en todas
+    </p>
+
+  </section>
+
   <!-- ═══ SOBRE · CONTACTO (cierre) ═══════════════════════ -->
   <section class="contacto" id="contacto">
 
@@ -2815,7 +2909,7 @@ body::before {
 
         <!-- Columna izquierda — Bio -->
         <div class="contacto-left">
-          <div class="contacto-eyebrow">VI · Sobre · Contacto</div>
+          <div class="contacto-eyebrow">VII · Sobre · Contacto</div>
           <h2 class="contacto-title">
             Conversemos sobre tu próximo <em>desafío de calidad.</em>
           </h2>

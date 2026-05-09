@@ -1,0 +1,2856 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QASL · Framework — Shift-Left Quality Engineering · DoR/DoD encadenado</title>
+<meta name="description" content="QASL Framework · metodología Shift-Left con DoR/DoD encadenado entre 6 actores · 11 fases F00→F10 · 5 capas integradas · pipeline GitHub Actions 26s. ISTQB v4 · ISO 29119 · IEEE 1028.">
+<meta name="author" content="Elyer Gregorio Maldonado">
+<meta name="keywords" content="QA Tech Lead, QA Architect, SDET, Shift-Left Testing, Test Automation, DoR DoD, ISTQB v4, ISO 29119, IEEE 1028, Playwright, K6, OWASP ZAP, Newman, Grafana, Quality Cockpit, GitHub Actions">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='14' fill='%23B33A1F'/><text y='72' x='50' text-anchor='middle' font-size='58' fill='%23FAF6F0' font-family='Georgia, serif' font-weight='bold' font-style='italic'>F</text></svg>">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="QASL · Framework — Shift-Left Quality Engineering">
+<meta property="og:description" content="DoR/DoD encadenado · 6 actores · 11 fases F00→F10 · 5 capas integradas · pipeline 26s. ISTQB v4 · ISO 29119 · IEEE 1028.">
+<meta property="og:url" content="https://e-gregorio.github.io/mi-portafolio/qasl-framework.html">
+<meta property="og:image" content="https://e-gregorio.github.io/mi-portafolio/img/flagships/framework-flow-state-1.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500;1,6..72,600;1,6..72,700&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --paper:         #FAF6F0;
+  --paper-2:       #FFFFFF;
+  --paper-3:       #F3ECE0;
+  --ink:           #14110F;
+  --ink-2:         #2A2520;
+  --ink-3:         #3D3530;
+  --rule:          #E5DCCB;
+  --rule-strong:   #C9BBA8;
+  --rule-dark:     rgba(255,255,255,.10);
+  --rule-dark-strong: rgba(255,255,255,.20);
+  --text-1:        #14110F;
+  --text-2:        #524A40;
+  --text-3:        #8B8170;
+  --text-on-dark-1: #FAF6F0;
+  --text-on-dark-2: rgba(250,246,240,.72);
+  --text-on-dark-3: rgba(250,246,240,.45);
+  --gold:          #B8860B;
+  --gold-2:        #946B07;
+  --gold-soft:     #FBF4E3;
+
+  --c-framework:    #B33A1F;
+  --c-framework-2:  #8E2A12;
+  --c-framework-soft:#FBEEE7;
+  --c-framework-glow: rgba(179,58,31,0.32);
+  --c-mathcore:    #1F3A5F;
+  --c-mathcore-soft: #E5ECF4;
+  --c-ingrid:      #6B3FA0;
+  --c-ingrid-soft: #EFE8F7;
+  --c-testsec:     #2D5F3F;
+  --c-testsec-soft:#E8F0E9;
+
+  --serif: 'Newsreader', Georgia, serif;
+  --sans:  'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono:  'JetBrains Mono', 'SF Mono', Consolas, monospace;
+
+  --shadow-sm: 0 1px 2px rgba(20,17,15,.04), 0 0 0 1px rgba(20,17,15,.04);
+  --shadow-md: 0 8px 20px -4px rgba(20,17,15,.10), 0 0 0 1px rgba(20,17,15,.05);
+  --shadow-lg: 0 24px 60px -12px rgba(20,17,15,.20), 0 0 0 1px rgba(20,17,15,.06);
+  --shadow-xl: 0 40px 80px -20px rgba(20,17,15,.40), 0 0 0 1px rgba(20,17,15,.10);
+  --shadow-doc: 0 30px 80px -10px rgba(0,0,0,0.55), 0 12px 30px -8px rgba(0,0,0,0.4);
+}
+
+html, body {
+  background: var(--paper);
+  color: var(--text-1);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+}
+
+.serif { font-family: var(--serif); }
+.mono  { font-family: var(--mono); }
+a { color: inherit; }
+
+@keyframes float-doc {
+  0%, 100% { transform: rotate(-3deg) translateY(0); }
+  50%      { transform: rotate(-3deg) translateY(-10px); }
+}
+@keyframes float-card {
+  0%, 100% { transform: rotate(2.5deg) translateY(0); }
+  50%      { transform: rotate(2.5deg) translateY(8px); }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fade-up .8s ease-out backwards; }
+.fade-up.delay-1 { animation-delay: .1s; }
+.fade-up.delay-2 { animation-delay: .25s; }
+.fade-up.delay-3 { animation-delay: .4s; }
+.fade-up.delay-4 { animation-delay: .55s; }
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+  position: relative;
+  z-index: 2;
+}
+
+.band-light  { background: var(--paper);   color: var(--text-1); position: relative; }
+.band-dark   { background: var(--ink);     color: var(--text-on-dark-1); position: relative; }
+.band-paper2 { background: var(--paper-2); color: var(--text-1); position: relative; }
+
+/* ─── TOPBAR ──────────────────────────────────────────── */
+.topbar-band {
+  background: var(--ink);
+  border-bottom: 1px solid var(--rule-dark);
+}
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 18px 0;
+  color: var(--text-on-dark-1);
+}
+.brand-mark {
+  width: 38px; height: 38px;
+  background: var(--c-framework); color: #fff;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-weight: 700; font-style: italic;
+  font-size: 22px;
+  border-radius: 8px;
+  box-shadow: 0 0 20px var(--c-framework-glow);
+}
+.brand-name {
+  font-family: var(--serif); font-weight: 600;
+  font-size: 19px; letter-spacing: -0.01em; color: #fff;
+}
+.brand-name .role {
+  color: var(--text-on-dark-3); font-style: italic; font-weight: 400;
+  font-size: 13px;
+  margin-left: 8px;
+}
+.topnav {
+  display: flex; gap: 22px; margin-left: auto;
+  font-family: var(--mono); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase;
+}
+.topnav a {
+  color: var(--text-on-dark-2); text-decoration: none;
+  padding-bottom: 2px; border-bottom: 1px solid transparent;
+  transition: color .15s, border-color .15s;
+}
+.topnav a:hover { color: #fff; border-bottom-color: var(--c-framework); }
+
+.lang-toggle {
+  display: inline-flex;
+  margin-left: 18px;
+  border: 1px solid var(--rule-dark-strong);
+  border-radius: 999px;
+  overflow: hidden;
+  font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.12em;
+}
+.lang-toggle button {
+  background: transparent;
+  color: var(--text-on-dark-2);
+  border: 0;
+  padding: 7px 11px;
+  cursor: pointer;
+  font: inherit;
+  letter-spacing: inherit;
+}
+.lang-toggle button.active {
+  background: var(--c-framework);
+  color: #fff;
+}
+
+.cta-mini {
+  margin-left: 14px;
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: #fff; background: var(--c-framework);
+  padding: 9px 18px; border-radius: 999px;
+  text-decoration: none;
+  transition: background .15s, transform .15s;
+}
+.cta-mini:hover { background: var(--c-framework-2); transform: translateY(-1px); }
+
+.cta-back {
+  margin-left: 8px;
+  font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--text-on-dark-2);
+  border: 1px solid var(--rule-dark-strong);
+  padding: 8px 14px; border-radius: 999px;
+  text-decoration: none;
+  transition: color .15s, border-color .15s;
+}
+.cta-back:hover { color: #fff; border-color: #fff; }
+
+/* ─── HERO (LIGHT, EDITORIAL) ─────────────────────────── */
+.hero-band {
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+  overflow: hidden;
+  position: relative;
+}
+.hero-band::before {
+  content: ""; position: absolute; inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle at 1px 1px, rgba(20,17,15,.04) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+.hero {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 48px;
+  align-items: center;
+  padding: 100px 0 110px;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 14px;
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--c-framework); margin-bottom: 36px;
+}
+.hero-eyebrow::before {
+  content: ""; display: inline-block;
+  width: 40px; height: 1.5px; background: var(--c-framework);
+}
+
+.hero-title {
+  font-family: var(--serif); font-weight: 500;
+  font-size: clamp(44px, 6vw, 84px);
+  line-height: 1.02; letter-spacing: -0.030em;
+  color: var(--ink);
+  margin-bottom: 32px;
+}
+.hero-title em {
+  font-style: italic; color: var(--c-framework); font-weight: 500;
+}
+
+.hero-sub {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(17px, 1.3vw, 20px); line-height: 1.55;
+  color: var(--text-2);
+  max-width: 600px; margin-bottom: 28px;
+}
+.hero-sub strong {
+  font-weight: 600; color: var(--ink);
+}
+
+.hero-scope {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-bottom: 44px;
+}
+.scope-pill {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-2);
+  background: var(--paper-2); border: 1px solid var(--rule-strong);
+  padding: 8px 13px; border-radius: 999px;
+}
+.scope-pill.is-hot {
+  color: var(--c-framework);
+  border-color: rgba(179,58,31,0.40);
+  background: var(--c-framework-soft);
+}
+
+.hero-ctas {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  align-items: center;
+}
+.btn-primary, .btn-ghost, .btn-light, .btn-ghost-dark {
+  font-family: var(--mono); font-size: 12px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  padding: 17px 28px; border-radius: 999px;
+  text-decoration: none;
+  transition: all .2s;
+  display: inline-flex; align-items: center; gap: 10px;
+  cursor: pointer; border: 0;
+  white-space: nowrap;
+}
+.btn-primary {
+  color: #fff; background: var(--c-framework);
+  box-shadow: 0 8px 28px -6px var(--c-framework-glow), 0 0 0 1px var(--c-framework);
+}
+.btn-primary:hover { background: var(--c-framework-2); transform: translateY(-2px); box-shadow: 0 14px 36px -8px var(--c-framework-glow); }
+.btn-ghost {
+  color: var(--ink); background: transparent;
+  border: 1.5px solid var(--ink);
+}
+.btn-ghost:hover { background: var(--ink); color: #fff; }
+.btn-ghost-dark {
+  color: var(--ink); background: transparent;
+  border: 1.5px solid var(--ink);
+}
+.btn-ghost-dark:hover { background: var(--ink); color: #fff; }
+
+/* HERO RIGHT — floating master view + cockpit */
+.hero-stack {
+  position: relative;
+  width: 100%;
+  height: 540px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+}
+.floating-doc {
+  position: absolute;
+  width: 78%;
+  max-width: 380px;
+  top: 0;
+  right: 6%;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: var(--shadow-doc);
+  transform: rotate(-3deg);
+  animation: float-doc 7s ease-in-out infinite;
+  background: #fff;
+  z-index: 3;
+}
+.floating-doc img {
+  display: block; width: 100%; height: auto;
+}
+.floating-doc::after {
+  content: "MASTER VIEW · DoR/DoD · 11 FASES";
+  position: absolute; top: 14px; left: 14px;
+  font-family: var(--mono); font-size: 8.5px; font-weight: 700;
+  letter-spacing: 0.2em;
+  background: var(--c-framework); color: #fff;
+  padding: 5px 8px; border-radius: 3px;
+  z-index: 2;
+}
+.floating-card {
+  position: absolute;
+  width: 70%;
+  max-width: 320px;
+  bottom: 0;
+  left: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--shadow-doc);
+  transform: rotate(2.5deg);
+  animation: float-card 8s ease-in-out infinite;
+  background: var(--ink);
+  border: 1px solid var(--rule-dark-strong);
+  z-index: 2;
+}
+.floating-card img {
+  display: block; width: 100%; height: auto;
+}
+.floating-tag {
+  position: absolute;
+  bottom: -10px; right: 8%;
+  font-family: var(--mono); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--gold-soft);
+  background: var(--ink);
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(184,134,11,0.35);
+  z-index: 4;
+}
+
+/* ─── PROOF BAR ───────────────────────────────────────── */
+.proofbar-band {
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+}
+.proof-bar {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  padding: 56px 0 64px;
+}
+.proof-cell {
+  text-align: left;
+  padding: 0 28px;
+  position: relative;
+}
+.proof-cell + .proof-cell::before {
+  content: ""; position: absolute;
+  left: 0; top: 12px; bottom: 12px;
+  width: 1px; background: var(--rule);
+}
+.proof-num {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 84px; line-height: 0.9;
+  letter-spacing: -0.05em; color: var(--ink);
+  font-style: italic;
+}
+.proof-num sup {
+  font-size: 28px; vertical-align: super;
+  color: var(--c-framework); font-style: normal; font-weight: 600;
+  margin-left: 2px;
+}
+.proof-num .small {
+  font-size: 32px; font-style: normal; color: var(--text-2);
+}
+.proof-num .accent { color: var(--c-framework); }
+.proof-label {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--text-3); margin-top: 14px;
+  line-height: 1.4;
+}
+
+/* ─── MANIFEST ────────────────────────────────────────── */
+.manifest-band {
+  background: var(--ink);
+  background-image:
+    radial-gradient(ellipse 1100px 400px at 50% 100%, rgba(179,58,31,0.16), transparent 60%);
+  border-top: 1px solid var(--rule-dark);
+  border-bottom: 1px solid var(--rule-dark);
+  position: relative;
+}
+.manifest {
+  padding: 130px 0 130px;
+  text-align: left;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.manifest-rule {
+  display: inline-flex; align-items: center; gap: 16px;
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--c-framework); margin-bottom: 56px;
+}
+.manifest-rule::before, .manifest-rule::after {
+  content: ""; display: inline-block;
+  width: 56px; height: 1.5px; background: var(--c-framework);
+}
+.manifest-title {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(40px, 5.6vw, 88px);
+  line-height: 1.05; letter-spacing: -0.028em;
+  color: #fff;
+  margin-bottom: 56px;
+}
+.manifest-title em {
+  font-style: italic; color: var(--c-framework); font-weight: 500;
+}
+.manifest-attribution {
+  display: inline-flex; align-items: center; gap: 16px;
+  font-family: var(--mono); font-size: 11.5px; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--text-on-dark-3);
+  padding-top: 36px;
+  border-top: 1px solid var(--rule-dark-strong);
+  width: fit-content;
+}
+.manifest-attribution strong { color: #fff; font-weight: 700; }
+
+/* ─── SECTION BAND ────────────────────────────────────── */
+.section-band {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 48px;
+  padding: 110px 0 48px;
+  flex-wrap: wrap;
+}
+.band-dark .section-band, .hero-band .section-band { color: #fff; }
+.section-band-left { max-width: 760px; }
+.band-eyebrow {
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--c-framework); margin-bottom: 22px;
+  display: inline-flex; align-items: center; gap: 14px;
+}
+.band-eyebrow::before {
+  content: ""; display: inline-block;
+  width: 32px; height: 1.5px; background: var(--c-framework);
+}
+.band-title {
+  font-family: var(--serif); font-weight: 500;
+  font-size: clamp(38px, 4.6vw, 64px);
+  line-height: 1.04; letter-spacing: -0.028em;
+  color: var(--ink); margin-bottom: 16px;
+}
+.band-dark .band-title { color: #fff; }
+.band-title em { font-style: italic; color: var(--c-framework); }
+.band-desc {
+  font-family: var(--serif); font-style: italic;
+  font-size: 19px; color: var(--text-2);
+  max-width: 640px; line-height: 1.5;
+}
+.band-dark .band-desc { color: var(--text-on-dark-2); }
+.band-meta {
+  font-family: var(--mono); font-size: 10.5px;
+  color: var(--text-3); letter-spacing: 0.06em;
+  text-align: right; line-height: 1.7;
+  padding-bottom: 6px;
+}
+.band-dark .band-meta { color: var(--text-on-dark-3); }
+.band-meta strong { color: var(--ink); font-weight: 700; }
+.band-dark .band-meta strong { color: #fff; }
+
+/* ─── ENGRANAJE / ACTORS DARK CARD ──────────────────── */
+.engranaje-band {
+  background: var(--ink);
+  background-image:
+    radial-gradient(ellipse 1100px 500px at 80% 0%, rgba(179,58,31,0.30), transparent 60%),
+    radial-gradient(ellipse 800px 400px at 0% 100%, rgba(184,134,11,0.10), transparent 60%);
+  border-top: 1px solid var(--rule-dark);
+  border-bottom: 1px solid var(--rule-dark);
+  position: relative;
+  overflow: hidden;
+}
+.engranaje { padding: 0 0 110px; }
+.engranaje .band-eyebrow { color: var(--c-framework-soft); }
+.engranaje .band-eyebrow::before { background: var(--c-framework-soft); }
+.engranaje .band-title em { color: var(--c-framework-soft); }
+
+.frwk-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(179,58,31,0.45);
+  border-radius: 18px;
+  padding: 56px 56px 48px;
+  position: relative;
+  overflow: hidden;
+}
+.frwk-card::before {
+  content: ""; position: absolute;
+  top: 0; left: 0; right: 0; height: 4px;
+  background: linear-gradient(90deg, var(--c-framework-soft) 0%, var(--c-framework) 50%, var(--gold) 100%);
+}
+.frwk-eyebrow {
+  display: inline-flex; align-items: center; gap: 16px;
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--c-framework-soft); margin-bottom: 28px;
+}
+.frwk-eyebrow::before, .frwk-eyebrow::after {
+  content: ""; display: inline-block;
+  width: 36px; height: 1.5px; background: var(--c-framework-soft);
+}
+.frwk-lemma {
+  display: inline-block;
+  font-family: var(--serif); font-style: italic; font-weight: 500;
+  font-size: clamp(24px, 2.4vw, 34px);
+  color: var(--c-framework-soft);
+  border-left: 3px solid var(--c-framework-soft);
+  padding: 8px 0 8px 24px;
+  margin-bottom: 36px;
+  line-height: 1.3;
+}
+.frwk-narrative {
+  font-family: var(--serif); font-size: 18.5px;
+  color: var(--text-on-dark-2); line-height: 1.55;
+  max-width: 880px; margin-bottom: 48px;
+}
+.frwk-narrative strong { color: #fff; font-weight: 600; }
+.frwk-narrative .tm { color: var(--c-framework-soft); font-style: italic; }
+
+/* Actors grid (3x2) */
+.actors-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin-bottom: 48px;
+  border: 1px solid var(--rule-dark-strong);
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(0,0,0,0.25);
+}
+.actor-cell {
+  padding: 28px 24px 28px;
+  border-right: 1px solid var(--rule-dark);
+  border-bottom: 1px solid var(--rule-dark);
+  position: relative;
+  transition: background .2s;
+}
+.actor-cell:nth-child(3n) { border-right: 0; }
+.actor-cell:nth-child(n+4) { border-bottom: 0; }
+.actor-cell:hover { background: rgba(179,58,31,0.08); }
+.actor-num {
+  font-family: var(--serif); font-style: italic; font-weight: 600;
+  font-size: 26px; color: var(--c-framework-soft);
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+  line-height: 1;
+}
+.actor-name {
+  font-family: var(--mono); font-size: 9.5px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--text-on-dark-3); margin-bottom: 12px;
+  line-height: 1.4;
+}
+.actor-title {
+  font-family: var(--serif); font-weight: 600;
+  font-size: 17px; color: #fff;
+  line-height: 1.25; margin-bottom: 14px;
+}
+.actor-handoff {
+  font-family: var(--mono); font-size: 10.5px;
+  color: var(--text-on-dark-2);
+  line-height: 1.6;
+  padding-top: 12px;
+  border-top: 1px solid var(--rule-dark);
+}
+.actor-handoff strong {
+  color: var(--c-framework-soft); font-weight: 700;
+  letter-spacing: 0.06em;
+}
+
+/* Master view image inside frwk-card */
+.frwk-figure {
+  margin: 16px 0 36px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--rule-dark-strong);
+  background: rgba(0,0,0,0.30);
+}
+.frwk-figure img {
+  display: block; width: 100%; height: auto;
+}
+.frwk-figure figcaption {
+  font-family: var(--mono); font-size: 9.5px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--text-on-dark-3);
+  padding: 14px 22px;
+  border-top: 1px solid var(--rule-dark);
+  background: rgba(0,0,0,0.40);
+}
+
+.citations-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  padding-top: 36px;
+  border-top: 1px solid var(--rule-dark);
+}
+.citation {
+  background: rgba(184,134,11,0.06);
+  border: 1px solid rgba(184,134,11,0.25);
+  border-left: 3px solid var(--gold);
+  padding: 16px 18px;
+  border-radius: 0 8px 8px 0;
+}
+.citation-label {
+  font-family: var(--mono); font-size: 9.5px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--gold-soft); margin-bottom: 6px;
+}
+.citation-name {
+  font-family: var(--serif); font-style: italic; font-weight: 500;
+  font-size: 14px; color: #fff;
+  line-height: 1.35;
+}
+
+/* ─── PHASES (LIGHT) ─────────────────────────────────── */
+.phases { padding: 110px 0; }
+.phases-card {
+  background: linear-gradient(160deg, #FFFFFF 0%, var(--c-framework-soft) 100%);
+  border: 1px solid var(--c-framework-soft);
+  border-radius: 18px;
+  padding: 56px 56px 48px;
+  position: relative;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+.phases-card::before {
+  content: ""; position: absolute;
+  left: 0; top: 0; bottom: 0; width: 6px;
+  background: var(--c-framework);
+}
+.phases-eyebrow {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--c-framework); margin-bottom: 14px;
+  display: inline-flex; align-items: center; gap: 12px;
+}
+.phases-eyebrow::before {
+  content: ""; display: inline-block;
+  width: 28px; height: 1.5px; background: var(--c-framework);
+}
+.phases-title {
+  font-family: var(--serif); font-weight: 500;
+  font-size: clamp(36px, 4vw, 54px);
+  line-height: 1.05; letter-spacing: -0.025em;
+  color: var(--ink); margin-bottom: 14px;
+}
+.phases-title em { font-style: italic; color: var(--c-framework); }
+.phases-lead {
+  font-family: var(--serif); font-style: italic;
+  font-size: 19px; line-height: 1.5; color: var(--text-2);
+  max-width: 760px; margin-bottom: 36px;
+}
+.phases-lead strong { font-style: normal; color: var(--ink); font-weight: 700; }
+
+.phases-master {
+  margin: 16px 0 40px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(179,58,31,0.18);
+  background: var(--paper-2);
+  box-shadow: var(--shadow-md);
+}
+.phases-master img {
+  display: block; width: 100%; height: auto;
+}
+.phases-master figcaption {
+  font-family: var(--mono); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--text-3);
+  padding: 14px 22px;
+  border-top: 1px solid rgba(179,58,31,0.18);
+  background: var(--paper);
+}
+.phases-master figcaption strong { color: var(--c-framework); font-weight: 700; }
+
+/* Phase groups grid (4 grupos lógicos) */
+.groups-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 36px;
+}
+.group {
+  background: rgba(255,255,255,0.7);
+  border: 1px solid rgba(179,58,31,0.18);
+  border-radius: 12px;
+  padding: 24px 22px;
+}
+.group-num {
+  font-family: var(--mono); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--c-framework); margin-bottom: 8px;
+}
+.group-title {
+  font-family: var(--serif); font-weight: 600;
+  font-size: 19px; color: var(--ink);
+  letter-spacing: -0.01em; line-height: 1.18;
+  margin-bottom: 14px;
+}
+.group-phases {
+  list-style: none;
+  display: grid; gap: 8px;
+  font-family: var(--mono); font-size: 11.5px;
+  color: var(--text-2);
+  padding-top: 12px;
+  border-top: 1px dashed var(--rule);
+}
+.group-phases li {
+  padding-left: 18px; position: relative;
+  line-height: 1.4;
+}
+.group-phases li::before {
+  content: "▸"; position: absolute; left: 0;
+  color: var(--c-framework); font-weight: 700;
+}
+.group-phases li strong {
+  color: var(--ink); font-weight: 700;
+}
+
+.phases-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(179,58,31,0.18);
+}
+.phases-meta-block .meta-label {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--text-3); margin-bottom: 12px;
+  display: inline-flex; align-items: center; gap: 12px;
+}
+.phases-meta-block .meta-label::before {
+  content: ""; display: inline-block;
+  width: 22px; height: 1.5px; background: var(--c-framework);
+}
+.pill-row {
+  display: flex; flex-wrap: wrap; gap: 7px;
+}
+.pill {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.04em; color: var(--text-2);
+  background: rgba(255,255,255,0.85); border: 1px solid var(--rule);
+  padding: 6px 11px; border-radius: 5px;
+}
+.pill-gold {
+  background: var(--gold-soft);
+  border-color: rgba(184,134,11,0.25);
+  color: var(--gold-2);
+}
+.pill-red {
+  background: var(--c-framework-soft);
+  border-color: rgba(179,58,31,0.30);
+  color: var(--c-framework-2);
+}
+
+/* ─── 5 CAPAS INTEGRADAS (DARK) ──────────────────────── */
+.capas-band {
+  background: var(--ink);
+  border-bottom: 1px solid var(--rule-dark);
+}
+.capas { padding: 0 0 110px; }
+.capas-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  border: 1px solid var(--rule-dark);
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--ink-2);
+}
+.capa {
+  padding: 32px 24px 32px;
+  position: relative;
+  border-right: 1px solid var(--rule-dark);
+  background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.02) 100%);
+}
+.capa:last-child { border-right: 0; }
+.capa-num {
+  font-family: var(--serif); font-style: italic; font-weight: 500;
+  font-size: 13px; color: var(--text-on-dark-3);
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+.capa-name {
+  font-family: var(--mono); font-size: 11.5px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--c-framework); margin-bottom: 14px;
+}
+.capa-title {
+  font-family: var(--serif); font-weight: 600;
+  font-size: 22px; line-height: 1.15;
+  letter-spacing: -0.01em; color: #fff;
+  margin-bottom: 12px;
+}
+.capa-desc {
+  font-family: var(--sans); font-size: 13px;
+  color: var(--text-on-dark-2); line-height: 1.55;
+  margin-bottom: 18px;
+}
+.capa-stack {
+  font-family: var(--mono); font-size: 10px;
+  color: var(--text-on-dark-3); letter-spacing: 0.04em;
+  line-height: 1.7;
+  padding-top: 14px;
+  border-top: 1px solid var(--rule-dark);
+}
+.capa-stack strong { color: #fff; font-weight: 700; }
+.capa.is-static    .capa-name { color: #B5B5DC; }
+.capa.is-e2e       .capa-name { color: var(--c-framework); }
+.capa.is-api       .capa-name { color: #D4A246; }
+.capa.is-perf      .capa-name { color: #6BB590; }
+.capa.is-security  .capa-name { color: #DC8366; }
+
+/* ─── PIPELINE (LIGHT) ───────────────────────────────── */
+.pipeline-band { background: var(--paper); }
+.pipeline { padding: 0 0 110px; }
+.pipeline-card {
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+}
+.pipeline-figure {
+  background: var(--ink);
+  padding: 32px 32px 0;
+}
+.pipeline-figure img {
+  display: block; width: 100%; height: auto;
+  border-radius: 8px 8px 0 0;
+}
+.pipeline-content {
+  padding: 40px 56px 48px;
+}
+.pipeline-eyebrow {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--c-framework); margin-bottom: 14px;
+}
+.pipeline-title {
+  font-family: var(--serif); font-weight: 600;
+  font-size: 30px; line-height: 1.1;
+  color: var(--ink); margin-bottom: 12px;
+  letter-spacing: -0.02em;
+}
+.pipeline-title em { color: var(--c-framework); font-style: italic; font-weight: 500; }
+.pipeline-lead {
+  font-family: var(--serif); font-style: italic;
+  font-size: 17px; color: var(--text-2);
+  line-height: 1.5; margin-bottom: 24px;
+  max-width: 800px;
+}
+.pipeline-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--rule);
+}
+.pipeline-stat {
+  display: flex; flex-direction: column; gap: 4px;
+}
+.pipeline-stat-num {
+  font-family: var(--serif); font-style: italic; font-weight: 600;
+  font-size: 36px; color: var(--c-framework);
+  line-height: 1; letter-spacing: -0.02em;
+}
+.pipeline-stat-num .small { font-size: 18px; color: var(--text-3); font-style: normal; }
+.pipeline-stat-label {
+  font-family: var(--mono); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--text-3);
+  line-height: 1.4;
+}
+
+/* ─── COCKPIT GALLERY (paper-2) ──────────────────────── */
+.gallery-band { padding: 0 0 110px; background: var(--paper-2); }
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.gallery-figure {
+  background: var(--paper-3);
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: transform .25s, box-shadow .25s;
+}
+.gallery-figure:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+.gallery-figure img {
+  display: block; width: 100%; height: auto;
+}
+.gallery-figure figcaption {
+  font-family: var(--mono); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--text-3);
+  padding: 16px 20px;
+  border-top: 1px solid var(--rule);
+  background: var(--paper);
+  line-height: 1.5;
+}
+.gallery-figure figcaption strong { color: var(--c-framework); font-weight: 700; }
+
+/* ─── VACANTES (paper-2) ──────────────────────────── */
+.servicios-band {
+  background: var(--paper-2);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.servicios { padding-bottom: 110px; }
+.servicios-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.servicio {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  padding: 36px 32px 30px;
+  position: relative;
+  display: flex; flex-direction: column;
+  box-shadow: var(--shadow-sm);
+  transition: transform .25s, box-shadow .25s, border-color .25s;
+}
+.servicio:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--rule-strong);
+}
+.servicio::before {
+  content: ""; position: absolute;
+  left: 0; top: 0; bottom: 0; width: 6px;
+  border-radius: 14px 0 0 14px;
+}
+.servicio.is-techlead::before { background: var(--c-framework); }
+.servicio.is-sdet::before     { background: var(--c-mathcore); }
+.servicio.is-manager::before  { background: var(--gold); }
+
+.servicio-eyebrow {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  margin-bottom: 20px;
+  display: inline-flex; align-items: center; gap: 12px;
+}
+.servicio-eyebrow::before {
+  content: ""; display: inline-block;
+  width: 22px; height: 1.5px; background: currentColor;
+}
+.servicio.is-techlead .servicio-eyebrow { color: var(--c-framework); }
+.servicio.is-sdet .servicio-eyebrow     { color: var(--c-mathcore); }
+.servicio.is-manager .servicio-eyebrow  { color: var(--gold-2); }
+
+.servicio-title {
+  font-family: var(--serif); font-weight: 600;
+  font-size: 30px; line-height: 1.08;
+  letter-spacing: -0.022em; color: var(--ink);
+  margin-bottom: 12px;
+}
+.servicio-title em { font-style: italic; font-weight: 500; }
+.servicio.is-techlead .servicio-title em { color: var(--c-framework); }
+.servicio.is-sdet .servicio-title em     { color: var(--c-mathcore); }
+.servicio.is-manager .servicio-title em  { color: var(--gold-2); }
+
+.servicio-tagline {
+  font-family: var(--serif); font-style: italic;
+  font-size: 15.5px; color: var(--text-2);
+  line-height: 1.45; margin-bottom: 22px;
+}
+.servicio-list {
+  list-style: none;
+  display: grid; gap: 11px;
+  font-family: var(--sans); font-size: 13.5px;
+  color: var(--text-2); line-height: 1.5;
+  margin-bottom: 26px;
+  padding-bottom: 26px;
+  border-bottom: 1px dashed var(--rule);
+}
+.servicio-list li { padding-left: 22px; position: relative; }
+.servicio-list li::before {
+  content: "✓"; position: absolute; left: 0;
+  font-weight: 700; font-size: 13px;
+}
+.servicio.is-techlead .servicio-list li::before { color: var(--c-framework); }
+.servicio.is-sdet .servicio-list li::before     { color: var(--c-mathcore); }
+.servicio.is-manager .servicio-list li::before  { color: var(--gold-2); }
+
+.servicio-cta {
+  margin-top: auto;
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 14px 18px; border-radius: 999px;
+  text-decoration: none; text-align: center;
+  color: #fff;
+  transition: filter .15s, transform .15s;
+}
+.servicio.is-techlead .servicio-cta { background: var(--c-framework); }
+.servicio.is-sdet .servicio-cta     { background: var(--c-mathcore); }
+.servicio.is-manager .servicio-cta  { background: var(--gold-2); }
+.servicio-cta:hover { filter: brightness(1.12); transform: translateY(-1px); }
+
+/* ─── SECTORES (DARK) ──────────────────────────────── */
+.sectores-band {
+  background: var(--ink);
+  border-bottom: 1px solid var(--rule-dark);
+}
+.sectores { padding: 0 0 110px; }
+.sectores-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.sector {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--rule-dark);
+  border-radius: 14px;
+  padding: 30px 28px;
+  transition: transform .25s, background .25s, border-color .25s;
+}
+.sector:hover {
+  transform: translateY(-3px);
+  background: rgba(179,58,31,0.06);
+  border-color: var(--rule-dark-strong);
+}
+.sector-icon {
+  width: 50px; height: 50px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(179,58,31,0.16);
+  border: 1px solid rgba(179,58,31,0.40);
+  border-radius: 10px;
+  font-family: var(--serif); font-style: italic; font-weight: 600;
+  font-size: 24px; color: var(--c-framework-soft);
+  margin-bottom: 18px;
+}
+.sector-title {
+  font-family: var(--serif); font-weight: 600;
+  font-size: 21px; color: #fff;
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
+}
+.sector-desc {
+  font-family: var(--sans); font-size: 13.5px;
+  color: var(--text-on-dark-2); line-height: 1.5;
+  margin-bottom: 16px;
+}
+.sector-tags {
+  font-family: var(--mono); font-size: 9.5px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-on-dark-3); line-height: 1.7;
+  padding-top: 12px;
+  border-top: 1px solid var(--rule-dark);
+}
+
+/* ─── MARCO NORMATIVO (light) ───────────────────────── */
+.normativo { padding: 0 0 110px; }
+.normativo-board {
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: 18px;
+  padding: 64px 64px 56px;
+  box-shadow: var(--shadow-md);
+  position: relative;
+}
+.normativo-board::before {
+  content: ""; position: absolute;
+  left: 64px; right: 64px; top: 0; height: 4px;
+  background: linear-gradient(90deg, var(--gold) 0%, var(--c-framework) 50%, var(--c-mathcore) 100%);
+}
+.normativo-lead {
+  font-family: var(--serif); font-style: italic;
+  font-size: 20px; line-height: 1.55; color: var(--text-2);
+  max-width: 880px;
+  border-left: 3px solid var(--c-framework);
+  padding-left: 24px;
+  margin-bottom: 56px;
+}
+.normativo-lead strong {
+  font-style: normal; font-weight: 700; color: var(--ink);
+}
+.standards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 56px;
+}
+.standard {
+  background: var(--paper-3);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 20px 18px;
+  text-align: left;
+  transition: border-color .15s, transform .15s;
+}
+.standard:hover { border-color: var(--c-framework); transform: translateY(-2px); }
+.standard-name {
+  font-family: var(--mono); font-size: 12px; font-weight: 700;
+  letter-spacing: 0.04em; color: var(--ink);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.standard-desc {
+  font-family: var(--sans); font-size: 11.5px;
+  color: var(--text-3); line-height: 1.4;
+}
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  padding-top: 40px;
+  border-top: 1px solid var(--rule);
+}
+.benefit { display: flex; flex-direction: column; gap: 8px; }
+.benefit-label {
+  font-family: var(--mono); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--c-framework);
+}
+.benefit-title {
+  font-family: var(--serif); font-weight: 600;
+  font-size: 18px; color: var(--ink);
+  line-height: 1.2; margin-bottom: 4px;
+}
+.benefit-text {
+  font-family: var(--sans); font-size: 13px;
+  color: var(--text-2); line-height: 1.5;
+}
+
+/* ─── CONTACTO (DARK) ───────────────────────────────── */
+.contacto-band {
+  background: var(--ink);
+  background-image:
+    radial-gradient(ellipse 800px 600px at 80% 20%, rgba(179,58,31,0.16), transparent 60%),
+    radial-gradient(ellipse 600px 500px at 0% 100%, rgba(184,134,11,0.06), transparent 60%);
+  border-top: 1px solid var(--rule-dark);
+  position: relative;
+  overflow: hidden;
+}
+.contacto { padding: 110px 0 80px; }
+.contacto-hero {
+  text-align: left;
+  margin-bottom: 64px;
+}
+.contacto-hero .band-eyebrow { color: var(--c-framework-soft); }
+.contacto-hero .band-eyebrow::before { background: var(--c-framework-soft); }
+.contacto-title {
+  font-family: var(--serif); font-weight: 500;
+  font-size: clamp(48px, 6vw, 88px);
+  line-height: 1.0; letter-spacing: -0.03em;
+  color: #fff; margin-bottom: 24px;
+}
+.contacto-title em { color: var(--c-framework-soft); font-style: italic; }
+.contacto-lead {
+  font-family: var(--serif); font-style: italic;
+  font-size: 21px; color: var(--text-on-dark-2);
+  line-height: 1.5; max-width: 720px;
+}
+
+.contacto-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+.contacto-channels {
+  display: grid; gap: 14px;
+}
+.channel {
+  display: flex; align-items: center; gap: 18px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--rule-dark);
+  border-radius: 12px;
+  padding: 22px 26px;
+  text-decoration: none;
+  color: #fff;
+  transition: border-color .15s, transform .15s, background .15s;
+}
+.channel:hover {
+  border-color: var(--c-framework);
+  background: rgba(179,58,31,0.10);
+  transform: translateX(3px);
+}
+.channel-icon {
+  width: 48px; height: 48px;
+  border-radius: 10px;
+  background: rgba(179,58,31,0.16);
+  border: 1px solid rgba(179,58,31,0.42);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-style: italic; font-weight: 700;
+  font-size: 22px; color: var(--c-framework-soft);
+  flex-shrink: 0;
+}
+.channel-text { flex: 1; }
+.channel-label {
+  font-family: var(--mono); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--text-on-dark-3); margin-bottom: 4px;
+}
+.channel-value {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 18px; color: #fff;
+  letter-spacing: -0.01em;
+}
+.channel-arrow {
+  font-family: var(--mono); font-size: 20px;
+  color: var(--text-on-dark-3);
+}
+
+.contacto-aside {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--rule-dark);
+  border-radius: 14px;
+  padding: 36px 36px;
+}
+.aside-eyebrow {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--c-framework-soft); margin-bottom: 16px;
+}
+.aside-title {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 28px; color: #fff;
+  letter-spacing: -0.022em; line-height: 1.15;
+  margin-bottom: 16px;
+}
+.aside-title em { color: var(--gold-soft); font-style: italic; }
+.aside-text {
+  font-family: var(--serif); font-style: italic;
+  font-size: 15.5px; color: var(--text-on-dark-2);
+  line-height: 1.55; margin-bottom: 22px;
+}
+.aside-list {
+  list-style: none;
+  display: grid; gap: 12px;
+  font-family: var(--mono); font-size: 11px;
+  color: var(--text-on-dark-2); letter-spacing: 0.04em;
+}
+.aside-list li {
+  padding-left: 26px; position: relative;
+  line-height: 1.4;
+}
+.aside-list li::before {
+  content: ""; position: absolute; left: 0; top: 4px;
+  width: 16px; height: 1.5px;
+  background: var(--c-framework);
+}
+.aside-list li strong { color: #fff; font-weight: 700; }
+
+/* ─── FOOTER ──────────────────────────────────────────── */
+.footer {
+  border-top: 1px solid var(--rule-dark);
+  padding: 36px 0 0;
+  margin-top: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 32px; flex-wrap: wrap;
+  font-family: var(--mono); font-size: 10.5px;
+  color: var(--text-on-dark-3); letter-spacing: 0.06em;
+}
+.footer .footer-brand {
+  font-family: var(--serif); font-style: italic;
+  font-size: 14px; color: var(--text-on-dark-2);
+  letter-spacing: 0;
+}
+.footer .footer-brand strong {
+  color: #fff; font-style: normal; font-weight: 700;
+}
+.footer-links { display: flex; gap: 22px; }
+.footer-links a {
+  color: var(--text-on-dark-2); text-decoration: none;
+}
+.footer-links a:hover { color: var(--c-framework); }
+
+/* ─── QASL MOBILE (LIGHT) ────────────────────────────── */
+.mobile-section { padding: 110px 0; }
+.mobile-card {
+  background: linear-gradient(160deg, #FFFFFF 0%, var(--c-framework-soft) 100%);
+  border: 1px solid var(--c-framework-soft);
+  border-radius: 18px;
+  padding: 56px 56px 48px;
+  position: relative;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+.mobile-card::before {
+  content: ""; position: absolute;
+  left: 0; top: 0; bottom: 0; width: 6px;
+  background: var(--c-framework);
+}
+.mobile-eyebrow {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--c-framework); margin-bottom: 14px;
+  display: inline-flex; align-items: center; gap: 12px;
+}
+.mobile-eyebrow::before {
+  content: ""; display: inline-block;
+  width: 28px; height: 1.5px; background: var(--c-framework);
+}
+.mobile-title {
+  font-family: var(--serif); font-weight: 500;
+  font-size: clamp(34px, 3.8vw, 50px);
+  line-height: 1.05; letter-spacing: -0.025em;
+  color: var(--ink); margin-bottom: 14px;
+}
+.mobile-title em { font-style: italic; color: var(--c-framework); font-weight: 500; }
+.mobile-lead {
+  font-family: var(--serif); font-style: italic;
+  font-size: 18px; line-height: 1.5; color: var(--text-2);
+  max-width: 800px; margin-bottom: 36px;
+}
+.mobile-lead strong { font-style: normal; color: var(--ink); font-weight: 700; }
+
+/* 4 modules pipeline */
+.modules-flow {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+  gap: 12px;
+  align-items: stretch;
+  margin-bottom: 36px;
+}
+.module-cell {
+  background: rgba(255,255,255,0.75);
+  border: 1px solid rgba(179,58,31,0.22);
+  border-radius: 10px;
+  padding: 20px 18px;
+  text-align: center;
+}
+.module-num {
+  font-family: var(--serif); font-style: italic; font-weight: 600;
+  font-size: 24px; color: var(--c-framework);
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+  line-height: 1;
+}
+.module-name {
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--ink);
+  margin-bottom: 8px;
+}
+.module-desc {
+  font-family: var(--sans); font-size: 12px;
+  color: var(--text-2); line-height: 1.45;
+}
+.module-arrow {
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: 22px; font-weight: 600;
+  color: var(--c-framework);
+}
+
+/* 3 capabilities (dark accent) */
+.capabilities-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+  padding-top: 28px;
+  border-top: 1px dashed rgba(179,58,31,0.25);
+}
+.capability {
+  background: var(--ink);
+  border-radius: 10px;
+  padding: 22px 22px;
+  position: relative;
+  overflow: hidden;
+}
+.capability::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,.04) 1px, transparent 0);
+  background-size: 22px 22px;
+}
+.capability-label {
+  position: relative; z-index: 1;
+  font-family: var(--mono); font-size: 9.5px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--c-framework-soft); margin-bottom: 10px;
+}
+.capability-name {
+  position: relative; z-index: 1;
+  font-family: var(--serif); font-weight: 600; font-style: italic;
+  font-size: 19px; color: #fff;
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+.capability-desc {
+  position: relative; z-index: 1;
+  font-family: var(--mono); font-size: 10.5px;
+  color: var(--text-on-dark-2); line-height: 1.55;
+}
+
+/* 9 widgets grid */
+.widgets-section {
+  padding-top: 28px;
+  border-top: 1px dashed rgba(179,58,31,0.25);
+  margin-bottom: 32px;
+}
+.widgets-label {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--text-3); margin-bottom: 14px;
+  display: inline-flex; align-items: center; gap: 12px;
+}
+.widgets-label::before {
+  content: ""; display: inline-block;
+  width: 22px; height: 1.5px; background: var(--c-framework);
+}
+.widgets-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+}
+.widget-pill {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text-2);
+  background: rgba(255,255,255,0.85);
+  border: 1px solid rgba(179,58,31,0.18);
+  border-left: 3px solid var(--c-framework);
+  padding: 10px 14px; border-radius: 0 6px 6px 0;
+}
+.widget-pill strong { color: var(--ink); font-weight: 700; }
+
+.mobile-footer {
+  padding-top: 28px;
+  border-top: 1px solid rgba(179,58,31,0.18);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.mobile-stack {
+  display: flex; flex-wrap: wrap; gap: 7px;
+  flex: 1;
+}
+.btn-mobile {
+  font-family: var(--mono); font-size: 11.5px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  padding: 16px 26px; border-radius: 999px;
+  text-decoration: none;
+  transition: all .15s;
+  display: inline-flex; align-items: center; gap: 10px;
+  color: #fff; background: var(--c-framework);
+  box-shadow: 0 8px 24px -6px var(--c-framework-glow);
+  white-space: nowrap;
+}
+.btn-mobile:hover { background: var(--c-framework-2); transform: translateY(-2px); }
+
+/* ─── BACKEND SERVICES (paper-2) ─────────────────────── */
+.backend-section { padding: 0 0 110px; }
+.backend-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+.backend-card {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  padding: 36px 32px 32px;
+  position: relative;
+  box-shadow: var(--shadow-sm);
+  transition: transform .25s, box-shadow .25s, border-color .25s;
+}
+.backend-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--rule-strong);
+}
+.backend-card::before {
+  content: ""; position: absolute;
+  left: 0; top: 0; bottom: 0; width: 6px;
+  border-radius: 14px 0 0 14px;
+  background: var(--c-mathcore);
+}
+.backend-card.is-services::before { background: var(--c-testsec); }
+.backend-eyebrow {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--c-mathcore); margin-bottom: 14px;
+  display: inline-flex; align-items: center; gap: 12px;
+}
+.backend-eyebrow::before {
+  content: ""; display: inline-block;
+  width: 22px; height: 1.5px; background: var(--c-mathcore);
+}
+.backend-card.is-services .backend-eyebrow { color: var(--c-testsec); }
+.backend-card.is-services .backend-eyebrow::before { background: var(--c-testsec); }
+.backend-title {
+  font-family: var(--serif); font-weight: 600;
+  font-size: 26px; line-height: 1.1;
+  color: var(--ink); margin-bottom: 14px;
+  letter-spacing: -0.02em;
+}
+.backend-title em { color: var(--c-mathcore); font-style: italic; font-weight: 500; }
+.backend-card.is-services .backend-title em { color: var(--c-testsec); }
+.backend-lead {
+  font-family: var(--sans); font-size: 14px;
+  color: var(--text-2); line-height: 1.55;
+  margin-bottom: 22px;
+  padding-bottom: 22px;
+  border-bottom: 1px dashed var(--rule);
+}
+.backend-lead strong { color: var(--ink); font-weight: 700; }
+
+/* ─── RESPONSIVE ──────────────────────────────────────── */
+@media (max-width: 1180px) {
+  .hero { grid-template-columns: 1fr; gap: 48px; padding: 64px 0 80px; }
+  .hero-stack { height: 460px; }
+  .servicios-grid { grid-template-columns: repeat(2, 1fr); }
+  .actors-grid { grid-template-columns: repeat(2, 1fr); }
+  .actors-grid .actor-cell:nth-child(3n) { border-right: 1px solid var(--rule-dark); }
+  .actors-grid .actor-cell:nth-child(2n) { border-right: 0; }
+  .actors-grid .actor-cell:nth-child(n+4) { border-bottom: 1px solid var(--rule-dark); }
+  .actors-grid .actor-cell:nth-last-child(-n+2) { border-bottom: 0; }
+  .citations-row { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .frwk-card { padding: 40px 36px 36px; }
+  .sectores-grid { grid-template-columns: repeat(2, 1fr); }
+  .standards-grid { grid-template-columns: repeat(3, 1fr); }
+  .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+  .phases-card { padding: 40px 36px 36px; }
+  .groups-grid { grid-template-columns: repeat(2, 1fr); }
+  .phases-meta { grid-template-columns: 1fr; gap: 24px; }
+  .pipeline-content { padding: 32px 32px 36px; }
+  .pipeline-stats { grid-template-columns: repeat(2, 1fr); }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .modules-flow { grid-template-columns: repeat(4, 1fr); gap: 10px; }
+  .modules-flow .module-arrow { display: none; }
+  .capabilities-row { grid-template-columns: 1fr; gap: 14px; }
+  .widgets-grid { grid-template-columns: repeat(2, 1fr); }
+  .backend-grid { grid-template-columns: 1fr; }
+  .mobile-card { padding: 40px 36px 36px; }
+  .mobile-footer { flex-direction: column; align-items: stretch; gap: 16px; }
+  .contacto-grid { grid-template-columns: 1fr; gap: 32px; }
+  .normativo-board { padding: 48px 36px 40px; }
+  .normativo-board::before { left: 36px; right: 36px; }
+}
+@media (max-width: 880px) {
+  .topnav { display: none; }
+  .lang-toggle { margin-left: auto; }
+  .cta-mini, .cta-back { display: none; }
+  .servicios-grid { grid-template-columns: 1fr; }
+  .actors-grid { grid-template-columns: 1fr; }
+  .actor-cell { border-right: 0; border-bottom: 1px solid var(--rule-dark); }
+  .actor-cell:last-child { border-bottom: 0; }
+  .citations-row { grid-template-columns: 1fr; }
+  .frwk-card { padding: 32px 24px 28px; }
+  .proof-bar { grid-template-columns: repeat(2, 1fr); gap: 32px 0; }
+  .proof-cell { padding: 16px 18px; }
+  .proof-cell + .proof-cell::before { display: none; }
+  .proof-num { font-size: 64px; }
+  .standards-grid { grid-template-columns: repeat(2, 1fr); }
+  .sectores-grid { grid-template-columns: 1fr; }
+  .benefits-grid { grid-template-columns: 1fr; }
+  .groups-grid { grid-template-columns: 1fr; }
+  .pipeline-stats { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: 1fr; }
+  .modules-flow { grid-template-columns: repeat(2, 1fr); }
+  .widgets-grid { grid-template-columns: 1fr; }
+  .mobile-card { padding: 32px 24px 28px; }
+  .capas-grid { grid-template-columns: 1fr; }
+  .capa { border-right: 0; border-bottom: 1px solid var(--rule-dark); }
+  .capa:last-child { border-bottom: 0; }
+  .section-band { padding: 72px 0 32px; }
+  .servicio { padding: 28px 24px; }
+  .manifest { padding: 80px 0; }
+  .container { padding: 0 22px; }
+}
+
+/* ─── BILINGUAL ───────────────────────────────────────── */
+[data-i18n-en] { display: none; }
+html[lang="en"] [data-i18n-es] { display: none; }
+html[lang="en"] [data-i18n-en] { display: inline; }
+html[lang="en"] li[data-i18n-en] { display: list-item; }
+</style>
+</head>
+<body>
+
+<!-- ═════════ TOPBAR ═════════ -->
+<div class="topbar-band">
+  <div class="container">
+    <header class="topbar">
+      <span class="brand-mark">F</span>
+      <span class="brand-name">
+        QASL · Framework
+        <span class="role">· Shift-Left QA</span>
+      </span>
+      <nav class="topnav" id="topnav" aria-label="Navegación principal">
+        <a href="#engranaje">DoR/DoD</a>
+        <a href="#fases" data-i18n-es>Fases</a><a href="#fases" data-i18n-en>Phases</a>
+        <a href="#capas" data-i18n-es>Capas</a><a href="#capas" data-i18n-en>Layers</a>
+        <a href="#pipeline">Pipeline</a>
+        <a href="#mobile">Mobile</a>
+        <a href="#backend">Backend</a>
+        <a href="#capacidades" data-i18n-es>Vacantes</a><a href="#capacidades" data-i18n-en>Roles</a>
+        <a href="#contacto" data-i18n-es>Contacto</a><a href="#contacto" data-i18n-en>Contact</a>
+      </nav>
+      <div class="lang-toggle" aria-label="Language selector">
+        <button type="button" id="lang-es" class="active" onclick="setLang('es')">ES</button>
+        <button type="button" id="lang-en" onclick="setLang('en')">EN</button>
+      </div>
+      <a href="#contacto" class="cta-mini" data-i18n-es>Conversemos →</a>
+      <a href="#contacto" class="cta-mini" data-i18n-en>Let's talk →</a>
+      <a href="index.html" class="cta-back" data-i18n-es>← Portafolio</a>
+      <a href="index.html" class="cta-back" data-i18n-en>← Portfolio</a>
+    </header>
+  </div>
+</div>
+
+<!-- ═════════ HERO (LIGHT) ═════════ -->
+<div class="hero-band">
+  <div class="container">
+    <section class="hero">
+      <div class="hero-left">
+        <div class="hero-eyebrow fade-up">
+          <span data-i18n-es>QASL · Quality Assurance Shift-Left</span>
+          <span data-i18n-en>QASL · Quality Assurance Shift-Left</span>
+        </div>
+
+        <h1 class="hero-title fade-up delay-1">
+          <span data-i18n-es>QA Tech Lead<br><em>especializado</em> en Shift-Left Quality Engineering.</span>
+          <span data-i18n-en>QA Tech Lead<br><em>specialized</em> in Shift-Left Quality Engineering.</span>
+        </h1>
+
+        <p class="hero-sub fade-up delay-2">
+          <span data-i18n-es>13+ años en QA. Creador del <strong>QASL Framework</strong> — metodología Shift-Left con DoR/DoD encadenado entre 6 actores, 11 fases F00→F10, 5 capas integradas y pipeline GitHub Actions de 26 segundos. Alineado a ISTQB v4 · ISO 29119 · IEEE 1028.</span>
+          <span data-i18n-en>13+ years in QA. Creator of the <strong>QASL Framework</strong> — Shift-Left methodology with chained DoR/DoD across 6 actors, 11 phases F00→F10, 5 integrated layers and a 26-second GitHub Actions pipeline. Aligned to ISTQB v4 · ISO 29119 · IEEE 1028.</span>
+        </p>
+
+        <div class="hero-scope fade-up delay-3">
+          <span class="scope-pill">Shift-Left</span>
+          <span class="scope-pill">Test Automation</span>
+          <span class="scope-pill">CI/CD Quality Gates</span>
+          <span class="scope-pill is-hot">DoR/DoD Contracts</span>
+          <span class="scope-pill is-hot">Quality Cockpit</span>
+        </div>
+
+        <div class="hero-ctas fade-up delay-4">
+          <a href="#contacto" class="btn-primary">
+            <span data-i18n-es>Conversemos sobre la vacante</span>
+            <span data-i18n-en>Let's talk about the role</span>
+            →
+          </a>
+          <a href="#engranaje" class="btn-ghost">
+            <span data-i18n-es>Ver el engranaje</span>
+            <span data-i18n-en>See the gear</span>
+            ↓
+          </a>
+        </div>
+      </div>
+
+      <aside class="hero-stack fade-up delay-3" aria-label="Vista previa del Master View y Quality Cockpit">
+        <figure class="floating-doc">
+          <img src="img/flagships/framework-flow-state-1.png" alt="QASL Framework Master View — DoR/DoD encadenado entre 6 actores · 11 fases" loading="eager">
+        </figure>
+        <figure class="floating-card">
+          <img src="img/flagships/framework-grafana-1.png" alt="Quality Cockpit en Grafana — 27 panels · 4 capas integradas" loading="eager">
+        </figure>
+        <span class="floating-tag">Framework v1.0 · Live</span>
+      </aside>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ PROOF BAR ═════════ -->
+<div class="proofbar-band">
+  <div class="container">
+    <section class="proof-bar">
+      <div class="proof-cell">
+        <div class="proof-num">13<sup>+</sup></div>
+        <div class="proof-label" data-i18n-es>Años en QA</div>
+        <div class="proof-label" data-i18n-en>Years in QA</div>
+      </div>
+      <div class="proof-cell">
+        <div class="proof-num"><span class="accent">11</span></div>
+        <div class="proof-label" data-i18n-es>Fases F00→F10 · DoR/DoD</div>
+        <div class="proof-label" data-i18n-en>Phases F00→F10 · DoR/DoD</div>
+      </div>
+      <div class="proof-cell">
+        <div class="proof-num">6</div>
+        <div class="proof-label" data-i18n-es>Actores · 9 handoffs blindados</div>
+        <div class="proof-label" data-i18n-en>Actors · 9 hardened handoffs</div>
+      </div>
+      <div class="proof-cell">
+        <div class="proof-num">26<span class="small">s</span></div>
+        <div class="proof-label" data-i18n-es>Pipeline GitHub Actions · 11/11 ✓</div>
+        <div class="proof-label" data-i18n-en>GitHub Actions pipeline · 11/11 ✓</div>
+      </div>
+      <div class="proof-cell">
+        <div class="proof-num">5</div>
+        <div class="proof-label" data-i18n-es>Capas integradas · Static·E2E·API·Perf·Sec</div>
+        <div class="proof-label" data-i18n-en>Integrated layers · Static·E2E·API·Perf·Sec</div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ MANIFEST (DARK) ═════════ -->
+<div class="manifest-band">
+  <div class="container">
+    <section class="manifest">
+      <div class="manifest-rule">
+        <span data-i18n-es>— Tesis técnica —</span>
+        <span data-i18n-en>— Technical thesis —</span>
+      </div>
+      <h2 class="manifest-title">
+        <span data-i18n-es>El <em>Done</em> de un actor<br>es el <em>Ready</em> del siguiente.<br>Sin DoD cerrado,<br>no hay avance.</span>
+        <span data-i18n-en>One actor's <em>Done</em><br>is the next one's <em>Ready</em>.<br>Without a closed DoD,<br>nothing moves.</span>
+      </h2>
+      <div class="manifest-attribution">
+        <span data-i18n-es>QASL Framework · <strong>Contrato blindado entre roles</strong></span>
+        <span data-i18n-en>QASL Framework · <strong>Hardened contract between roles</strong></span>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ ENGRANAJE · DoR/DoD (DARK) ═════════ -->
+<div class="engranaje-band">
+  <div class="container">
+    <section class="engranaje" id="engranaje">
+      <header class="section-band">
+        <div class="section-band-left">
+          <div class="band-eyebrow">
+            <span data-i18n-es>I · Engranaje DoR/DoD</span>
+            <span data-i18n-en>I · DoR/DoD Gear</span>
+          </div>
+          <h2 class="band-title">
+            <span data-i18n-es>Seis actores. <em>Nueve handoffs blindados.</em></span>
+            <span data-i18n-en>Six actors. <em>Nine hardened handoffs.</em></span>
+          </h2>
+          <p class="band-desc">
+            <span data-i18n-es>Calidad no se delega a una sola persona. El framework formaliza el contrato entre roles: cada actor tiene DoR (qué necesita para empezar) y DoD (qué entrega cerrado). El DoD de uno es el DoR del siguiente.</span>
+            <span data-i18n-en>Quality isn't delegated to a single person. The framework formalizes the contract between roles: each actor has a DoR (what they need to start) and a DoD (what they deliver closed). One actor's DoD is the next one's DoR.</span>
+          </p>
+        </div>
+        <div class="band-meta">
+          <strong>QASL Framework v1.0</strong><br>
+          6 <span data-i18n-es>actores</span><span data-i18n-en>actors</span> · 9 handoffs<br>
+          <span data-i18n-es>Privado · Master view + Demo</span>
+          <span data-i18n-en>Private · Master view + Demo</span>
+        </div>
+      </header>
+
+      <div class="frwk-card">
+        <div class="frwk-eyebrow">
+          <span data-i18n-es>El contrato operativo del framework</span>
+          <span data-i18n-en>The operational contract of the framework</span>
+        </div>
+
+        <div class="frwk-lemma">
+          <span data-i18n-es>"Lo que en otras consultoras es un Word con bullets, acá es un contrato blindado."</span>
+          <span data-i18n-en>"What other firms hand off as a Word doc with bullets is, here, a hardened contract."</span>
+        </div>
+
+        <p class="frwk-narrative">
+          <span data-i18n-es>El QASL Framework <strong>no es una metodología más</strong>. Es la formalización operativa de cómo funciona la calidad cuando se trata como ingeniería en serio: <span class="tm">cada handoff entre roles tiene contrato escrito</span>, gates bloqueantes y criterios verificables. No "hablamos a ver qué pasa" — el Cliente firma su Brief, el Analista Funcional firma sus Historias, el QA Estático firma sus test cases pre-dev, el Dev firma su tested code, el QA de Trazabilidad firma su reporte ejecutado, el Stakeholder firma el sign-off final. <strong>Si un DoD no cierra, el siguiente actor no arranca.</strong> Cero trabajo huérfano. Cero "yo pensé que vos lo ibas a hacer".</span>
+          <span data-i18n-en>The QASL Framework <strong>isn't just another methodology</strong>. It's the operational formalization of how quality works when treated as serious engineering: <span class="tm">every handoff between roles has a written contract</span>, blocking gates and verifiable criteria. No "let's talk and see" — the Client signs the Brief, the Functional Analyst signs the User Stories, the Static QA signs pre-dev test cases, the Dev signs tested code, the Traceability QA signs the executed report, the Stakeholder signs the final approval. <strong>If a DoD doesn't close, the next actor doesn't start.</strong> Zero orphan work. Zero "I thought you were going to do it".</span>
+        </p>
+
+        <!-- Master view image -->
+        <figure class="frwk-figure">
+          <img src="img/flagships/framework-flow-state-1.png" alt="QASL Master View — engranaje DoR/DoD entre 6 actores · 11 fases F00→F10 · 9 handoffs · artefactos" loading="lazy">
+          <figcaption>
+            <span data-i18n-es>FLOW STATE MASTER VIEW · 11 FASES · 6 ACTORES · 9 HANDOFFS DOD→DOR · ARTEFACTOS</span>
+            <span data-i18n-en>FLOW STATE MASTER VIEW · 11 PHASES · 6 ACTORS · 9 HANDOFFS DOD→DOR · ARTIFACTS</span>
+          </figcaption>
+        </figure>
+
+        <!-- 6 Actors grid -->
+        <div class="actors-grid">
+          <div class="actor-cell">
+            <div class="actor-num"><em>A1</em></div>
+            <div class="actor-name" data-i18n-es>Cliente / Stakeholder técnico</div>
+            <div class="actor-name" data-i18n-en>Client / Technical stakeholder</div>
+            <div class="actor-title" data-i18n-es>Brief inicial &amp; visión</div>
+            <div class="actor-title" data-i18n-en>Initial brief &amp; vision</div>
+            <div class="actor-handoff">
+              <strong data-i18n-es>DoR:</strong><strong data-i18n-en>DoR:</strong> <span data-i18n-es>necesidad de negocio</span><span data-i18n-en>business need</span><br>
+              <strong data-i18n-es>DoD:</strong><strong data-i18n-en>DoD:</strong> <span data-i18n-es>brief firmado · constraints técnicos</span><span data-i18n-en>signed brief · technical constraints</span>
+            </div>
+          </div>
+          <div class="actor-cell">
+            <div class="actor-num"><em>A2</em></div>
+            <div class="actor-name" data-i18n-es>Analista Funcional</div>
+            <div class="actor-name" data-i18n-en>Functional Analyst</div>
+            <div class="actor-title" data-i18n-es>Historias de Usuario &amp; criterios</div>
+            <div class="actor-title" data-i18n-en>User Stories &amp; criteria</div>
+            <div class="actor-handoff">
+              <strong data-i18n-es>DoR:</strong><strong data-i18n-en>DoR:</strong> <span data-i18n-es>brief firmado del cliente</span><span data-i18n-en>signed client brief</span><br>
+              <strong data-i18n-es>DoD:</strong><strong data-i18n-en>DoD:</strong> <span data-i18n-es>HU INVEST · criterios aceptación</span><span data-i18n-en>INVEST stories · acceptance criteria</span>
+            </div>
+          </div>
+          <div class="actor-cell">
+            <div class="actor-num"><em>A3</em></div>
+            <div class="actor-name" data-i18n-es>QA Estático (Shift-Left)</div>
+            <div class="actor-name" data-i18n-en>Static QA (Shift-Left)</div>
+            <div class="actor-title" data-i18n-es>Test cases pre-dev con IA</div>
+            <div class="actor-title" data-i18n-en>Pre-dev test cases with AI</div>
+            <div class="actor-handoff">
+              <strong data-i18n-es>DoR:</strong><strong data-i18n-en>DoR:</strong> <span data-i18n-es>HU + criterios aceptación</span><span data-i18n-en>stories + acceptance criteria</span><br>
+              <strong data-i18n-es>DoD:</strong><strong data-i18n-en>DoD:</strong> <span data-i18n-es>1.300+ test cases · gaps detectados</span><span data-i18n-en>1,300+ test cases · gaps found</span>
+            </div>
+          </div>
+          <div class="actor-cell">
+            <div class="actor-num"><em>A4</em></div>
+            <div class="actor-name" data-i18n-es>Dev / Engineering</div>
+            <div class="actor-name" data-i18n-en>Dev / Engineering</div>
+            <div class="actor-title" data-i18n-es>Implementación &amp; tests unit</div>
+            <div class="actor-title" data-i18n-en>Implementation &amp; unit tests</div>
+            <div class="actor-handoff">
+              <strong data-i18n-es>DoR:</strong><strong data-i18n-en>DoR:</strong> <span data-i18n-es>test cases QA estático firmados</span><span data-i18n-en>signed static QA test cases</span><br>
+              <strong data-i18n-es>DoD:</strong><strong data-i18n-en>DoD:</strong> <span data-i18n-es>código + unit tests verde</span><span data-i18n-en>code + unit tests green</span>
+            </div>
+          </div>
+          <div class="actor-cell">
+            <div class="actor-num"><em>A5</em></div>
+            <div class="actor-name" data-i18n-es>QA de Trazabilidad</div>
+            <div class="actor-name" data-i18n-en>Traceability QA</div>
+            <div class="actor-title" data-i18n-es>Ejecución E2E + reporte</div>
+            <div class="actor-title" data-i18n-en>E2E execution + report</div>
+            <div class="actor-handoff">
+              <strong data-i18n-es>DoR:</strong><strong data-i18n-en>DoR:</strong> <span data-i18n-es>build dev verde + test cases</span><span data-i18n-en>green dev build + test cases</span><br>
+              <strong data-i18n-es>DoD:</strong><strong data-i18n-en>DoD:</strong> <span data-i18n-es>5 capas ejecutadas · evidencia</span><span data-i18n-en>5 layers executed · evidence</span>
+            </div>
+          </div>
+          <div class="actor-cell">
+            <div class="actor-num"><em>A6</em></div>
+            <div class="actor-name" data-i18n-es>Stakeholder de Negocio</div>
+            <div class="actor-name" data-i18n-en>Business Stakeholder</div>
+            <div class="actor-title" data-i18n-es>Sign-off ejecutivo</div>
+            <div class="actor-title" data-i18n-en>Executive sign-off</div>
+            <div class="actor-handoff">
+              <strong data-i18n-es>DoR:</strong><strong data-i18n-en>DoR:</strong> <span data-i18n-es>reporte trazabilidad + dictamen</span><span data-i18n-en>traceability report + verdict</span><br>
+              <strong data-i18n-es>DoD:</strong><strong data-i18n-en>DoD:</strong> <span data-i18n-es>release approved · go-to-prod</span><span data-i18n-en>release approved · go-to-prod</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Citations -->
+        <div class="citations-row">
+          <div class="citation">
+            <div class="citation-label">DoR/DoD</div>
+            <div class="citation-name">ISTQB CTFL v4.0 · Scrum Guide 2020</div>
+          </div>
+          <div class="citation">
+            <div class="citation-label" data-i18n-es>Documentación</div>
+            <div class="citation-label" data-i18n-en>Documentation</div>
+            <div class="citation-name">ISO/IEC/IEEE 29119-3:2021</div>
+          </div>
+          <div class="citation">
+            <div class="citation-label">Requirements</div>
+            <div class="citation-name">ISO/IEC/IEEE 29148:2018 · INVEST</div>
+          </div>
+          <div class="citation">
+            <div class="citation-label">Reviews &amp; Audits</div>
+            <div class="citation-name">IEEE 1028-2008 · ISO/IEC 20246</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ 11 FASES F00→F10 (LIGHT) ═════════ -->
+<div class="band-light">
+  <div class="container">
+    <section class="phases" id="fases">
+      <header class="section-band">
+        <div class="section-band-left">
+          <div class="band-eyebrow">
+            <span data-i18n-es>II · 11 Fases F00→F10</span>
+            <span data-i18n-en>II · 11 Phases F00→F10</span>
+          </div>
+          <h2 class="band-title">
+            <span data-i18n-es>Once fases. <em>Cero ambigüedad.</em></span>
+            <span data-i18n-en>Eleven phases. <em>Zero ambiguity.</em></span>
+          </h2>
+          <p class="band-desc">
+            <span data-i18n-es>Del brief inicial del cliente al sign-off ejecutivo. Cada fase tiene actor responsable, artefacto entrante (DoR), artefacto saliente (DoD) y gate bloqueante. El pipeline GitHub Actions mapea 1:1 las 11 fases.</span>
+            <span data-i18n-en>From the initial client brief to the executive sign-off. Every phase has an owner, an incoming artifact (DoR), an outgoing artifact (DoD) and a blocking gate. The GitHub Actions pipeline maps 1:1 to the 11 phases.</span>
+          </p>
+        </div>
+        <div class="band-meta">
+          <strong>F00 → F10</strong><br>
+          11 <span data-i18n-es>fases formales</span><span data-i18n-en>formal phases</span><br>
+          <span data-i18n-es>Cada una con DoR/DoD escrito</span>
+          <span data-i18n-en>Each with written DoR/DoD</span>
+        </div>
+      </header>
+
+      <div class="phases-card">
+        <div class="phases-eyebrow">
+          <span data-i18n-es>Cuatro grupos lógicos · once fases formales</span>
+          <span data-i18n-en>Four logical groups · eleven formal phases</span>
+        </div>
+        <h3 class="phases-title">
+          <span data-i18n-es>Del <em>brief</em> al <em>sign-off ejecutivo</em></span>
+          <span data-i18n-en>From <em>brief</em> to <em>executive sign-off</em></span>
+        </h3>
+        <p class="phases-lead">
+          <span data-i18n-es><strong>Once fases agrupadas en cuatro etapas.</strong> Cada fase tiene actor, artefacto y criterios verificables. El framework no admite "fases en paralelo desordenadas" — el orden es el contrato.</span>
+          <span data-i18n-en><strong>Eleven phases grouped into four stages.</strong> Each phase has an owner, artifact and verifiable criteria. The framework doesn't allow "messy parallel phases" — the order is the contract.</span>
+        </p>
+
+        <!-- Master view image -->
+        <figure class="phases-master">
+          <img src="img/flagships/framework-flow-state-2.png" alt="QASL Framework — métricas + estándares aplicados + 27 defectos detectados + 4 capas" loading="lazy">
+          <figcaption>
+            <strong>MASTER VIEW · MÉTRICAS</strong> · 27 <span data-i18n-es>defectos detectados</span><span data-i18n-en>defects detected</span> · 4 <span data-i18n-es>capas</span><span data-i18n-en>layers</span>
+          </figcaption>
+        </figure>
+
+        <!-- 4 logical groups -->
+        <div class="groups-grid">
+          <div class="group">
+            <div class="group-num" data-i18n-es>Grupo A · Inicio</div>
+            <div class="group-num" data-i18n-en>Group A · Kick-off</div>
+            <h4 class="group-title" data-i18n-es>Brief &amp; análisis</h4>
+            <h4 class="group-title" data-i18n-en>Brief &amp; analysis</h4>
+            <ul class="group-phases">
+              <li><strong>F00</strong> · <span data-i18n-es>Brief de cliente</span><span data-i18n-en>Client brief</span></li>
+              <li><strong>F01</strong> · <span data-i18n-es>Análisis funcional</span><span data-i18n-en>Functional analysis</span></li>
+              <li><strong>F02</strong> · <span data-i18n-es>Análisis estático con IA</span><span data-i18n-en>AI-driven static analysis</span></li>
+            </ul>
+          </div>
+          <div class="group">
+            <div class="group-num" data-i18n-es>Grupo B · Refinamiento</div>
+            <div class="group-num" data-i18n-en>Group B · Refinement</div>
+            <h4 class="group-title" data-i18n-es>Refinamiento &amp; gate</h4>
+            <h4 class="group-title" data-i18n-en>Refinement &amp; gate</h4>
+            <ul class="group-phases">
+              <li><strong>F03</strong> · <span data-i18n-es>Refinamiento con stakeholder</span><span data-i18n-en>Refinement with stakeholder</span></li>
+              <li><strong>F04</strong> · <span data-i18n-es>Sign-off de DoR</span><span data-i18n-en>DoR sign-off</span></li>
+            </ul>
+          </div>
+          <div class="group">
+            <div class="group-num" data-i18n-es>Grupo C · Ejecución</div>
+            <div class="group-num" data-i18n-en>Group C · Execution</div>
+            <h4 class="group-title" data-i18n-es>Desarrollo &amp; testing</h4>
+            <h4 class="group-title" data-i18n-en>Development &amp; testing</h4>
+            <ul class="group-phases">
+              <li><strong>F05</strong> · <span data-i18n-es>Dev + tests unitarios</span><span data-i18n-en>Dev + unit tests</span></li>
+              <li><strong>F06</strong> · <span data-i18n-es>Automatización E2E</span><span data-i18n-en>E2E automation</span></li>
+              <li><strong>F07</strong> · <span data-i18n-es>API + contract testing</span><span data-i18n-en>API + contract testing</span></li>
+              <li><strong>F08</strong> · <span data-i18n-es>Performance + Security</span><span data-i18n-en>Performance + Security</span></li>
+            </ul>
+          </div>
+          <div class="group">
+            <div class="group-num" data-i18n-es>Grupo D · Cierre</div>
+            <div class="group-num" data-i18n-en>Group D · Closure</div>
+            <h4 class="group-title" data-i18n-es>Trazabilidad &amp; sign-off</h4>
+            <h4 class="group-title" data-i18n-en>Traceability &amp; sign-off</h4>
+            <ul class="group-phases">
+              <li><strong>F09</strong> · <span data-i18n-es>Trazabilidad + reporte</span><span data-i18n-en>Traceability + report</span></li>
+              <li><strong>F10</strong> · <span data-i18n-es>Sign-off ejecutivo</span><span data-i18n-en>Executive sign-off</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Stack & standards -->
+        <div class="phases-meta">
+          <div class="phases-meta-block">
+            <div class="meta-label" data-i18n-es>Stack productivo</div>
+            <div class="meta-label" data-i18n-en>Production stack</div>
+            <div class="pill-row">
+              <span class="pill">Playwright + TS</span>
+              <span class="pill">K6 + InfluxDB</span>
+              <span class="pill">OWASP ZAP</span>
+              <span class="pill">Newman + Postman</span>
+              <span class="pill">Grafana 11.4</span>
+              <span class="pill">Loki + Promtail</span>
+              <span class="pill">Claude AI · Anthropic</span>
+              <span class="pill">GitHub Actions</span>
+              <span class="pill">Allure · HTMLExtra</span>
+            </div>
+          </div>
+          <div class="phases-meta-block">
+            <div class="meta-label" data-i18n-es>Estándares aplicados</div>
+            <div class="meta-label" data-i18n-en>Applied standards</div>
+            <div class="pill-row">
+              <span class="pill pill-red">ISTQB CTFL v4.0</span>
+              <span class="pill pill-red">ISO/IEC/IEEE 29119-3</span>
+              <span class="pill pill-red">ISO/IEC/IEEE 29148</span>
+              <span class="pill pill-red">IEEE 1028</span>
+              <span class="pill pill-red">ISO 31000:2018</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ 5 CAPAS INTEGRADAS (DARK) ═════════ -->
+<div class="capas-band">
+  <div class="container">
+    <section class="capas" id="capas">
+      <header class="section-band">
+        <div class="section-band-left">
+          <div class="band-eyebrow">
+            <span data-i18n-es>III · Cobertura técnica</span>
+            <span data-i18n-en>III · Technical coverage</span>
+          </div>
+          <h2 class="band-title">
+            <span data-i18n-es>Cinco capas. <em>Una sola cobertura.</em></span>
+            <span data-i18n-en>Five layers. <em>One single coverage.</em></span>
+          </h2>
+          <p class="band-desc">
+            <span data-i18n-es>El testing fragmentado es síntoma de arquitectura de calidad incompleta. El framework cubre las cinco capas en un solo engranaje, con un solo motor de trazabilidad y un solo dictamen final.</span>
+            <span data-i18n-en>Fragmented testing is a symptom of incomplete quality architecture. The framework covers all five layers in a single gear, with one traceability engine and one final verdict.</span>
+          </p>
+        </div>
+        <div class="band-meta">
+          <strong>5 <span data-i18n-es>capas</span><span data-i18n-en>layers</span></strong> · 1 <span data-i18n-es>motor</span><span data-i18n-en>engine</span><br>
+          <span data-i18n-es>Pipeline · trazabilidad · dictamen</span>
+          <span data-i18n-en>Pipeline · traceability · verdict</span>
+        </div>
+      </header>
+
+      <div class="capas-grid">
+        <div class="capa is-static">
+          <div class="capa-num"><em>I.</em></div>
+          <div class="capa-name">Static</div>
+          <h3 class="capa-title">
+            <span data-i18n-es>Análisis pre-código</span>
+            <span data-i18n-en>Pre-code analysis</span>
+          </h3>
+          <p class="capa-desc">
+            <span data-i18n-es>Historias de usuario, criterios de aceptación, gaps detectados con IA. 1.300+ test cases generados antes de la primera línea de código.</span>
+            <span data-i18n-en>User stories, acceptance criteria, gaps detected with AI. 1,300+ test cases generated before the first line of code.</span>
+          </p>
+          <div class="capa-stack">
+            <strong>Claude AI</strong> · ISO 29148 · INVEST
+          </div>
+        </div>
+
+        <div class="capa is-e2e">
+          <div class="capa-num"><em>II.</em></div>
+          <div class="capa-name">E2E</div>
+          <h3 class="capa-title">
+            <span data-i18n-es>Automatización end-to-end</span>
+            <span data-i18n-en>End-to-end automation</span>
+          </h3>
+          <p class="capa-desc">
+            <span data-i18n-es>Flujos completos del usuario sobre browser, mobile y APIs. Page Object Model, fixtures, ejecución paralela.</span>
+            <span data-i18n-en>Full user flows across browser, mobile and APIs. Page Object Model, fixtures, parallel execution.</span>
+          </p>
+          <div class="capa-stack">
+            <strong>Playwright + TS</strong> · Maestro · Allure
+          </div>
+        </div>
+
+        <div class="capa is-api">
+          <div class="capa-num"><em>III.</em></div>
+          <div class="capa-name">API</div>
+          <h3 class="capa-title">
+            <span data-i18n-es>Integración &amp; contratos</span>
+            <span data-i18n-en>Integration &amp; contracts</span>
+          </h3>
+          <p class="capa-desc">
+            <span data-i18n-es>Validación de contratos OpenAPI, integraciones B2B, microservicios. Health Score y verdict de release automático.</span>
+            <span data-i18n-en>OpenAPI contract validation, B2B integrations, microservices. Health Score and automatic release verdict.</span>
+          </p>
+          <div class="capa-stack">
+            <strong>Newman + Postman</strong> · OpenAPI 3.1 · FastAPI
+          </div>
+        </div>
+
+        <div class="capa is-perf">
+          <div class="capa-num"><em>IV.</em></div>
+          <div class="capa-name">Performance</div>
+          <h3 class="capa-title">
+            <span data-i18n-es>Carga, estrés &amp; soak</span>
+            <span data-i18n-en>Load, stress &amp; soak</span>
+          </h3>
+          <p class="capa-desc">
+            <span data-i18n-es>1000+ VUs, soak de 1–4 h, race conditions, memory leaks, métricas p50/p90/p99.</span>
+            <span data-i18n-en>1000+ VUs, 1–4h soak, race conditions, memory leaks, p50/p90/p99 metrics.</span>
+          </p>
+          <div class="capa-stack">
+            <strong>K6 + InfluxDB</strong> · JMeter · Gatling
+          </div>
+        </div>
+
+        <div class="capa is-security">
+          <div class="capa-num"><em>V.</em></div>
+          <div class="capa-name">Security</div>
+          <h3 class="capa-title">
+            <span data-i18n-es>Forense &amp; AppSec</span>
+            <span data-i18n-en>Forensic &amp; AppSec</span>
+          </h3>
+          <p class="capa-desc">
+            <span data-i18n-es>SQLi, XSS, CSRF, secretos expuestos. Análisis estático + dependencias + runtime. Dictamen forense CFQI grado A→F.</span>
+            <span data-i18n-en>SQLi, XSS, CSRF, exposed secrets. Static + dependencies + runtime. CFQI forensic verdict grade A→F.</span>
+          </p>
+          <div class="capa-stack">
+            <strong>QASL Test Security</strong> · OWASP ZAP · Semgrep · Trivy
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ PIPELINE 26S (LIGHT) ═════════ -->
+<div class="pipeline-band">
+  <div class="container">
+    <section class="pipeline" id="pipeline">
+      <header class="section-band">
+        <div class="section-band-left">
+          <div class="band-eyebrow">
+            <span data-i18n-es>IV · Pipeline GitHub Actions</span>
+            <span data-i18n-en>IV · GitHub Actions Pipeline</span>
+          </div>
+          <h2 class="band-title">
+            <span data-i18n-es>Once stages. <em>Veintiséis segundos.</em></span>
+            <span data-i18n-en>Eleven stages. <em>Twenty-six seconds.</em></span>
+          </h2>
+          <p class="band-desc">
+            <span data-i18n-es>El pipeline ejecuta las 11 fases F00→F10 end-to-end en 26 segundos · 11/11 verde · stages INFO → E2E → API → NOTIFY → DEPLOY con notificaciones automáticas y publicación de reportes en GitLab/GitHub Pages.</span>
+            <span data-i18n-en>The pipeline runs the 11 phases F00→F10 end-to-end in 26 seconds · 11/11 green · stages INFO → E2E → API → NOTIFY → DEPLOY with automatic notifications and report publishing to GitLab/GitHub Pages.</span>
+          </p>
+        </div>
+        <div class="band-meta">
+          <strong>11/11 ✓ · 26s</strong><br>
+          GitHub Actions · GitLab Runner<br>
+          <span data-i18n-es>Docker · multi-stage</span>
+          <span data-i18n-en>Docker · multi-stage</span>
+        </div>
+      </header>
+
+      <div class="pipeline-card">
+        <figure class="pipeline-figure">
+          <img src="img/flagships/framework-ci-pipeline.png" alt="GitHub Actions DoR/DoD Pipeline — 11 fases F00 a F10 en verde · 26 segundos" loading="lazy">
+        </figure>
+        <div class="pipeline-content">
+          <div class="pipeline-eyebrow">
+            <span data-i18n-es>CI/CD productivo · 11 stages F00→F10</span>
+            <span data-i18n-en>Production CI/CD · 11 stages F00→F10</span>
+          </div>
+          <h3 class="pipeline-title">
+            <span data-i18n-es>Pipeline <em>verde extremo a extremo.</em></span>
+            <span data-i18n-en>Green pipeline <em>end to end.</em></span>
+          </h3>
+          <p class="pipeline-lead">
+            <span data-i18n-es>Cada commit dispara las 11 fases F00→F10 mapeadas 1:1 al engranaje DoR/DoD. Stages bloqueantes con gates verificables: si el QA Estático falla, el pipeline no llega a E2E. Si E2E falla, no llega a Performance. Sin atajos.</span>
+            <span data-i18n-en>Every commit triggers the 11 phases F00→F10 mapped 1:1 to the DoR/DoD gear. Blocking stages with verifiable gates: if Static QA fails, the pipeline never reaches E2E. If E2E fails, it never reaches Performance. No shortcuts.</span>
+          </p>
+          <div class="pipeline-stats">
+            <div class="pipeline-stat">
+              <div class="pipeline-stat-num">11</div>
+              <div class="pipeline-stat-label" data-i18n-es>Stages F00→F10</div>
+              <div class="pipeline-stat-label" data-i18n-en>Stages F00→F10</div>
+            </div>
+            <div class="pipeline-stat">
+              <div class="pipeline-stat-num">26<span class="small">s</span></div>
+              <div class="pipeline-stat-label" data-i18n-es>End-to-end</div>
+              <div class="pipeline-stat-label" data-i18n-en>End-to-end</div>
+            </div>
+            <div class="pipeline-stat">
+              <div class="pipeline-stat-num">5</div>
+              <div class="pipeline-stat-label" data-i18n-es>Capas integradas</div>
+              <div class="pipeline-stat-label" data-i18n-en>Integrated layers</div>
+            </div>
+            <div class="pipeline-stat">
+              <div class="pipeline-stat-num">100<span class="small">%</span></div>
+              <div class="pipeline-stat-label" data-i18n-es>Cobertura DoR/DoD</div>
+              <div class="pipeline-stat-label" data-i18n-en>DoR/DoD coverage</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ QUALITY COCKPIT GALLERY ═════════ -->
+<div class="gallery-band band-paper2">
+  <div class="container">
+    <header class="section-band">
+      <div class="section-band-left">
+        <div class="band-eyebrow">
+          <span data-i18n-es>V · Quality Cockpit</span>
+          <span data-i18n-en>V · Quality Cockpit</span>
+        </div>
+        <h2 class="band-title">
+          <span data-i18n-es>Observabilidad <em>en vivo</em></span>
+          <span data-i18n-en><em>Live</em> observability</span>
+        </h2>
+        <p class="band-desc">
+          <span data-i18n-es>Quality Cockpit en Grafana con 27 panels integrados sobre las 4 capas. Master view del DoR/DoD, métricas operativas y resultado del pipeline en tiempo real. Todo demostrable en demo bajo NDA.</span>
+          <span data-i18n-en>Quality Cockpit in Grafana with 27 integrated panels across 4 layers. DoR/DoD master view, operational metrics and live pipeline results. All demonstrable in demo under NDA.</span>
+        </p>
+      </div>
+    </header>
+
+    <div class="gallery-grid">
+      <figure class="gallery-figure">
+        <img src="img/flagships/framework-grafana-1.png" alt="QASL Quality Cockpit en Grafana — 27 panels · 4 capas integradas" loading="lazy">
+        <figcaption>
+          <strong>QUALITY COCKPIT</strong><br>
+          <span data-i18n-es>Grafana · 27 panels · 4 capas</span>
+          <span data-i18n-en>Grafana · 27 panels · 4 layers</span>
+        </figcaption>
+      </figure>
+      <figure class="gallery-figure">
+        <img src="img/flagships/framework-grafana-2.png" alt="QASL Quality Cockpit · vista detalle de KPIs operativos" loading="lazy">
+        <figcaption>
+          <strong>OPERATIONAL KPIs</strong><br>
+          <span data-i18n-es>Vista detalle · trends · alerting</span>
+          <span data-i18n-en>Detail view · trends · alerting</span>
+        </figcaption>
+      </figure>
+      <figure class="gallery-figure">
+        <img src="img/flagships/framework-flow-state-2.png" alt="Master View · métricas + estándares + 27 defectos detectados + 4 capas" loading="lazy">
+        <figcaption>
+          <strong>MASTER VIEW · MÉTRICAS</strong><br>
+          <span data-i18n-es>27 defectos detectados · 4 capas</span>
+          <span data-i18n-en>27 defects detected · 4 layers</span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</div>
+
+<!-- ═════════ VI · QASL MOBILE ═════════ -->
+<div class="band-light">
+  <div class="container">
+    <section class="mobile-section" id="mobile">
+      <header class="section-band">
+        <div class="section-band-left">
+          <div class="band-eyebrow">
+            <span data-i18n-es>VI · Mobile Testing</span>
+            <span data-i18n-en>VI · Mobile Testing</span>
+          </div>
+          <h2 class="band-title">
+            QASL <em>Mobile</em>
+          </h2>
+          <p class="band-desc">
+            <span data-i18n-es>Shift-Left Mobile Testing Framework con AI Validation. Maestro + INGRID (Claude Vision AI) + InfluxDB + Grafana + streaming en vivo del dispositivo via WebSocket.</span>
+            <span data-i18n-en>Shift-Left Mobile Testing Framework with AI Validation. Maestro + INGRID (Claude Vision AI) + InfluxDB + Grafana + live device streaming via WebSocket.</span>
+          </p>
+        </div>
+        <div class="band-meta">
+          <strong>QASL Mobile v1.0</strong><br>
+          Maestro · Claude Vision · InfluxDB<br>
+          <span data-i18n-es>Privado · Demo bajo solicitud</span>
+          <span data-i18n-en>Private · Demo on request</span>
+        </div>
+      </header>
+
+      <div class="mobile-card">
+        <div class="mobile-eyebrow">Shift-Left Mobile · Android · iOS-ready</div>
+        <h3 class="mobile-title">
+          <span data-i18n-es>Mobile testing con <em>AI Vision</em></span>
+          <span data-i18n-en>Mobile testing with <em>AI Vision</em></span>
+        </h3>
+        <p class="mobile-lead">
+          <span data-i18n-es><strong>Framework profesional</strong> de automatización de pruebas para aplicaciones móviles Android. Combina la potencia de <strong>Maestro</strong> para ejecución de tests con <strong>INGRID (Claude Vision AI)</strong> para análisis inteligente de UX/UI, métricas en tiempo real con InfluxDB/Grafana y <strong>streaming en vivo</strong> del dispositivo via WebSocket. Live monitoring durante ejecución, no después.</span>
+          <span data-i18n-en><strong>Professional framework</strong> for Android mobile app test automation. Combines <strong>Maestro</strong>'s execution power with <strong>INGRID (Claude Vision AI)</strong> for intelligent UX/UI analysis, real-time InfluxDB/Grafana metrics and <strong>live device streaming</strong> via WebSocket. Live monitoring during execution, not after.</span>
+        </p>
+
+        <!-- 4 modules pipeline -->
+        <div class="modules-flow">
+          <div class="module-cell">
+            <div class="module-num"><em>01</em></div>
+            <div class="module-name">Recorder</div>
+            <div class="module-desc" data-i18n-es>Captura interactiva de flujos de usuario</div>
+            <div class="module-desc" data-i18n-en>Interactive capture of user flows</div>
+          </div>
+          <div class="module-arrow">→</div>
+          <div class="module-cell">
+            <div class="module-num"><em>02</em></div>
+            <div class="module-name">Generator</div>
+            <div class="module-desc" data-i18n-es>YAML tests Maestro generados</div>
+            <div class="module-desc" data-i18n-en>Maestro YAML tests generated</div>
+          </div>
+          <div class="module-arrow">→</div>
+          <div class="module-cell">
+            <div class="module-num"><em>03</em></div>
+            <div class="module-name">Runner</div>
+            <div class="module-desc" data-i18n-es>Ejecución con reintentos + screenshots</div>
+            <div class="module-desc" data-i18n-en>Execution with retries + screenshots</div>
+          </div>
+          <div class="module-arrow">→</div>
+          <div class="module-cell">
+            <div class="module-num"><em>04</em></div>
+            <div class="module-name">Reporter</div>
+            <div class="module-desc" data-i18n-es>Allure + screenshots + métricas</div>
+            <div class="module-desc" data-i18n-en>Allure + screenshots + metrics</div>
+          </div>
+        </div>
+
+        <!-- 3 capabilities (dark) -->
+        <div class="capabilities-row">
+          <div class="capability">
+            <div class="capability-label" data-i18n-es>Capa AI</div>
+            <div class="capability-label" data-i18n-en>AI Layer</div>
+            <div class="capability-name">INGRID · Claude Vision</div>
+            <div class="capability-desc">
+              <span data-i18n-es>Análisis automático de screenshots · validación UX/UI · accesibilidad · recomendaciones de mejora</span>
+              <span data-i18n-en>Auto screenshot analysis · UX/UI validation · accessibility · improvement recommendations</span>
+            </div>
+          </div>
+          <div class="capability">
+            <div class="capability-label" data-i18n-es>Live streaming</div>
+            <div class="capability-label" data-i18n-en>Live streaming</div>
+            <div class="capability-name">WebSocket · Viewer</div>
+            <div class="capability-desc">
+              <span data-i18n-es>Visualización en tiempo real del dispositivo · viewer en navegador · monitoreo durante ejecución</span>
+              <span data-i18n-en>Real-time device visualization · browser viewer · monitoring during execution</span>
+            </div>
+          </div>
+          <div class="capability">
+            <div class="capability-label" data-i18n-es>Quality Cockpit</div>
+            <div class="capability-label" data-i18n-en>Quality Cockpit</div>
+            <div class="capability-name">InfluxDB + Grafana</div>
+            <div class="capability-desc">
+              <span data-i18n-es>9 widgets en vivo · pass rate · trend · distribution · device stream · ejecuciones recientes</span>
+              <span data-i18n-en>9 live widgets · pass rate · trend · distribution · device stream · recent runs</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 9 widgets grid -->
+        <div class="widgets-section">
+          <div class="widgets-label">
+            <span data-i18n-es>9 widgets · Dashboard Grafana auto-provisionado</span>
+            <span data-i18n-en>9 widgets · Auto-provisioned Grafana dashboard</span>
+          </div>
+          <div class="widgets-grid">
+            <div class="widget-pill"><strong>Pass Rate</strong> · % tests exitosos</div>
+            <div class="widget-pill"><strong>Total / Passed / Failed</strong></div>
+            <div class="widget-pill"><strong>Avg Duration</strong> · tiempo promedio</div>
+            <div class="widget-pill"><strong>Selector Confidence</strong> · AI</div>
+            <div class="widget-pill"><strong>Screenshots</strong> · capturas totales</div>
+            <div class="widget-pill"><strong>Duration trend</strong> · serie temporal</div>
+            <div class="widget-pill"><strong>Results Distribution</strong></div>
+            <div class="widget-pill"><strong>Device Stream</strong> · vista en vivo</div>
+            <div class="widget-pill"><strong>Recent Executions</strong> · tabla</div>
+          </div>
+        </div>
+
+        <!-- footer: stack + CTA -->
+        <div class="mobile-footer">
+          <div class="mobile-stack">
+            <span class="pill">Node.js 18+</span>
+            <span class="pill">TypeScript</span>
+            <span class="pill">Maestro CLI</span>
+            <span class="pill">Claude Vision API</span>
+            <span class="pill">InfluxDB</span>
+            <span class="pill">Grafana</span>
+            <span class="pill">WebSocket</span>
+            <span class="pill">Allure</span>
+            <span class="pill">Docker Compose</span>
+            <span class="pill">ADB · Android</span>
+          </div>
+          <a href="https://www.linkedin.com/in/elyergregorio/" target="_blank" rel="noopener" class="btn-mobile">
+            <span data-i18n-es>Conversar en LinkedIn</span>
+            <span data-i18n-en>Connect on LinkedIn</span>
+            →
+          </a>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ VII · BACKEND SERVICES (paper-2) ═════════ -->
+<div class="band-paper2">
+  <div class="container">
+    <section class="backend-section" id="backend">
+      <header class="section-band">
+        <div class="section-band-left">
+          <div class="band-eyebrow">
+            <span data-i18n-es>VII · Servicios backend</span>
+            <span data-i18n-en>VII · Backend services</span>
+          </div>
+          <h2 class="band-title">
+            <span data-i18n-es>Servicios <em>backend</em> del ecosistema</span>
+            <span data-i18n-en>Ecosystem <em>backend</em> services</span>
+          </h2>
+          <p class="band-desc">
+            <span data-i18n-es>Capa de servicios que descubre integraciones cross-system desde tráfico real (HAR de Playwright) y orquesta las herramientas forenses del ecosistema (INGRID · Test Security · MATHCORE) en tiempo real.</span>
+            <span data-i18n-en>Service layer that discovers cross-system integrations from real traffic (Playwright HAR) and orchestrates the ecosystem's forensic tools (INGRID · Test Security · MATHCORE) in real time.</span>
+          </p>
+        </div>
+        <div class="band-meta">
+          <strong>2 <span data-i18n-es>servicios</span><span data-i18n-en>services</span></strong><br>
+          Node · Playwright HAR · WebSocket<br>
+          <span data-i18n-es>Privado · Demo bajo solicitud</span>
+          <span data-i18n-en>Private · Demo on request</span>
+        </div>
+      </header>
+
+      <div class="backend-grid">
+
+        <article class="backend-card">
+          <div class="backend-eyebrow">Integration Discovery Engine</div>
+          <h3 class="backend-title">
+            QASL · <em>Backend Live Scanner</em>
+          </h3>
+          <p class="backend-lead">
+            <span data-i18n-es>Analiza <strong>HAR files</strong> de E2E Playwright para detectar integraciones cross-system, generar Health Score, release verdicts y dashboard Grafana en tiempo real. <strong>Convierte una corrida de tests en un mapa arquitectónico vivo.</strong></span>
+            <span data-i18n-en>Analyzes <strong>HAR files</strong> from Playwright E2E to detect cross-system integrations, generate Health Score, release verdicts and a real-time Grafana dashboard. <strong>Turns a test run into a live architectural map.</strong></span>
+          </p>
+          <div class="pill-row">
+            <span class="pill">Node.js</span>
+            <span class="pill">Playwright HAR</span>
+            <span class="pill">JavaScript</span>
+            <span class="pill">Grafana</span>
+            <span class="pill">Health Score</span>
+            <span class="pill">Release verdict</span>
+          </div>
+        </article>
+
+        <article class="backend-card is-services">
+          <div class="backend-eyebrow">Services API · Real-time</div>
+          <h3 class="backend-title">
+            QASL · <em>Backend Live</em>
+          </h3>
+          <p class="backend-lead">
+            <span data-i18n-es>Capa de <strong>servicios backend</strong> del ecosistema QASL para ejecuciones en tiempo real — orquesta los flujos entre las herramientas forenses (<strong>INGRID · Test Security · MATHCORE</strong>) mediante WebSocket y un bus de eventos común.</span>
+            <span data-i18n-en>QASL ecosystem's <strong>backend service layer</strong> for real-time runs — orchestrates flows between the forensic tools (<strong>INGRID · Test Security · MATHCORE</strong>) via WebSocket and a shared event bus.</span>
+          </p>
+          <div class="pill-row">
+            <span class="pill">Node.js</span>
+            <span class="pill">WebSocket</span>
+            <span class="pill">Event bus</span>
+            <span class="pill">JavaScript</span>
+            <span class="pill">Real-time orchestration</span>
+          </div>
+        </article>
+
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ VACANTES (paper-2) ═════════ -->
+<div class="servicios-band">
+  <div class="container">
+    <section class="capacidades" id="capacidades">
+      <header class="section-band">
+        <div class="section-band-left">
+          <div class="band-eyebrow">
+            <span data-i18n-es>VIII · Para reclutadores</span>
+            <span data-i18n-en>VIII · For recruiters</span>
+          </div>
+          <h2 class="band-title">
+            <span data-i18n-es>Tipos de <em>vacantes</em> que encajan</span>
+            <span data-i18n-en>Roles that <em>fit</em></span>
+          </h2>
+          <p class="band-desc">
+            <span data-i18n-es>13+ años en QA, especialización en Shift-Left Quality Engineering, automation frameworks y liderazgo técnico. Disponible para roles full-time, contract o freelance — Buenos Aires presencial o remoto LATAM/Global.</span>
+            <span data-i18n-en>13+ years in QA, specialization in Shift-Left Quality Engineering, automation frameworks and technical leadership. Available for full-time, contract or freelance roles — Buenos Aires on-site or remote LATAM/Global.</span>
+          </p>
+        </div>
+        <div class="band-meta">
+          <strong><span data-i18n-es>Disponibilidad inmediata</span><span data-i18n-en>Available now</span></strong><br>
+          <span data-i18n-es>Buenos Aires · Remoto LATAM/Global</span>
+          <span data-i18n-en>Buenos Aires · Remote LATAM/Global</span>
+        </div>
+      </header>
+
+      <div class="servicios-grid">
+
+        <article class="servicio is-techlead">
+          <div class="servicio-eyebrow">QA Tech Lead · QA Architect</div>
+          <h3 class="servicio-title">
+            <span data-i18n-es>QA Tech Lead <em>/ Architect</em></span>
+            <span data-i18n-en>QA Tech Lead <em>/ Architect</em></span>
+          </h3>
+          <p class="servicio-tagline">
+            <span data-i18n-es>Equipos que necesitan diseñar la estrategia de calidad end-to-end y formalizar el contrato entre roles.</span>
+            <span data-i18n-en>Teams that need to design end-to-end quality strategy and formalize the contract between roles.</span>
+          </p>
+          <ul class="servicio-list">
+            <li><span data-i18n-es>Diseño de estrategia QA end-to-end · Shift-Left</span><span data-i18n-en>End-to-end QA strategy design · Shift-Left</span></li>
+            <li><span data-i18n-es>Implementación DoR/DoD encadenado · 6 actores</span><span data-i18n-en>Chained DoR/DoD implementation · 6 actors</span></li>
+            <li><span data-i18n-es>Quality Cockpit Grafana · 4 capas integradas</span><span data-i18n-en>Quality Cockpit Grafana · 4 integrated layers</span></li>
+            <li><span data-i18n-es>Mentoría técnica QA Engineers · revisión entregables</span><span data-i18n-en>QA Engineers technical mentorship · deliverable review</span></li>
+            <li><span data-i18n-es>Compliance ISTQB v4 · ISO 29119 · IEEE 1028</span><span data-i18n-en>Compliance ISTQB v4 · ISO 29119 · IEEE 1028</span></li>
+          </ul>
+          <a href="https://www.linkedin.com/in/elyergregorio/" target="_blank" rel="noopener" class="servicio-cta">
+            <span data-i18n-es>Conversar en LinkedIn →</span>
+            <span data-i18n-en>Connect on LinkedIn →</span>
+          </a>
+        </article>
+
+        <article class="servicio is-sdet">
+          <div class="servicio-eyebrow">SDET Senior · Test Automation Lead</div>
+          <h3 class="servicio-title">
+            <span data-i18n-es>SDET / <em>Automation Lead</em></span>
+            <span data-i18n-en>SDET / <em>Automation Lead</em></span>
+          </h3>
+          <p class="servicio-tagline">
+            <span data-i18n-es>Equipos que necesitan armar o consolidar frameworks de automation con CI/CD pipelines productivos.</span>
+            <span data-i18n-en>Teams that need to build or consolidate automation frameworks with production CI/CD pipelines.</span>
+          </p>
+          <ul class="servicio-list">
+            <li><span data-i18n-es>Frameworks Playwright + TypeScript · POM · fixtures</span><span data-i18n-en>Playwright + TypeScript frameworks · POM · fixtures</span></li>
+            <li><span data-i18n-es>API testing Newman + Postman + OpenAPI 3.1</span><span data-i18n-en>API testing Newman + Postman + OpenAPI 3.1</span></li>
+            <li><span data-i18n-es>Performance K6 + InfluxDB · 1000+ VUs · soak 4h</span><span data-i18n-en>Performance K6 + InfluxDB · 1000+ VUs · 4h soak</span></li>
+            <li><span data-i18n-es>Pipelines GitHub Actions / GitLab Runner · Docker</span><span data-i18n-en>GitHub Actions / GitLab Runner pipelines · Docker</span></li>
+            <li><span data-i18n-es>Reportes Allure + HTMLExtra · publicación auto</span><span data-i18n-en>Allure + HTMLExtra reports · auto-publish</span></li>
+          </ul>
+          <a href="https://www.linkedin.com/in/elyergregorio/" target="_blank" rel="noopener" class="servicio-cta">
+            <span data-i18n-es>Conversar en LinkedIn →</span>
+            <span data-i18n-en>Connect on LinkedIn →</span>
+          </a>
+        </article>
+
+        <article class="servicio is-manager">
+          <div class="servicio-eyebrow">QA Manager · Engineering Manager Quality</div>
+          <h3 class="servicio-title">
+            <span data-i18n-es>QA <em>Manager</em></span>
+            <span data-i18n-en>QA <em>Manager</em></span>
+          </h3>
+          <p class="servicio-tagline">
+            <span data-i18n-es>Equipos QA distribuidos que necesitan liderazgo técnico-funcional con OKRs y métricas operativas.</span>
+            <span data-i18n-en>Distributed QA teams that need technical-functional leadership with OKRs and operational metrics.</span>
+          </p>
+          <ul class="servicio-list">
+            <li><span data-i18n-es>Liderazgo de 10+ QA Engineers · 8+ proyectos</span><span data-i18n-en>10+ QA Engineers leadership · 8+ projects</span></li>
+            <li><span data-i18n-es>Definición OKRs / SMART · revisión QA del trabajo</span><span data-i18n-en>OKRs / SMART definition · QA work review</span></li>
+            <li><span data-i18n-es>Stakeholder management · reportes ejecutivos</span><span data-i18n-en>Stakeholder management · executive reports</span></li>
+            <li><span data-i18n-es>Infra QA dual-VM · 29 herramientas · aprobada SOC</span><span data-i18n-en>Dual-VM QA infra · 29 tools · SOC-approved</span></li>
+            <li><span data-i18n-es>Onboarding QA · documentación viva · sprint cristalizado</span><span data-i18n-en>QA onboarding · living docs · crystallized sprint</span></li>
+          </ul>
+          <a href="https://www.linkedin.com/in/elyergregorio/" target="_blank" rel="noopener" class="servicio-cta">
+            <span data-i18n-es>Conversar en LinkedIn →</span>
+            <span data-i18n-en>Connect on LinkedIn →</span>
+          </a>
+        </article>
+
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ SECTORES (DARK) ═════════ -->
+<div class="sectores-band">
+  <div class="container">
+    <section class="sectores" id="sectores">
+      <header class="section-band">
+        <div class="section-band-left">
+          <div class="band-eyebrow">
+            <span data-i18n-es>IX · Sectores</span>
+            <span data-i18n-en>IX · Sectors</span>
+          </div>
+          <h2 class="band-title">
+            <span data-i18n-es>Donde la calidad <em>no es opcional.</em></span>
+            <span data-i18n-en>Where quality <em>isn't optional.</em></span>
+          </h2>
+          <p class="band-desc">
+            <span data-i18n-es>Verticales donde el framework ya está validado en producción: banca, salud, gobierno y enterprise. Cada sector con marco normativo a medida y trazabilidad firmable.</span>
+            <span data-i18n-en>Verticals where the framework is already validated in production: banking, healthcare, government and enterprise. Each sector with tailored compliance and signable traceability.</span>
+          </p>
+        </div>
+      </header>
+
+      <div class="sectores-grid">
+        <div class="sector">
+          <div class="sector-icon">B</div>
+          <h3 class="sector-title">
+            <span data-i18n-es>Banca &amp; Fintech</span>
+            <span data-i18n-en>Banking &amp; Fintech</span>
+          </h3>
+          <p class="sector-desc">
+            <span data-i18n-es>Validación de flujos de pago, autenticación y core legacy bajo migración. Stress testing PCI-DSS · ISO 8583.</span>
+            <span data-i18n-en>Payment flows, authentication and legacy core under migration. PCI-DSS stress testing · ISO 8583.</span>
+          </p>
+          <div class="sector-tags">PCI-DSS · ISO 8583 · ISO 27001 · K6 1000+ VUs</div>
+        </div>
+
+        <div class="sector">
+          <div class="sector-icon">S</div>
+          <h3 class="sector-title">
+            <span data-i18n-es>Salud &amp; HealthTech</span>
+            <span data-i18n-en>Healthcare &amp; HealthTech</span>
+          </h3>
+          <p class="sector-desc">
+            <span data-i18n-es>HIS, telemedicina y migraciones de datos clínicos. Compliance HIPAA + ISO 13485 + HL7 FHIR.</span>
+            <span data-i18n-en>HIS, telemedicine and clinical data migrations. HIPAA + ISO 13485 + HL7 FHIR compliance.</span>
+          </p>
+          <div class="sector-tags">HIPAA · ISO 13485 · HL7 · 5 centros médicos</div>
+        </div>
+
+        <div class="sector">
+          <div class="sector-icon">G</div>
+          <h3 class="sector-title">
+            <span data-i18n-es>Gobierno</span>
+            <span data-i18n-en>Government</span>
+          </h3>
+          <p class="sector-desc">
+            <span data-i18n-es>Sistemas públicos, RFP, infraestructura QA dual-VM aprobada por Dirección, Servidores y SOC del cliente.</span>
+            <span data-i18n-en>Public systems, RFPs, dual-VM QA infrastructure cleared by Engineering, Servers and SOC.</span>
+          </p>
+          <div class="sector-tags">ISO 29119 · IEEE 1028 · 29 herramientas · NDA</div>
+        </div>
+
+        <div class="sector">
+          <div class="sector-icon">E</div>
+          <h3 class="sector-title">
+            <span data-i18n-es>Enterprise SaaS</span>
+            <span data-i18n-en>Enterprise SaaS</span>
+          </h3>
+          <p class="sector-desc">
+            <span data-i18n-es>Plataformas Multi-LLM, copilots internos y RAG en producción a escala. SOC 2 + ISO 27001 + due diligence.</span>
+            <span data-i18n-en>Multi-LLM platforms, internal copilots and RAG at production scale. SOC 2 + ISO 27001 + due diligence.</span>
+          </p>
+          <div class="sector-tags">SOC 2 · ISO 27001 · 614+ test cases · 12 microservicios</div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ MARCO NORMATIVO ═════════ -->
+<div class="band-light">
+  <div class="container">
+    <section class="normativo" id="normativo">
+      <header class="section-band">
+        <div class="section-band-left">
+          <div class="band-eyebrow">
+            <span data-i18n-es>X · Marco normativo</span>
+            <span data-i18n-en>X · Compliance framework</span>
+          </div>
+          <h2 class="band-title">
+            <span data-i18n-es>Respaldado por <em>estándares internacionales</em></span>
+            <span data-i18n-en>Backed by <em>international standards</em></span>
+          </h2>
+          <p class="band-desc">
+            <span data-i18n-es>Ningún criterio inventado. Cada fase, cada handoff y cada métrica del Quality Cockpit se apoya en estándares públicos vigentes que cualquier auditor o regulador puede cross-validar.</span>
+            <span data-i18n-en>No invented criteria. Every phase, every handoff and every Quality Cockpit metric rests on current public standards any auditor or regulator can cross-validate.</span>
+          </p>
+        </div>
+        <div class="band-meta">
+          <strong>8 <span data-i18n-es>estándares</span><span data-i18n-en>standards</span></strong><br>
+          ISO + IEEE + ISTQB + OWASP<br>
+          <span data-i18n-es>Cross-validable por auditor</span>
+          <span data-i18n-en>Auditor cross-validatable</span>
+        </div>
+      </header>
+
+      <div class="normativo-board">
+        <p class="normativo-lead">
+          <span data-i18n-es>El framework no inventa categorías propias. Cada control y cada métrica se apoya en <strong>estándares públicos vigentes</strong> reconocidos por gobierno, banca, salud y enterprise — facilitando auditorías, RFPs, due diligence de clientes y compliance regulatorio internacional.</span>
+          <span data-i18n-en>The framework doesn't reinvent categories. Every control and every metric is grounded in <strong>current public standards</strong> recognized by government, banking, healthcare and enterprise — easing audits, RFPs, customer due diligence and international regulatory compliance.</span>
+        </p>
+
+        <div class="standards-grid">
+          <div class="standard"><div class="standard-name">ISTQB CTFL v4.0</div><div class="standard-desc" data-i18n-es>Foundation Level testing</div><div class="standard-desc" data-i18n-en>Foundation Level testing</div></div>
+          <div class="standard"><div class="standard-name">ISO/IEC/IEEE 29119-3:2021</div><div class="standard-desc" data-i18n-es>Procesos · documentación · técnicas</div><div class="standard-desc" data-i18n-en>Processes · documentation · techniques</div></div>
+          <div class="standard"><div class="standard-name">ISO/IEC/IEEE 29148:2018</div><div class="standard-desc" data-i18n-es>Especificación de requerimientos</div><div class="standard-desc" data-i18n-en>Requirements specification</div></div>
+          <div class="standard"><div class="standard-name">IEEE 1028-2008</div><div class="standard-desc" data-i18n-es>Software reviews &amp; audits</div><div class="standard-desc" data-i18n-en>Software reviews &amp; audits</div></div>
+          <div class="standard"><div class="standard-name">ISO/IEC 20246</div><div class="standard-desc" data-i18n-es>Work product reviews</div><div class="standard-desc" data-i18n-en>Work product reviews</div></div>
+          <div class="standard"><div class="standard-name">ISO 31000:2018</div><div class="standard-desc" data-i18n-es>Risk Management framework</div><div class="standard-desc" data-i18n-en>Risk Management framework</div></div>
+          <div class="standard"><div class="standard-name">ISO 9001:2015</div><div class="standard-desc" data-i18n-es>Quality Management System</div><div class="standard-desc" data-i18n-en>Quality Management System</div></div>
+          <div class="standard"><div class="standard-name">OWASP Top 10:2021</div><div class="standard-desc" data-i18n-es>Capa Security base</div><div class="standard-desc" data-i18n-en>Baseline Security layer</div></div>
+        </div>
+
+        <div class="benefits-grid">
+          <div class="benefit">
+            <div class="benefit-label">Compliance</div>
+            <div class="benefit-title"><span data-i18n-es>Compliance &amp; certificación</span><span data-i18n-en>Compliance &amp; certification</span></div>
+            <div class="benefit-text"><span data-i18n-es>Procesos auditables alineados a ISTQB v4 + ISO 29119 + IEEE 1028. Listo para SOC 2, ISO 9001 o auditoría regulatoria.</span><span data-i18n-en>Auditable processes aligned to ISTQB v4 + ISO 29119 + IEEE 1028. Ready for SOC 2, ISO 9001 or regulatory audit.</span></div>
+          </div>
+          <div class="benefit">
+            <div class="benefit-label" data-i18n-es>Trazabilidad</div>
+            <div class="benefit-label" data-i18n-en>Traceability</div>
+            <div class="benefit-title"><span data-i18n-es>Trazabilidad &amp; auditoría</span><span data-i18n-en>Traceability &amp; audit</span></div>
+            <div class="benefit-text"><span data-i18n-es>Cada DoR/DoD escrito y firmable. Cada handoff queda en el expediente. Cero "yo pensé que vos lo ibas a hacer".</span><span data-i18n-en>Every DoR/DoD written and signable. Every handoff stays in the audit trail. Zero "I thought you'd do it".</span></div>
+          </div>
+          <div class="benefit">
+            <div class="benefit-label" data-i18n-es>Diferenciación</div>
+            <div class="benefit-label" data-i18n-en>Differentiation</div>
+            <div class="benefit-title"><span data-i18n-es>Ventaja en RFP &amp; due diligence</span><span data-i18n-en>RFP &amp; due-diligence edge</span></div>
+            <div class="benefit-text"><span data-i18n-es>Credibilidad respaldada por estándares · transparencia metodológica · pipeline 26s reproducible.</span><span data-i18n-en>Standards-backed credibility · methodological transparency · reproducible 26s pipeline.</span></div>
+          </div>
+          <div class="benefit">
+            <div class="benefit-label" data-i18n-es>Eficiencia</div>
+            <div class="benefit-label" data-i18n-en>Efficiency</div>
+            <div class="benefit-title"><span data-i18n-es>Detección temprana de defectos</span><span data-i18n-en>Early defect detection</span></div>
+            <div class="benefit-text"><span data-i18n-es>1.300+ test cases generados antes del primer commit. Costo de defecto menor en F02 que en F08.</span><span data-i18n-en>1,300+ test cases generated before first commit. Defect cost lower in F02 than in F08.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ CONTACTO (DARK) ═════════ -->
+<div class="contacto-band">
+  <div class="container">
+    <section class="contacto" id="contacto">
+      <header class="contacto-hero">
+        <div class="band-eyebrow">
+          <span data-i18n-es>XI · Contacto</span>
+          <span data-i18n-en>XI · Contact</span>
+        </div>
+        <h2 class="contacto-title">
+          <span data-i18n-es>¿Vacante de QA Lead / SDET / Manager? <em>Conversemos.</em></span>
+          <span data-i18n-en>Hiring for QA Lead / SDET / Manager? <em>Let's talk.</em></span>
+        </h2>
+        <p class="contacto-lead">
+          <span data-i18n-es>Si tu equipo necesita formalizar la práctica de QA con DoR/DoD encadenado, automation framework completo o liderazgo técnico-funcional, escribime. Respondo en menos de 24 horas. Buenos Aires presencial · Remoto LATAM/Global.</span>
+          <span data-i18n-en>If your team needs to formalize QA practice with chained DoR/DoD, a complete automation framework, or technical-functional leadership, drop me a line. I reply within 24 hours. Buenos Aires on-site · Remote LATAM/Global.</span>
+        </p>
+      </header>
+
+      <div class="contacto-grid">
+        <div class="contacto-channels">
+          <a href="https://www.linkedin.com/in/elyergregorio/" target="_blank" rel="noopener" class="channel">
+            <span class="channel-icon">in</span>
+            <div class="channel-text">
+              <div class="channel-label">LinkedIn</div>
+              <div class="channel-value">linkedin.com/in/elyergregorio</div>
+            </div>
+            <span class="channel-arrow">→</span>
+          </a>
+          <a href="qasl-ai.html" class="channel">
+            <span class="channel-icon" style="background: rgba(107,63,160,0.18); border-color: rgba(107,63,160,0.42); color: var(--c-ingrid-soft);">A</span>
+            <div class="channel-text">
+              <div class="channel-label" data-i18n-es>AI/LLM · INGRID + MATHCORE</div>
+              <div class="channel-label" data-i18n-en>AI/LLM · INGRID + MATHCORE</div>
+              <div class="channel-value">qasl-ai</div>
+            </div>
+            <span class="channel-arrow">→</span>
+          </a>
+          <a href="qasl-testsec.html" class="channel">
+            <span class="channel-icon" style="background: rgba(45,95,63,0.18); border-color: rgba(45,95,63,0.42); color: var(--c-testsec-soft);">T</span>
+            <div class="channel-text">
+              <div class="channel-label" data-i18n-es>Test Security · AppSec forense</div>
+              <div class="channel-label" data-i18n-en>Test Security · AppSec forensic</div>
+              <div class="channel-value">qasl-testsec</div>
+            </div>
+            <span class="channel-arrow">→</span>
+          </a>
+          <a href="index.html" class="channel">
+            <span class="channel-icon" style="background: rgba(255,255,255,0.06); border-color: var(--rule-dark-strong); color: #fff;">≡</span>
+            <div class="channel-text">
+              <div class="channel-label" data-i18n-es>Portafolio macro</div>
+              <div class="channel-label" data-i18n-en>Macro portfolio</div>
+              <div class="channel-value" data-i18n-es>Ecosistema QASL completo</div>
+              <div class="channel-value" data-i18n-en>Full QASL ecosystem</div>
+            </div>
+            <span class="channel-arrow">→</span>
+          </a>
+        </div>
+
+        <aside class="contacto-aside" aria-label="Perfil del candidato">
+          <div class="aside-eyebrow">
+            <span data-i18n-es>Perfil del candidato</span>
+            <span data-i18n-en>Candidate profile</span>
+          </div>
+          <h3 class="aside-title">
+            <span data-i18n-es>Elyer Maldonado · <em>13+ años</em> en QA</span>
+            <span data-i18n-en>Elyer Maldonado · <em>13+ years</em> in QA</span>
+          </h3>
+          <p class="aside-text">
+            <span data-i18n-es>Especialización en Shift-Left Quality Engineering, automation frameworks y liderazgo técnico-funcional. Creador del QASL Framework — 6 actores, 11 fases F00→F10, pipeline 26s. <strong>Liderazgo de 10+ QA Engineers en 8+ proyectos enterprise simultáneos.</strong></span>
+            <span data-i18n-en>Specialized in Shift-Left Quality Engineering, automation frameworks and technical-functional leadership. Creator of the QASL Framework — 6 actors, 11 phases F00→F10, 26s pipeline. <strong>Led 10+ QA Engineers across 8+ simultaneous enterprise projects.</strong></span>
+          </p>
+          <ul class="aside-list">
+            <li><span data-i18n-es><strong>Modalidad</strong> · Full-time · Contract · Freelance</span><span data-i18n-en><strong>Mode</strong> · Full-time · Contract · Freelance</span></li>
+            <li><span data-i18n-es><strong>Ubicación</strong> · Buenos Aires presencial</span><span data-i18n-en><strong>Location</strong> · Buenos Aires on-site</span></li>
+            <li><span data-i18n-es><strong>Remoto</strong> · LATAM &amp; Global · cualquier huso horario</span><span data-i18n-en><strong>Remote</strong> · LATAM &amp; Global · any timezone</span></li>
+            <li><span data-i18n-es><strong>Idiomas</strong> · Español nativo · English (B2-C1)</span><span data-i18n-en><strong>Languages</strong> · Spanish native · English (B2-C1)</span></li>
+            <li><span data-i18n-es><strong>Disponibilidad</strong> · Inmediata</span><span data-i18n-en><strong>Available</strong> · Immediately</span></li>
+            <li><strong>CV</strong> · <a href="cv_portafolio/cv-elyer-maldonado-ES.html" style="color: var(--c-framework-soft); text-decoration: underline; text-decoration-color: rgba(251,238,231,0.4); text-underline-offset: 3px;">ES</a> · <a href="cv_portafolio/cv-elyer-maldonado-EN.html" style="color: var(--c-framework-soft); text-decoration: underline; text-decoration-color: rgba(251,238,231,0.4); text-underline-offset: 3px;">EN</a></li>
+          </ul>
+        </aside>
+      </div>
+
+      <footer class="footer">
+        <div class="footer-brand">
+          © 2026 <strong>QASL · Framework</strong> · <span data-i18n-es>Buenos Aires · Remoto LATAM/Global</span><span data-i18n-en>Buenos Aires · Remote LATAM/Global</span>
+        </div>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="#engranaje">DoR/DoD</a>
+          <a href="#fases" data-i18n-es>Fases</a><a href="#fases" data-i18n-en>Phases</a>
+          <a href="#capas" data-i18n-es>Capas</a><a href="#capas" data-i18n-en>Layers</a>
+          <a href="#mobile">Mobile</a>
+          <a href="#backend">Backend</a>
+          <a href="qasl-ai.html">QASL · AI/LLM</a>
+          <a href="qasl-testsec.html">QASL · Test Security</a>
+          <a href="index.html" data-i18n-es>← Portafolio macro</a><a href="index.html" data-i18n-en>← Macro portfolio</a>
+        </nav>
+      </footer>
+    </section>
+  </div>
+</div>
+
+<script>
+function setLang(lang) {
+  document.documentElement.setAttribute('lang', lang);
+  document.getElementById('lang-es').classList.toggle('active', lang === 'es');
+  document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+}
+</script>
+
+</body>
+</html>

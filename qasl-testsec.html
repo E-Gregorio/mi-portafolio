@@ -1,0 +1,2681 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QASL · Test Security — Application Security Forensic · CFQI v1.0</title>
+<meta name="description" content="QASL Test Security · capa de interpretación forense sobre scanners (Semgrep · Trivy · OWASP ZAP · gitleaks · Checkov · MobSF). Algoritmo CFQI v1.0 · score 0–100 · grado A→F · dictamen pericial firmable. OWASP Top 10 2021 · OWASP ASVS 4.0 · NIST SSDF.">
+<meta name="author" content="Elyer Gregorio Maldonado">
+<meta name="keywords" content="Application Security, AppSec, DevSecOps, OWASP Top 10 2021, OWASP ASVS, NIST SSDF, Semgrep, Trivy, OWASP ZAP, gitleaks, Checkov, MobSF, CFQI, SAST, SCA, DAST, IaC, SBOM, CycloneDX, dictamen pericial">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='14' fill='%232D5F3F'/><text y='72' x='50' text-anchor='middle' font-size='58' fill='%23FAF6F0' font-family='Georgia, serif' font-weight='bold' font-style='italic'>T</text></svg>">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="QASL · Test Security — AppSec Forensic">
+<meta property="og:description" content="Capa de interpretación forense sobre scanners. CFQI v1.0 · dictamen pericial firmable · OWASP Top 10 2021 · ASVS 4.0 · NIST SSDF.">
+<meta property="og:url" content="https://e-gregorio.github.io/mi-portafolio/qasl-testsec.html">
+<meta property="og:image" content="https://e-gregorio.github.io/mi-portafolio/img/flagships/testsec-grafana-forensic.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400;1,6..72,500;1,6..72,600;1,6..72,700&family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --paper:         #FAF6F0;
+  --paper-2:       #FFFFFF;
+  --paper-3:       #F3ECE0;
+  --ink:           #14110F;
+  --ink-2:         #2A2520;
+  --ink-3:         #3D3530;
+  --rule:          #E5DCCB;
+  --rule-strong:   #C9BBA8;
+  --rule-dark:     rgba(255,255,255,.10);
+  --rule-dark-strong: rgba(255,255,255,.20);
+  --text-1:        #14110F;
+  --text-2:        #524A40;
+  --text-3:        #8B8170;
+  --text-on-dark-1: #FAF6F0;
+  --text-on-dark-2: rgba(250,246,240,.72);
+  --text-on-dark-3: rgba(250,246,240,.45);
+  --accent:        #B33A1F;
+  --accent-2:      #8E2A12;
+  --accent-soft:   #FBEEE7;
+  --gold:          #B8860B;
+  --gold-2:        #946B07;
+  --gold-soft:     #FBF4E3;
+
+  --c-testsec:     #2D5F3F;
+  --c-testsec-2:   #1E442A;
+  --c-testsec-soft:#E8F0E9;
+  --c-testsec-glow: rgba(45,95,63,0.32);
+  --c-mathcore:    #1F3A5F;
+  --c-mathcore-soft: #E5ECF4;
+  --c-ingrid:      #6B3FA0;
+  --c-ingrid-soft: #EFE8F7;
+
+  --serif: 'Newsreader', Georgia, serif;
+  --sans:  'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --mono:  'JetBrains Mono', 'SF Mono', Consolas, monospace;
+
+  --shadow-sm: 0 1px 2px rgba(20,17,15,.04), 0 0 0 1px rgba(20,17,15,.04);
+  --shadow-md: 0 8px 20px -4px rgba(20,17,15,.10), 0 0 0 1px rgba(20,17,15,.05);
+  --shadow-lg: 0 24px 60px -12px rgba(20,17,15,.20), 0 0 0 1px rgba(20,17,15,.06);
+  --shadow-xl: 0 40px 80px -20px rgba(20,17,15,.40), 0 0 0 1px rgba(20,17,15,.10);
+  --shadow-doc: 0 30px 80px -10px rgba(0,0,0,0.55), 0 12px 30px -8px rgba(0,0,0,0.4);
+}
+
+html, body {
+  background: var(--paper);
+  color: var(--text-1);
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+}
+
+.serif { font-family: var(--serif); }
+.mono  { font-family: var(--mono); }
+a { color: inherit; }
+
+@keyframes float-doc {
+  0%, 100% { transform: rotate(-3deg) translateY(0); }
+  50%      { transform: rotate(-3deg) translateY(-10px); }
+}
+@keyframes float-card {
+  0%, 100% { transform: rotate(2.5deg) translateY(0); }
+  50%      { transform: rotate(2.5deg) translateY(8px); }
+}
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fade-up .8s ease-out backwards; }
+.fade-up.delay-1 { animation-delay: .1s; }
+.fade-up.delay-2 { animation-delay: .25s; }
+.fade-up.delay-3 { animation-delay: .4s; }
+.fade-up.delay-4 { animation-delay: .55s; }
+
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 32px;
+  position: relative;
+  z-index: 2;
+}
+
+.band-light  { background: var(--paper);   color: var(--text-1); position: relative; }
+.band-dark   { background: var(--ink);     color: var(--text-on-dark-1); position: relative; }
+.band-paper2 { background: var(--paper-2); color: var(--text-1); position: relative; }
+
+/* ─── TOPBAR ──────────────────────────────────────────── */
+.topbar-band {
+  background: var(--ink);
+  border-bottom: 1px solid var(--rule-dark);
+}
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 18px 0;
+  color: var(--text-on-dark-1);
+}
+.brand-mark {
+  width: 38px; height: 38px;
+  background: var(--c-testsec); color: #fff;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-weight: 700; font-style: italic;
+  font-size: 22px;
+  border-radius: 8px;
+  box-shadow: 0 0 20px var(--c-testsec-glow);
+}
+.brand-name {
+  font-family: var(--serif); font-weight: 600;
+  font-size: 19px; letter-spacing: -0.01em; color: #fff;
+}
+.brand-name .role {
+  color: var(--text-on-dark-3); font-style: italic; font-weight: 400;
+  font-size: 13px;
+  margin-left: 8px;
+}
+.topnav {
+  display: flex; gap: 24px; margin-left: auto;
+  font-family: var(--mono); font-size: 11px; font-weight: 600;
+  letter-spacing: 0.16em; text-transform: uppercase;
+}
+.topnav a {
+  color: var(--text-on-dark-2); text-decoration: none;
+  padding-bottom: 2px; border-bottom: 1px solid transparent;
+  transition: color .15s, border-color .15s;
+}
+.topnav a:hover { color: #fff; border-bottom-color: var(--c-testsec); }
+
+.lang-toggle {
+  display: inline-flex;
+  margin-left: 18px;
+  border: 1px solid var(--rule-dark-strong);
+  border-radius: 999px;
+  overflow: hidden;
+  font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.12em;
+}
+.lang-toggle button {
+  background: transparent;
+  color: var(--text-on-dark-2);
+  border: 0;
+  padding: 7px 11px;
+  cursor: pointer;
+  font: inherit;
+  letter-spacing: inherit;
+}
+.lang-toggle button.active {
+  background: var(--c-testsec);
+  color: #fff;
+}
+
+.cta-mini {
+  margin-left: 14px;
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: #fff; background: var(--c-testsec);
+  padding: 9px 18px; border-radius: 999px;
+  text-decoration: none;
+  transition: background .15s, transform .15s;
+}
+.cta-mini:hover { background: var(--c-testsec-2); transform: translateY(-1px); }
+
+.cta-back {
+  margin-left: 8px;
+  font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--text-on-dark-2);
+  border: 1px solid var(--rule-dark-strong);
+  padding: 8px 14px; border-radius: 999px;
+  text-decoration: none;
+  transition: color .15s, border-color .15s;
+}
+.cta-back:hover { color: #fff; border-color: #fff; }
+
+/* ─── HERO (LIGHT, EDITORIAL) ─────────────────────────── */
+.hero-band {
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+  overflow: hidden;
+  position: relative;
+}
+.hero-band::before {
+  content: ""; position: absolute; inset: 0;
+  pointer-events: none;
+  background-image: radial-gradient(circle at 1px 1px, rgba(20,17,15,.04) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+.hero {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 48px;
+  align-items: center;
+  padding: 100px 0 110px;
+  position: relative;
+  z-index: 2;
+}
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 14px;
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  color: var(--c-testsec); margin-bottom: 36px;
+}
+.hero-eyebrow::before {
+  content: ""; display: inline-block;
+  width: 40px; height: 1.5px; background: var(--c-testsec);
+}
+
+.hero-title {
+  font-family: var(--serif); font-weight: 500;
+  font-size: clamp(44px, 6vw, 84px);
+  line-height: 1.02; letter-spacing: -0.030em;
+  color: var(--ink);
+  margin-bottom: 32px;
+}
+.hero-title em {
+  font-style: italic; color: var(--c-testsec); font-weight: 500;
+}
+
+.hero-sub {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(17px, 1.3vw, 20px); line-height: 1.55;
+  color: var(--text-2);
+  max-width: 600px; margin-bottom: 28px;
+}
+.hero-sub strong {
+  font-weight: 600; color: var(--ink);
+}
+
+.hero-scope {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-bottom: 44px;
+}
+.scope-pill {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-2);
+  background: var(--paper-2); border: 1px solid var(--rule-strong);
+  padding: 8px 13px; border-radius: 999px;
+}
+.scope-pill.is-hot {
+  color: var(--c-testsec);
+  border-color: rgba(45,95,63,0.40);
+  background: var(--c-testsec-soft);
+}
+
+.hero-ctas {
+  display: flex; gap: 14px; flex-wrap: wrap;
+  align-items: center;
+}
+.btn-primary, .btn-ghost, .btn-light, .btn-ghost-dark {
+  font-family: var(--mono); font-size: 12px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  padding: 17px 28px; border-radius: 999px;
+  text-decoration: none;
+  transition: all .2s;
+  display: inline-flex; align-items: center; gap: 10px;
+  cursor: pointer; border: 0;
+  white-space: nowrap;
+}
+.btn-primary {
+  color: #fff; background: var(--c-testsec);
+  box-shadow: 0 8px 28px -6px var(--c-testsec-glow), 0 0 0 1px var(--c-testsec);
+}
+.btn-primary:hover { background: var(--c-testsec-2); transform: translateY(-2px); box-shadow: 0 14px 36px -8px var(--c-testsec-glow); }
+.btn-ghost {
+  color: var(--ink); background: transparent;
+  border: 1.5px solid var(--ink);
+}
+.btn-ghost:hover { background: var(--ink); color: #fff; }
+.btn-light {
+  color: var(--ink); background: var(--paper);
+  border: 1.5px solid var(--paper);
+}
+.btn-light:hover { background: #fff; transform: translateY(-2px); }
+.btn-ghost-dark {
+  color: var(--ink); background: transparent;
+  border: 1.5px solid var(--ink);
+}
+.btn-ghost-dark:hover { background: var(--ink); color: #fff; }
+
+/* HERO RIGHT — floating dictamen + dashboard */
+.hero-stack {
+  position: relative;
+  width: 100%;
+  height: 540px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1200px;
+}
+.floating-doc {
+  position: absolute;
+  width: 78%;
+  max-width: 380px;
+  top: 0;
+  right: 6%;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: var(--shadow-doc);
+  transform: rotate(-3deg);
+  animation: float-doc 7s ease-in-out infinite;
+  background: #fff;
+  z-index: 3;
+}
+.floating-doc img {
+  display: block; width: 100%; height: auto;
+}
+.floating-doc::after {
+  content: "CFQI · DICTAMEN PERICIAL · MUESTRA";
+  position: absolute; top: 14px; left: 14px;
+  font-family: var(--mono); font-size: 8.5px; font-weight: 700;
+  letter-spacing: 0.2em;
+  background: var(--c-testsec); color: #fff;
+  padding: 5px 8px; border-radius: 3px;
+  z-index: 2;
+}
+.floating-card {
+  position: absolute;
+  width: 70%;
+  max-width: 320px;
+  bottom: 0;
+  left: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: var(--shadow-doc);
+  transform: rotate(2.5deg);
+  animation: float-card 8s ease-in-out infinite;
+  background: var(--ink);
+  border: 1px solid var(--rule-dark-strong);
+  z-index: 2;
+}
+.floating-card img {
+  display: block; width: 100%; height: auto;
+}
+.floating-tag {
+  position: absolute;
+  bottom: -10px; right: 8%;
+  font-family: var(--mono); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--gold-soft);
+  background: var(--ink);
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(184,134,11,0.35);
+  z-index: 4;
+}
+
+/* ─── PROOF BAR ───────────────────────────────────────── */
+.proofbar-band {
+  background: var(--paper);
+  border-bottom: 1px solid var(--rule);
+}
+.proof-bar {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  padding: 56px 0 64px;
+}
+.proof-cell {
+  text-align: left;
+  padding: 0 28px;
+  position: relative;
+}
+.proof-cell + .proof-cell::before {
+  content: ""; position: absolute;
+  left: 0; top: 12px; bottom: 12px;
+  width: 1px; background: var(--rule);
+}
+.proof-num {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 84px; line-height: 0.9;
+  letter-spacing: -0.05em; color: var(--ink);
+  font-style: italic;
+}
+.proof-num sup {
+  font-size: 28px; vertical-align: super;
+  color: var(--c-testsec); font-style: normal; font-weight: 600;
+  margin-left: 2px;
+}
+.proof-num .small {
+  font-size: 32px; font-style: normal; color: var(--text-2);
+}
+.proof-num .accent { color: var(--c-testsec); }
+.proof-label {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--text-3); margin-top: 14px;
+  line-height: 1.4;
+}
+
+/* ─── MANIFEST ────────────────────────────────────────── */
+.manifest-band {
+  background: var(--ink);
+  background-image:
+    radial-gradient(ellipse 1100px 400px at 50% 100%, rgba(45,95,63,0.16), transparent 60%);
+  border-top: 1px solid var(--rule-dark);
+  border-bottom: 1px solid var(--rule-dark);
+  position: relative;
+}
+.manifest {
+  padding: 130px 0 130px;
+  text-align: left;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.manifest-rule {
+  display: inline-flex; align-items: center; gap: 16px;
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--c-testsec-soft); margin-bottom: 56px;
+}
+.manifest-rule::before, .manifest-rule::after {
+  content: ""; display: inline-block;
+  width: 56px; height: 1.5px; background: var(--c-testsec-soft);
+}
+.manifest-title {
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(40px, 5.6vw, 88px);
+  line-height: 1.05; letter-spacing: -0.028em;
+  color: #fff;
+  margin-bottom: 56px;
+}
+.manifest-title em {
+  font-style: italic; color: var(--c-testsec-soft); font-weight: 500;
+}
+.manifest-attribution {
+  display: inline-flex; align-items: center; gap: 16px;
+  font-family: var(--mono); font-size: 11.5px; font-weight: 600;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--text-on-dark-3);
+  padding-top: 36px;
+  border-top: 1px solid var(--rule-dark-strong);
+  width: fit-content;
+}
+.manifest-attribution strong { color: #fff; font-weight: 700; }
+
+/* ─── SECTION BAND ────────────────────────────────────── */
+.section-band {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 48px;
+  padding: 110px 0 48px;
+  flex-wrap: wrap;
+}
+.band-dark .section-band, .hero-band .section-band { color: #fff; }
+.section-band-left { max-width: 760px; }
+.band-eyebrow {
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.24em; text-transform: uppercase;
+  color: var(--c-testsec); margin-bottom: 22px;
+  display: inline-flex; align-items: center; gap: 14px;
+}
+.band-eyebrow::before {
+  content: ""; display: inline-block;
+  width: 32px; height: 1.5px; background: var(--c-testsec);
+}
+.band-title {
+  font-family: var(--serif); font-weight: 500;
+  font-size: clamp(38px, 4.6vw, 64px);
+  line-height: 1.04; letter-spacing: -0.028em;
+  color: var(--ink); margin-bottom: 16px;
+}
+.band-dark .band-title { color: #fff; }
+.band-title em { font-style: italic; color: var(--c-testsec); }
+.band-desc {
+  font-family: var(--serif); font-style: italic;
+  font-size: 19px; color: var(--text-2);
+  max-width: 640px; line-height: 1.5;
+}
+.band-dark .band-desc { color: var(--text-on-dark-2); }
+.band-meta {
+  font-family: var(--mono); font-size: 10.5px;
+  color: var(--text-3); letter-spacing: 0.06em;
+  text-align: right; line-height: 1.7;
+  padding-bottom: 6px;
+}
+.band-dark .band-meta { color: var(--text-on-dark-3); }
+.band-meta strong { color: var(--ink); font-weight: 700; }
+.band-dark .band-meta strong { color: #fff; }
+
+/* ─── CFQI / SCANNERS DARK CARD ──────────────────────── */
+.cfqi-band {
+  background: var(--ink);
+  background-image:
+    radial-gradient(ellipse 1100px 500px at 80% 0%, rgba(45,95,63,0.30), transparent 60%),
+    radial-gradient(ellipse 800px 400px at 0% 100%, rgba(184,134,11,0.10), transparent 60%);
+  border-top: 1px solid var(--rule-dark);
+  border-bottom: 1px solid var(--rule-dark);
+  position: relative;
+  overflow: hidden;
+}
+.cfqi { padding: 0 0 110px; }
+.cfqi .band-eyebrow { color: var(--c-testsec-soft); }
+.cfqi .band-eyebrow::before { background: var(--c-testsec-soft); }
+.cfqi .band-title em { color: var(--c-testsec-soft); }
+
+.cfqi-card {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(45,95,63,0.45);
+  border-radius: 18px;
+  padding: 56px 56px 48px;
+  position: relative;
+  overflow: hidden;
+}
+.cfqi-card::before {
+  content: ""; position: absolute;
+  top: 0; left: 0; right: 0; height: 4px;
+  background: linear-gradient(90deg, var(--c-testsec-soft) 0%, var(--c-testsec) 50%, var(--gold) 100%);
+}
+.cfqi-eyebrow {
+  display: inline-flex; align-items: center; gap: 16px;
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.32em; text-transform: uppercase;
+  color: var(--c-testsec-soft); margin-bottom: 28px;
+}
+.cfqi-eyebrow::before, .cfqi-eyebrow::after {
+  content: ""; display: inline-block;
+  width: 36px; height: 1.5px; background: var(--c-testsec-soft);
+}
+.cfqi-lemma {
+  display: inline-block;
+  font-family: var(--serif); font-style: italic; font-weight: 500;
+  font-size: clamp(24px, 2.4vw, 34px);
+  color: var(--c-testsec-soft);
+  border-left: 3px solid var(--c-testsec-soft);
+  padding: 8px 0 8px 24px;
+  margin-bottom: 36px;
+  line-height: 1.3;
+}
+.cfqi-narrative {
+  font-family: var(--serif); font-size: 18.5px;
+  color: var(--text-on-dark-2); line-height: 1.55;
+  max-width: 880px; margin-bottom: 48px;
+}
+.cfqi-narrative strong { color: #fff; font-weight: 600; }
+.cfqi-narrative .tm { color: var(--c-testsec-soft); font-style: italic; }
+
+.dims-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  margin-bottom: 48px;
+  border: 1px solid var(--rule-dark-strong);
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(0,0,0,0.25);
+}
+.dim-cell {
+  padding: 26px 22px 26px;
+  border-right: 1px solid var(--rule-dark);
+  position: relative;
+  transition: background .2s;
+}
+.dim-cell:last-child { border-right: 0; }
+.dim-cell:hover { background: rgba(45,95,63,0.10); }
+.dim-cell.is-penalty {
+  background: linear-gradient(180deg, rgba(184,134,11,0.10) 0%, rgba(184,134,11,0.02) 100%);
+}
+.dim-cell-num {
+  font-family: var(--serif); font-style: italic; font-weight: 600;
+  font-size: 26px; color: var(--c-testsec-soft);
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+  line-height: 1;
+}
+.dim-cell.is-penalty .dim-cell-num { color: var(--gold-soft); }
+.dim-cell-name {
+  font-family: var(--mono); font-size: 9.5px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--text-on-dark-3); margin-bottom: 12px;
+  line-height: 1.4;
+}
+.dim-cell-title {
+  font-family: var(--serif); font-weight: 600;
+  font-size: 16px; color: #fff;
+  line-height: 1.25; margin-bottom: 10px;
+}
+.dim-cell-formula {
+  font-family: var(--mono); font-size: 10.5px;
+  color: var(--c-testsec-soft);
+  letter-spacing: 0.04em; line-height: 1.4;
+  background: rgba(45,95,63,0.20);
+  padding: 6px 10px; border-radius: 4px;
+  display: inline-block; margin-bottom: 10px;
+}
+.dim-cell.is-penalty .dim-cell-formula {
+  color: var(--gold-soft);
+  background: rgba(184,134,11,0.15);
+}
+.dim-cell-desc {
+  font-family: var(--sans); font-size: 12.5px;
+  color: var(--text-on-dark-2); line-height: 1.5;
+}
+
+.cfqi-figure {
+  margin: 16px 0 36px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--rule-dark-strong);
+  background: rgba(0,0,0,0.30);
+}
+.cfqi-figure img {
+  display: block; width: 100%; height: auto;
+}
+.cfqi-figure figcaption {
+  font-family: var(--mono); font-size: 9.5px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--text-on-dark-3);
+  padding: 14px 22px;
+  border-top: 1px solid var(--rule-dark);
+  background: rgba(0,0,0,0.40);
+}
+
+.citations-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18px;
+  padding-top: 36px;
+  border-top: 1px solid var(--rule-dark);
+}
+.citation {
+  background: rgba(184,134,11,0.06);
+  border: 1px solid rgba(184,134,11,0.25);
+  border-left: 3px solid var(--gold);
+  padding: 16px 18px;
+  border-radius: 0 8px 8px 0;
+}
+.citation-label {
+  font-family: var(--mono); font-size: 9.5px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--gold-soft); margin-bottom: 6px;
+}
+.citation-name {
+  font-family: var(--serif); font-style: italic; font-weight: 500;
+  font-size: 14px; color: #fff;
+  line-height: 1.35;
+}
+
+/* ─── SCANNERS GRID 3x2 (variante) ──────────────────── */
+.scanners-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin-bottom: 48px;
+  border: 1px solid var(--rule-dark-strong);
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(0,0,0,0.25);
+}
+.scanners-grid .dim-cell:nth-child(3n) { border-right: 0; }
+.scanners-grid .dim-cell:nth-child(-n+3) { border-bottom: 1px solid var(--rule-dark); }
+
+/* ─── TEST SECURITY MAIN CARD (LIGHT) ───────────────── */
+.testsec { padding: 110px 0; }
+.testsec-card {
+  background: linear-gradient(160deg, #FFFFFF 0%, var(--c-testsec-soft) 100%);
+  border: 1px solid var(--c-testsec-soft);
+  border-radius: 18px;
+  padding: 56px 56px 48px;
+  position: relative;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+}
+.testsec-card::before {
+  content: ""; position: absolute;
+  left: 0; top: 0; bottom: 0; width: 6px;
+  background: var(--c-testsec);
+}
+.testsec-eyebrow {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--c-testsec); margin-bottom: 14px;
+  display: inline-flex; align-items: center; gap: 12px;
+}
+.testsec-eyebrow::before {
+  content: ""; display: inline-block;
+  width: 28px; height: 1.5px; background: var(--c-testsec);
+}
+.testsec-title {
+  font-family: var(--serif); font-weight: 500;
+  font-size: clamp(36px, 4vw, 54px);
+  line-height: 1.05; letter-spacing: -0.025em;
+  color: var(--ink); margin-bottom: 14px;
+}
+.testsec-title em { font-style: italic; color: var(--c-testsec); }
+.testsec-lead {
+  font-family: var(--serif); font-style: italic;
+  font-size: 19px; line-height: 1.5; color: var(--text-2);
+  max-width: 760px; margin-bottom: 36px;
+}
+.testsec-lead strong { font-style: normal; color: var(--ink); font-weight: 700; }
+
+/* Scanner flow */
+.scanner-flow {
+  background: var(--ink);
+  border-radius: 14px;
+  padding: 32px 40px;
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+}
+.scanner-flow::before {
+  content: "";
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,.04) 1px, transparent 0);
+  background-size: 22px 22px;
+}
+.scanner-flow-label {
+  position: relative; z-index: 1;
+  font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--text-on-dark-3); margin-bottom: 22px;
+}
+.scanner-flow-grid {
+  position: relative; z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr auto 0.8fr;
+  gap: 28px;
+  align-items: center;
+}
+.scanners-list {
+  display: flex; flex-wrap: wrap; gap: 8px;
+}
+.scanner-pill {
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #fff;
+  background: rgba(255,255,255,0.07);
+  border: 1px solid var(--rule-dark-strong);
+  padding: 9px 14px; border-radius: 6px;
+}
+.flow-arrow {
+  font-family: var(--mono); font-size: 22px; font-weight: 600;
+  color: var(--c-testsec);
+  text-align: center;
+}
+.flow-arrow .arrow-label {
+  display: block;
+  font-size: 9px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--text-on-dark-3);
+  margin-top: 4px;
+}
+.cfqi-badge {
+  display: inline-flex; flex-direction: column; align-items: stretch;
+  background: linear-gradient(180deg, rgba(45,95,63,0.28) 0%, rgba(45,95,63,0.08) 100%);
+  border: 1px solid var(--c-testsec);
+  border-radius: 10px;
+  padding: 16px 20px;
+}
+.cfqi-badge-label {
+  font-family: var(--mono); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.18em; color: var(--text-on-dark-3);
+  margin-bottom: 4px;
+}
+.cfqi-badge-name {
+  font-family: var(--serif); font-style: italic; font-weight: 600;
+  font-size: 22px; color: #fff;
+  letter-spacing: -0.01em;
+  margin-bottom: 6px;
+}
+.cfqi-badge-meta {
+  font-family: var(--mono); font-size: 10.5px;
+  color: var(--text-on-dark-2);
+  letter-spacing: 0.04em;
+}
+.cfqi-badge-meta strong { color: var(--gold-soft); font-weight: 700; }
+
+/* Test Security deliverables */
+.testsec-deliverables {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 36px;
+}
+.testsec-deliverable {
+  background: rgba(255,255,255,0.6);
+  border: 1px solid rgba(45,95,63,0.18);
+  border-radius: 10px;
+  padding: 22px 22px;
+}
+.testsec-deliverable-num {
+  font-family: var(--serif); font-style: italic; font-weight: 500;
+  font-size: 36px; line-height: 1;
+  color: var(--c-testsec);
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
+}
+.testsec-deliverable-num .small { font-size: 18px; color: var(--text-3); }
+.testsec-deliverable-name {
+  font-family: var(--mono); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--text-3); margin-bottom: 8px;
+}
+.testsec-deliverable-desc {
+  font-family: var(--sans); font-size: 13px;
+  color: var(--text-2); line-height: 1.5;
+}
+.testsec-deliverable-desc strong { color: var(--ink); font-weight: 700; }
+
+.testsec-meta {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 36px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(45,95,63,0.18);
+}
+.testsec-meta-block .meta-label {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--text-3); margin-bottom: 12px;
+  display: inline-flex; align-items: center; gap: 12px;
+}
+.testsec-meta-block .meta-label::before {
+  content: ""; display: inline-block;
+  width: 22px; height: 1.5px; background: var(--c-testsec);
+}
+.pill-row {
+  display: flex; flex-wrap: wrap; gap: 7px;
+}
+.pill {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 600;
+  letter-spacing: 0.04em; color: var(--text-2);
+  background: rgba(255,255,255,0.85); border: 1px solid var(--rule);
+  padding: 6px 11px; border-radius: 5px;
+}
+.pill-gold {
+  background: var(--gold-soft);
+  border-color: rgba(184,134,11,0.25);
+  color: var(--gold-2);
+}
+.pill-green {
+  background: var(--c-testsec-soft);
+  border-color: rgba(45,95,63,0.30);
+  color: var(--c-testsec-2);
+}
+
+/* ─── DASHBOARDS GALLERY (light) ────────────────────── */
+.gallery-band { padding: 0 0 110px; background: var(--paper-2); }
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.gallery-figure {
+  background: var(--paper-3);
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow-md);
+  transition: transform .25s, box-shadow .25s;
+}
+.gallery-figure:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+.gallery-figure img {
+  display: block; width: 100%; height: auto;
+}
+.gallery-figure figcaption {
+  font-family: var(--mono); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  color: var(--text-3);
+  padding: 16px 20px;
+  border-top: 1px solid var(--rule);
+  background: var(--paper);
+  line-height: 1.5;
+}
+.gallery-figure figcaption strong { color: var(--c-testsec); font-weight: 700; }
+
+/* ─── OWASP TOP 10 (DARK) ────────────────────────── */
+.owasp-band {
+  background: var(--ink);
+  border-bottom: 1px solid var(--rule-dark);
+}
+.owasp { padding: 0 0 110px; }
+.owasp-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+  border: 1px solid var(--rule-dark);
+  border-radius: 18px;
+  overflow: hidden;
+  background: var(--ink-2);
+}
+.owasp-cell {
+  padding: 28px 22px;
+  position: relative;
+  border-right: 1px solid var(--rule-dark);
+  border-bottom: 1px solid var(--rule-dark);
+  background: linear-gradient(180deg, transparent 0%, rgba(255,255,255,0.02) 100%);
+  transition: background .2s;
+}
+.owasp-cell:hover { background: rgba(45,95,63,0.06); }
+.owasp-cell:nth-child(5n) { border-right: 0; }
+.owasp-cell:nth-child(n+6) { border-bottom: 0; }
+.owasp-num {
+  font-family: var(--mono); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--c-testsec-soft);
+  margin-bottom: 8px;
+}
+.owasp-name {
+  font-family: var(--serif); font-weight: 600;
+  font-size: 18px; line-height: 1.18;
+  color: #fff; letter-spacing: -0.01em;
+  margin-bottom: 12px;
+}
+.owasp-desc {
+  font-family: var(--sans); font-size: 12.5px;
+  color: var(--text-on-dark-2); line-height: 1.5;
+  margin-bottom: 14px;
+}
+.owasp-tool {
+  font-family: var(--mono); font-size: 9.5px;
+  color: var(--text-on-dark-3); letter-spacing: 0.04em;
+  padding-top: 10px;
+  border-top: 1px solid var(--rule-dark);
+}
+.owasp-tool strong { color: var(--gold-soft); font-weight: 700; }
+
+/* ─── DICTAMEN SHOWCASE ───────────────────────────── */
+.dictamen-band {
+  background: var(--paper);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.dictamen { padding-bottom: 110px; }
+.dictamen-card {
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: stretch;
+}
+.dictamen-figure {
+  background: linear-gradient(160deg, var(--paper-3) 0%, #DDD3BD 100%);
+  padding: 44px 40px;
+  display: flex; align-items: center; justify-content: center;
+  position: relative;
+  min-height: 600px;
+}
+.dictamen-figure::before {
+  content: "MUESTRA · SAMPLE · NDA-FREE";
+  position: absolute; top: 22px; right: 22px;
+  font-family: var(--mono); font-size: 9.5px; font-weight: 700;
+  letter-spacing: 0.18em;
+  background: var(--ink); color: #fff;
+  padding: 7px 12px; border-radius: 4px;
+  z-index: 2;
+}
+.dictamen-figure img {
+  display: block; width: 100%; height: auto;
+  max-height: 720px; object-fit: contain;
+  box-shadow: var(--shadow-doc);
+  border-radius: 4px;
+  transform: rotate(-1deg);
+  transition: transform .4s ease;
+}
+.dictamen-card:hover .dictamen-figure img {
+  transform: rotate(0deg) scale(1.02);
+}
+.dictamen-text {
+  padding: 56px 56px;
+  display: flex; flex-direction: column;
+  justify-content: center;
+}
+.dictamen-eyebrow {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--c-testsec); margin-bottom: 16px;
+  display: inline-flex; align-items: center; gap: 12px;
+}
+.dictamen-eyebrow::before {
+  content: ""; display: inline-block;
+  width: 24px; height: 1.5px; background: var(--c-testsec);
+}
+.dictamen-title {
+  font-family: var(--serif); font-weight: 500;
+  font-size: clamp(34px, 3.4vw, 46px); line-height: 1.05;
+  letter-spacing: -0.022em; color: var(--ink);
+  margin-bottom: 16px;
+}
+.dictamen-title em { font-style: italic; color: var(--c-testsec); font-weight: 500; }
+.dictamen-lead {
+  font-family: var(--serif); font-style: italic;
+  font-size: 18px; line-height: 1.55;
+  color: var(--text-2); margin-bottom: 26px;
+}
+.dictamen-features {
+  list-style: none;
+  display: grid; gap: 11px;
+  font-family: var(--sans); font-size: 14px;
+  color: var(--text-2); line-height: 1.5;
+  margin-bottom: 32px;
+  padding: 22px 24px;
+  background: var(--paper-3);
+  border-left: 3px solid var(--c-testsec);
+  border-radius: 0 8px 8px 0;
+}
+.dictamen-features li {
+  padding-left: 22px; position: relative;
+}
+.dictamen-features li::before {
+  content: "▸"; position: absolute; left: 0;
+  color: var(--c-testsec); font-weight: 700;
+}
+.dictamen-features strong { color: var(--ink); font-weight: 700; }
+.dictamen-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+
+.btn-testsec {
+  font-family: var(--mono); font-size: 11.5px; font-weight: 700;
+  letter-spacing: 0.16em; text-transform: uppercase;
+  padding: 16px 26px; border-radius: 999px;
+  text-decoration: none;
+  transition: all .15s;
+  display: inline-flex; align-items: center; gap: 10px;
+  color: #fff; background: var(--c-testsec);
+  box-shadow: 0 8px 24px -6px var(--c-testsec-glow);
+}
+.btn-testsec:hover { background: var(--c-testsec-2); transform: translateY(-2px); }
+
+/* ─── VACANTES (paper-2) ──────────────────────────── */
+.servicios-band {
+  background: var(--paper-2);
+  border-top: 1px solid var(--rule);
+  border-bottom: 1px solid var(--rule);
+}
+.servicios { padding-bottom: 110px; }
+.servicios-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+}
+.servicio {
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  padding: 36px 32px 30px;
+  position: relative;
+  display: flex; flex-direction: column;
+  box-shadow: var(--shadow-sm);
+  transition: transform .25s, box-shadow .25s, border-color .25s;
+}
+.servicio:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--rule-strong);
+}
+.servicio::before {
+  content: ""; position: absolute;
+  left: 0; top: 0; bottom: 0; width: 6px;
+  border-radius: 14px 0 0 14px;
+}
+.servicio.is-appsec::before    { background: var(--c-testsec); }
+.servicio.is-devsecops::before { background: var(--gold); }
+.servicio.is-pentest::before   { background: var(--c-mathcore); }
+
+.servicio-eyebrow {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  margin-bottom: 20px;
+  display: inline-flex; align-items: center; gap: 12px;
+}
+.servicio-eyebrow::before {
+  content: ""; display: inline-block;
+  width: 22px; height: 1.5px; background: currentColor;
+}
+.servicio.is-appsec .servicio-eyebrow    { color: var(--c-testsec); }
+.servicio.is-devsecops .servicio-eyebrow { color: var(--gold-2); }
+.servicio.is-pentest .servicio-eyebrow   { color: var(--c-mathcore); }
+
+.servicio-title {
+  font-family: var(--serif); font-weight: 600;
+  font-size: 30px; line-height: 1.08;
+  letter-spacing: -0.022em; color: var(--ink);
+  margin-bottom: 12px;
+}
+.servicio-title em { font-style: italic; font-weight: 500; }
+.servicio.is-appsec .servicio-title em    { color: var(--c-testsec); }
+.servicio.is-devsecops .servicio-title em { color: var(--gold-2); }
+.servicio.is-pentest .servicio-title em   { color: var(--c-mathcore); }
+
+.servicio-tagline {
+  font-family: var(--serif); font-style: italic;
+  font-size: 15.5px; color: var(--text-2);
+  line-height: 1.45; margin-bottom: 22px;
+}
+.servicio-list {
+  list-style: none;
+  display: grid; gap: 11px;
+  font-family: var(--sans); font-size: 13.5px;
+  color: var(--text-2); line-height: 1.5;
+  margin-bottom: 26px;
+  padding-bottom: 26px;
+  border-bottom: 1px dashed var(--rule);
+}
+.servicio-list li { padding-left: 22px; position: relative; }
+.servicio-list li::before {
+  content: "✓"; position: absolute; left: 0;
+  font-weight: 700; font-size: 13px;
+}
+.servicio.is-appsec .servicio-list li::before    { color: var(--c-testsec); }
+.servicio.is-devsecops .servicio-list li::before { color: var(--gold-2); }
+.servicio.is-pentest .servicio-list li::before   { color: var(--c-mathcore); }
+
+.servicio-cta {
+  margin-top: auto;
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 14px 18px; border-radius: 999px;
+  text-decoration: none; text-align: center;
+  color: #fff;
+  transition: filter .15s, transform .15s;
+}
+.servicio.is-appsec .servicio-cta    { background: var(--c-testsec); }
+.servicio.is-devsecops .servicio-cta { background: var(--gold-2); }
+.servicio.is-pentest .servicio-cta   { background: var(--c-mathcore); }
+.servicio-cta:hover { filter: brightness(1.12); transform: translateY(-1px); }
+
+/* ─── SECTORES (DARK) ──────────────────────────────── */
+.sectores-band {
+  background: var(--ink);
+  border-bottom: 1px solid var(--rule-dark);
+}
+.sectores { padding: 0 0 110px; }
+.sectores-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+.sector {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--rule-dark);
+  border-radius: 14px;
+  padding: 30px 28px;
+  transition: transform .25s, background .25s, border-color .25s;
+}
+.sector:hover {
+  transform: translateY(-3px);
+  background: rgba(45,95,63,0.06);
+  border-color: var(--rule-dark-strong);
+}
+.sector-icon {
+  width: 50px; height: 50px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(45,95,63,0.16);
+  border: 1px solid rgba(45,95,63,0.40);
+  border-radius: 10px;
+  font-family: var(--serif); font-style: italic; font-weight: 600;
+  font-size: 24px; color: var(--c-testsec-soft);
+  margin-bottom: 18px;
+}
+.sector-title {
+  font-family: var(--serif); font-weight: 600;
+  font-size: 21px; color: #fff;
+  letter-spacing: -0.01em;
+  margin-bottom: 10px;
+}
+.sector-desc {
+  font-family: var(--sans); font-size: 13.5px;
+  color: var(--text-on-dark-2); line-height: 1.5;
+  margin-bottom: 16px;
+}
+.sector-tags {
+  font-family: var(--mono); font-size: 9.5px; font-weight: 600;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-on-dark-3); line-height: 1.7;
+  padding-top: 12px;
+  border-top: 1px solid var(--rule-dark);
+}
+
+/* ─── MARCO NORMATIVO (light) ───────────────────────── */
+.normativo { padding: 0 0 110px; }
+.normativo-board {
+  background: var(--paper-2);
+  border: 1px solid var(--rule);
+  border-radius: 18px;
+  padding: 64px 64px 56px;
+  box-shadow: var(--shadow-md);
+  position: relative;
+}
+.normativo-board::before {
+  content: ""; position: absolute;
+  left: 64px; right: 64px; top: 0; height: 4px;
+  background: linear-gradient(90deg, var(--gold) 0%, var(--c-testsec) 50%, var(--c-mathcore) 100%);
+}
+.normativo-lead {
+  font-family: var(--serif); font-style: italic;
+  font-size: 20px; line-height: 1.55; color: var(--text-2);
+  max-width: 880px;
+  border-left: 3px solid var(--c-testsec);
+  padding-left: 24px;
+  margin-bottom: 56px;
+}
+.normativo-lead strong {
+  font-style: normal; font-weight: 700; color: var(--ink);
+}
+.standards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 56px;
+}
+.standard {
+  background: var(--paper-3);
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  padding: 20px 18px;
+  text-align: left;
+  transition: border-color .15s, transform .15s;
+}
+.standard:hover { border-color: var(--c-testsec); transform: translateY(-2px); }
+.standard-name {
+  font-family: var(--mono); font-size: 12px; font-weight: 700;
+  letter-spacing: 0.04em; color: var(--ink);
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+.standard-desc {
+  font-family: var(--sans); font-size: 11.5px;
+  color: var(--text-3); line-height: 1.4;
+}
+.benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+  padding-top: 40px;
+  border-top: 1px solid var(--rule);
+}
+.benefit { display: flex; flex-direction: column; gap: 8px; }
+.benefit-label {
+  font-family: var(--mono); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--c-testsec);
+}
+.benefit-title {
+  font-family: var(--serif); font-weight: 600;
+  font-size: 18px; color: var(--ink);
+  line-height: 1.2; margin-bottom: 4px;
+}
+.benefit-text {
+  font-family: var(--sans); font-size: 13px;
+  color: var(--text-2); line-height: 1.5;
+}
+
+/* ─── CONTACTO (DARK) ───────────────────────────────── */
+.contacto-band {
+  background: var(--ink);
+  background-image:
+    radial-gradient(ellipse 800px 600px at 80% 20%, rgba(45,95,63,0.16), transparent 60%),
+    radial-gradient(ellipse 600px 500px at 0% 100%, rgba(184,134,11,0.06), transparent 60%);
+  border-top: 1px solid var(--rule-dark);
+  position: relative;
+  overflow: hidden;
+}
+.contacto { padding: 110px 0 80px; }
+.contacto-hero {
+  text-align: left;
+  margin-bottom: 64px;
+}
+.contacto-hero .band-eyebrow { color: var(--c-testsec-soft); }
+.contacto-hero .band-eyebrow::before { background: var(--c-testsec-soft); }
+.contacto-title {
+  font-family: var(--serif); font-weight: 500;
+  font-size: clamp(48px, 6vw, 88px);
+  line-height: 1.0; letter-spacing: -0.03em;
+  color: #fff; margin-bottom: 24px;
+}
+.contacto-title em { color: var(--c-testsec-soft); font-style: italic; }
+.contacto-lead {
+  font-family: var(--serif); font-style: italic;
+  font-size: 21px; color: var(--text-on-dark-2);
+  line-height: 1.5; max-width: 720px;
+}
+
+.contacto-grid {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 56px;
+  align-items: start;
+}
+.contacto-channels {
+  display: grid; gap: 14px;
+}
+.channel {
+  display: flex; align-items: center; gap: 18px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--rule-dark);
+  border-radius: 12px;
+  padding: 22px 26px;
+  text-decoration: none;
+  color: #fff;
+  transition: border-color .15s, transform .15s, background .15s;
+}
+.channel:hover {
+  border-color: var(--c-testsec);
+  background: rgba(45,95,63,0.10);
+  transform: translateX(3px);
+}
+.channel-icon {
+  width: 48px; height: 48px;
+  border-radius: 10px;
+  background: rgba(45,95,63,0.16);
+  border: 1px solid rgba(45,95,63,0.42);
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-style: italic; font-weight: 700;
+  font-size: 22px; color: var(--c-testsec-soft);
+  flex-shrink: 0;
+}
+.channel-text { flex: 1; }
+.channel-label {
+  font-family: var(--mono); font-size: 10px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--text-on-dark-3); margin-bottom: 4px;
+}
+.channel-value {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 18px; color: #fff;
+  letter-spacing: -0.01em;
+}
+.channel-arrow {
+  font-family: var(--mono); font-size: 20px;
+  color: var(--text-on-dark-3);
+}
+
+.contacto-aside {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid var(--rule-dark);
+  border-radius: 14px;
+  padding: 36px 36px;
+}
+.aside-eyebrow {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--c-testsec-soft); margin-bottom: 16px;
+}
+.aside-title {
+  font-family: var(--serif); font-weight: 500;
+  font-size: 28px; color: #fff;
+  letter-spacing: -0.022em; line-height: 1.15;
+  margin-bottom: 16px;
+}
+.aside-title em { color: var(--gold-soft); font-style: italic; }
+.aside-text {
+  font-family: var(--serif); font-style: italic;
+  font-size: 15.5px; color: var(--text-on-dark-2);
+  line-height: 1.55; margin-bottom: 22px;
+}
+.aside-list {
+  list-style: none;
+  display: grid; gap: 12px;
+  font-family: var(--mono); font-size: 11px;
+  color: var(--text-on-dark-2); letter-spacing: 0.04em;
+}
+.aside-list li {
+  padding-left: 26px; position: relative;
+  line-height: 1.4;
+}
+.aside-list li::before {
+  content: ""; position: absolute; left: 0; top: 4px;
+  width: 16px; height: 1.5px;
+  background: var(--c-testsec);
+}
+.aside-list li strong { color: #fff; font-weight: 700; }
+
+/* ─── FOOTER ──────────────────────────────────────────── */
+.footer {
+  border-top: 1px solid var(--rule-dark);
+  padding: 36px 0 0;
+  margin-top: 64px;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 32px; flex-wrap: wrap;
+  font-family: var(--mono); font-size: 10.5px;
+  color: var(--text-on-dark-3); letter-spacing: 0.06em;
+}
+.footer .footer-brand {
+  font-family: var(--serif); font-style: italic;
+  font-size: 14px; color: var(--text-on-dark-2);
+  letter-spacing: 0;
+}
+.footer .footer-brand strong {
+  color: #fff; font-style: normal; font-weight: 700;
+}
+.footer-links { display: flex; gap: 22px; }
+.footer-links a {
+  color: var(--text-on-dark-2); text-decoration: none;
+}
+.footer-links a:hover { color: var(--c-testsec); }
+
+/* ─── RESPONSIVE ──────────────────────────────────────── */
+@media (max-width: 1180px) {
+  .hero { grid-template-columns: 1fr; gap: 48px; padding: 64px 0 80px; }
+  .hero-stack { height: 460px; }
+  .servicios-grid { grid-template-columns: repeat(2, 1fr); }
+  .dims-grid { grid-template-columns: repeat(2, 1fr); }
+  .dims-grid .dim-cell:nth-child(2) { border-right: 0; }
+  .dims-grid .dim-cell:nth-child(-n+2) { border-bottom: 1px solid var(--rule-dark); }
+  .scanners-grid { grid-template-columns: repeat(2, 1fr); }
+  .scanners-grid .dim-cell:nth-child(3n) { border-right: 1px solid var(--rule-dark); }
+  .scanners-grid .dim-cell:nth-child(2n) { border-right: 0; }
+  .scanners-grid .dim-cell:nth-child(-n+3) { border-bottom: 1px solid var(--rule-dark); }
+  .citations-row { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .cfqi-card { padding: 40px 36px 36px; }
+  .sectores-grid { grid-template-columns: repeat(2, 1fr); }
+  .standards-grid { grid-template-columns: repeat(3, 1fr); }
+  .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+  .dictamen-card { grid-template-columns: 1fr; }
+  .dictamen-text { padding: 36px 32px; }
+  .testsec-card { padding: 40px 36px 36px; }
+  .scanner-flow-grid { grid-template-columns: 1fr; gap: 16px; }
+  .flow-arrow { transform: rotate(90deg); margin: 8px 0; }
+  .testsec-deliverables { grid-template-columns: repeat(2, 1fr); }
+  .testsec-meta { grid-template-columns: 1fr; gap: 24px; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+  .contacto-grid { grid-template-columns: 1fr; gap: 32px; }
+  .normativo-board { padding: 48px 36px 40px; }
+  .normativo-board::before { left: 36px; right: 36px; }
+  .owasp-grid { grid-template-columns: repeat(2, 1fr); }
+  .owasp-cell:nth-child(5n) { border-right: 1px solid var(--rule-dark); }
+  .owasp-cell:nth-child(2n) { border-right: 0; }
+  .owasp-cell:nth-child(n+6) { border-bottom: 1px solid var(--rule-dark); }
+  .owasp-cell:nth-last-child(-n+2) { border-bottom: 0; }
+}
+@media (max-width: 880px) {
+  .topnav { display: none; }
+  .lang-toggle { margin-left: auto; }
+  .cta-mini, .cta-back { display: none; }
+  .servicios-grid { grid-template-columns: 1fr; }
+  .dims-grid, .scanners-grid { grid-template-columns: 1fr; }
+  .dim-cell { border-right: 0; border-bottom: 1px solid var(--rule-dark); }
+  .dim-cell:last-child { border-bottom: 0; }
+  .citations-row { grid-template-columns: 1fr; }
+  .cfqi-card { padding: 32px 24px 28px; }
+  .proof-bar { grid-template-columns: repeat(2, 1fr); gap: 32px 0; }
+  .proof-cell { padding: 16px 18px; }
+  .proof-cell + .proof-cell::before { display: none; }
+  .proof-num { font-size: 64px; }
+  .standards-grid { grid-template-columns: repeat(2, 1fr); }
+  .sectores-grid { grid-template-columns: 1fr; }
+  .benefits-grid { grid-template-columns: 1fr; }
+  .testsec-deliverables { grid-template-columns: 1fr; }
+  .gallery-grid { grid-template-columns: 1fr; }
+  .owasp-grid { grid-template-columns: 1fr; }
+  .owasp-cell { border-right: 0; }
+  .section-band { padding: 72px 0 32px; }
+  .servicio { padding: 28px 24px; }
+  .dictamen-text { padding: 28px 22px; }
+  .manifest { padding: 80px 0; }
+  .container { padding: 0 22px; }
+}
+
+/* ─── BILINGUAL ───────────────────────────────────────── */
+[data-i18n-en] { display: none; }
+html[lang="en"] [data-i18n-es] { display: none; }
+html[lang="en"] [data-i18n-en] { display: inline; }
+html[lang="en"] li[data-i18n-en] { display: list-item; }
+</style>
+</head>
+<body>
+
+<!-- ═════════ TOPBAR ═════════ -->
+<div class="topbar-band">
+  <div class="container">
+    <header class="topbar">
+      <span class="brand-mark">T</span>
+      <span class="brand-name">
+        QASL · Test Security
+        <span class="role">· AppSec Forensic</span>
+      </span>
+      <nav class="topnav" id="topnav" aria-label="Navegación principal">
+        <a href="#cfqi">CFQI</a>
+        <a href="#testsec">Test Security</a>
+        <a href="#scanners">Scanners</a>
+        <a href="#owasp">OWASP Top 10</a>
+        <a href="#dictamen" data-i18n-es>Dictamen</a><a href="#dictamen" data-i18n-en>Verdict</a>
+        <a href="#capacidades" data-i18n-es>Vacantes</a><a href="#capacidades" data-i18n-en>Roles</a>
+        <a href="#contacto" data-i18n-es>Contacto</a><a href="#contacto" data-i18n-en>Contact</a>
+      </nav>
+      <div class="lang-toggle" aria-label="Language selector">
+        <button type="button" id="lang-es" class="active" onclick="setLang('es')">ES</button>
+        <button type="button" id="lang-en" onclick="setLang('en')">EN</button>
+      </div>
+      <a href="#contacto" class="cta-mini" data-i18n-es>Conversemos →</a>
+      <a href="#contacto" class="cta-mini" data-i18n-en>Let's talk →</a>
+      <a href="index.html" class="cta-back" data-i18n-es>← Portafolio</a>
+      <a href="index.html" class="cta-back" data-i18n-en>← Portfolio</a>
+    </header>
+  </div>
+</div>
+
+<!-- ═════════ HERO (LIGHT) ═════════ -->
+<div class="hero-band">
+  <div class="container">
+    <section class="hero">
+      <div class="hero-left">
+        <div class="hero-eyebrow fade-up">
+          <span data-i18n-es>QASL · Application Security Forensic</span>
+          <span data-i18n-en>QASL · Application Security Forensic</span>
+        </div>
+
+        <h1 class="hero-title fade-up delay-1">
+          <span data-i18n-es>QA Tech Lead<br><em>especializado</em> en Application Security forense.</span>
+          <span data-i18n-en>QA Tech Lead<br><em>specialized</em> in forensic Application Security.</span>
+        </h1>
+
+        <p class="hero-sub fade-up delay-2">
+          <span data-i18n-es>13+ años en QA. Creador de <strong>QASL Test Security (CFQI v1.0)</strong> — capa de interpretación forense sobre scanners (Semgrep, Trivy, OWASP ZAP, gitleaks, Checkov, MobSF), alineada a OWASP Top 10 2021, OWASP ASVS 4.0 y NIST SP 800-218 SSDF.</span>
+          <span data-i18n-en>13+ years in QA. Creator of <strong>QASL Test Security (CFQI v1.0)</strong> — forensic interpretation layer over scanners (Semgrep, Trivy, OWASP ZAP, gitleaks, Checkov, MobSF), aligned to OWASP Top 10 2021, OWASP ASVS 4.0 and NIST SP 800-218 SSDF.</span>
+        </p>
+
+        <div class="hero-scope fade-up delay-3">
+          <span class="scope-pill">SAST</span>
+          <span class="scope-pill">SCA</span>
+          <span class="scope-pill">DAST</span>
+          <span class="scope-pill">IaC Security</span>
+          <span class="scope-pill is-hot">DevSecOps</span>
+          <span class="scope-pill is-hot">SBOM · CycloneDX</span>
+        </div>
+
+        <div class="hero-ctas fade-up delay-4">
+          <a href="#contacto" class="btn-primary">
+            <span data-i18n-es>Conversemos sobre la vacante</span>
+            <span data-i18n-en>Let's talk about the role</span>
+            →
+          </a>
+          <a href="#cfqi" class="btn-ghost">
+            <span data-i18n-es>Ver el motor CFQI</span>
+            <span data-i18n-en>See the CFQI engine</span>
+            ↓
+          </a>
+        </div>
+      </div>
+
+      <aside class="hero-stack fade-up delay-3" aria-label="Vista previa del dictamen y dashboard">
+        <figure class="floating-doc">
+          <img src="img/flagships/testsec-dictamen-forense.png" alt="Dictamen Forense CFQI v1.0 — formato pericial 1 página" loading="eager">
+        </figure>
+        <figure class="floating-card">
+          <img src="img/flagships/testsec-grafana-forensic.png" alt="Grafana CFQI Forensic Dashboard — 4 gauges D1/D2/D3 + audit table" loading="eager">
+        </figure>
+        <span class="floating-tag">CFQI v1.0 · Live</span>
+      </aside>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ PROOF BAR ═════════ -->
+<div class="proofbar-band">
+  <div class="container">
+    <section class="proof-bar">
+      <div class="proof-cell">
+        <div class="proof-num">13<sup>+</sup></div>
+        <div class="proof-label" data-i18n-es>Años en QA</div>
+        <div class="proof-label" data-i18n-en>Years in QA</div>
+      </div>
+      <div class="proof-cell">
+        <div class="proof-num"><span class="accent">10</span><span class="small">/10</span></div>
+        <div class="proof-label" data-i18n-es>Categorías OWASP Top 10 2021</div>
+        <div class="proof-label" data-i18n-en>OWASP Top 10 2021 categories</div>
+      </div>
+      <div class="proof-cell">
+        <div class="proof-num">3</div>
+        <div class="proof-label" data-i18n-es>Dimensiones forenses · CFQI · D1·D2·D3</div>
+        <div class="proof-label" data-i18n-en>Forensic dimensions · CFQI · D1·D2·D3</div>
+      </div>
+      <div class="proof-cell">
+        <div class="proof-num">3</div>
+        <div class="proof-label" data-i18n-es>Dashboards Grafana auto-provisionados</div>
+        <div class="proof-label" data-i18n-en>Auto-provisioned Grafana dashboards</div>
+      </div>
+      <div class="proof-cell">
+        <div class="proof-num">2</div>
+        <div class="proof-label" data-i18n-es>PDFs por audiencia · Executive + Pericial</div>
+        <div class="proof-label" data-i18n-en>PDFs per audience · Executive + Forensic</div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ MANIFEST (DARK) ═════════ -->
+<div class="manifest-band">
+  <div class="container">
+    <section class="manifest">
+      <div class="manifest-rule">
+        <span data-i18n-es>— Tesis técnica —</span>
+        <span data-i18n-en>— Technical thesis —</span>
+      </div>
+      <h2 class="manifest-title">
+        <span data-i18n-es>Un scanner sin interpretación es <em>ruido</em>.<br>Una vulnerabilidad sin grado<br>es <em>opinión</em>.</span>
+        <span data-i18n-en>A scanner without interpretation is <em>noise</em>.<br>A vulnerability without a grade<br>is <em>opinion</em>.</span>
+      </h2>
+      <div class="manifest-attribution">
+        <span data-i18n-es>QASL Test Security · <strong>CFQI convierte hallazgos en dictamen</strong></span>
+        <span data-i18n-en>QASL Test Security · <strong>CFQI turns findings into a verdict</strong></span>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ CFQI · NÚCLEO FORENSE ═════════ -->
+<div class="cfqi-band">
+  <div class="container">
+    <section class="cfqi" id="cfqi">
+      <header class="section-band">
+        <div class="section-band-left">
+          <div class="band-eyebrow">
+            <span data-i18n-es>I · Núcleo forense</span>
+            <span data-i18n-en>I · Forensic core</span>
+          </div>
+          <h2 class="band-title">
+            CFQI · <em>Code Forensic Quality Index</em>
+          </h2>
+          <p class="band-desc">
+            <span data-i18n-es>Algoritmo propio que normaliza hallazgos de scanners distintos en un único veredicto: score 0–100 · grado A→F · 3 dimensiones forenses · penalización Λ por riesgo. Defendible matemáticamente ante auditoría.</span>
+            <span data-i18n-en>Proprietary algorithm that normalizes findings from different scanners into a single verdict: 0–100 score · A→F grade · 3 forensic dimensions · Λ risk penalty. Mathematically defensible under audit.</span>
+          </p>
+        </div>
+        <div class="band-meta">
+          <strong>CFQI v1.0</strong><br>
+          3 <span data-i18n-es>dimensiones</span><span data-i18n-en>dimensions</span> · A→F · 0–100<br>
+          <span data-i18n-es>Sin promediar · Λ penalty</span>
+          <span data-i18n-en>No naive averaging · Λ penalty</span>
+        </div>
+      </header>
+
+      <div class="cfqi-card">
+        <div class="cfqi-eyebrow">
+          <span data-i18n-es>De una bolsa de hallazgos a un veredicto numérico</span>
+          <span data-i18n-en>From a bag of findings to a numeric verdict</span>
+        </div>
+
+        <div class="cfqi-lemma">
+          <span data-i18n-es>"No promediamos severidades. Las penalizamos."</span>
+          <span data-i18n-en>"We don't average severities. We penalize them."</span>
+        </div>
+
+        <p class="cfqi-narrative">
+          <span data-i18n-es>CFQI no es un agregador de scanners (eso lo hacen DefectDojo o Dependency-Track). Es la <strong>capa de interpretación forense</strong> que se monta encima: convierte una bolsa ruidosa de findings en un score 0–100 con grado A/B/C/D/F sobre <span class="tm">tres dimensiones independientes</span> — estructural, comportamental y operacional — más una penalización Λ por riesgo crítico que impide que un proyecto con 1 vulnerabilidad CRITICA "promedie bonito" gracias a 99 hallazgos LOW. <strong>Cada decisión es defendible matemáticamente</strong> ante auditor, regulador o tribunal.</span>
+          <span data-i18n-en>CFQI is not a scanner aggregator (that's what DefectDojo or Dependency-Track do). It's the <strong>forensic interpretation layer</strong> on top: turns a noisy bag of findings into a 0–100 score with A/B/C/D/F grade across <span class="tm">three independent dimensions</span> — structural, behavioral and operational — plus a Λ risk penalty that prevents a project with 1 CRITICAL vulnerability from "averaging nicely" thanks to 99 LOW findings. <strong>Every decision is mathematically defensible</strong> before an auditor, regulator or court.</span>
+        </p>
+
+        <!-- 3 Dimensions + Penalty -->
+        <div class="dims-grid">
+          <div class="dim-cell">
+            <div class="dim-cell-num"><em>D1</em></div>
+            <div class="dim-cell-name" data-i18n-es>Genealogía estructural</div>
+            <div class="dim-cell-name" data-i18n-en>Structural genealogy</div>
+            <div class="dim-cell-title" data-i18n-es>Raíces del código</div>
+            <div class="dim-cell-title" data-i18n-en>Code roots</div>
+            <span class="dim-cell-formula">35% · SAST · IaC</span>
+            <p class="dim-cell-desc">
+              <span data-i18n-es>Análisis estático del código y dependencias. Mide la salud del código en reposo.</span>
+              <span data-i18n-en>Static analysis of code and dependencies. Measures the health of the code at rest.</span>
+            </p>
+          </div>
+          <div class="dim-cell">
+            <div class="dim-cell-num"><em>D2</em></div>
+            <div class="dim-cell-name" data-i18n-es>Behavior coherence</div>
+            <div class="dim-cell-name" data-i18n-en>Behavior coherence</div>
+            <div class="dim-cell-title" data-i18n-es>Entrada/salida</div>
+            <div class="dim-cell-title" data-i18n-en>I/O behavior</div>
+            <span class="dim-cell-formula">30% · DAST · runtime</span>
+            <p class="dim-cell-desc">
+              <span data-i18n-es>Comportamiento bajo ataque dinámico. Mide cómo responde el sistema vivo.</span>
+              <span data-i18n-en>Behavior under dynamic attack. Measures how the live system responds.</span>
+            </p>
+          </div>
+          <div class="dim-cell">
+            <div class="dim-cell-num"><em>D3</em></div>
+            <div class="dim-cell-name" data-i18n-es>Operational quality</div>
+            <div class="dim-cell-name" data-i18n-en>Operational quality</div>
+            <div class="dim-cell-title" data-i18n-es>Runtime real</div>
+            <div class="dim-cell-title" data-i18n-en>Live runtime</div>
+            <span class="dim-cell-formula">35% · SCA · secrets · config</span>
+            <p class="dim-cell-desc">
+              <span data-i18n-es>Calidad operativa en producción. Secretos expuestos, dependencias vulnerables, misconfig.</span>
+              <span data-i18n-en>Operational quality in production. Exposed secrets, vulnerable dependencies, misconfig.</span>
+            </p>
+          </div>
+          <div class="dim-cell is-penalty">
+            <div class="dim-cell-num"><em>Λ</em></div>
+            <div class="dim-cell-name" data-i18n-es>Penalización riesgo</div>
+            <div class="dim-cell-name" data-i18n-en>Risk penalty</div>
+            <div class="dim-cell-title" data-i18n-es>Sin promediar</div>
+            <div class="dim-cell-title" data-i18n-en>No averaging</div>
+            <span class="dim-cell-formula">CVSS · EPSS · CWE</span>
+            <p class="dim-cell-desc">
+              <span data-i18n-es>Castiga severidades CRITICAL/HIGH para que no se diluyan en el promedio.</span>
+              <span data-i18n-en>Penalizes CRITICAL/HIGH severities so they don't dilute in the average.</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Forensic dashboard preview -->
+        <figure class="cfqi-figure">
+          <img src="img/flagships/testsec-grafana-forensic.png" alt="CFQI Forensic Dashboard — 4 gauges D1/D2/D3 + Λ penalty + audit table per project" loading="lazy">
+          <figcaption>
+            <span data-i18n-es>GRAFANA · CFQI FORENSIC · 4 GAUGES D1·D2·D3·Λ · AUDIT TABLE PER PROJECT</span>
+            <span data-i18n-en>GRAFANA · CFQI FORENSIC · 4 GAUGES D1·D2·D3·Λ · AUDIT TABLE PER PROJECT</span>
+          </figcaption>
+        </figure>
+
+        <!-- Citations -->
+        <div class="citations-row">
+          <div class="citation">
+            <div class="citation-label">D1 · D2 · D3</div>
+            <div class="citation-name">OWASP ASVS 4.0 · NIST SP 800-218 SSDF</div>
+          </div>
+          <div class="citation">
+            <div class="citation-label" data-i18n-es>Penalización Λ</div>
+            <div class="citation-label" data-i18n-en>Λ Penalty</div>
+            <div class="citation-name">CVSS v3.1 · EPSS · CWE Top 25</div>
+          </div>
+          <div class="citation">
+            <div class="citation-label" data-i18n-es>Risk model</div>
+            <div class="citation-label" data-i18n-en>Risk model</div>
+            <div class="citation-name">ISO 31000:2018 · Risk Management</div>
+          </div>
+          <div class="citation">
+            <div class="citation-label">SBOM</div>
+            <div class="citation-name">CycloneDX · NTIA Minimum Elements</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ TEST SECURITY MAIN CARD (LIGHT) ═════════ -->
+<div class="band-light">
+  <div class="container">
+    <section class="testsec" id="testsec">
+      <header class="section-band">
+        <div class="section-band-left">
+          <div class="band-eyebrow">
+            <span data-i18n-es>II · Herramienta flagship</span>
+            <span data-i18n-en>II · Flagship tool</span>
+          </div>
+          <h2 class="band-title">
+            QASL <em>Test Security</em>
+          </h2>
+          <p class="band-desc">
+            <span data-i18n-es>Capa de interpretación forense sobre scanners. Stack completo de operación: FastAPI Normalizer con Swagger UI, PostgreSQL 16, 3 dashboards Grafana auto-provisionados y PDF Generator que entrega Executive (3pp) + Dictamen Forense (1p firmable).</span>
+            <span data-i18n-en>Forensic interpretation layer on top of scanners. Full operations stack: FastAPI Normalizer with Swagger UI, PostgreSQL 16, 3 auto-provisioned Grafana dashboards and PDF Generator delivering Executive (3pp) + Forensic Verdict (1pp signable).</span>
+          </p>
+        </div>
+        <div class="band-meta">
+          <strong>QASL Test Security</strong><br>
+          FastAPI · PostgreSQL 16 · Grafana<br>
+          <span data-i18n-es>Privado · Manual operativo + Demo</span>
+          <span data-i18n-en>Private · Operational manual + Demo</span>
+        </div>
+      </header>
+
+      <div class="testsec-card">
+        <div class="testsec-eyebrow">Application Security · Forensic</div>
+        <h3 class="testsec-title">
+          <span data-i18n-es>De una bolsa de findings <em>a un dictamen.</em></span>
+          <span data-i18n-en>From a bag of findings <em>to a verdict.</em></span>
+        </h3>
+        <p class="testsec-lead">
+          <span data-i18n-es><strong>No es un agregador de scanners</strong> (eso lo hacen DefectDojo o Dependency-Track). Es la capa de interpretación forense que se monta encima: convierte una bolsa ruidosa de hallazgos en un score 0–100 con grado A/B/C/D/F sobre 3 dimensiones (Static · Dependencies · Runtime), entregando dos PDFs separados por audiencia: <strong>Executive</strong> (3pp · CIO/CISO) y <strong>Dictamen Forense</strong> (1p firmable · auditores y compliance).</span>
+          <span data-i18n-en><strong>Not a scanner aggregator</strong> (that's what DefectDojo or Dependency-Track do). It's the forensic interpretation layer on top: turns a noisy bag of findings into a 0–100 score with A/B/C/D/F grade across 3 dimensions (Static · Dependencies · Runtime), delivering two PDFs separated by audience: <strong>Executive</strong> (3pp · CIO/CISO) and <strong>Forensic Verdict</strong> (1pp signable · auditors and compliance).</span>
+        </p>
+
+        <!-- Scanner flow -->
+        <div class="scanner-flow">
+          <div class="scanner-flow-label">
+            <span data-i18n-es>Flujo: scanners → CFQI → dictamen</span>
+            <span data-i18n-en>Flow: scanners → CFQI → verdict</span>
+          </div>
+          <div class="scanner-flow-grid">
+            <div class="scanners-list">
+              <span class="scanner-pill">Semgrep</span>
+              <span class="scanner-pill">Trivy</span>
+              <span class="scanner-pill">OWASP ZAP</span>
+              <span class="scanner-pill">gitleaks</span>
+              <span class="scanner-pill">Checkov</span>
+              <span class="scanner-pill">MobSF</span>
+            </div>
+            <div class="flow-arrow">
+              →
+              <span class="arrow-label">CFQI</span>
+            </div>
+            <div class="cfqi-badge">
+              <div class="cfqi-badge-label">Output</div>
+              <div class="cfqi-badge-name">Code Forensic Quality Index</div>
+              <div class="cfqi-badge-meta">
+                <span data-i18n-es>Score <strong>0–100</strong> · Grado <strong>A/B/C/D/F</strong></span>
+                <span data-i18n-en>Score <strong>0–100</strong> · Grade <strong>A/B/C/D/F</strong></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Deliverables -->
+        <div class="testsec-deliverables">
+          <div class="testsec-deliverable">
+            <div class="testsec-deliverable-num">3</div>
+            <div class="testsec-deliverable-name" data-i18n-es>Dimensiones forenses</div>
+            <div class="testsec-deliverable-name" data-i18n-en>Forensic dimensions</div>
+            <div class="testsec-deliverable-desc">
+              <span data-i18n-es><strong>D1</strong> Estructural (35%) · <strong>D2</strong> Behavior (30%) · <strong>D3</strong> Operational (35%) · penalización Λ.</span>
+              <span data-i18n-en><strong>D1</strong> Structural (35%) · <strong>D2</strong> Behavior (30%) · <strong>D3</strong> Operational (35%) · Λ penalty.</span>
+            </div>
+          </div>
+          <div class="testsec-deliverable">
+            <div class="testsec-deliverable-num">2</div>
+            <div class="testsec-deliverable-name" data-i18n-es>PDFs por audiencia</div>
+            <div class="testsec-deliverable-name" data-i18n-en>PDFs per audience</div>
+            <div class="testsec-deliverable-desc">
+              <span data-i18n-es><strong>Executive</strong> (3pp · CISO) y <strong>Dictamen Forense</strong> (1p firmable · auditores).</span>
+              <span data-i18n-en><strong>Executive</strong> (3pp · CISO) and <strong>Forensic Verdict</strong> (1pp signable · auditors).</span>
+            </div>
+          </div>
+          <div class="testsec-deliverable">
+            <div class="testsec-deliverable-num">3</div>
+            <div class="testsec-deliverable-name" data-i18n-es>Dashboards Grafana</div>
+            <div class="testsec-deliverable-name" data-i18n-en>Grafana dashboards</div>
+            <div class="testsec-deliverable-desc">
+              <span data-i18n-es><strong>Executive · Forensic · OWASP coverage</strong>. Auto-provisionados al arranque.</span>
+              <span data-i18n-en><strong>Executive · Forensic · OWASP coverage</strong>. Auto-provisioned on startup.</span>
+            </div>
+          </div>
+          <div class="testsec-deliverable">
+            <div class="testsec-deliverable-num">6</div>
+            <div class="testsec-deliverable-name" data-i18n-es>Endpoints REST · OpenAPI 3.1</div>
+            <div class="testsec-deliverable-name" data-i18n-en>REST endpoints · OpenAPI 3.1</div>
+            <div class="testsec-deliverable-desc">
+              <span data-i18n-es><strong>FastAPI Normalizer</strong> con Swagger UI interactivo. SARIF/JSON ingest.</span>
+              <span data-i18n-en><strong>FastAPI Normalizer</strong> with interactive Swagger UI. SARIF/JSON ingest.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stack & standards -->
+        <div class="testsec-meta">
+          <div class="testsec-meta-block">
+            <div class="meta-label">Stack</div>
+            <div class="pill-row">
+              <span class="pill">FastAPI</span>
+              <span class="pill">PostgreSQL 16</span>
+              <span class="pill">Grafana 10.4</span>
+              <span class="pill">PDFKit · Node 18+</span>
+              <span class="pill">Docker Compose v2</span>
+              <span class="pill">Python 3.10+</span>
+              <span class="pill">SARIF/JSON normalizer</span>
+              <span class="pill">CycloneDX SBOM</span>
+            </div>
+          </div>
+          <div class="testsec-meta-block">
+            <div class="meta-label" data-i18n-es>Estándares aplicados</div>
+            <div class="meta-label" data-i18n-en>Applied standards</div>
+            <div class="pill-row">
+              <span class="pill pill-green">OWASP Top 10 · 2021</span>
+              <span class="pill pill-green">OWASP ASVS 4.0</span>
+              <span class="pill pill-green">NIST SP 800-218 SSDF</span>
+              <span class="pill pill-green">ISO/IEC 27001:2022</span>
+              <span class="pill pill-green">ISO 31000 · Risk</span>
+              <span class="pill pill-green">CWE / CVE / CVSS / EPSS</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ DASHBOARDS GALLERY (LIGHT) ═════════ -->
+<div class="gallery-band band-paper2">
+  <div class="container">
+    <header class="section-band">
+      <div class="section-band-left">
+        <div class="band-eyebrow">
+          <span data-i18n-es>II.B · Evidencia visual</span>
+          <span data-i18n-en>II.B · Visual evidence</span>
+        </div>
+        <h2 class="band-title">
+          <span data-i18n-es>Stack <em>en producción</em></span>
+          <span data-i18n-en><em>Production</em> stack</span>
+        </h2>
+        <p class="band-desc">
+          <span data-i18n-es>Tres dashboards Grafana auto-provisionados al arranque del docker-compose, FastAPI con Swagger UI interactivo, PDFs separados por audiencia. Todo demostrable en demo bajo NDA.</span>
+          <span data-i18n-en>Three Grafana dashboards auto-provisioned on docker-compose startup, FastAPI with interactive Swagger UI, PDFs separated by audience. All demonstrable in demo under NDA.</span>
+        </p>
+      </div>
+    </header>
+
+    <div class="gallery-grid">
+      <figure class="gallery-figure">
+        <img src="img/flagships/testsec-grafana-executive.png" alt="Executive Overview Dashboard — 4 severity KPIs · CFQI per project · 30-day trend" loading="lazy">
+        <figcaption>
+          <strong>GRAFANA · EXECUTIVE</strong><br>
+          <span data-i18n-es>4 KPIs severidad · CFQI por proyecto · trend 30d</span>
+          <span data-i18n-en>4 severity KPIs · CFQI per project · 30d trend</span>
+        </figcaption>
+      </figure>
+      <figure class="gallery-figure">
+        <img src="img/flagships/testsec-grafana-forensic.png" alt="CFQI Forensic Analysis Dashboard — 4 gauges D1/D2/D3 + audit table" loading="lazy">
+        <figcaption>
+          <strong>GRAFANA · CFQI FORENSIC</strong><br>
+          <span data-i18n-es>4 gauges D1·D2·D3·Λ · audit table</span>
+          <span data-i18n-en>4 gauges D1·D2·D3·Λ · audit table</span>
+        </figcaption>
+      </figure>
+      <figure class="gallery-figure">
+        <img src="img/flagships/testsec-grafana-owasp.png" alt="OWASP Top 10 Coverage &amp; Remediation SLA Dashboard" loading="lazy">
+        <figcaption>
+          <strong>GRAFANA · OWASP TOP 10</strong><br>
+          <span data-i18n-es>Criticals · MTTR · SLA tracking</span>
+          <span data-i18n-en>Criticals · MTTR · SLA tracking</span>
+        </figcaption>
+      </figure>
+      <figure class="gallery-figure">
+        <img src="img/flagships/testsec-swagger-ui.png" alt="FastAPI Normalizer — Swagger UI interactivo" loading="lazy">
+        <figcaption>
+          <strong>FASTAPI · SWAGGER UI</strong><br>
+          <span data-i18n-es>6 endpoints · OpenAPI 3.1 · SARIF ingest</span>
+          <span data-i18n-en>6 endpoints · OpenAPI 3.1 · SARIF ingest</span>
+        </figcaption>
+      </figure>
+      <figure class="gallery-figure">
+        <img src="img/flagships/testsec-executive-report.png" alt="Executive Report 3 páginas — corporate style" loading="lazy">
+        <figcaption>
+          <strong>EXECUTIVE REPORT · 3PP</strong><br>
+          <span data-i18n-es>Corporate · CISO/management</span>
+          <span data-i18n-en>Corporate · CISO/management</span>
+        </figcaption>
+      </figure>
+      <figure class="gallery-figure">
+        <img src="img/flagships/testsec-dashboards-folder.png" alt="Folder Grafana — 3 dashboards auto-provisionados al arranque" loading="lazy">
+        <figcaption>
+          <strong>GRAFANA · FOLDER VIEW</strong><br>
+          <span data-i18n-es>3 dashboards · auto-provisioned</span>
+          <span data-i18n-en>3 dashboards · auto-provisioned</span>
+        </figcaption>
+      </figure>
+    </div>
+  </div>
+</div>
+
+<!-- ═════════ SCANNERS · MOTORES INTEGRADOS (DARK) ═════════ -->
+<div class="cfqi-band">
+  <div class="container">
+    <section class="cfqi" id="scanners">
+      <header class="section-band">
+        <div class="section-band-left">
+          <div class="band-eyebrow">
+            <span data-i18n-es>III · Motores integrados</span>
+            <span data-i18n-en>III · Integrated engines</span>
+          </div>
+          <h2 class="band-title">
+            <span data-i18n-es>Seis scanners. <em>Un solo dictamen.</em></span>
+            <span data-i18n-en>Six scanners. <em>One verdict.</em></span>
+          </h2>
+          <p class="band-desc">
+            <span data-i18n-es>Test Security no compite con los scanners — los normaliza. Cada motor cubre una capa específica del SDLC, todos alimentan el algoritmo CFQI vía SARIF/JSON normalizer y terminan en un solo dictamen.</span>
+            <span data-i18n-en>Test Security doesn't compete with scanners — it normalizes them. Each engine covers a specific SDLC layer, all feed the CFQI algorithm via SARIF/JSON normalizer and converge into a single verdict.</span>
+          </p>
+        </div>
+        <div class="band-meta">
+          <strong>6 <span data-i18n-es>motores</span><span data-i18n-en>engines</span></strong><br>
+          SAST · SCA · DAST · IaC · Mobile<br>
+          <span data-i18n-es>SARIF/JSON normalizer</span>
+          <span data-i18n-en>SARIF/JSON normalizer</span>
+        </div>
+      </header>
+
+      <div class="cfqi-card">
+        <div class="cfqi-eyebrow">
+          <span data-i18n-es>Cobertura por capa del SDLC</span>
+          <span data-i18n-en>Coverage per SDLC layer</span>
+        </div>
+
+        <div class="cfqi-lemma">
+          <span data-i18n-es>"El que opera sin SAST + SCA + DAST + IaC, no tiene seguridad: tiene esperanza."</span>
+          <span data-i18n-en>"Operating without SAST + SCA + DAST + IaC isn't security — it's hope."</span>
+        </div>
+
+        <p class="cfqi-narrative">
+          <span data-i18n-es>Cada uno de los seis motores integrados es <strong>el estándar de su categoría</strong>: Semgrep para SAST policy-based, Trivy para SCA + container, OWASP ZAP para DAST runtime, gitleaks para detección de secretos, Checkov para Infrastructure-as-Code, y MobSF para mobile SAST sobre APK/IPA. Test Security no los reemplaza — los normaliza vía un FastAPI Normalizer con contrato OpenAPI 3.1 que ingiere SARIF y JSON propietario, los persiste en PostgreSQL 16, y los entrega a CFQI para producir el dictamen final.</span>
+          <span data-i18n-en>Each of the six integrated engines is <strong>the standard for its category</strong>: Semgrep for policy-based SAST, Trivy for SCA + container, OWASP ZAP for runtime DAST, gitleaks for secret detection, Checkov for Infrastructure-as-Code, and MobSF for mobile SAST on APK/IPA. Test Security doesn't replace them — it normalizes them via a FastAPI Normalizer with OpenAPI 3.1 contract that ingests SARIF and proprietary JSON, persists them in PostgreSQL 16, and feeds CFQI to produce the final verdict.</span>
+        </p>
+
+        <!-- 6 Scanners 3x2 grid -->
+        <div class="scanners-grid">
+          <div class="dim-cell">
+            <div class="dim-cell-num"><em>S1</em></div>
+            <div class="dim-cell-name">Semgrep</div>
+            <div class="dim-cell-title" data-i18n-es>SAST policy-based</div>
+            <div class="dim-cell-title" data-i18n-en>Policy-based SAST</div>
+            <span class="dim-cell-formula">2000+ rules · multi-language</span>
+            <p class="dim-cell-desc">
+              <span data-i18n-es>Análisis estático con reglas comunitarias y custom. JS, Python, Go, Java, Ruby, TS — sin compilar.</span>
+              <span data-i18n-en>Static analysis with community + custom rules. JS, Python, Go, Java, Ruby, TS — no compile needed.</span>
+            </p>
+          </div>
+          <div class="dim-cell">
+            <div class="dim-cell-num"><em>S2</em></div>
+            <div class="dim-cell-name">Trivy</div>
+            <div class="dim-cell-title" data-i18n-es>SCA + container + IaC</div>
+            <div class="dim-cell-title" data-i18n-en>SCA + container + IaC</div>
+            <span class="dim-cell-formula">CVE · CycloneDX SBOM</span>
+            <p class="dim-cell-desc">
+              <span data-i18n-es>Escaneo de dependencias, imágenes Docker e IaC. Genera SBOM CycloneDX para compliance.</span>
+              <span data-i18n-en>Dependencies, Docker images and IaC scanning. Generates CycloneDX SBOM for compliance.</span>
+            </p>
+          </div>
+          <div class="dim-cell">
+            <div class="dim-cell-num"><em>S3</em></div>
+            <div class="dim-cell-name">OWASP ZAP</div>
+            <div class="dim-cell-title" data-i18n-es>DAST runtime</div>
+            <div class="dim-cell-title" data-i18n-en>Runtime DAST</div>
+            <span class="dim-cell-formula">SQLi · XSS · CSRF · LFI</span>
+            <p class="dim-cell-desc">
+              <span data-i18n-es>Escaneo activo sobre el sistema vivo. Baseline + full scan en pipeline CI/CD vía Docker.</span>
+              <span data-i18n-en>Active scanning against the live system. Baseline + full scan in CI/CD pipeline via Docker.</span>
+            </p>
+          </div>
+          <div class="dim-cell">
+            <div class="dim-cell-num"><em>S4</em></div>
+            <div class="dim-cell-name">gitleaks</div>
+            <div class="dim-cell-title" data-i18n-es>Detección de secretos</div>
+            <div class="dim-cell-title" data-i18n-en>Secret detection</div>
+            <span class="dim-cell-formula">pre-commit · CI · history</span>
+            <p class="dim-cell-desc">
+              <span data-i18n-es>Detecta API keys, tokens, certificados y credenciales en código + historial git completo.</span>
+              <span data-i18n-en>Detects API keys, tokens, certificates and credentials in code + full git history.</span>
+            </p>
+          </div>
+          <div class="dim-cell">
+            <div class="dim-cell-num"><em>S5</em></div>
+            <div class="dim-cell-name">Checkov</div>
+            <div class="dim-cell-title" data-i18n-es>Infrastructure-as-Code</div>
+            <div class="dim-cell-title" data-i18n-en>Infrastructure-as-Code</div>
+            <span class="dim-cell-formula">Terraform · K8s · CloudFormation</span>
+            <p class="dim-cell-desc">
+              <span data-i18n-es>Análisis de IaC: Terraform, Kubernetes, CloudFormation, ARM, Helm. Policies CIS y custom.</span>
+              <span data-i18n-en>IaC analysis: Terraform, Kubernetes, CloudFormation, ARM, Helm. CIS and custom policies.</span>
+            </p>
+          </div>
+          <div class="dim-cell">
+            <div class="dim-cell-num"><em>S6</em></div>
+            <div class="dim-cell-name">MobSF</div>
+            <div class="dim-cell-title" data-i18n-es>Mobile SAST · APK/IPA</div>
+            <div class="dim-cell-title" data-i18n-en>Mobile SAST · APK/IPA</div>
+            <span class="dim-cell-formula">Android · iOS · static + dynamic</span>
+            <p class="dim-cell-desc">
+              <span data-i18n-es>Análisis estático y dinámico de aplicaciones móviles. APKs Android e IPAs iOS, malware checks.</span>
+              <span data-i18n-en>Static and dynamic mobile app analysis. Android APKs and iOS IPAs, malware checks.</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Integration row -->
+        <div class="citations-row">
+          <div class="citation">
+            <div class="citation-label" data-i18n-es>Ingest</div>
+            <div class="citation-label" data-i18n-en>Ingest</div>
+            <div class="citation-name" data-i18n-es>SARIF + JSON propietario · OpenAPI 3.1</div>
+            <div class="citation-name" data-i18n-en>SARIF + proprietary JSON · OpenAPI 3.1</div>
+          </div>
+          <div class="citation">
+            <div class="citation-label" data-i18n-es>Persistencia</div>
+            <div class="citation-label" data-i18n-en>Persistence</div>
+            <div class="citation-name">PostgreSQL 16 · single source of truth</div>
+          </div>
+          <div class="citation">
+            <div class="citation-label" data-i18n-es>Procesamiento</div>
+            <div class="citation-label" data-i18n-en>Processing</div>
+            <div class="citation-name" data-i18n-es>CFQI v1.0 · 3 dimensiones + Λ</div>
+            <div class="citation-name" data-i18n-en>CFQI v1.0 · 3 dimensions + Λ</div>
+          </div>
+          <div class="citation">
+            <div class="citation-label">Output</div>
+            <div class="citation-name" data-i18n-es>Grafana · 2 PDFs · API REST</div>
+            <div class="citation-name" data-i18n-en>Grafana · 2 PDFs · REST API</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ OWASP TOP 10 2021 (DARK) ═════════ -->
+<div class="band-dark owasp-band">
+  <div class="container">
+    <section class="owasp" id="owasp">
+      <header class="section-band">
+        <div class="section-band-left">
+          <div class="band-eyebrow">
+            <span data-i18n-es>IV · Cobertura</span>
+            <span data-i18n-en>IV · Coverage</span>
+          </div>
+          <h2 class="band-title">
+            OWASP Top 10 · <em>2021</em>
+          </h2>
+          <p class="band-desc">
+            <span data-i18n-es>Cobertura 10/10. Cada categoría tiene scanner asignado, métrica de detección y entrada en el dictamen CFQI. Sin huecos. Sin "lo cubrimos parcialmente".</span>
+            <span data-i18n-en>10/10 coverage. Every category has an assigned scanner, a detection metric and an entry in the CFQI verdict. No gaps. No "partially covered".</span>
+          </p>
+        </div>
+        <div class="band-meta">
+          <strong>10/10</strong> <span data-i18n-es>categorías</span><span data-i18n-en>categories</span><br>
+          OWASP Top 10 · 2021<br>
+          <span data-i18n-es>Scanner + métrica + dictamen</span>
+          <span data-i18n-en>Scanner + metric + verdict</span>
+        </div>
+      </header>
+
+      <div class="owasp-grid">
+        <div class="owasp-cell">
+          <div class="owasp-num">A01</div>
+          <div class="owasp-name" data-i18n-es>Broken Access Control</div>
+          <div class="owasp-name" data-i18n-en>Broken Access Control</div>
+          <p class="owasp-desc">
+            <span data-i18n-es>Bypass de autorización, IDOR, escalada de privilegios, exposición de objetos.</span>
+            <span data-i18n-en>Authorization bypass, IDOR, privilege escalation, object exposure.</span>
+          </p>
+          <div class="owasp-tool"><strong>OWASP ZAP</strong> · Semgrep · auth probes</div>
+        </div>
+        <div class="owasp-cell">
+          <div class="owasp-num">A02</div>
+          <div class="owasp-name" data-i18n-es>Cryptographic Failures</div>
+          <div class="owasp-name" data-i18n-en>Cryptographic Failures</div>
+          <p class="owasp-desc">
+            <span data-i18n-es>Algoritmos débiles, claves expuestas, datos sensibles en claro, TLS mal configurado.</span>
+            <span data-i18n-en>Weak algorithms, exposed keys, sensitive data in clear, misconfigured TLS.</span>
+          </p>
+          <div class="owasp-tool"><strong>Semgrep</strong> · gitleaks · OWASP ZAP TLS</div>
+        </div>
+        <div class="owasp-cell">
+          <div class="owasp-num">A03</div>
+          <div class="owasp-name">Injection</div>
+          <p class="owasp-desc">
+            <span data-i18n-es>SQLi, NoSQLi, command injection, XSS, LDAP injection, header injection.</span>
+            <span data-i18n-en>SQLi, NoSQLi, command injection, XSS, LDAP injection, header injection.</span>
+          </p>
+          <div class="owasp-tool"><strong>OWASP ZAP</strong> · Semgrep taint · MobSF</div>
+        </div>
+        <div class="owasp-cell">
+          <div class="owasp-num">A04</div>
+          <div class="owasp-name" data-i18n-es>Insecure Design</div>
+          <div class="owasp-name" data-i18n-en>Insecure Design</div>
+          <p class="owasp-desc">
+            <span data-i18n-es>Threat modeling ausente, patrones inseguros, lógica de negocio sin controles.</span>
+            <span data-i18n-en>Missing threat modeling, insecure patterns, business logic without controls.</span>
+          </p>
+          <div class="owasp-tool"><strong>ASVS review</strong> · architecture audit</div>
+        </div>
+        <div class="owasp-cell">
+          <div class="owasp-num">A05</div>
+          <div class="owasp-name" data-i18n-es>Security Misconfiguration</div>
+          <div class="owasp-name" data-i18n-en>Security Misconfiguration</div>
+          <p class="owasp-desc">
+            <span data-i18n-es>Defaults inseguros, headers HTTP faltantes, debug expuesto, S3 buckets abiertos.</span>
+            <span data-i18n-en>Insecure defaults, missing HTTP headers, exposed debug, open S3 buckets.</span>
+          </p>
+          <div class="owasp-tool"><strong>Checkov</strong> · OWASP ZAP · Trivy config</div>
+        </div>
+        <div class="owasp-cell">
+          <div class="owasp-num">A06</div>
+          <div class="owasp-name" data-i18n-es>Vulnerable Components</div>
+          <div class="owasp-name" data-i18n-en>Vulnerable Components</div>
+          <p class="owasp-desc">
+            <span data-i18n-es>Dependencias outdated, CVEs conocidos sin patchear, transitive deps ocultas.</span>
+            <span data-i18n-en>Outdated dependencies, known unpatched CVEs, hidden transitive deps.</span>
+          </p>
+          <div class="owasp-tool"><strong>Trivy</strong> · CycloneDX SBOM · CVSS · EPSS</div>
+        </div>
+        <div class="owasp-cell">
+          <div class="owasp-num">A07</div>
+          <div class="owasp-name" data-i18n-es>Auth Failures</div>
+          <div class="owasp-name" data-i18n-en>Auth Failures</div>
+          <p class="owasp-desc">
+            <span data-i18n-es>Credenciales débiles, brute-force sin rate limit, session fixation, MFA ausente.</span>
+            <span data-i18n-en>Weak credentials, no rate limit on brute-force, session fixation, missing MFA.</span>
+          </p>
+          <div class="owasp-tool"><strong>OWASP ZAP</strong> · Semgrep auth · session probes</div>
+        </div>
+        <div class="owasp-cell">
+          <div class="owasp-num">A08</div>
+          <div class="owasp-name" data-i18n-es>Data Integrity Failures</div>
+          <div class="owasp-name" data-i18n-en>Data Integrity Failures</div>
+          <p class="owasp-desc">
+            <span data-i18n-es>Deserialización insegura, dependencias sin firma digital, CI/CD comprometido.</span>
+            <span data-i18n-en>Insecure deserialization, unsigned dependencies, compromised CI/CD.</span>
+          </p>
+          <div class="owasp-tool"><strong>Trivy</strong> · Semgrep · SBOM signing</div>
+        </div>
+        <div class="owasp-cell">
+          <div class="owasp-num">A09</div>
+          <div class="owasp-name" data-i18n-es>Logging &amp; Monitoring Failures</div>
+          <div class="owasp-name" data-i18n-en>Logging &amp; Monitoring Failures</div>
+          <p class="owasp-desc">
+            <span data-i18n-es>Logs ausentes en eventos críticos, ataques no detectados, sin alerting.</span>
+            <span data-i18n-en>Missing logs on critical events, undetected attacks, no alerting.</span>
+          </p>
+          <div class="owasp-tool"><strong>Grafana</strong> · Loki · audit log review</div>
+        </div>
+        <div class="owasp-cell">
+          <div class="owasp-num">A10</div>
+          <div class="owasp-name">SSRF</div>
+          <p class="owasp-desc">
+            <span data-i18n-es>Server-Side Request Forgery, acceso a servicios internos vía URLs externas.</span>
+            <span data-i18n-en>Server-Side Request Forgery, access to internal services via external URLs.</span>
+          </p>
+          <div class="owasp-tool"><strong>OWASP ZAP</strong> · Semgrep ssrf rules</div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ DICTAMEN SHOWCASE ═════════ -->
+<div class="dictamen-band">
+  <div class="container">
+    <section class="dictamen" id="dictamen">
+      <header class="section-band">
+        <div class="section-band-left">
+          <div class="band-eyebrow">
+            <span data-i18n-es>V · Entregable</span>
+            <span data-i18n-en>V · Deliverable</span>
+          </div>
+          <h2 class="band-title">
+            <span data-i18n-es>Esto es lo que <em>recibe</em> tu equipo.</span>
+            <span data-i18n-en>This is what your team <em>actually gets.</em></span>
+          </h2>
+          <p class="band-desc">
+            <span data-i18n-es>Un documento de una página firmable con expediente, autor, veredicto numérico, hallazgos por dimensión y recomendación accionable. No opinión — algoritmo aplicado sobre tres capas.</span>
+            <span data-i18n-en>A one-page signable document with file number, author, numeric verdict, findings per dimension and actionable recommendation. Not opinion — algorithm applied across three layers.</span>
+          </p>
+        </div>
+        <div class="band-meta">
+          <strong>CFQI v1.0</strong><br>
+          <span data-i18n-es>Auditable · Firmable · Defendible</span>
+          <span data-i18n-en>Auditable · Defensible · Signable</span>
+        </div>
+      </header>
+
+      <div class="dictamen-card">
+        <div class="dictamen-figure">
+          <img src="img/flagships/testsec-dictamen-forense.png" alt="Dictamen Forense CFQI v1.0 — formato pericial 1 página" loading="lazy">
+        </div>
+        <div class="dictamen-text">
+          <div class="dictamen-eyebrow">
+            <span data-i18n-es>Algoritmo CFQI · 3 dimensiones + Λ</span>
+            <span data-i18n-en>CFQI algorithm · 3 dimensions + Λ</span>
+          </div>
+          <h3 class="dictamen-title">
+            <span data-i18n-es>Veredicto numérico. <em>Recomendación accionable.</em></span>
+            <span data-i18n-en>Numeric verdict. <em>Actionable recommendation.</em></span>
+          </h3>
+          <p class="dictamen-lead">
+            <span data-i18n-es>Cada análisis termina en un documento de una página firmable: expediente numerado, autor identificado, verdicto 0–100 con grado A/B/C/D/F, hallazgos por dimensión y recomendación. No es opinión técnica — es algoritmo aplicado sobre tres capas (estática, dependencias, runtime) más penalización Λ por riesgo crítico.</span>
+            <span data-i18n-en>Every analysis ends in a one-page signed document: numbered file, named author, 0–100 verdict with A/B/C/D/F grade, findings per dimension and a recommendation. Not technical opinion — algorithm applied across three layers (static, dependencies, runtime) plus Λ penalty for critical risk.</span>
+          </p>
+          <ul class="dictamen-features">
+            <li><span data-i18n-es><strong>D1 · Genealogía estructural</strong> — 35% · raíces del código.</span><span data-i18n-en><strong>D1 · Structural genealogy</strong> — 35% · code roots.</span></li>
+            <li><span data-i18n-es><strong>D2 · Behavior coherence</strong> — 30% · entrada/salida.</span><span data-i18n-en><strong>D2 · Behavior coherence</strong> — 30% · I/O.</span></li>
+            <li><span data-i18n-es><strong>D3 · Operational quality</strong> — 35% · runtime real.</span><span data-i18n-en><strong>D3 · Operational quality</strong> — 35% · live runtime.</span></li>
+            <li><span data-i18n-es>Penalización <strong>Λ</strong> por riesgo · sin promediar dimensiones.</span><span data-i18n-en><strong>Λ</strong> risk penalty · no naive averaging.</span></li>
+          </ul>
+          <div class="dictamen-ctas">
+            <a href="https://www.linkedin.com/in/elyergregorio/" target="_blank" rel="noopener" class="btn-testsec">
+              <span data-i18n-es>Conversar en LinkedIn</span>
+              <span data-i18n-en>Connect on LinkedIn</span>
+              →
+            </a>
+            <a href="#cfqi" class="btn-ghost-dark">
+              <span data-i18n-es>Ver el algoritmo CFQI</span>
+              <span data-i18n-en>See the CFQI algorithm</span>
+              ↑
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ VACANTES (paper-2) ═════════ -->
+<div class="servicios-band">
+  <div class="container">
+    <section class="capacidades" id="capacidades">
+      <header class="section-band">
+        <div class="section-band-left">
+          <div class="band-eyebrow">
+            <span data-i18n-es>VI · Para reclutadores</span>
+            <span data-i18n-en>VI · For recruiters</span>
+          </div>
+          <h2 class="band-title">
+            <span data-i18n-es>Tipos de <em>vacantes</em> que encajan</span>
+            <span data-i18n-en>Roles that <em>fit</em></span>
+          </h2>
+          <p class="band-desc">
+            <span data-i18n-es>13+ años en QA, especialización profunda en Application Security forense y DevSecOps. Disponible para roles full-time, contract o freelance — Buenos Aires presencial o remoto LATAM/Global.</span>
+            <span data-i18n-en>13+ years in QA, deep specialization in forensic Application Security and DevSecOps. Available for full-time, contract or freelance roles — Buenos Aires on-site or remote LATAM/Global.</span>
+          </p>
+        </div>
+        <div class="band-meta">
+          <strong><span data-i18n-es>Disponibilidad inmediata</span><span data-i18n-en>Available now</span></strong><br>
+          <span data-i18n-es>Buenos Aires · Remoto LATAM/Global</span>
+          <span data-i18n-en>Buenos Aires · Remote LATAM/Global</span>
+        </div>
+      </header>
+
+      <div class="servicios-grid">
+
+        <article class="servicio is-appsec">
+          <div class="servicio-eyebrow">AppSec Engineer · Senior</div>
+          <h3 class="servicio-title">
+            <span data-i18n-es>Application <em>Security Engineer</em></span>
+            <span data-i18n-en>Application <em>Security Engineer</em></span>
+          </h3>
+          <p class="servicio-tagline">
+            <span data-i18n-es>Equipos que necesitan llevar la AppSec del PDF de hallazgos al dictamen defendible.</span>
+            <span data-i18n-en>Teams that need to move AppSec from a findings PDF to a defensible verdict.</span>
+          </p>
+          <ul class="servicio-list">
+            <li><span data-i18n-es>SAST · Semgrep policy-based + reglas custom</span><span data-i18n-en>SAST · policy-based Semgrep + custom rules</span></li>
+            <li><span data-i18n-es>SCA · Trivy + CycloneDX SBOM + CVE/CVSS/EPSS</span><span data-i18n-en>SCA · Trivy + CycloneDX SBOM + CVE/CVSS/EPSS</span></li>
+            <li><span data-i18n-es>DAST · OWASP ZAP baseline + full scan en CI</span><span data-i18n-en>DAST · OWASP ZAP baseline + full scan in CI</span></li>
+            <li><span data-i18n-es>Threat modeling · OWASP ASVS 4.0 review</span><span data-i18n-en>Threat modeling · OWASP ASVS 4.0 review</span></li>
+            <li><span data-i18n-es>Reportes pericial-grade · CFQI dictamen + Executive</span><span data-i18n-en>Audit-grade reports · CFQI verdict + Executive</span></li>
+          </ul>
+          <a href="https://www.linkedin.com/in/elyergregorio/" target="_blank" rel="noopener" class="servicio-cta">
+            <span data-i18n-es>Conversar en LinkedIn →</span>
+            <span data-i18n-en>Connect on LinkedIn →</span>
+          </a>
+        </article>
+
+        <article class="servicio is-devsecops">
+          <div class="servicio-eyebrow">DevSecOps Lead</div>
+          <h3 class="servicio-title">
+            <span data-i18n-es>DevSecOps <em>Lead</em></span>
+            <span data-i18n-en>DevSecOps <em>Lead</em></span>
+          </h3>
+          <p class="servicio-tagline">
+            <span data-i18n-es>Equipos que están metiendo seguridad en pipelines CI/CD con quality gates reales.</span>
+            <span data-i18n-en>Teams shifting security into CI/CD pipelines with real quality gates.</span>
+          </p>
+          <ul class="servicio-list">
+            <li><span data-i18n-es>Security gates en GitHub Actions / GitLab CI</span><span data-i18n-en>Security gates in GitHub Actions / GitLab CI</span></li>
+            <li><span data-i18n-es>SBOM CycloneDX · supply-chain compliance</span><span data-i18n-en>CycloneDX SBOM · supply-chain compliance</span></li>
+            <li><span data-i18n-es>IaC scanning · Checkov · Terraform/K8s/CFN</span><span data-i18n-en>IaC scanning · Checkov · Terraform/K8s/CFN</span></li>
+            <li><span data-i18n-es>Container security · Trivy + Docker hardening</span><span data-i18n-en>Container security · Trivy + Docker hardening</span></li>
+            <li><span data-i18n-es>Policy as Code · NIST SP 800-218 SSDF alignment</span><span data-i18n-en>Policy as Code · NIST SP 800-218 SSDF alignment</span></li>
+          </ul>
+          <a href="https://www.linkedin.com/in/elyergregorio/" target="_blank" rel="noopener" class="servicio-cta">
+            <span data-i18n-es>Conversar en LinkedIn →</span>
+            <span data-i18n-en>Connect on LinkedIn →</span>
+          </a>
+        </article>
+
+        <article class="servicio is-pentest">
+          <div class="servicio-eyebrow">Security Champion · Pentest QA</div>
+          <h3 class="servicio-title">
+            <span data-i18n-es>Pentest QA &amp; <em>Mobile Security</em></span>
+            <span data-i18n-en>Pentest QA &amp; <em>Mobile Security</em></span>
+          </h3>
+          <p class="servicio-tagline">
+            <span data-i18n-es>Equipos con apps web/móviles bajo regulación que necesitan red-team interno y mobile SAST.</span>
+            <span data-i18n-en>Teams with regulated web/mobile apps that need internal red-team and mobile SAST.</span>
+          </p>
+          <ul class="servicio-list">
+            <li><span data-i18n-es>Pentest manual + automatizado · OWASP ZAP avanzado</span><span data-i18n-en>Manual + automated pentest · advanced OWASP ZAP</span></li>
+            <li><span data-i18n-es>Mobile SAST · MobSF Android (APK) + iOS (IPA)</span><span data-i18n-en>Mobile SAST · MobSF Android (APK) + iOS (IPA)</span></li>
+            <li><span data-i18n-es>Secrets detection · gitleaks pre-commit + history</span><span data-i18n-en>Secrets detection · gitleaks pre-commit + history</span></li>
+            <li><span data-i18n-es>OWASP Top 10 2021 · 10/10 cobertura</span><span data-i18n-en>OWASP Top 10 2021 · 10/10 coverage</span></li>
+            <li><span data-i18n-es>Compliance PCI-DSS · ISO 27001 · ISO 13485</span><span data-i18n-en>Compliance PCI-DSS · ISO 27001 · ISO 13485</span></li>
+          </ul>
+          <a href="https://www.linkedin.com/in/elyergregorio/" target="_blank" rel="noopener" class="servicio-cta">
+            <span data-i18n-es>Conversar en LinkedIn →</span>
+            <span data-i18n-en>Connect on LinkedIn →</span>
+          </a>
+        </article>
+
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ SECTORES (DARK) ═════════ -->
+<div class="sectores-band">
+  <div class="container">
+    <section class="sectores" id="sectores">
+      <header class="section-band">
+        <div class="section-band-left">
+          <div class="band-eyebrow">
+            <span data-i18n-es>VII · Sectores AppSec</span>
+            <span data-i18n-en>VII · AppSec sectors</span>
+          </div>
+          <h2 class="band-title">
+            <span data-i18n-es>Donde una vulnerabilidad <em>no es opinión.</em></span>
+            <span data-i18n-en>Where a vulnerability <em>isn't opinion.</em></span>
+          </h2>
+          <p class="band-desc">
+            <span data-i18n-es>Verticales con auditoría regulatoria, datos sensibles y consecuencias legales por brechas. Cada sector recibe el dictamen pericial CFQI alineado a su marco normativo específico.</span>
+            <span data-i18n-en>Verticals with regulatory audit, sensitive data and legal consequences for breaches. Each sector receives the CFQI forensic verdict aligned to its specific compliance framework.</span>
+          </p>
+        </div>
+      </header>
+
+      <div class="sectores-grid">
+        <div class="sector">
+          <div class="sector-icon">B</div>
+          <h3 class="sector-title">
+            <span data-i18n-es>Banca &amp; Fintech</span>
+            <span data-i18n-en>Banking &amp; Fintech</span>
+          </h3>
+          <p class="sector-desc">
+            <span data-i18n-es>Core banking, gateways de pago, PSD2, open banking. Donde un IDOR o un SQLi cuesta multas regulatorias.</span>
+            <span data-i18n-en>Core banking, payment gateways, PSD2, open banking. Where an IDOR or SQLi costs regulatory fines.</span>
+          </p>
+          <div class="sector-tags">PCI-DSS · ISO 27001 · BCBS 239 · SWIFT CSCF</div>
+        </div>
+
+        <div class="sector">
+          <div class="sector-icon">S</div>
+          <h3 class="sector-title">
+            <span data-i18n-es>Salud &amp; HealthTech</span>
+            <span data-i18n-en>Healthcare &amp; HealthTech</span>
+          </h3>
+          <p class="sector-desc">
+            <span data-i18n-es>HIS, PHI, telemedicina, dispositivos médicos conectados. Compliance HIPAA + ISO 13485 + GDPR sanitario.</span>
+            <span data-i18n-en>HIS, PHI, telemedicine, connected medical devices. HIPAA + ISO 13485 + healthcare GDPR compliance.</span>
+          </p>
+          <div class="sector-tags">HIPAA · ISO 13485 · HL7 FHIR · MDR</div>
+        </div>
+
+        <div class="sector">
+          <div class="sector-icon">G</div>
+          <h3 class="sector-title">
+            <span data-i18n-es>Gobierno &amp; Defensa</span>
+            <span data-i18n-en>Government &amp; Defense</span>
+          </h3>
+          <p class="sector-desc">
+            <span data-i18n-es>Sistemas públicos, RFPs con requisitos AppSec, infraestructura crítica. Auditable end-to-end.</span>
+            <span data-i18n-en>Public systems, RFPs with AppSec requirements, critical infrastructure. End-to-end auditable.</span>
+          </p>
+          <div class="sector-tags">NIST SP 800-218 · ISO 27001 · IEEE 1028 · NDA</div>
+        </div>
+
+        <div class="sector">
+          <div class="sector-icon">E</div>
+          <h3 class="sector-title">
+            <span data-i18n-es>Enterprise SaaS</span>
+            <span data-i18n-en>Enterprise SaaS</span>
+          </h3>
+          <p class="sector-desc">
+            <span data-i18n-es>Multi-tenant SaaS, APIs públicas, integraciones B2B. SOC 2 Type II + ISO 27001 + due diligence de clientes.</span>
+            <span data-i18n-en>Multi-tenant SaaS, public APIs, B2B integrations. SOC 2 Type II + ISO 27001 + customer due diligence.</span>
+          </p>
+          <div class="sector-tags">SOC 2 · ISO 27001 · OWASP ASVS 4.0 · CycloneDX</div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ MARCO NORMATIVO ═════════ -->
+<div class="band-light">
+  <div class="container">
+    <section class="normativo" id="normativo">
+      <header class="section-band">
+        <div class="section-band-left">
+          <div class="band-eyebrow">
+            <span data-i18n-es>VIII · Marco normativo AppSec</span>
+            <span data-i18n-en>VIII · AppSec compliance framework</span>
+          </div>
+          <h2 class="band-title">
+            <span data-i18n-es>Respaldado por <em>estándares AppSec vigentes</em></span>
+            <span data-i18n-en>Backed by <em>current AppSec standards</em></span>
+          </h2>
+          <p class="band-desc">
+            <span data-i18n-es>Ningún criterio inventado. Cada métrica CFQI y cada scanner integrado se apoya en estándares públicos vigentes que cualquier auditor o regulador puede cross-validar.</span>
+            <span data-i18n-en>No invented criteria. Every CFQI metric and every integrated scanner rests on current public standards any auditor or regulator can cross-validate.</span>
+          </p>
+        </div>
+        <div class="band-meta">
+          <strong>8 <span data-i18n-es>estándares AppSec</span><span data-i18n-en>AppSec standards</span></strong><br>
+          OWASP + NIST + ISO + IEEE + PCI<br>
+          <span data-i18n-es>Cross-validable por auditor</span>
+          <span data-i18n-en>Auditor cross-validatable</span>
+        </div>
+      </header>
+
+      <div class="normativo-board">
+        <p class="normativo-lead">
+          <span data-i18n-es>El framework no inventa categorías propias para clasificar vulnerabilidades. Cada control y cada métrica se apoya en <strong>estándares públicos AppSec vigentes</strong> reconocidos por gobierno, banca, salud y enterprise — facilitando auditorías, RFPs, due diligence de clientes y compliance regulatorio internacional.</span>
+          <span data-i18n-en>The framework doesn't invent vulnerability categories. Every control and every metric is grounded in <strong>current public AppSec standards</strong> recognized by government, banking, healthcare and enterprise — easing audits, RFPs, customer due diligence and international regulatory compliance.</span>
+        </p>
+
+        <div class="standards-grid">
+          <div class="standard"><div class="standard-name">OWASP Top 10 · 2021</div><div class="standard-desc" data-i18n-es>10 riesgos críticos web</div><div class="standard-desc" data-i18n-en>Top 10 critical web risks</div></div>
+          <div class="standard"><div class="standard-name">OWASP ASVS 4.0</div><div class="standard-desc" data-i18n-es>Application Security Verification Standard</div><div class="standard-desc" data-i18n-en>Application Security Verification Standard</div></div>
+          <div class="standard"><div class="standard-name">NIST SP 800-218 SSDF</div><div class="standard-desc" data-i18n-es>Secure Software Development Framework</div><div class="standard-desc" data-i18n-en>Secure Software Development Framework</div></div>
+          <div class="standard"><div class="standard-name">ISO/IEC 27001:2022</div><div class="standard-desc" data-i18n-es>Sistema de gestión de seguridad de la información</div><div class="standard-desc" data-i18n-en>Information security management system</div></div>
+          <div class="standard"><div class="standard-name">ISO/IEC 27034</div><div class="standard-desc" data-i18n-es>Application security guidelines</div><div class="standard-desc" data-i18n-en>Application security guidelines</div></div>
+          <div class="standard"><div class="standard-name">ISO 31000:2018</div><div class="standard-desc" data-i18n-es>Risk Management framework</div><div class="standard-desc" data-i18n-en>Risk Management framework</div></div>
+          <div class="standard"><div class="standard-name">CWE / CVE / CVSS / EPSS</div><div class="standard-desc" data-i18n-es>Taxonomía + scoring de vulnerabilidades</div><div class="standard-desc" data-i18n-en>Vulnerability taxonomy + scoring</div></div>
+          <div class="standard"><div class="standard-name">CycloneDX · NTIA SBOM</div><div class="standard-desc" data-i18n-es>Software Bill of Materials estándar</div><div class="standard-desc" data-i18n-en>Software Bill of Materials standard</div></div>
+        </div>
+
+        <div class="benefits-grid">
+          <div class="benefit">
+            <div class="benefit-label">Compliance</div>
+            <div class="benefit-title"><span data-i18n-es>Compliance &amp; certificación</span><span data-i18n-en>Compliance &amp; certification</span></div>
+            <div class="benefit-text"><span data-i18n-es>Procesos auditables alineados a OWASP ASVS + NIST SSDF + ISO 27001. Listo para SOC 2, PCI-DSS o auditoría regulatoria.</span><span data-i18n-en>Auditable processes aligned to OWASP ASVS + NIST SSDF + ISO 27001. Ready for SOC 2, PCI-DSS or regulatory audit.</span></div>
+          </div>
+          <div class="benefit">
+            <div class="benefit-label" data-i18n-es>Defendibilidad</div>
+            <div class="benefit-label" data-i18n-en>Defensibility</div>
+            <div class="benefit-title"><span data-i18n-es>Dictamen defendible</span><span data-i18n-en>Defensible verdict</span></div>
+            <div class="benefit-text"><span data-i18n-es>Cada score CFQI tiene fundamento matemático trazable. Cada hallazgo queda en el expediente. Cero opinión, todo número.</span><span data-i18n-en>Every CFQI score has traceable mathematical foundation. Every finding stays in the audit trail. Zero opinion, all numbers.</span></div>
+          </div>
+          <div class="benefit">
+            <div class="benefit-label" data-i18n-es>Diferenciación</div>
+            <div class="benefit-label" data-i18n-en>Differentiation</div>
+            <div class="benefit-title"><span data-i18n-es>Ventaja en RFP &amp; due diligence</span><span data-i18n-en>RFP &amp; due-diligence edge</span></div>
+            <div class="benefit-text"><span data-i18n-es>Credibilidad respaldada por estándares · transparencia metodológica · dictamen pericial firmable.</span><span data-i18n-en>Standards-backed credibility · methodological transparency · signable forensic verdict.</span></div>
+          </div>
+          <div class="benefit">
+            <div class="benefit-label" data-i18n-es>Eficiencia</div>
+            <div class="benefit-label" data-i18n-en>Efficiency</div>
+            <div class="benefit-title"><span data-i18n-es>Reducción de ruido</span><span data-i18n-en>Noise reduction</span></div>
+            <div class="benefit-text"><span data-i18n-es>De 10.000 hallazgos crudos a 1 score con 4 categorías priorizadas. Triage automático con CVSS + EPSS + Λ.</span><span data-i18n-en>From 10,000 raw findings to 1 score with 4 prioritized categories. Auto-triage with CVSS + EPSS + Λ.</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ CONTACTO (DARK) ═════════ -->
+<div class="contacto-band">
+  <div class="container">
+    <section class="contacto" id="contacto">
+      <header class="contacto-hero">
+        <div class="band-eyebrow">
+          <span data-i18n-es>IX · Contacto</span>
+          <span data-i18n-en>IX · Contact</span>
+        </div>
+        <h2 class="contacto-title">
+          <span data-i18n-es>¿Vacante en AppSec / DevSecOps? <em>Conversemos.</em></span>
+          <span data-i18n-en>Hiring for AppSec / DevSecOps? <em>Let's talk.</em></span>
+        </h2>
+        <p class="contacto-lead">
+          <span data-i18n-es>Si tu equipo está armando o consolidando la práctica de Application Security y necesita un QA Tech Lead que sepa instrumentar SAST/SCA/DAST/IaC en serio, escribime. Respondo en menos de 24 horas. Buenos Aires presencial · Remoto LATAM/Global.</span>
+          <span data-i18n-en>If your team is building or consolidating an Application Security practice and needs a QA Tech Lead who can seriously instrument SAST/SCA/DAST/IaC, drop me a line. I reply within 24 hours. Buenos Aires on-site · Remote LATAM/Global.</span>
+        </p>
+      </header>
+
+      <div class="contacto-grid">
+        <div class="contacto-channels">
+          <a href="https://www.linkedin.com/in/elyergregorio/" target="_blank" rel="noopener" class="channel">
+            <span class="channel-icon">in</span>
+            <div class="channel-text">
+              <div class="channel-label">LinkedIn</div>
+              <div class="channel-value">linkedin.com/in/elyergregorio</div>
+            </div>
+            <span class="channel-arrow">→</span>
+          </a>
+          <a href="qasl-ai.html" class="channel">
+            <span class="channel-icon" style="background: rgba(107,63,160,0.18); border-color: rgba(107,63,160,0.42); color: var(--c-ingrid-soft);">A</span>
+            <div class="channel-text">
+              <div class="channel-label" data-i18n-es>AI/LLM · INGRID + MATHCORE</div>
+              <div class="channel-label" data-i18n-en>AI/LLM · INGRID + MATHCORE</div>
+              <div class="channel-value">qasl-ai</div>
+            </div>
+            <span class="channel-arrow">→</span>
+          </a>
+          <a href="qasl-framework.html" class="channel">
+            <span class="channel-icon" style="background: rgba(179,58,31,0.18); border-color: rgba(179,58,31,0.42); color: #FBEEE7;">F</span>
+            <div class="channel-text">
+              <div class="channel-label" data-i18n-es>Framework · Shift-Left QA</div>
+              <div class="channel-label" data-i18n-en>Framework · Shift-Left QA</div>
+              <div class="channel-value">qasl-framework</div>
+            </div>
+            <span class="channel-arrow">→</span>
+          </a>
+          <a href="index.html" class="channel">
+            <span class="channel-icon" style="background: rgba(255,255,255,0.06); border-color: var(--rule-dark-strong); color: #fff;">≡</span>
+            <div class="channel-text">
+              <div class="channel-label" data-i18n-es>Portafolio macro</div>
+              <div class="channel-label" data-i18n-en>Macro portfolio</div>
+              <div class="channel-value" data-i18n-es>Ecosistema QASL completo</div>
+              <div class="channel-value" data-i18n-en>Full QASL ecosystem</div>
+            </div>
+            <span class="channel-arrow">→</span>
+          </a>
+        </div>
+
+        <aside class="contacto-aside" aria-label="Perfil del candidato">
+          <div class="aside-eyebrow">
+            <span data-i18n-es>Perfil del candidato</span>
+            <span data-i18n-en>Candidate profile</span>
+          </div>
+          <h3 class="aside-title">
+            <span data-i18n-es>Elyer Maldonado · <em>13+ años</em> en QA</span>
+            <span data-i18n-en>Elyer Maldonado · <em>13+ years</em> in QA</span>
+          </h3>
+          <p class="aside-text">
+            <span data-i18n-es>Especialización en Application Security forense y DevSecOps. Creador de QASL Test Security (CFQI v1.0) — capa de interpretación forense sobre 6 scanners líderes de la industria. <strong>Implementado en proyectos enterprise bajo NDA con stack productivo Docker + Grafana.</strong></span>
+            <span data-i18n-en>Specialized in forensic Application Security and DevSecOps. Creator of QASL Test Security (CFQI v1.0) — forensic interpretation layer over 6 industry-leading scanners. <strong>Deployed in enterprise projects under NDA with production Docker + Grafana stack.</strong></span>
+          </p>
+          <ul class="aside-list">
+            <li><span data-i18n-es><strong>Modalidad</strong> · Full-time · Contract · Freelance</span><span data-i18n-en><strong>Mode</strong> · Full-time · Contract · Freelance</span></li>
+            <li><span data-i18n-es><strong>Ubicación</strong> · Buenos Aires presencial</span><span data-i18n-en><strong>Location</strong> · Buenos Aires on-site</span></li>
+            <li><span data-i18n-es><strong>Remoto</strong> · LATAM &amp; Global · cualquier huso horario</span><span data-i18n-en><strong>Remote</strong> · LATAM &amp; Global · any timezone</span></li>
+            <li><span data-i18n-es><strong>Idiomas</strong> · Español nativo · English (B2-C1)</span><span data-i18n-en><strong>Languages</strong> · Spanish native · English (B2-C1)</span></li>
+            <li><span data-i18n-es><strong>Disponibilidad</strong> · Inmediata</span><span data-i18n-en><strong>Available</strong> · Immediately</span></li>
+            <li><strong>CV</strong> · <a href="cv_portafolio/cv-elyer-maldonado-ES.html" style="color: var(--c-testsec-soft); text-decoration: underline; text-decoration-color: rgba(232,240,233,0.4); text-underline-offset: 3px;">ES</a> · <a href="cv_portafolio/cv-elyer-maldonado-EN.html" style="color: var(--c-testsec-soft); text-decoration: underline; text-decoration-color: rgba(232,240,233,0.4); text-underline-offset: 3px;">EN</a></li>
+          </ul>
+        </aside>
+      </div>
+
+      <footer class="footer">
+        <div class="footer-brand">
+          © 2026 <strong>QASL · Test Security</strong> · <span data-i18n-es>Buenos Aires · Remoto LATAM/Global</span><span data-i18n-en>Buenos Aires · Remote LATAM/Global</span>
+        </div>
+        <nav class="footer-links" aria-label="Footer">
+          <a href="#cfqi">CFQI</a>
+          <a href="#testsec">Test Security</a>
+          <a href="#scanners">Scanners</a>
+          <a href="#owasp">OWASP Top 10</a>
+          <a href="qasl-ai.html">QASL · AI/LLM</a>
+          <a href="qasl-framework.html">QASL · Framework</a>
+          <a href="index.html" data-i18n-es>← Portafolio macro</a><a href="index.html" data-i18n-en>← Macro portfolio</a>
+        </nav>
+      </footer>
+    </section>
+  </div>
+</div>
+
+<script>
+function setLang(lang) {
+  document.documentElement.setAttribute('lang', lang);
+  document.getElementById('lang-es').classList.toggle('active', lang === 'es');
+  document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+}
+</script>
+
+</body>
+</html>
