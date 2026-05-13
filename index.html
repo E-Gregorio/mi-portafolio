@@ -52,6 +52,8 @@
   --c-testsec-soft:#E8F0E9;
   --c-framework:   #B33A1F;
   --c-framework-soft:#FBEEE7;
+  --c-dbsql:       #B8860B;
+  --c-dbsql-soft:  #FBF4E3;
 
   --serif: 'Newsreader', Georgia, serif;
   --sans:  'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -514,10 +516,10 @@ body::before {
   margin-top: 16px;
 }
 
-/* Layer 2 — Twin engines */
+/* Layer 2 — Triplet engines (INGRID · Test Security · DB-SQL) */
 .layer-engines {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 22px;
   margin-bottom: 18px;
 }
@@ -530,6 +532,7 @@ body::before {
 }
 .eco-card.engine.ingrid { border-left: 4px solid var(--c-ingrid); }
 .eco-card.engine.testsec { border-left: 4px solid var(--c-testsec); }
+.eco-card.engine.dbsql { border-left: 4px solid var(--c-dbsql); }
 
 .eco-card.engine .eco-tag-block {
   display: flex; justify-content: space-between; align-items: center;
@@ -538,6 +541,8 @@ body::before {
 .engine.ingrid .eco-tag::before { background: var(--c-ingrid); }
 .engine.testsec .eco-tag { color: var(--c-testsec); }
 .engine.testsec .eco-tag::before { background: var(--c-testsec); }
+.engine.dbsql .eco-tag { color: var(--c-dbsql); }
+.engine.dbsql .eco-tag::before { background: var(--c-dbsql); }
 
 .engine .eco-name {
   font-family: var(--serif); font-weight: 600;
@@ -565,6 +570,10 @@ body::before {
 }
 .engine.testsec .eco-algo strong {
   background: var(--c-testsec-soft); color: var(--c-testsec);
+  padding: 1px 7px; border-radius: 4px;
+}
+.engine.dbsql .eco-algo strong {
+  background: var(--c-dbsql-soft); color: var(--c-dbsql);
   padding: 1px 7px; border-radius: 4px;
 }
 
@@ -600,6 +609,7 @@ body::before {
 }
 .eco-card.engine.ingrid .eco-cta-mini:hover { color: var(--c-ingrid); border-color: var(--c-ingrid); }
 .eco-card.engine.testsec .eco-cta-mini:hover { color: var(--c-testsec); border-color: var(--c-testsec); }
+.eco-card.engine.dbsql .eco-cta-mini:hover { color: var(--c-dbsql); border-color: var(--c-dbsql); }
 
 /* Layer 3 — Mathcore */
 .layer-mathcore .eco-card {
@@ -696,6 +706,7 @@ body::before {
 .flagship.is-mathcore::before  { background: var(--c-mathcore); }
 .flagship.is-testsec::before   { background: var(--c-testsec); }
 .flagship.is-framework::before { background: var(--c-framework); }
+.flagship.is-dbsql::before     { background: var(--c-dbsql); }
 
 .flagship-head {
   display: flex; justify-content: space-between; align-items: center;
@@ -717,6 +728,7 @@ body::before {
 .is-mathcore .flagship-eyebrow  { color: var(--c-mathcore); }
 .is-testsec .flagship-eyebrow   { color: var(--c-testsec); }
 .is-framework .flagship-eyebrow { color: var(--c-framework); }
+.is-dbsql .flagship-eyebrow     { color: var(--c-dbsql); }
 
 .flagship-status {
   display: inline-flex; align-items: center; gap: 8px;
@@ -745,6 +757,7 @@ body::before {
 .is-mathcore .flagship-title em  { color: var(--c-mathcore); }
 .is-testsec .flagship-title em   { color: var(--c-testsec); }
 .is-framework .flagship-title em { color: var(--c-framework); }
+.is-dbsql .flagship-title em     { color: var(--c-dbsql); }
 
 .flagship-algo {
   display: inline-flex; align-items: baseline;
@@ -774,6 +787,8 @@ body::before {
 .is-testsec .flagship-algo .algo-name   { color: var(--c-testsec); }
 .is-framework .flagship-algo { background: var(--c-framework-soft); border-color: transparent; }
 .is-framework .flagship-algo .algo-name { color: var(--c-framework); }
+.is-dbsql .flagship-algo     { background: var(--c-dbsql-soft); border-color: transparent; }
+.is-dbsql .flagship-algo .algo-name     { color: var(--c-dbsql); }
 
 .flagship-subtitle {
   font-family: var(--serif); font-style: italic;
@@ -843,6 +858,7 @@ body::before {
 .is-mathcore .metric-num .accent  { color: var(--c-mathcore); }
 .is-testsec .metric-num .accent   { color: var(--c-testsec); }
 .is-framework .metric-num .accent { color: var(--c-framework); }
+.is-dbsql .metric-num .accent     { color: var(--c-dbsql); }
 .metric-label {
   font-family: var(--mono); font-size: 10px; font-weight: 600;
   letter-spacing: 0.16em; text-transform: uppercase;
@@ -929,6 +945,8 @@ body::before {
 .is-testsec .eco-cta.primary:hover   { background: #1e442a; }
 .is-framework .eco-cta.primary { background: var(--c-framework); }
 .is-framework .eco-cta.primary:hover { background: var(--accent-2); }
+.is-dbsql .eco-cta.primary     { background: var(--c-dbsql); }
+.is-dbsql .eco-cta.primary:hover     { background: var(--gold-2); }
 
 /* ─── MARCO METODOLÓGICO (text-driven, editorial) ───────── */
 .normativo {
@@ -1639,7 +1657,7 @@ body::before {
     <aside class="hero-card" aria-label="Tesis del portafolio">
       <div class="hero-card-eyebrow">— Tesis del portafolio</div>
       <p class="hero-card-quote">
-        Cuatro herramientas que comparten <span class="hi">núcleo matemático</span>,
+        Cinco herramientas que comparten <span class="hi">núcleo matemático</span>,
         vocabulario visual y metodología. <span class="hi">Una sola firma.</span>
       </p>
       <div class="hero-card-attr">QASL · ECOSYSTEM 2026</div>
@@ -1657,8 +1675,8 @@ body::before {
       <div class="proof-label">Herramientas<br>propias</div>
     </div>
     <div class="proof-cell">
-      <div class="proof-num">4</div>
-      <div class="proof-label">Algoritmos<br>forenses · CFQI · AFQI · VCR · MATHCORE</div>
+      <div class="proof-num">5</div>
+      <div class="proof-label">Algoritmos<br>forenses · CFQI · AFQI · DQFI · VCR · MATHCORE</div>
     </div>
     <div class="proof-cell">
       <div class="proof-num">10<sup>+</sup></div>
@@ -1678,7 +1696,7 @@ body::before {
         <div class="band-eyebrow">II · Arquitectura</div>
         <h2 class="band-title">El <em>Ecosistema QASL</em></h2>
         <p class="band-desc">
-          Cuatro herramientas hermanas que comparten núcleo matemático, vocabulario visual y
+          Cinco herramientas hermanas que comparten núcleo matemático, vocabulario visual y
           metodología. Lo que un auditor entiende en una, lo lee en las otras sin curva de aprendizaje.
         </p>
       </div>
@@ -1696,7 +1714,7 @@ body::before {
           QASL <em>Ecosystem</em> — diagrama de capas
         </div>
         <div class="eco-board-meta">
-          <span><strong>4</strong> módulos</span>
+          <span><strong>5</strong> módulos</span>
           <span><strong>1</strong> motor matemático</span>
           <span>Casos <strong>bajo NDA</strong></span>
         </div>
@@ -1786,6 +1804,28 @@ body::before {
             </div>
           </div>
 
+          <div class="eco-card engine dbsql">
+            <div class="eco-tag-block">
+              <div class="eco-tag">Data · Test Double + Forensic</div>
+              <span class="eco-status"><span class="dot dot-public"></span> Público</span>
+            </div>
+            <div class="eco-name">QASL-DB-SQL</div>
+            <div class="eco-algo">algoritmo <strong>DQFI</strong> <span class="vsuper">v1.0</span></div>
+            <div class="eco-meta">
+              Data Forensic Quality Index. Espejo PostgreSQL configurable + motor de scoring
+              D1/D2/D3 (estructura · calidad · ACID). Switch MIRROR ↔ REAL en una sola variable.
+            </div>
+            <div class="eco-stack">
+              Fastify · PostgreSQL 16 · Playwright · PDFKit · Docker<br>
+              ISO/IEC 25012 · DAMA-DMBOK v2 · GitHub Actions CI
+            </div>
+            <div class="eco-bottom">
+              <span class="eco-status">2 PDFs · CI verde · 6/6 E2E</span>
+              <a href="https://github.com/E-Gregorio/qasl-db-sql" target="_blank" rel="noopener"
+                 class="eco-cta-mini">Ver repo →</a>
+            </div>
+          </div>
+
         </div>
 
         <div class="eco-connector">
@@ -1823,9 +1863,9 @@ body::before {
       </div>
 
       <footer class="eco-board-footer">
-        <strong>La diferencia.</strong> AFQI y CFQI no son fórmulas inventadas: comparten el motor matemático de
-        MATHCORE (numpy + scipy + scikit-learn). Lo que un auditor entiende en uno, lo lee en el otro
-        sin curva de aprendizaje. <span class="num">4</span> productos · <span class="num">1</span> núcleo · <span class="num">1</span> firma visual.
+        <strong>La diferencia.</strong> AFQI, CFQI y DQFI no son fórmulas inventadas: comparten el motor matemático de
+        MATHCORE (numpy + scipy + scikit-learn). Lo que un auditor entiende en uno, lo lee en los otros
+        sin curva de aprendizaje. <span class="num">5</span> productos · <span class="num">1</span> núcleo · <span class="num">1</span> firma visual.
       </footer>
 
     </div>
@@ -1838,16 +1878,16 @@ body::before {
     <header class="section-band">
       <div class="section-band-left">
         <div class="band-eyebrow">III · Flagship Tools</div>
-        <h2 class="band-title">Cuatro herramientas. <em>Una sola firma.</em></h2>
+        <h2 class="band-title">Cinco herramientas. <em>Una sola firma.</em></h2>
         <p class="band-desc">
           Cada flagship resuelve un dominio distinto del ciclo de calidad — pero todas comparten
           algoritmo propietario, lenguaje visual y reportes pericial-grade. El detalle de cada una abajo.
         </p>
       </div>
       <div class="band-meta">
-        <strong>4</strong> flagship<br>
-        <strong>3</strong> algoritmos propios<br>
-        Casos <strong>bajo NDA</strong>
+        <strong>5</strong> flagship<br>
+        <strong>4</strong> algoritmos propios<br>
+        Casos <strong>bajo NDA</strong> + Open Source
       </div>
     </header>
 
@@ -2198,10 +2238,123 @@ body::before {
         </div>
       </article>
 
-      <!-- ─── FLAGSHIP 4 · QASL FRAMEWORK ──────────────────── -->
+      <!-- ─── FLAGSHIP 4 · QASL-DB-SQL ─────────────────────── -->
+      <article class="flagship is-dbsql">
+        <header class="flagship-head">
+          <div class="flagship-eyebrow">III.IV · Database · Test Double + Data Forensic</div>
+          <div class="flagship-status">
+            <span class="dot dot-public"></span> Público · GitHub · CI verde
+          </div>
+        </header>
+
+        <div class="flagship-title-row">
+          <h3 class="flagship-title">QASL <em>DB-SQL</em></h3>
+          <div class="flagship-algo">
+            <span class="algo-label">algoritmo</span>
+            <span class="algo-name">DQFI</span>
+            <span class="algo-version">v1.0</span>
+          </div>
+        </div>
+        <p class="flagship-subtitle">
+          Data Forensic Quality Index — espejo de base de datos con dictamen forense para QA Shift-Left
+        </p>
+
+        <p class="flagship-lead">
+          <strong>Test Double de PostgreSQL configurable</strong> que resuelve el bloqueo más común
+          del Tester: <em>"no tengo acceso a la base de datos productiva del cliente"</em>. Levanta
+          un espejo en Docker con la estructura del proyecto, vos cargás tus datos de prueba, tus
+          tests E2E Playwright corren contra ese espejo, y el día que llega el acceso real
+          <strong>cambiás <code>DB_MODE=REAL</code> y los mismos tests siguen funcionando</strong>.
+          Además emite dos PDFs hermanos del CFQI: <strong>Dictamen Forense Pericial</strong>
+          (1p · AFQI · auditores) y <strong>Executive Report</strong> (3pp · INGRID · CISOs).
+        </p>
+
+        <figure class="flagship-hero" style="background:#f5f1e8;">
+          <img src="img/flagships/dbsql-dictamen.png"
+               alt="Dictamen Forense DQFI — 1 página estilo AFQI sobre el dataset auditado">
+          <figcaption>
+            DICTAMEN FORENSE DQFI · 1 PÁGINA · ESTILO AFQI · FIRMABLE · ISO/IEC 25012 + DAMA-DMBOK v2
+          </figcaption>
+        </figure>
+
+        <div class="flagship-metrics">
+          <div class="metric">
+            <div class="metric-num"><span class="accent">3</span></div>
+            <div class="metric-label">Dimensiones forenses<br>D1 estructura · D2 calidad · D3 ACID</div>
+          </div>
+          <div class="metric">
+            <div class="metric-num">A<span class="small">→</span>F</div>
+            <div class="metric-label">Score 0–100<br>defendible matemáticamente</div>
+          </div>
+          <div class="metric">
+            <div class="metric-num">6<span class="small">/6</span></div>
+            <div class="metric-label">Tests Playwright<br>E2E verdes · CI verde</div>
+          </div>
+          <div class="metric">
+            <div class="metric-num">2</div>
+            <div class="metric-label">PDFs por audiencia<br>Dictamen 1p + Executive 3pp</div>
+          </div>
+        </div>
+
+        <div class="flagship-meta">
+          <div class="meta-block">
+            <div class="meta-label">Stack</div>
+            <div class="meta-pills">
+              <span class="pill">Fastify</span>
+              <span class="pill">PostgreSQL 16</span>
+              <span class="pill">TypeScript</span>
+              <span class="pill">Playwright</span>
+              <span class="pill">PDFKit</span>
+              <span class="pill">Docker Compose</span>
+              <span class="pill">node-pg</span>
+              <span class="pill">GitHub Actions</span>
+              <span class="pill">pgAdmin</span>
+            </div>
+          </div>
+          <div class="meta-block">
+            <div class="meta-label">Estándares aplicados</div>
+            <div class="meta-pills">
+              <span class="pill pill-gold">ISO/IEC 25012:2008 · Data Quality</span>
+              <span class="pill pill-gold">DAMA-DMBOK v2</span>
+              <span class="pill pill-gold">ISO/IEC 25010:2023</span>
+              <span class="pill pill-gold">ISO 31000:2018 · Risk</span>
+              <span class="pill pill-gold">GDPR Art. 25 · Privacy by Design</span>
+              <span class="pill pill-gold">OWASP A02/A03</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flagship-thumbnails">
+          <figure>
+            <img src="img/flagships/dbsql-formulario.png"
+                 alt="Formulario de comprador del demo app — SUT bajo prueba con Playwright">
+            <figcaption>SUT · DEMO APP · FORM 12 CAMPOS · CASCADA FK · PERSISTE EN ESPEJO</figcaption>
+          </figure>
+          <figure>
+            <img src="img/flagships/dbsql-dictamen.png"
+                 alt="Dictamen Forense DQFI — peritaje 1 página estilo AFQI">
+            <figcaption>DICTAMEN · 1PP · AFQI · BEIGE + SERIF · AUDITORES & COMPLIANCE</figcaption>
+          </figure>
+          <figure>
+            <img src="img/flagships/dbsql-executive.png"
+                 alt="Executive Report DQFI — 3 páginas estilo INGRID corporate (dark blue + gold)">
+            <figcaption>EXECUTIVE · 3PP · INGRID · KPIS + FINDINGS + GATE · CISOS</figcaption>
+          </figure>
+        </div>
+
+        <div class="flagship-ctas">
+          <a href="https://github.com/E-Gregorio/qasl-db-sql" target="_blank" rel="noopener"
+             class="eco-cta primary">Ver repo en GitHub →</a>
+          <a href="https://www.linkedin.com/in/elyergregorio/" target="_blank" rel="noopener"
+             class="eco-cta secondary">Conversar en LinkedIn</a>
+          <span class="cta-note">Hermano de CFQI/AFQI — mismo motor matemático, dominio Data</span>
+        </div>
+      </article>
+
+      <!-- ─── FLAGSHIP 5 · QASL FRAMEWORK ──────────────────── -->
       <article class="flagship is-framework">
         <header class="flagship-head">
-          <div class="flagship-eyebrow">III.IV · Methodology · Shift-Left Testing</div>
+          <div class="flagship-eyebrow">III.V · Methodology · Shift-Left Testing</div>
           <div class="flagship-status">
             <span class="dot dot-private"></span> Privado · Demo bajo solicitud
           </div>
@@ -2632,14 +2785,14 @@ body::before {
         <div class="band-eyebrow">V · Ecosistema completo</div>
         <h2 class="band-title">Cinco herramientas <em>adicionales</em> bajo NDA</h2>
         <p class="band-desc">
-          Las 4 flagship son la punta del iceberg. El ecosistema QASL incluye también estas 5
+          Las 5 flagship son la punta del iceberg. El ecosistema QASL incluye también estas
           herramientas privadas que extienden la cobertura a mobile, autonomous AI scanning,
           orquestación multi-LLM y servicios backend en tiempo real.
         </p>
       </div>
       <div class="band-meta">
         <strong>5</strong> herramientas adicionales<br>
-        <strong>9</strong> total en el ecosistema<br>
+        <strong>10</strong> total en el ecosistema<br>
         Todo <strong>bajo NDA</strong>
       </div>
     </header>
