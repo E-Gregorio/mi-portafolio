@@ -305,7 +305,7 @@ footer.ft{border-top:1px solid var(--border);padding:34px 0;margin-top:20px}
       <div class="lang">
         <button data-lang="es" class="on">ES</button><button data-lang="en">EN</button>
       </div>
-      <a class="nav-cv" id="cv-top" href="CV_Elyer_Maldonado_Senior_QA_Automation_Lead.html" target="_blank" rel="noopener" data-i18n="nav.cv">Ver CV</a>
+      <a class="nav-cv cv-link" id="cv-top" href="cv-qasl-plataform/CV_Elyer_Maldonado_Senior_QA_Automation_Lead_ES.html" target="_blank" rel="noopener" data-i18n="nav.cv">Ver CV</a>
     </div>
   </div>
 </nav>
@@ -328,7 +328,7 @@ footer.ft{border-top:1px solid var(--border);padding:34px 0;margin-top:20px}
     </div>
     <div class="hero-ctas reveal">
       <a class="btn btn-primary" href="#solutions" data-i18n="hero.cta1">Ver soluciones</a>
-      <a class="btn btn-ghost" id="cv-hero" href="CV_Elyer_Maldonado_Senior_QA_Automation_Lead.html" target="_blank" rel="noopener" data-i18n="hero.cta2">Ver CV</a>
+      <a class="btn btn-ghost cv-link" id="cv-hero" href="cv-qasl-plataform/CV_Elyer_Maldonado_Senior_QA_Automation_Lead_ES.html" target="_blank" rel="noopener" data-i18n="hero.cta2">Ver CV</a>
       <a class="btn btn-ghost" href="#contact" data-i18n="hero.cta3">Contacto</a>
     </div>
   </div>
@@ -562,7 +562,7 @@ footer.ft{border-top:1px solid var(--border);padding:34px 0;margin-top:20px}
       <p data-i18n="c.sub">Abierto a posiciones de Senior QA Automation Engineer, QA Lead, QA Architect y AI Testing Engineer · Remoto LATAM / Global · Buenos Aires · Incorporación inmediata</p>
       <div class="contact-links">
         <a class="btn btn-primary" href="https://www.linkedin.com/in/elyergregorio/" target="_blank" rel="noopener">LinkedIn</a>
-        <a class="btn btn-ghost" id="cv-contact" href="CV_Elyer_Maldonado_Senior_QA_Automation_Lead.html" target="_blank" rel="noopener" data-i18n="c.cv">Ver CV</a>
+        <a class="btn btn-ghost cv-link" id="cv-contact" href="cv-qasl-plataform/CV_Elyer_Maldonado_Senior_QA_Automation_Lead_ES.html" target="_blank" rel="noopener" data-i18n="c.cv">Ver CV</a>
         <a class="btn btn-ghost" href="mailto:elyer.g.maldonado@gmail.com">Email</a>
         <a class="btn btn-ghost" href="https://github.com/E-Gregorio" target="_blank" rel="noopener">GitHub</a>
       </div>
@@ -645,6 +645,8 @@ function setLang(l){
   document.querySelectorAll('[data-i18n]').forEach(e=>{const k=e.getAttribute('data-i18n');if(d[k]!=null)e.textContent=d[k]});
   document.querySelectorAll('[data-i18n-html]').forEach(e=>{const k=e.getAttribute('data-i18n-html');if(d[k]!=null)e.innerHTML=d[k]});
   document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('on',b.dataset.lang===l));
+  const cvHref='cv-qasl-plataform/CV_Elyer_Maldonado_Senior_QA_Automation_Lead_'+(l==='en'?'EN':'ES')+'.html';
+  document.querySelectorAll('.cv-link').forEach(a=>a.setAttribute('href',cvHref));
   try{localStorage.setItem('qasl-platform-lang',l)}catch(_){}
 }
 document.querySelectorAll('.lang button').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
