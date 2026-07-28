@@ -165,6 +165,23 @@ body::after{
 .metric .l{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-top:12px;line-height:1.5}
 @media(max-width:820px){.metrics{grid-template-columns:repeat(2,1fr)}.metric:last-child{grid-column:span 2}}
 
+/* ── TRACK RECORD ── */
+.track{
+  display:flex;align-items:center;flex-wrap:wrap;gap:10px 22px;
+  border:1px solid var(--border);border-radius:14px;
+  background:linear-gradient(120deg,rgba(124,108,246,.07),rgba(34,211,238,.03));
+  padding:16px 22px;margin:-24px 0 46px;
+}
+.track-k{
+  font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--cyan);display:inline-flex;align-items:center;gap:9px;flex-shrink:0;
+}
+.track-k::before{content:"";width:20px;height:1.5px;background:var(--cyan)}
+.track-i{font-family:var(--mono);font-size:11.5px;color:var(--ink-2);letter-spacing:.02em;line-height:1.5}
+.track-i b{color:var(--ink);font-weight:600}
+.track-i i{color:var(--muted);font-style:normal}
+@media(max-width:820px){.track{margin:-16px 0 38px;padding:15px 18px;gap:9px 16px}.track-i{font-size:11px}}
+
 /* ── SECTION HEADS ── */
 section{padding:74px 0;position:relative}
 .sec-eyebrow{font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;
@@ -342,6 +359,13 @@ footer.ft{border-top:1px solid var(--border);padding:34px 0;margin-top:20px}
     <div class="metric"><div class="n" data-count="1300" data-suffix="+">0</div><div class="l" data-i18n="m.3">Test cases con IA pre-código</div></div>
     <div class="metric"><div class="n" data-static="30→100%">0</div><div class="l" data-i18n="m.4">Cobertura de HU antes del desarrollo</div></div>
     <div class="metric"><div class="n" data-count="30" data-suffix="+">0</div><div class="l" data-i18n="m.5">Repositorios open source</div></div>
+  </div>
+  <div class="track reveal">
+    <span class="track-k" data-i18n="tr.k">Trayectoria</span>
+    <span class="track-i" data-i18n-html="tr.1"><b>Consultora IT</b> · Senior QA Automation <i>· 2026</i></span>
+    <span class="track-i" data-i18n-html="tr.2"><b>EPIDATA Consulting</b> · QA Tech Lead <i>· 2025–26</i></span>
+    <span class="track-i" data-i18n-html="tr.3"><b>UPEX</b> · QA Automation Engineer <i>· 2020–24</i></span>
+    <span class="track-i" data-i18n-html="tr.4"><b>STOP MEDICAL</b> · QA Lead / PM <i>· 2013–20</i></span>
   </div>
 </div>
 
@@ -593,6 +617,11 @@ const T = {
     "hero.created":"Created by <b>Elyer Gregorio Maldonado</b> · QA Architect · AI Testing Specialist · Buenos Aires",
     "hero.cta1":"Ver soluciones","hero.cta2":"Ver CV","hero.cta3":"Contacto",
     "m.1":"Años en tech","m.2":"QA Engineers liderados","m.3":"Test cases con IA pre-código","m.4":"Cobertura de HU antes del desarrollo","m.5":"Repositorios open source",
+    "tr.k":"Trayectoria",
+    "tr.1":"<b>Consultora IT</b> · Senior QA Automation <i>· 2026</i>",
+    "tr.2":"<b>EPIDATA Consulting</b> · QA Tech Lead <i>· 2025–26</i>",
+    "tr.3":"<b>UPEX</b> · QA Automation Engineer <i>· 2020–24</i>",
+    "tr.4":"<b>STOP MEDICAL</b> · QA Lead / PM <i>· 2013–20</i>",
     "platform.eyebrow":"Quality Engineering Ecosystem","platform.t1":"Calidad construida ","platform.t2":"de extremo a extremo",
     "platform.lead":"Cada módulo cubre una etapa del ciclo de vida del software y se conecta con el siguiente. De un vistazo se ve cómo un mismo ingeniero diseña calidad de principio a fin.",
     "platform.caption":"Requirements → Certification → Automation → Integration + Mobile → Correlation → Web2 · Web3 · AI → Observability",
@@ -623,6 +652,11 @@ const T = {
     "hero.created":"Created by <b>Elyer Gregorio Maldonado</b> · QA Architect · AI Testing Specialist · Buenos Aires",
     "hero.cta1":"View solutions","hero.cta2":"View CV","hero.cta3":"Contact",
     "m.1":"Years in tech","m.2":"QA Engineers led","m.3":"AI test cases pre-code","m.4":"User-story coverage before development","m.5":"Open source repositories",
+    "tr.k":"Track record",
+    "tr.1":"<b>IT Consultancy</b> · Senior QA Automation <i>· 2026</i>",
+    "tr.2":"<b>EPIDATA Consulting</b> · QA Tech Lead <i>· 2025–26</i>",
+    "tr.3":"<b>UPEX</b> · QA Automation Engineer <i>· 2020–24</i>",
+    "tr.4":"<b>STOP MEDICAL</b> · QA Lead / PM <i>· 2013–20</i>",
     "platform.eyebrow":"Quality Engineering Ecosystem","platform.t1":"Quality built ","platform.t2":"end to end",
     "platform.lead":"Each module covers a stage of the software lifecycle and connects to the next. At a glance you see how one engineer designs quality from start to finish.",
     "platform.caption":"Requirements → Certification → Automation → Integration + Mobile → Correlation → Web2 · Web3 · AI → Observability",
