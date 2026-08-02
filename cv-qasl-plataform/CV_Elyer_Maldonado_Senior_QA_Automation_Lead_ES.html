@@ -230,43 +230,50 @@ body { font-family: 'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif; font
     <div class="project-item featured">
       <span class="project-name">QASL Shift-Left Testing Framework</span><span class="project-tag">Framework publicado · CC BY-NC-ND</span><br>
       Marco operativo que unifica <strong>ISTQB v4.0, ISO/IEC/IEEE 29119, ISO/IEC/IEEE 29148:2018, OWASP LLM Top 10:2025 y NIST AI RMF</strong> en una estrategia QA ejecutable: 17 documentos operativos (plantilla de US formato ISTQB, Master Test Plan, checklist de revisión IEEE 1028, informes 29119-3), guías estratégicas (VCR, riesgos, performance, DevSecOps, testing de IA/LLM, data quality) y el <strong>framework VCR (Valor + Costo + Riesgo)</strong> para priorización objetiva de automatización.
-      <span class="project-link">e-gregorio.github.io/qa-shiftleft-methodology · github.com/E-Gregorio/qa-shiftleft-methodology</span>
+      <span class="project-link">https://e-gregorio.github.io/qa-shift-left-framework/</span>
+    </div>
+
+    <div class="project-item featured">
+      <span class="project-name">QDF — Quality Decision Framework</span><span class="project-tag">Framework publicado · Decisiones de calidad auditables</span><br>
+      QDF convierte las decisiones de calidad — qué automatizar, qué va a regresión, qué pruebas exige cada historia — en decisiones <strong>explícitas, votadas, calculadas y auditables</strong>, dentro del Sprint Planning que tu equipo ya tiene.<br>
+      <strong>VCR = Valor + Costo + Riesgo (P &times; I)</strong> · Gates no compensatorios · Registro QDR
+      <span class="project-link">https://e-gregorio.github.io/qasl-quality-decision-framework/</span>
     </div>
 
     <div class="project-item featured">
       <span class="project-name">01 · NEXUS Requirements — Motor de Certificación de Requerimientos con IA</span><span class="project-tag">Flagship · Público · Verificado · Corrida real en el repo</span><br>
       Motor que certifica Historias de Usuario <strong>antes de la primera línea de código</strong>: pipeline de 4 agentes (Claude API) orquestados con contratos JSON Schema que normaliza cualquier documento a HU canónica ISTQB, la evalúa contra un <strong>catálogo normativo ejecutable de 29 reglas</strong> (ISTQB v4 · ISO/IEC/IEEE 29148 · IEEE 1028 · OWASP), emite un <strong>dictamen auditable con RHI</strong> (Requirement Health Index), detecta gaps de cobertura por regla de negocio y genera suites, precondiciones y test cases con datos frontera e <strong>IDs deterministas e idempotentes</strong>. Resultado real publicado: HU ambigua &rarr; RHI 23.7 (NO APTO) &rarr; 13 gaps con OWASP &rarr; 13 TCs &rarr; <strong>cobertura 0%&rarr;100% pre-desarrollo</strong>, trazabilidad Épica&rarr;HU&rarr;BR&rarr;TC verificada con 22/22 checks de integridad. Incluye Certificado DoD&rarr;DoR con aprobación de negocio, golden set y evals offline (QA del motor con su propia metodología).
-      <span class="project-link">Demo en vivo: e-gregorio.github.io/nexus-requirements · github.com/E-Gregorio/nexus-requirements</span>
+      <span class="project-link">Demo en vivo: https://e-gregorio.github.io/nexus-requirements/</span>
     </div>
 
     <div class="project-item featured">
       <span class="project-name">02 · QASL Framework — Plataforma de Testing Enterprise</span><span class="project-tag">Enterprise · NDA</span><br>
       Las pruebas estáticas, E2E, API, rendimiento, seguridad e integración ganan potencia cuando viven en una sola tubería. <strong>Unifica las 7 capas en un único pipeline de Azure DevOps</strong> que produce un <strong>índice de calidad ejecutivo</strong>. Implementado en un entorno enterprise real: evidencia de arquitectura de automatización a escala y liderazgo técnico de CI/CD.
-      <span class="project-link">Stack: Azure DevOps · Playwright · Newman · k6 · OWASP ZAP · Grafana — e-gregorio.github.io/mi-portafolio/qasl-framework.html</span>
+      <span class="project-link">Stack: Azure DevOps · Playwright · Newman · k6 · OWASP ZAP · Grafana</span>
     </div>
 
     <div class="project-item">
       <span class="project-name">03 · Backend Live Server — Inteligencia de Integración</span><span class="project-tag">Probado en producción</span><br>
       Las fallas de integración entre sistemas se vuelven visibles al observar el tráfico real. Analiza el <strong>HTTP real (HAR)</strong>, reconstruye el <strong>grafo de integración por propagación de valores</strong> y calcula un <strong>health score</strong>. En producción localizó un cuello de botella de encolamiento contra un servicio externo: evidencia de diagnóstico de sistemas complejos en vivo. Corrida real: <strong>869 requests · 191 sistemas · 357 integraciones</strong>.
-      <span class="project-link">Stack: Playwright · HAR · Node · Grafana · Health Score — github.com/E-Gregorio/QASL-BACKEND-LIVE-SCANNER</span>
+      <span class="project-link">Stack: Playwright · HAR · Node · Grafana · Health Score</span>
     </div>
 
     <div class="project-item">
       <span class="project-name">04 · QASL Mobile — Testing de Integración Mobile</span><span class="project-tag">Open Source</span><br>
       La UI mobile y su capa de red revelan su calidad real cuando se prueban juntas. Maneja la app real con <strong>Maestro</strong>, captura el tráfico de APIs (request/response con body) por <strong>proxy</strong>, evalúa <strong>quality gates pasa/falla para CI</strong> y transmite el dispositivo en vivo. Valida interfaz e integración de red en una sola corrida: evidencia de testing mobile de extremo a extremo.
-      <span class="project-link">Stack: Maestro · Android · mitmproxy · HAR · Quality Gates — github.com/E-Gregorio/qasl-mobile</span>
+      <span class="project-link">Stack: Maestro · Android · mitmproxy · HAR · Quality Gates</span>
     </div>
 
     <div class="project-item">
       <span class="project-name">05 · QASL Web3 Sentinel — Observabilidad Blockchain</span><span class="project-tag">Público · MIT · 2026</span><br>
       En Web3 la verdad del sistema vive en la capa <strong>JSON-RPC</strong>, por debajo del HTTP 200. Automatiza una wallet MetaMask real (Playwright + Dappwright), captura la sesión (HAR) y analiza esa capa para detectar <strong>ghost errors</strong> — fallos que viajan dentro de un HTTP 200 y que las herramientas clásicas marcan en verde. Reporte HTML, dashboard Grafana (28 paneles) y quality gate en CI. Calibrado contra tráfico de producción de Uniswap (9 redes detectadas): evidencia de testing en dominios emergentes y observabilidad profunda de protocolo.
-      <span class="project-link">Stack: MetaMask · Dappwright · JSON-RPC · Grafana (28 paneles) — github.com/E-Gregorio/qasl-web3-sentinel</span>
+      <span class="project-link">Stack: MetaMask · Dappwright · JSON-RPC · Grafana (28 paneles)</span>
     </div>
 
     <div class="project-item featured">
       <span class="project-name">06 · INGRID — Plataforma de Testing con IA</span><span class="project-tag">Seguridad IA · AFQI</span><br>
       El testing de modelos de lenguaje exige un método auditable y repetible. Aplica <strong>red-teaming</strong>, cobertura <strong>OWASP LLM Top 10:2025</strong> y <strong>LLM-as-Judge multi-modelo</strong>, y produce un <strong>dictamen pericial con score</strong>. Implementa el índice <strong>AFQI (AI Forensic Quality Index)</strong>: evaluación automática de LLMs sobre Claude API con cobertura 10/10 OWASP LLM Top 10:2025 y reporte pericial en PDF. Evidencia de especialización en AI/LLM testing y seguridad, el área de más rápido crecimiento en QA.
-      <span class="project-link">Stack: Garak · OWASP LLM · LLM-as-Judge · Prompt Injection · Claude / GPT-4 — github.com/E-Gregorio/qasl-afqi</span>
+      <span class="project-link">Stack: Garak · OWASP LLM · LLM-as-Judge · Prompt Injection · Claude / GPT-4</span>
     </div>
 
     <div class="project-item">
