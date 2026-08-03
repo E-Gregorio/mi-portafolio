@@ -652,6 +652,60 @@ a { color: inherit; }
   color: var(--text-on-dark-2); line-height: 1.5;
 }
 
+/* ─── AGENT TRACE DIAGRAM ─────────────────────────── */
+.agent-trace-diagram {
+  margin: 8px 0 44px;
+  border: 1px solid var(--rule-dark-strong);
+  border-radius: 12px;
+  background: rgba(0,0,0,0.25);
+  padding: 28px 32px 26px;
+}
+.agent-trace-diagram-label {
+  font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--text-on-dark-3);
+  margin-bottom: 22px;
+}
+.agent-trace-row { margin-bottom: 24px; }
+.agent-trace-row:last-child { margin-bottom: 0; }
+.agent-trace-row-tag {
+  display: inline-block;
+  font-family: var(--mono); font-size: 10.5px; font-weight: 700;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 4px 10px; border-radius: 5px;
+  margin-bottom: 12px;
+}
+.agent-trace-row-tag.ok { color: #7fd88f; background: rgba(127,216,143,0.12); border: 1px solid rgba(127,216,143,0.35); }
+.agent-trace-row-tag.bad { color: #ff8a80; background: rgba(255,138,128,0.12); border: 1px solid rgba(255,138,128,0.35); }
+.agent-trace-steps {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+}
+.agent-trace-step {
+  font-family: var(--mono); font-size: 12px; font-weight: 600;
+  color: #fff;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid var(--rule-dark-strong);
+  padding: 8px 12px; border-radius: 6px;
+  white-space: nowrap;
+}
+.agent-trace-step.gate { border-color: var(--gold); color: var(--gold-soft); }
+.agent-trace-step.terminal { border-color: var(--c-mathcore-soft); color: var(--c-mathcore-soft); }
+.agent-trace-step.violation { border-color: #ff8a80; color: #ff8a80; background: rgba(255,138,128,0.10); }
+.agent-trace-connector {
+  font-family: var(--mono); font-size: 14px; color: var(--text-on-dark-3);
+}
+.agent-trace-connector.broken { color: #ff8a80; font-weight: 700; }
+.agent-trace-violation-msg {
+  margin-top: 14px;
+  font-family: var(--sans); font-size: 12.5px; line-height: 1.5;
+  color: var(--text-on-dark-2);
+}
+.agent-trace-violation-msg code {
+  font-family: var(--mono); font-size: 11.5px;
+  background: rgba(255,255,255,0.08); padding: 1px 5px; border-radius: 3px;
+}
+.agent-trace-violation-msg strong { color: #ff8a80; }
+
 .mathcore-figure {
   margin: 16px 0 36px;
   border-radius: 12px;
@@ -2077,8 +2131,8 @@ html[lang="en"] li[data-i18n-en] { display: list-item; }
             <em>Agentic</em> Systems Testing
           </h2>
           <p class="band-desc">
-            <span data-i18n-es>Un chatbot que se equivoca dice algo mal. Un agente que se equivoca <strong>hace</strong> algo mal — reembolsa, borra, ejecuta. INGRID define el comportamiento permitido como un <strong>grafo declarativo</strong> y valida cada traza real del agente contra ese grafo: qué herramientas puede usar, qué secuencias son válidas, qué acciones necesitan aprobación humana, cuáles están prohibidas sin excepción.</span>
-            <span data-i18n-en>A chatbot that gets it wrong says something bad. An agent that gets it wrong <strong>does</strong> something bad — refunds, deletes, executes. INGRID defines allowed behavior as a <strong>declarative graph</strong> and validates every real agent trace against it: which tools it can use, which sequences are valid, which actions need human approval, which are forbidden with no exceptions.</span>
+            <span data-i18n-es>Un <strong>sistema de agentes</strong> es una IA a la que no se le pide una respuesta, se le pide un objetivo — y decide sola qué acciones ejecutar en el mundo real para cumplirlo: consultar sistemas, llamar APIs, emitir un reembolso, borrar un registro. INGRID define el comportamiento permitido como un <strong>grafo declarativo</strong> y valida cada traza real de ejecución del agente contra ese grafo: qué herramientas puede usar, en qué orden, cuáles acciones exigen aprobación humana explícita, y cuáles están prohibidas sin excepción.</span>
+            <span data-i18n-en>An <strong>agentic system</strong> is an AI that isn't asked for an answer, it's given a goal — and it decides on its own which real-world actions to take to reach it: querying systems, calling APIs, issuing a refund, deleting a record. INGRID defines allowed behavior as a <strong>declarative graph</strong> and validates every real agent execution trace against it: which tools it can use, in what order, which actions require explicit human approval, and which are forbidden with no exceptions.</span>
           </p>
         </div>
         <div class="band-meta">
@@ -2092,19 +2146,67 @@ html[lang="en"] li[data-i18n-en] { display: list-item; }
 
       <div class="mathcore-card">
         <div class="mathcore-eyebrow">
-          <span data-i18n-es>El diferenciador frente al testing clásico de chatbots</span>
-          <span data-i18n-en>The differentiator vs. classic chatbot testing</span>
+          <span data-i18n-es>Qué es testear un sistema de agentes, en una frase</span>
+          <span data-i18n-en>What testing an agentic system means, in one sentence</span>
         </div>
 
         <div class="mathcore-lemma">
-          <span data-i18n-es>"Un chatbot que alucina es un problema. Un agente que actúa por su cuenta es un incidente."</span>
-          <span data-i18n-en>"A chatbot that hallucinates is a problem. An agent that acts on its own is an incident."</span>
+          <span data-i18n-es>"Una respuesta puede estar mal escrita. Una acción ejecutada — un reembolso, un borrado — no se puede deshacer."</span>
+          <span data-i18n-en>"A written answer can be wrong. An executed action — a refund, a deletion — can't be undone."</span>
         </div>
 
         <p class="mathcore-narrative">
-          <span data-i18n-es>Testear un agente no es testear texto — es testear <strong>secuencias de decisiones</strong>. INGRID define un grafo declarativo del comportamiento esperado del agente (nodos, transiciones válidas, herramientas prohibidas, puntos que exigen aprobación humana) y valida trazas reales contra ese grafo. Es lógica determinística sobre datos estructurados — no depende de que otro LLM "opine" si el agente se portó bien.</span>
-          <span data-i18n-en>Testing an agent isn't testing text — it's testing <strong>sequences of decisions</strong>. INGRID defines a declarative graph of the agent's expected behavior (nodes, valid transitions, forbidden tools, points that require human approval) and validates real traces against it. It's deterministic logic over structured data — it doesn't depend on another LLM "opining" whether the agent behaved.</span>
+          <span data-i18n-es>Testear un agente es testear <strong>secuencias de decisiones</strong>, no texto. INGRID define un grafo declarativo del comportamiento esperado del agente (nodos, transiciones válidas, herramientas prohibidas, puntos que exigen aprobación humana) y valida trazas reales de ejecución contra ese grafo. Es lógica determinística sobre datos estructurados — no depende de que otro LLM "opine" si el agente se portó bien.</span>
+          <span data-i18n-en>Testing an agent means testing <strong>sequences of decisions</strong>, not text. INGRID defines a declarative graph of the agent's expected behavior (nodes, valid transitions, forbidden tools, points that require human approval) and validates real execution traces against it. It's deterministic logic over structured data — it doesn't depend on another LLM "opining" whether the agent behaved.</span>
         </p>
+
+        <!-- Trace diagram: how a real execution trace is validated against the graph -->
+        <div class="agent-trace-diagram">
+          <div class="agent-trace-diagram-label">
+            <span data-i18n-es>Cómo se ve una traza real de ejecución, paso a paso</span>
+            <span data-i18n-en>What a real execution trace looks like, step by step</span>
+          </div>
+
+          <div class="agent-trace-row">
+            <span class="agent-trace-row-tag ok">
+              <span data-i18n-es>✓ Traza válida</span>
+              <span data-i18n-en>✓ Valid trace</span>
+            </span>
+            <div class="agent-trace-steps">
+              <span class="agent-trace-step">receive_query</span>
+              <span class="agent-trace-connector">→</span>
+              <span class="agent-trace-step">search_kb</span>
+              <span class="agent-trace-connector">→</span>
+              <span class="agent-trace-step">refund_lookup</span>
+              <span class="agent-trace-connector">→</span>
+              <span class="agent-trace-step gate">human_approval ✓</span>
+              <span class="agent-trace-connector">→</span>
+              <span class="agent-trace-step">issue_refund</span>
+              <span class="agent-trace-connector">→</span>
+              <span class="agent-trace-step terminal">end_resolved</span>
+            </div>
+          </div>
+
+          <div class="agent-trace-row">
+            <span class="agent-trace-row-tag bad">
+              <span data-i18n-es>✕ Traza con violación</span>
+              <span data-i18n-en>✕ Trace with a violation</span>
+            </span>
+            <div class="agent-trace-steps">
+              <span class="agent-trace-step">receive_query</span>
+              <span class="agent-trace-connector">→</span>
+              <span class="agent-trace-step">search_kb</span>
+              <span class="agent-trace-connector broken">⇥</span>
+              <span class="agent-trace-step violation">issue_refund</span>
+              <span class="agent-trace-connector">→</span>
+              <span class="agent-trace-step terminal">end_resolved</span>
+            </div>
+            <div class="agent-trace-violation-msg">
+              <span data-i18n-es>El agente se saltó <code>refund_lookup</code> y <code>human_approval</code> y ejecutó el reembolso solo. INGRID lo marca como <strong>MISSING_APPROVAL</strong> (crítico) → OWASP LLM06 Excessive Agency.</span>
+              <span data-i18n-en>The agent skipped <code>refund_lookup</code> and <code>human_approval</code> and issued the refund on its own. INGRID flags it as <strong>MISSING_APPROVAL</strong> (critical) → OWASP LLM06 Excessive Agency.</span>
+            </div>
+          </div>
+        </div>
 
         <!-- 4 violation types -->
         <div class="metrics-grid">
