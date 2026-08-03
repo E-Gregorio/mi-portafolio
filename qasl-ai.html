@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>QASL · AI/LLM Forensic Testing — INGRID · MATHCORE · AFQI</title>
-<meta name="description" content="QASL AI/LLM Forensic Testing. Caracterizamos sistemas con IA usando matemática reproducible: INGRID (AFQI v1.0) + MATHCORE. OWASP LLM Top 10 · NIST AI RMF · ISO/IEC 42001. Dictamen pericial firmable.">
+<title>QASL · AI/LLM Forensic Testing — INGRID · MATHCORE · Garak</title>
+<meta name="description" content="QASL AI/LLM Forensic Testing. Caracterizamos sistemas con IA usando matemática reproducible: INGRID + MATHCORE + Garak Bridge. OWASP LLM Top 10 (9/10) · Agentic Systems · RAG · NIST AI RMF · ISO/IEC 42001.">
 <meta name="author" content="Elyer Gregorio Maldonado">
-<meta name="keywords" content="AI Testing, LLM Testing, OWASP LLM Top 10, NIST AI RMF, ISO 42001, AFQI, MATHCORE, INGRID, LLM-as-Judge, structural fingerprinting, prompt injection, RAG testing, Voice AI, QASL">
+<meta name="keywords" content="AI Testing, LLM Testing, OWASP LLM Top 10, NIST AI RMF, ISO 42001, MATHCORE, INGRID, LLM-as-Judge, Agentic Systems Testing, RAG Testing, Garak, structural fingerprinting, prompt injection, Voice AI, QASL">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='14' fill='%236B3FA0'/><text y='72' x='50' text-anchor='middle' font-size='58' fill='%23FAF6F0' font-family='Georgia, serif' font-weight='bold' font-style='italic'>A</text></svg>">
 
 <meta property="og:type" content="website">
 <meta property="og:title" content="QASL · AI/LLM Forensic Testing">
-<meta property="og:description" content="Caracterizamos sistemas con IA usando matemática reproducible. INGRID + MATHCORE + AFQI. OWASP LLM Top 10 · NIST AI RMF · ISO/IEC 42001.">
+<meta property="og:description" content="Caracterizamos sistemas con IA usando matemática reproducible. INGRID + MATHCORE + Garak Bridge. OWASP LLM Top 10 (9/10) · Agentic Systems · RAG · NIST AI RMF · ISO/IEC 42001.">
 <meta property="og:url" content="https://e-gregorio.github.io/mi-portafolio/qasl-ai.html">
 <meta property="og:image" content="https://e-gregorio.github.io/mi-portafolio/img/flagships/ingrid-grafana-1.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -342,8 +342,32 @@ a { color: inherit; }
 .floating-doc img {
   display: block; width: 100%; height: auto;
 }
-.floating-doc::after {
-  content: "AFQI · DICTAMEN PERICIAL · MUESTRA";
+.floating-doc.floating-code {
+  background: #0d1117;
+  padding: 0;
+}
+.code-card-head {
+  display: flex; gap: 6px;
+  padding: 10px 12px;
+  background: #161b22;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.code-card-head span {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: rgba(255,255,255,0.18);
+}
+.code-card-body {
+  margin: 0;
+  padding: 14px 16px 18px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  line-height: 1.6;
+  color: #9fe3b0;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.floating-doc:not(.floating-code)::after {
+  content: "MUESTRA";
   position: absolute; top: 14px; left: 14px;
   font-family: var(--mono); font-size: 8.5px; font-weight: 700;
   letter-spacing: 0.2em;
@@ -909,7 +933,7 @@ a { color: inherit; }
 }
 .owasp-tool strong { color: var(--gold-soft); font-weight: 700; }
 
-/* ─── DICTAMEN AFQI SHOWCASE ────────────────────── */
+/* ─── RESULTADOS EN VIVO (ex-DICTAMEN AFQI) ────────── */
 .dictamen-band {
   background: var(--paper);
   border-top: 1px solid var(--rule);
@@ -1498,8 +1522,10 @@ html[lang="en"] li[data-i18n-en] { display: list-item; }
         <a href="#mathcore">MATHCORE</a>
         <a href="#ingrid">INGRID</a>
         <a href="#garak">GARAK</a>
+        <a href="#agentic">AGENTIC</a>
+        <a href="#rag">RAG</a>
         <a href="#owasp">OWASP LLM</a>
-        <a href="#dictamen" data-i18n-es>Dictamen</a><a href="#dictamen" data-i18n-en>Verdict</a>
+        <a href="#dictamen" data-i18n-es>Demo en vivo</a><a href="#dictamen" data-i18n-en>Live demo</a>
         <a href="#capacidades" data-i18n-es>Vacantes</a><a href="#capacidades" data-i18n-en>Roles</a>
         <a href="#contacto" data-i18n-es>Contacto</a><a href="#contacto" data-i18n-en>Contact</a>
       </nav>
@@ -1558,14 +1584,25 @@ html[lang="en"] li[data-i18n-en] { display: list-item; }
         </div>
       </div>
 
-      <aside class="hero-stack fade-up delay-3" aria-label="Vista previa del dictamen y dashboard">
-        <figure class="floating-doc">
-          <img src="img/flagships/ingrid-pdf-conclusions.png" alt="Dictamen AFQI v1.0 — Página 4 standards & methodology" loading="eager">
+      <aside class="hero-stack fade-up delay-3" aria-label="Vista previa de resultado de validación y dashboard">
+        <figure class="floating-doc floating-code">
+          <div class="code-card-head"><span></span><span></span><span></span></div>
+          <pre class="code-card-body">--- Caso 2: excessive agency ---
+{
+  "passed": false,
+  "violations": [{
+    "type": "MISSING_APPROVAL",
+    "severity": "critical",
+    "owaspHint": "LLM06 (Excessive
+    Agency) — acción sensible sin
+    human-in-the-loop"
+  }]
+}</pre>
         </figure>
         <figure class="floating-card">
           <img src="img/flagships/ingrid-grafana-1.png" alt="Dashboard INGRID — OWASP LLM Top 10 matrix" loading="eager">
         </figure>
-        <span class="floating-tag">AFQI v1.0 · Live</span>
+        <span class="floating-tag">npm run agentic:demo · output real</span>
       </aside>
     </section>
   </div>
@@ -1581,7 +1618,7 @@ html[lang="en"] li[data-i18n-en] { display: list-item; }
         <div class="proof-label" data-i18n-en>Years in QA</div>
       </div>
       <div class="proof-cell">
-        <div class="proof-num"><span class="accent">10</span><span class="small">/10</span></div>
+        <div class="proof-num"><span class="accent">9</span><span class="small">/10</span></div>
         <div class="proof-label" data-i18n-es>Categorías OWASP LLM Top 10 cubiertas</div>
         <div class="proof-label" data-i18n-en>OWASP LLM Top 10 categories covered</div>
       </div>
@@ -1591,14 +1628,14 @@ html[lang="en"] li[data-i18n-en] { display: list-item; }
         <div class="proof-label" data-i18n-en>MATHCORE math metrics · reproducible</div>
       </div>
       <div class="proof-cell">
-        <div class="proof-num">13</div>
-        <div class="proof-label" data-i18n-es>Secciones · manual operativo INGRID</div>
-        <div class="proof-label" data-i18n-en>Sections · INGRID operational manual</div>
+        <div class="proof-num">42</div>
+        <div class="proof-label" data-i18n-es>Ataques en ATTACK_LIBRARY (attacks.ts)</div>
+        <div class="proof-label" data-i18n-en>Attacks in ATTACK_LIBRARY (attacks.ts)</div>
       </div>
       <div class="proof-cell">
-        <div class="proof-num">4<span class="small">pp</span></div>
-        <div class="proof-label" data-i18n-es>Reporte AFQI · pericial PDF</div>
-        <div class="proof-label" data-i18n-en>AFQI report · audit-grade PDF</div>
+        <div class="proof-num">3</div>
+        <div class="proof-label" data-i18n-es>Módulos v2.3.0 · Agentic + RAG + Garak Bridge</div>
+        <div class="proof-label" data-i18n-en>v2.3.0 modules · Agentic + RAG + Garak Bridge</div>
       </div>
     </section>
   </div>
@@ -1766,12 +1803,12 @@ html[lang="en"] li[data-i18n-en] { display: list-item; }
             <em>INGRID</em>
           </h2>
           <p class="band-desc">
-            <span data-i18n-es>Intelligent Network for Generative Response Inspection &amp; Defense. Algoritmo AFQI v1.0 — el "CFQI para sistemas con IA": convierte una bolsa de hallazgos adversariales en un dictamen con score 0–100 y grado A→F.</span>
-            <span data-i18n-en>Intelligent Network for Generative Response Inspection &amp; Defense. AFQI v1.0 algorithm — "CFQI for AI systems": turns a bag of adversarial findings into a verdict with 0–100 score and A→F grade.</span>
+            <span data-i18n-es>Intelligent Network for Generative Response Inspection &amp; Defense. Framework de red-teaming + LLM-as-Judge para chatbots, agentes y RAG — convierte una bolsa de hallazgos adversariales en métricas medibles por categoría OWASP.</span>
+            <span data-i18n-en>Intelligent Network for Generative Response Inspection &amp; Defense. Red-teaming + LLM-as-Judge framework for chatbots, agents and RAG — turns a bag of adversarial findings into measurable per-OWASP-category metrics.</span>
           </p>
         </div>
         <div class="band-meta">
-          <strong>AFQI v1.0</strong> · AI Forensic Quality Index<br>
+          <strong>INGRID</strong> · v2.3.0<br>
           OWASP LLM Top 10 · 2025<br>
           <span data-i18n-es>Privado · Manual operativo + Demo</span>
           <span data-i18n-en>Private · Operational manual + Demo</span>
@@ -1781,22 +1818,22 @@ html[lang="en"] li[data-i18n-en] { display: list-item; }
       <div class="ingrid-card">
         <div class="ingrid-eyebrow">AI / LLM Security · Forensic</div>
         <h3 class="ingrid-title">
-          <span data-i18n-es>De un ataque adversarial <em>a un dictamen.</em></span>
-          <span data-i18n-en>From an adversarial attack <em>to a verdict.</em></span>
+          <span data-i18n-es>De un ataque adversarial <em>a un resultado medible.</em></span>
+          <span data-i18n-en>From an adversarial attack <em>to a measurable result.</em></span>
         </h3>
         <p class="ingrid-subtitle">
           Intelligent Network for Generative Response Inspection &amp; Defense
         </p>
         <p class="ingrid-lead">
-          <span data-i18n-es><strong>Framework profesional</strong> para AI/LLM Security Testing alineado a OWASP LLM Top 10 (2025), ISO/IEC 27001 y NIST AI RMF. Automatiza ataques con Playwright, evalúa cada respuesta con metodología <strong>LLM-as-Judge multi-modelo</strong> sobre Claude API, mide performance contra el sistema bajo prueba y emite un <strong>reporte pericial-grade en PDF de 4 páginas</strong> — todo orquestado por una API REST y un pipeline de CI/CD.</span>
-          <span data-i18n-en><strong>Professional framework</strong> for AI/LLM Security Testing aligned with OWASP LLM Top 10 (2025), ISO/IEC 27001 and NIST AI RMF. Automates attacks with Playwright, evaluates every response using a <strong>multi-model LLM-as-Judge</strong> on the Claude API, measures performance against the system under test and emits a <strong>4-page audit-grade PDF report</strong> — all orchestrated by a REST API and a CI/CD pipeline.</span>
+          <span data-i18n-es><strong>Framework profesional</strong> para AI/LLM Security Testing alineado a OWASP LLM Top 10 (2025), ISO/IEC 27001 y NIST AI RMF. Automatiza ataques con Playwright, evalúa cada respuesta con metodología <strong>LLM-as-Judge (Claude)</strong> sobre chatbots multi-modelo, mide performance contra el sistema bajo prueba y expone resultados en tiempo real en <strong>dashboards Grafana/Prometheus</strong> — todo orquestado por una API REST y un pipeline de CI/CD.</span>
+          <span data-i18n-en><strong>Professional framework</strong> for AI/LLM Security Testing aligned with OWASP LLM Top 10 (2025), ISO/IEC 27001 and NIST AI RMF. Automates attacks with Playwright, evaluates every response using <strong>LLM-as-Judge (Claude)</strong> across multi-model chatbots, measures performance against the system under test and exposes results in real time on <strong>Grafana/Prometheus dashboards</strong> — all orchestrated by a REST API and a CI/CD pipeline.</span>
         </p>
 
         <!-- Attack flow -->
         <div class="attack-flow">
           <div class="attack-flow-label">
-            <span data-i18n-es>Flujo: ataques adversariales → INGRID → AFQI</span>
-            <span data-i18n-en>Flow: adversarial attacks → INGRID → AFQI</span>
+            <span data-i18n-es>Flujo: ataques adversariales → INGRID → Grafana/Prometheus</span>
+            <span data-i18n-en>Flow: adversarial attacks → INGRID → Grafana/Prometheus</span>
           </div>
           <div class="attack-flow-grid">
             <div class="attackers-list">
@@ -1810,14 +1847,15 @@ html[lang="en"] li[data-i18n-en] { display: list-item; }
             </div>
             <div class="flow-arrow">
               →
-              <span class="arrow-label">AFQI</span>
+              <span class="arrow-label">INGRID</span>
             </div>
             <div class="afqi-badge">
               <div class="afqi-badge-label">Output</div>
-              <div class="afqi-badge-name">AI Forensic Quality Index</div>
+              <div class="afqi-badge-name" data-i18n-es>Dashboards + metrics-store.json</div>
+              <div class="afqi-badge-name" data-i18n-en>Dashboards + metrics-store.json</div>
               <div class="afqi-badge-meta">
-                <span data-i18n-es>Score <strong>0–100</strong> · Grado <strong>A/B/C/D/F</strong></span>
-                <span data-i18n-en>Score <strong>0–100</strong> · Grade <strong>A/B/C/D/F</strong></span>
+                <span data-i18n-es>Grafana/Prometheus en vivo · bridge opcional a <strong>AFQI</strong> (qasl-afqi)</span>
+                <span data-i18n-en>Live Grafana/Prometheus · optional bridge to <strong>AFQI</strong> (qasl-afqi)</span>
               </div>
             </div>
           </div>
@@ -1826,12 +1864,12 @@ html[lang="en"] li[data-i18n-en] { display: list-item; }
         <!-- Deliverables -->
         <div class="ingrid-deliverables">
           <div class="ingrid-deliverable">
-            <div class="ingrid-deliverable-num">10<span class="small">/10</span></div>
+            <div class="ingrid-deliverable-num">9<span class="small">/10</span></div>
             <div class="ingrid-deliverable-name" data-i18n-es>OWASP LLM Top 10</div>
             <div class="ingrid-deliverable-name" data-i18n-en>OWASP LLM Top 10</div>
             <div class="ingrid-deliverable-desc">
-              <span data-i18n-es>Cobertura completa de las 10 categorías 2025 — desde <strong>Prompt Injection</strong> hasta <strong>Unbounded Consumption</strong>.</span>
-              <span data-i18n-en>Full coverage of all 10 categories 2025 — from <strong>Prompt Injection</strong> to <strong>Unbounded Consumption</strong>.</span>
+              <span data-i18n-es>Cobertura real de 9 de 10 categorías 2025 con ataque propio — desde <strong>Prompt Injection</strong> hasta <strong>Unbounded Consumption</strong>. LLM04 excluida por diseño (requiere acceso al pipeline de entrenamiento).</span>
+              <span data-i18n-en>Real coverage of 9 of 10 2025 categories with a dedicated attack — from <strong>Prompt Injection</strong> to <strong>Unbounded Consumption</strong>. LLM04 excluded by design (requires access to the training pipeline).</span>
             </div>
           </div>
           <div class="ingrid-deliverable">
@@ -1839,17 +1877,17 @@ html[lang="en"] li[data-i18n-en] { display: list-item; }
             <div class="ingrid-deliverable-name" data-i18n-es>Métricas LLM-as-Judge</div>
             <div class="ingrid-deliverable-name" data-i18n-en>LLM-as-Judge metrics</div>
             <div class="ingrid-deliverable-desc">
-              <span data-i18n-es><strong>Relevancia · Precisión · Coherencia · Completitud · Seguridad</strong>. Claude API evalúa cada respuesta del sistema bajo prueba.</span>
-              <span data-i18n-en><strong>Relevance · Accuracy · Coherence · Completeness · Safety</strong>. Claude API evaluates each response from the system under test.</span>
+              <span data-i18n-es><strong>Relevancia · Precisión · Coherencia · Completitud · Alucinación</strong>. Claude API evalúa cada respuesta del sistema bajo prueba.</span>
+              <span data-i18n-en><strong>Relevance · Accuracy · Coherence · Completeness · Hallucination</strong>. Claude API evaluates each response from the system under test.</span>
             </div>
           </div>
           <div class="ingrid-deliverable">
-            <div class="ingrid-deliverable-num">4<span class="small">pp</span></div>
-            <div class="ingrid-deliverable-name" data-i18n-es>PDF pericial</div>
-            <div class="ingrid-deliverable-name" data-i18n-en>Audit-grade PDF</div>
+            <div class="ingrid-deliverable-num">3</div>
+            <div class="ingrid-deliverable-name" data-i18n-es>Módulos v2.3.0</div>
+            <div class="ingrid-deliverable-name" data-i18n-en>v2.3.0 modules</div>
             <div class="ingrid-deliverable-desc">
-              <span data-i18n-es><strong>Reporte forense</strong> con expediente, hallazgos por categoría OWASP, conclusión y standards alignment.</span>
-              <span data-i18n-en><strong>Forensic report</strong> with file number, findings per OWASP category, conclusion and standards alignment.</span>
+              <span data-i18n-es><strong>Agentic + RAG (2 niveles) + Garak Bridge</strong>. Extiende INGRID más allá del red-teaming clásico de chatbots.</span>
+              <span data-i18n-en><strong>Agentic + RAG (2 levels) + Garak Bridge</strong>. Extends INGRID beyond classic chatbot red-teaming.</span>
             </div>
           </div>
           <div class="ingrid-deliverable">
@@ -1911,16 +1949,16 @@ html[lang="en"] li[data-i18n-en] { display: list-item; }
             Garak · <em>NVIDIA NeMo</em>
           </h2>
           <p class="band-desc">
-            <span data-i18n-es>El estándar de la industria para red-teaming sobre LLMs. Integrado a INGRID como motor de ataques adversariales: jailbreak, prompt injection, data leakage y misinformation — auditados a escala.</span>
-            <span data-i18n-en>The industry standard for LLM red-teaming. Integrated into INGRID as the adversarial attack engine: jailbreak, prompt injection, data leakage and misinformation — audited at scale.</span>
+            <span data-i18n-es>El estándar de la industria para red-teaming sobre LLMs. INGRID integra un bridge propio (<code>garak-adapter.ts</code>) que parsea sus resultados y los mapea a categorías OWASP: jailbreak, prompt injection, data leakage y misinformation.</span>
+            <span data-i18n-en>The industry standard for LLM red-teaming. INGRID integrates its own bridge (<code>garak-adapter.ts</code>) that parses its results and maps them to OWASP categories: jailbreak, prompt injection, data leakage and misinformation.</span>
           </p>
         </div>
         <div class="band-meta">
           <strong>Garak</strong> · NVIDIA NeMo<br>
           <span data-i18n-es>Probes oficiales + custom payloads</span>
           <span data-i18n-en>Official probes + custom payloads</span><br>
-          <span data-i18n-es>Output → AFQI Dictamen</span>
-          <span data-i18n-en>Output → AFQI Verdict</span>
+          <span data-i18n-es>Output → OWASP SecurityReport</span>
+          <span data-i18n-en>Output → OWASP SecurityReport</span>
         </div>
       </header>
 
@@ -1936,8 +1974,8 @@ html[lang="en"] li[data-i18n-en] { display: list-item; }
         </div>
 
         <p class="mathcore-narrative">
-          <span data-i18n-es><strong>Garak</strong> es el framework open-source de NVIDIA NeMo para red-teaming sistemático sobre Large Language Models. INGRID lo integra como motor de ataques adversariales: ejecuta cientos de probes oficiales (DAN, encoding, malware-gen, package-hallucination, ...) más payloads custom escritos sobre el sistema bajo prueba, y entrega los resultados al pipeline AFQI para producir un veredicto numérico por categoría OWASP LLM Top 10. <strong>No es un script ad-hoc</strong> — es el mismo framework que NVIDIA, Anthropic y la comunidad de AI Safety usan para auditar modelos antes de release.</span>
-          <span data-i18n-en><strong>Garak</strong> is NVIDIA NeMo's open-source framework for systematic red-teaming on Large Language Models. INGRID integrates it as the adversarial attack engine: runs hundreds of official probes (DAN, encoding, malware-gen, package-hallucination, ...) plus custom payloads written for the system under test, and feeds results into the AFQI pipeline to produce a numeric verdict per OWASP LLM Top 10 category. <strong>It's not an ad-hoc script</strong> — it's the same framework NVIDIA, Anthropic and the AI Safety community use to audit models before release.</span>
+          <span data-i18n-es><strong>Garak</strong> es el framework open-source de NVIDIA NeMo para red-teaming sistemático sobre Large Language Models, con cientos de probes oficiales (DAN, encoding, malware-gen, package-hallucination, ...). INGRID no reimplementa esos ataques: los consume via el bridge <code>garak-adapter.ts</code>, que parsea el reporte de Garak (<code>.report.jsonl</code>) y lo mapea a categoría OWASP LLM Top 10. <strong>No es un script ad-hoc</strong> — es el mismo framework que NVIDIA, Anthropic y la comunidad de AI Safety usan para auditar modelos antes de release.</span>
+          <span data-i18n-en><strong>Garak</strong> is NVIDIA NeMo's open-source framework for systematic red-teaming on Large Language Models, with hundreds of official probes (DAN, encoding, malware-gen, package-hallucination, ...). INGRID doesn't reimplement those attacks: it consumes them through the <code>garak-adapter.ts</code> bridge, which parses Garak's report (<code>.report.jsonl</code>) and maps it to OWASP LLM Top 10 categories. <strong>It's not an ad-hoc script</strong> — it's the same framework NVIDIA, Anthropic and the AI Safety community use to audit models before release.</span>
         </p>
 
         <!-- 4 Garak attack categories -->
@@ -1994,13 +2032,13 @@ html[lang="en"] li[data-i18n-en] { display: list-item; }
           <div class="citation">
             <div class="citation-label" data-i18n-es>Integración</div>
             <div class="citation-label" data-i18n-en>Integration</div>
-            <div class="citation-name" data-i18n-es>Garak ejecuta · INGRID orquesta · AFQI dictamina</div>
-            <div class="citation-name" data-i18n-en>Garak runs · INGRID orchestrates · AFQI verdicts</div>
+            <div class="citation-name" data-i18n-es>Garak ejecuta · INGRID parsea y mapea a OWASP</div>
+            <div class="citation-name" data-i18n-en>Garak runs · INGRID parses and maps to OWASP</div>
           </div>
           <div class="citation">
             <div class="citation-label">CI/CD</div>
-            <div class="citation-name" data-i18n-es>GitHub Actions · auto-trigger en cada release</div>
-            <div class="citation-name" data-i18n-en>GitHub Actions · auto-trigger on each release</div>
+            <div class="citation-name" data-i18n-es>GitHub Actions · disparo manual (workflow_dispatch)</div>
+            <div class="citation-name" data-i18n-en>GitHub Actions · manual trigger (workflow_dispatch)</div>
           </div>
           <div class="citation">
             <div class="citation-label" data-i18n-es>Cobertura</div>
@@ -2013,6 +2051,249 @@ html[lang="en"] li[data-i18n-en] { display: list-item; }
             <div class="citation-label" data-i18n-en>Audited models</div>
             <div class="citation-name" data-i18n-es>Claude · GPT-4 · Gemini · Llama · custom RAG</div>
             <div class="citation-name" data-i18n-en>Claude · GPT-4 · Gemini · Llama · custom RAG</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ AGENTIC SYSTEMS TESTING (DARK) ═════════ -->
+<div class="mathcore-band garak-band">
+  <div class="container">
+    <section class="mathcore" id="agentic">
+      <header class="section-band">
+        <div class="section-band-left">
+          <div class="band-eyebrow">
+            <span data-i18n-es>Agentic AI · Trace Validation</span>
+            <span data-i18n-en>Agentic AI · Trace Validation</span>
+          </div>
+          <h2 class="band-title">
+            <em>Agentic</em> Systems Testing
+          </h2>
+          <p class="band-desc">
+            <span data-i18n-es>Valida una traza de ejecución de un agente (secuencia de tool calls) contra un <strong>grafo declarativo</strong> de comportamiento esperado: qué herramientas existen, qué transiciones son válidas, qué acciones requieren aprobación humana, cuáles están prohibidas.</span>
+            <span data-i18n-en>Validates an agent's execution trace (a sequence of tool calls) against a <strong>declarative graph</strong> of expected behavior: which tools exist, which transitions are valid, which actions need human approval, which are forbidden.</span>
+          </p>
+        </div>
+        <div class="band-meta">
+          <strong>src/agentic-graph.ts</strong> · v2.3.0<br>
+          <span data-i18n-es>Determinístico · sin LLM en el loop</span>
+          <span data-i18n-en>Deterministic · no LLM in the loop</span><br>
+          <span data-i18n-es>Output → OWASP LLM06 / LLM10</span>
+          <span data-i18n-en>Output → OWASP LLM06 / LLM10</span>
+        </div>
+      </header>
+
+      <div class="mathcore-card">
+        <div class="mathcore-eyebrow">
+          <span data-i18n-es>El diferenciador frente al testing clásico de chatbots</span>
+          <span data-i18n-en>The differentiator vs. classic chatbot testing</span>
+        </div>
+
+        <div class="mathcore-lemma">
+          <span data-i18n-es>"Un chatbot que alucina es un problema. Un agente que actúa por su cuenta es un incidente."</span>
+          <span data-i18n-en>"A chatbot that hallucinates is a problem. An agent that acts on its own is an incident."</span>
+        </div>
+
+        <p class="mathcore-narrative">
+          <span data-i18n-es>Testear un agente no es testear texto — es testear <strong>secuencias de decisiones</strong>. INGRID define un grafo declarativo del comportamiento esperado del agente (nodos, transiciones válidas, herramientas prohibidas, puntos que exigen aprobación humana) y valida trazas reales contra ese grafo. Es lógica determinística sobre datos estructurados — no depende de que otro LLM "opine" si el agente se portó bien.</span>
+          <span data-i18n-en>Testing an agent isn't testing text — it's testing <strong>sequences of decisions</strong>. INGRID defines a declarative graph of the agent's expected behavior (nodes, valid transitions, forbidden tools, points that require human approval) and validates real traces against it. It's deterministic logic over structured data — it doesn't depend on another LLM "opining" whether the agent behaved.</span>
+        </p>
+
+        <!-- 4 violation types -->
+        <div class="metrics-grid">
+          <div class="metric-cell">
+            <div class="metric-cell-num"><em>A1</em></div>
+            <div class="metric-cell-name" data-i18n-es>Tool calls no declaradas</div>
+            <div class="metric-cell-name" data-i18n-en>Undeclared / forbidden tools</div>
+            <div class="metric-cell-title" data-i18n-es>Fuera del grafo declarado</div>
+            <div class="metric-cell-title" data-i18n-en>Outside the declared graph</div>
+            <span class="metric-cell-formula">UNDECLARED_TOOL_CALL · FORBIDDEN_TOOL_CALL</span>
+            <p class="metric-cell-desc">
+              <span data-i18n-es>El agente llamó una herramienta que no existe en el grafo, o una explícitamente prohibida.</span>
+              <span data-i18n-en>The agent called a tool that doesn't exist in the graph, or one explicitly forbidden.</span>
+            </p>
+          </div>
+          <div class="metric-cell">
+            <div class="metric-cell-num"><em>A2</em></div>
+            <div class="metric-cell-name" data-i18n-es>Transición inválida</div>
+            <div class="metric-cell-name" data-i18n-en>Invalid transition</div>
+            <div class="metric-cell-title" data-i18n-es>Secuencia no autorizada</div>
+            <div class="metric-cell-title" data-i18n-en>Unauthorized sequence</div>
+            <span class="metric-cell-formula">INVALID_TRANSITION</span>
+            <p class="metric-cell-desc">
+              <span data-i18n-es>La traza saltó de un nodo a otro sin que exista un edge del grafo que lo permita.</span>
+              <span data-i18n-en>The trace jumped from one node to another with no graph edge allowing it.</span>
+            </p>
+          </div>
+          <div class="metric-cell">
+            <div class="metric-cell-num"><em>A3</em></div>
+            <div class="metric-cell-name" data-i18n-es>Aprobación faltante</div>
+            <div class="metric-cell-name" data-i18n-en>Missing approval</div>
+            <div class="metric-cell-title" data-i18n-es>Acción sensible sin human-in-the-loop</div>
+            <div class="metric-cell-title" data-i18n-en>Sensitive action without human-in-the-loop</div>
+            <span class="metric-cell-formula">MISSING_APPROVAL</span>
+            <p class="metric-cell-desc">
+              <span data-i18n-es>Llegó a un nodo marcado <code>requiresApproval</code> sin aprobación humana previa en la traza.</span>
+              <span data-i18n-en>Reached a node marked <code>requiresApproval</code> with no prior human approval in the trace.</span>
+            </p>
+          </div>
+          <div class="metric-cell">
+            <div class="metric-cell-num"><em>A4</em></div>
+            <div class="metric-cell-name" data-i18n-es>Límites de ejecución</div>
+            <div class="metric-cell-name" data-i18n-en>Execution bounds</div>
+            <div class="metric-cell-title" data-i18n-es>Sin cierre reconocido</div>
+            <div class="metric-cell-title" data-i18n-en>No recognized termination</div>
+            <span class="metric-cell-formula">UNBOUNDED_EXECUTION · NO_TERMINATION</span>
+            <p class="metric-cell-desc">
+              <span data-i18n-es>Superó el <code>maxSteps</code> razonable, o nunca llegó a un nodo terminal del grafo.</span>
+              <span data-i18n-en>Exceeded the reasonable <code>maxSteps</code>, or never reached a terminal node in the graph.</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Integration row -->
+        <div class="citations-row">
+          <div class="citation">
+            <div class="citation-label" data-i18n-es>Demo verificado</div>
+            <div class="citation-label" data-i18n-en>Verified demo</div>
+            <div class="citation-name">npm run agentic:demo</div>
+          </div>
+          <div class="citation">
+            <div class="citation-label" data-i18n-es>Caso de prueba</div>
+            <div class="citation-label" data-i18n-en>Sample profile</div>
+            <div class="citation-name" data-i18n-es>Agente de soporte · reembolsos con aprobación</div>
+            <div class="citation-name" data-i18n-en>Support agent · approval-gated refunds</div>
+          </div>
+          <div class="citation">
+            <div class="citation-label" data-i18n-es>Alcance</div>
+            <div class="citation-label" data-i18n-en>Scope</div>
+            <div class="citation-name" data-i18n-es>Valida trazas grabadas, no hookea runtime en vivo</div>
+            <div class="citation-name" data-i18n-en>Validates recorded traces, no live runtime hook</div>
+          </div>
+          <div class="citation">
+            <div class="citation-label" data-i18n-es>Cobertura</div>
+            <div class="citation-label" data-i18n-en>Coverage</div>
+            <div class="citation-name">OWASP LLM06 · LLM10</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </div>
+</div>
+
+<!-- ═════════ RAG TESTING (DARK) ═════════ -->
+<div class="mathcore-band garak-band">
+  <div class="container">
+    <section class="mathcore" id="rag">
+      <header class="section-band">
+        <div class="section-band-left">
+          <div class="band-eyebrow">
+            <span data-i18n-es>RAG · Retrieval + Faithfulness</span>
+            <span data-i18n-en>RAG · Retrieval + Faithfulness</span>
+          </div>
+          <h2 class="band-title">
+            Testing de <em>RAG</em>
+          </h2>
+          <p class="band-desc">
+            <span data-i18n-es>Dos niveles: si la respuesta es fiel al contexto recuperado (y resiste inyección indirecta vía documentos), y si el motor de recuperación en sí encuentra los documentos correctos.</span>
+            <span data-i18n-en>Two levels: whether the answer is faithful to the retrieved context (and resists indirect injection via documents), and whether the retrieval engine itself finds the right documents.</span>
+          </p>
+        </div>
+        <div class="band-meta">
+          <strong>rag-faithfulness.ts</strong> + <strong>rag-retrieval-metrics.ts</strong><br>
+          v2.3.0<br>
+          <span data-i18n-es>Output → OWASP LLM08 / LLM09</span>
+          <span data-i18n-en>Output → OWASP LLM08 / LLM09</span>
+        </div>
+      </header>
+
+      <div class="mathcore-card">
+        <div class="mathcore-eyebrow">
+          <span data-i18n-es>Fidelidad al contexto ≠ recuperación correcta — hay que medir las dos</span>
+          <span data-i18n-en>Faithfulness to context ≠ correct retrieval — both need measuring</span>
+        </div>
+
+        <div class="mathcore-lemma">
+          <span data-i18n-es>"Un RAG puede recuperar bien y aun así inventar. O recuperar mal y sonar convincente."</span>
+          <span data-i18n-en>"A RAG can retrieve well and still make things up. Or retrieve poorly and still sound convincing."</span>
+        </div>
+
+        <p class="mathcore-narrative">
+          <span data-i18n-es><strong>Nivel 1 — Faithfulness:</strong> evalúa si la respuesta del sistema se sostiene en el contexto recuperado (LLM-as-Judge) y prueba inyección indirecta — instrucciones maliciosas escondidas dentro de los documentos que el RAG recupera (LLM08). <strong>Nivel 2 — Retrieval:</strong> funciones puras de information retrieval clásico — Recall@K, Precision@K, Reciprocal Rank y NDCG — sobre un dataset de queries con relevancia conocida.</span>
+          <span data-i18n-en><strong>Level 1 — Faithfulness:</strong> evaluates whether the system's answer is grounded in the retrieved context (LLM-as-Judge) and tests indirect injection — malicious instructions hidden inside the documents the RAG retrieves (LLM08). <strong>Level 2 — Retrieval:</strong> pure classic information-retrieval functions — Recall@K, Precision@K, Reciprocal Rank and NDCG — over a query dataset with known relevance.</span>
+        </p>
+
+        <div class="metrics-grid">
+          <div class="metric-cell">
+            <div class="metric-cell-num"><em>R1</em></div>
+            <div class="metric-cell-name">Faithfulness</div>
+            <div class="metric-cell-title" data-i18n-es>¿La respuesta se sostiene en el contexto?</div>
+            <div class="metric-cell-title" data-i18n-en>Is the answer grounded in the context?</div>
+            <span class="metric-cell-formula">LLM-as-Judge (Claude)</span>
+            <p class="metric-cell-desc">
+              <span data-i18n-es>Compara la respuesta generada contra los chunks recuperados; marca afirmaciones no sostenidas.</span>
+              <span data-i18n-en>Compares the generated answer against the retrieved chunks; flags unsupported claims.</span>
+            </p>
+          </div>
+          <div class="metric-cell">
+            <div class="metric-cell-num"><em>R2</em></div>
+            <div class="metric-cell-name" data-i18n-es>Inyección indirecta</div>
+            <div class="metric-cell-name" data-i18n-en>Indirect injection</div>
+            <div class="metric-cell-title">LLM08</div>
+            <span class="metric-cell-formula">evaluateIndirectInjection()</span>
+            <p class="metric-cell-desc">
+              <span data-i18n-es>Instrucciones adversariales embebidas en documentos recuperados que intentan secuestrar la respuesta.</span>
+              <span data-i18n-en>Adversarial instructions embedded in retrieved documents attempting to hijack the response.</span>
+            </p>
+          </div>
+          <div class="metric-cell">
+            <div class="metric-cell-num"><em>R3</em></div>
+            <div class="metric-cell-name" data-i18n-es>Recuperación</div>
+            <div class="metric-cell-name" data-i18n-en>Retrieval</div>
+            <div class="metric-cell-title">Recall@K · Precision@K</div>
+            <span class="metric-cell-formula">recallAtK() · precisionAtK()</span>
+            <p class="metric-cell-desc">
+              <span data-i18n-es>¿El motor de búsqueda encuentra los documentos relevantes entre los top-K resultados?</span>
+              <span data-i18n-en>Does the search engine find the relevant documents among the top-K results?</span>
+            </p>
+          </div>
+          <div class="metric-cell">
+            <div class="metric-cell-num"><em>R4</em></div>
+            <div class="metric-cell-name" data-i18n-es>Calidad de ranking</div>
+            <div class="metric-cell-name" data-i18n-en>Ranking quality</div>
+            <div class="metric-cell-title">MRR · NDCG</div>
+            <span class="metric-cell-formula">reciprocalRank() · ndcgAtK()</span>
+            <p class="metric-cell-desc">
+              <span data-i18n-es>No alcanza con encontrar el documento correcto — importa en qué posición aparece.</span>
+              <span data-i18n-en>Finding the right document isn't enough — where it ranks matters too.</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Real verified demo output -->
+        <div class="citations-row">
+          <div class="citation">
+            <div class="citation-label" data-i18n-es>Demo verificado</div>
+            <div class="citation-label" data-i18n-en>Verified demo</div>
+            <div class="citation-name">npm run rag:retrieval:demo</div>
+          </div>
+          <div class="citation">
+            <div class="citation-label" data-i18n-es>Dataset</div>
+            <div class="citation-label" data-i18n-en>Dataset</div>
+            <div class="citation-name" data-i18n-es>3 queries sintéticas · k=3</div>
+            <div class="citation-name" data-i18n-en>3 synthetic queries · k=3</div>
+          </div>
+          <div class="citation">
+            <div class="citation-label">MRR</div>
+            <div class="citation-name">0.444</div>
+          </div>
+          <div class="citation">
+            <div class="citation-label">Mean NDCG@3</div>
+            <div class="citation-name">0.409</div>
           </div>
         </div>
 
@@ -2035,15 +2316,15 @@ html[lang="en"] li[data-i18n-en] { display: list-item; }
             OWASP LLM <em>Top 10</em> · 2025
           </h2>
           <p class="band-desc">
-            <span data-i18n-es>Cobertura 10/10. Cada categoría con vector de ataque automatizado, métrica de detección y entrada en el dictamen AFQI. Sin huecos. Sin "lo cubrimos parcialmente".</span>
-            <span data-i18n-en>10/10 coverage. Every category with an automated attack vector, a detection metric and an entry in the AFQI verdict. No gaps. No "partially covered".</span>
+            <span data-i18n-es>Cobertura 9/10 con ataque propio. La décima (LLM04) queda excluida por diseño — testing de caja negra no puede probar de forma genuina el envenenamiento del pipeline de entrenamiento. Sin inventar cobertura donde no la hay.</span>
+            <span data-i18n-en>9/10 coverage with a dedicated attack. The tenth (LLM04) is excluded by design — black-box testing can't genuinely test training-pipeline poisoning. No inventing coverage where there isn't any.</span>
           </p>
         </div>
         <div class="band-meta">
-          <strong>10/10</strong> categorías<br>
+          <strong>9/10</strong> <span data-i18n-es>categorías</span><span data-i18n-en>categories</span><br>
           OWASP LLM Top 10 · 2025<br>
-          <span data-i18n-es>Vector + métrica + dictamen</span>
-          <span data-i18n-en>Vector + metric + verdict</span>
+          <span data-i18n-es>Vector + métrica + reporte</span>
+          <span data-i18n-en>Vector + metric + report</span>
         </div>
       </header>
 
@@ -2074,9 +2355,9 @@ html[lang="en"] li[data-i18n-en] { display: list-item; }
             <span data-i18n-es>Modelos pre-entrenados, embeddings o dependencias comprometidas en la cadena.</span>
             <span data-i18n-en>Compromised pre-trained models, embeddings or dependencies in the chain.</span>
           </p>
-          <div class="owasp-tool"><strong>SBOM</strong> · CycloneDX · model card audit</div>
+          <div class="owasp-tool"><strong>SC-001..003</strong> · attacks.ts</div>
         </div>
-        <div class="owasp-cell">
+        <div class="owasp-cell" style="opacity:0.6">
           <div class="owasp-num">LLM04</div>
           <div class="owasp-name" data-i18n-es>Envenenamiento de datos/modelo</div>
           <div class="owasp-name" data-i18n-en>Data &amp; Model Poisoning</div>
@@ -2084,7 +2365,7 @@ html[lang="en"] li[data-i18n-en] { display: list-item; }
             <span data-i18n-es>Inserción de datos malintencionados durante fine-tuning o RAG ingestion.</span>
             <span data-i18n-en>Insertion of malicious data during fine-tuning or RAG ingestion.</span>
           </p>
-          <div class="owasp-tool"><strong>RAG corpus audit</strong> · diff testing</div>
+          <div class="owasp-tool"><strong><span data-i18n-es>Excluido por diseño</span><span data-i18n-en>Excluded by design</span></strong> · <span data-i18n-es>requiere acceso al pipeline de entrenamiento</span><span data-i18n-en>requires training-pipeline access</span></div>
         </div>
         <div class="owasp-cell">
           <div class="owasp-num">LLM05</div>
@@ -2094,7 +2375,7 @@ html[lang="en"] li[data-i18n-en] { display: list-item; }
             <span data-i18n-es>XSS, SSRF, command injection vía respuestas del LLM no sanitizadas downstream.</span>
             <span data-i18n-en>XSS, SSRF, command injection via unsanitized LLM responses downstream.</span>
           </p>
-          <div class="owasp-tool"><strong>Output sanitization probe</strong> · OWASP ZAP</div>
+          <div class="owasp-tool"><strong>IOH-001..003 · CI-001..002</strong> · attacks.ts</div>
         </div>
         <div class="owasp-cell">
           <div class="owasp-num">LLM06</div>
@@ -2103,7 +2384,7 @@ html[lang="en"] li[data-i18n-en] { display: list-item; }
             <span data-i18n-es>Agentes con permisos, plugins o herramientas más allá del necesario para la tarea.</span>
             <span data-i18n-en>Agents with permissions, plugins or tools beyond what the task requires.</span>
           </p>
-          <div class="owasp-tool"><strong>Tool-use audit</strong> · scope diff</div>
+          <div class="owasp-tool"><strong>EA-001..003</strong> · <a href="#agentic" style="color:inherit">agentic-graph.ts</a></div>
         </div>
         <div class="owasp-cell">
           <div class="owasp-num">LLM07</div>
@@ -2122,7 +2403,7 @@ html[lang="en"] li[data-i18n-en] { display: list-item; }
             <span data-i18n-es>Inversion attacks sobre embeddings, leak de contenido vía similarity search.</span>
             <span data-i18n-en>Embedding inversion attacks, content leak via similarity search.</span>
           </p>
-          <div class="owasp-tool"><strong>Embedding probe</strong> · MATHCORE PCA</div>
+          <div class="owasp-tool"><strong><a href="#rag" style="color:inherit">rag-faithfulness.ts</a></strong> · evaluateIndirectInjection()</div>
         </div>
         <div class="owasp-cell">
           <div class="owasp-num">LLM09</div>
@@ -2131,7 +2412,7 @@ html[lang="en"] li[data-i18n-en] { display: list-item; }
             <span data-i18n-es>Hallucinations, datos falsos presentados con confianza, fabricación de fuentes.</span>
             <span data-i18n-en>Hallucinations, false data presented confidently, fabricated sources.</span>
           </p>
-          <div class="owasp-tool"><strong>Multi-judge cross-check</strong> · ground-truth</div>
+          <div class="owasp-tool"><strong>MIS-001..003</strong> · <span data-i18n-es>métrica hallucination (Judge)</span><span data-i18n-en>hallucination metric (Judge)</span></div>
         </div>
         <div class="owasp-cell">
           <div class="owasp-num">LLM10</div>
@@ -2140,14 +2421,14 @@ html[lang="en"] li[data-i18n-en] { display: list-item; }
             <span data-i18n-es>DoS por costo, prompt floods, token exhaustion, latencia disparada bajo ataque.</span>
             <span data-i18n-en>Cost DoS, prompt floods, token exhaustion, latency spikes under attack.</span>
           </p>
-          <div class="owasp-tool"><strong>K6 + token meter</strong> · cost guardrails</div>
+          <div class="owasp-tool"><strong>UC/RL/FUZZ</strong> · <span data-i18n-es>guard maxSteps</span><span data-i18n-en>maxSteps guard</span></div>
         </div>
       </div>
     </section>
   </div>
 </div>
 
-<!-- ═════════ DICTAMEN AFQI SHOWCASE ═════════ -->
+<!-- ═════════ ESTO ES LO QUE ENTREGA INGRID ═════════ -->
 <div class="dictamen-band">
   <div class="container">
     <section class="dictamen" id="dictamen">
@@ -2158,43 +2439,43 @@ html[lang="en"] li[data-i18n-en] { display: list-item; }
             <span data-i18n-en>IV · Deliverable</span>
           </div>
           <h2 class="band-title">
-            <span data-i18n-es>Esto es lo que <em>recibe</em> tu equipo.</span>
-            <span data-i18n-en>This is what your team <em>actually gets.</em></span>
+            <span data-i18n-es>Esto es lo que <em>ve</em> tu equipo, en vivo.</span>
+            <span data-i18n-en>This is what your team <em>sees</em>, live.</span>
           </h2>
           <p class="band-desc">
-            <span data-i18n-es>Un PDF pericial de 4 páginas con expediente, autor, score AFQI por categoría OWASP, conclusión técnica y standards alignment. Defendible ante auditoría — no opinión, algoritmo aplicado sobre métricas reproducibles.</span>
-            <span data-i18n-en>A 4-page audit-grade PDF with file number, author, AFQI score per OWASP category, technical conclusion and standards alignment. Defensible under audit — not opinion, algorithm applied over reproducible metrics.</span>
+            <span data-i18n-es>Dashboard Grafana en tiempo real por categoría OWASP, métricas Prometheus, <code>metrics-store.json</code> exportable y reportes Allure. No es una captura de muestra — es la corrida real de esta demo.</span>
+            <span data-i18n-en>Real-time Grafana dashboard per OWASP category, Prometheus metrics, exportable <code>metrics-store.json</code> and Allure reports. Not a sample capture — this is a real run of this demo.</span>
           </p>
         </div>
         <div class="band-meta">
-          <strong>AFQI v1.0</strong><br>
-          <span data-i18n-es>Auditable · Firmable · Defendible</span>
-          <span data-i18n-en>Auditable · Defensible · Signable</span>
+          <strong>INGRID</strong> · v2.3.0<br>
+          <span data-i18n-es>Verificable · Reproducible</span>
+          <span data-i18n-en>Verifiable · Reproducible</span>
         </div>
       </header>
 
       <div class="dictamen-card">
         <div class="dictamen-figure">
-          <img src="img/flagships/ingrid-pdf-conclusions.png" alt="Dictamen AFQI · Página 4 — Conclusions &amp; Standards Alignment" loading="lazy">
+          <img src="img/flagships/ingrid-grafana-1.png" alt="Dashboard INGRID — OWASP LLM Top 10 matrix, corrida real" loading="lazy">
         </div>
         <div class="dictamen-text">
           <div class="dictamen-eyebrow">
-            <span data-i18n-es>Algoritmo AFQI · 10 categorías OWASP</span>
-            <span data-i18n-en>AFQI algorithm · 10 OWASP categories</span>
+            <span data-i18n-es>Grafana + Prometheus · 9 categorías OWASP</span>
+            <span data-i18n-en>Grafana + Prometheus · 9 OWASP categories</span>
           </div>
           <h3 class="dictamen-title">
-            <span data-i18n-es>Score numérico. <em>Conclusión defendible.</em></span>
-            <span data-i18n-en>Numeric score. <em>Defensible conclusion.</em></span>
+            <span data-i18n-es>Métrica en vivo. <em>Sin PDF de por medio.</em></span>
+            <span data-i18n-en>Live metric. <em>No PDF in between.</em></span>
           </h3>
           <p class="dictamen-lead">
-            <span data-i18n-es>Cada auditoría termina en un PDF de 4 páginas firmable: expediente numerado, autor identificado, score 0–100 con grado A/B/C/D/F por categoría OWASP, conclusión técnica y matriz de standards alignment. No es opinión técnica — es algoritmo aplicado sobre métricas reproducibles de MATHCORE + LLM-as-Judge multi-modelo.</span>
-            <span data-i18n-en>Every audit ends in a 4-page signed PDF: numbered file, named author, 0–100 score with A/B/C/D/F grade per OWASP category, technical conclusion and a standards alignment matrix. Not technical opinion — algorithm applied over MATHCORE reproducible metrics + multi-model LLM-as-Judge.</span>
+            <span data-i18n-es>Cada corrida de tests escribe directo a Prometheus y se ve en el dashboard mientras corre — así es como se ve esta demo real, no una maqueta. Además queda un <code>metrics-store.json</code> con el detalle completo por ataque, exportable para análisis externo o para el bridge opcional hacia AFQI (proyecto separado, <code>qasl-afqi</code>).</span>
+            <span data-i18n-en>Every test run writes straight to Prometheus and shows up on the dashboard as it runs — this is what this real demo actually looks like, not a mockup. It also leaves a <code>metrics-store.json</code> with the full per-attack detail, exportable for external analysis or for the optional bridge to AFQI (a separate project, <code>qasl-afqi</code>).</span>
           </p>
           <ul class="dictamen-features">
-            <li><span data-i18n-es><strong>P1 · Executive summary</strong> — score AFQI · grado · top findings.</span><span data-i18n-en><strong>P1 · Executive summary</strong> — AFQI score · grade · top findings.</span></li>
-            <li><span data-i18n-es><strong>P2 · OWASP matrix</strong> — 10 categorías · pass/fail · severidad.</span><span data-i18n-en><strong>P2 · OWASP matrix</strong> — 10 categories · pass/fail · severity.</span></li>
-            <li><span data-i18n-es><strong>P3 · MATHCORE fingerprint</strong> — 4 métricas + PCA 2D.</span><span data-i18n-en><strong>P3 · MATHCORE fingerprint</strong> — 4 metrics + PCA 2D.</span></li>
-            <li><span data-i18n-es><strong>P4 · Standards alignment</strong> — OWASP LLM · NIST AI RMF · ISO 42001.</span><span data-i18n-en><strong>P4 · Standards alignment</strong> — OWASP LLM · NIST AI RMF · ISO 42001.</span></li>
+            <li><span data-i18n-es><strong>Dashboard Grafana</strong> — 9 paneles OWASP en tiempo real, pass/fail por categoría.</span><span data-i18n-en><strong>Grafana dashboard</strong> — 9 real-time OWASP panels, pass/fail per category.</span></li>
+            <li><span data-i18n-es><strong>Prometheus</strong> — métricas históricas, comparables entre corridas.</span><span data-i18n-en><strong>Prometheus</strong> — historical metrics, comparable across runs.</span></li>
+            <li><span data-i18n-es><strong>metrics-store.json</strong> — detalle completo por ataque y por métrica del Judge.</span><span data-i18n-en><strong>metrics-store.json</strong> — full detail per attack and per Judge metric.</span></li>
+            <li><span data-i18n-es><strong>Reportes Allure + PDF</strong> — para compartir fuera del dashboard.</span><span data-i18n-en><strong>Allure + PDF reports</strong> — to share outside the dashboard.</span></li>
           </ul>
           <div class="dictamen-ctas">
             <a href="https://www.linkedin.com/in/elyergregorio/" target="_blank" rel="noopener" class="btn-ingrid">
@@ -2254,7 +2535,7 @@ html[lang="en"] li[data-i18n-en] { display: list-item; }
           </p>
           <ul class="servicio-list">
             <li><span data-i18n-es>Estrategia de testing AI/LLM end-to-end</span><span data-i18n-en>End-to-end AI/LLM testing strategy</span></li>
-            <li><span data-i18n-es>Cobertura OWASP LLM Top 10 (2025) · 10/10</span><span data-i18n-en>OWASP LLM Top 10 (2025) coverage · 10/10</span></li>
+            <li><span data-i18n-es>Cobertura OWASP LLM Top 10 (2025) · 9/10</span><span data-i18n-en>OWASP LLM Top 10 (2025) coverage · 9/10</span></li>
             <li><span data-i18n-es>LLM-as-Judge multi-modelo (Claude · GPT · Gemini)</span><span data-i18n-en>Multi-model LLM-as-Judge (Claude · GPT · Gemini)</span></li>
             <li><span data-i18n-es>Pipelines CI/CD con gates de calidad AI</span><span data-i18n-en>CI/CD pipelines with AI quality gates</span></li>
             <li><span data-i18n-es>Reportes pericial-grade alineados a NIST AI RMF</span><span data-i18n-en>Audit-grade reports aligned to NIST AI RMF</span></li>
@@ -2299,7 +2580,7 @@ html[lang="en"] li[data-i18n-en] { display: list-item; }
             <span data-i18n-en>Teams with LLM or voice-AI systems under load (call centers, assistants, voice agents).</span>
           </p>
           <ul class="servicio-list">
-            <li><span data-i18n-es>Stress testing LLM · K6 + token meter</span><span data-i18n-en>LLM stress testing · K6 + token meter</span></li>
+            <li><span data-i18n-es>Stress testing LLM · rate-limit + DoS + fuzzing</span><span data-i18n-en>LLM stress testing · rate-limit + DoS + fuzzing</span></li>
             <li><span data-i18n-es>Voice AI: ElevenLabs · OpenAI Realtime · Whisper</span><span data-i18n-en>Voice AI: ElevenLabs · OpenAI Realtime · Whisper</span></li>
             <li><span data-i18n-es>Latencia · calidad conversacional · cost guardrails</span><span data-i18n-en>Latency · conversational quality · cost guardrails</span></li>
             <li><span data-i18n-es>Observabilidad: Grafana · Prometheus · Loki</span><span data-i18n-en>Observability: Grafana · Prometheus · Loki</span></li>
@@ -2387,7 +2668,7 @@ html[lang="en"] li[data-i18n-en] { display: list-item; }
             <span data-i18n-es>Plataformas Multi-LLM internas, copilots de soporte, RAG corporativo. Producción a escala con SLA.</span>
             <span data-i18n-en>Internal Multi-LLM platforms, support copilots, enterprise RAG. Production at scale with SLA.</span>
           </p>
-          <div class="sector-tags">OWASP LLM · ISO 42001 · ISO 27001 · 614+ test cases</div>
+          <div class="sector-tags">OWASP LLM · ISO 42001 · ISO 27001 · Multi-LLM RAG</div>
         </div>
       </div>
     </section>
@@ -2453,7 +2734,7 @@ html[lang="en"] li[data-i18n-en] { display: list-item; }
             <div class="benefit-label" data-i18n-es>Diferenciación</div>
             <div class="benefit-label" data-i18n-en>Differentiation</div>
             <div class="benefit-title"><span data-i18n-es>Ventaja en RFP &amp; due diligence</span><span data-i18n-en>RFP &amp; due-diligence edge</span></div>
-            <div class="benefit-text"><span data-i18n-es>Credibilidad respaldada por estándares · transparencia metodológica · dictamen pericial defendible.</span><span data-i18n-en>Standards-backed credibility · methodological transparency · defensible audit-grade verdict.</span></div>
+            <div class="benefit-text"><span data-i18n-es>Credibilidad respaldada por estándares · transparencia metodológica · resultados verificables, no capturas de muestra.</span><span data-i18n-en>Standards-backed credibility · methodological transparency · verifiable results, not sample captures.</span></div>
           </div>
           <div class="benefit">
             <div class="benefit-label" data-i18n-es>Eficiencia</div>
@@ -2558,6 +2839,8 @@ html[lang="en"] li[data-i18n-en] { display: list-item; }
           <a href="#mathcore">MATHCORE</a>
           <a href="#ingrid">INGRID</a>
           <a href="#garak">GARAK</a>
+          <a href="#agentic">AGENTIC</a>
+          <a href="#rag">RAG</a>
           <a href="#owasp">OWASP LLM</a>
           <a href="qasl-testsec.html">QASL · Test Security</a>
           <a href="qasl-framework.html">QASL · Framework</a>
